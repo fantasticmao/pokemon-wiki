@@ -1,0 +1,11 @@
+/database/create_user.sql
+/src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
+
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
