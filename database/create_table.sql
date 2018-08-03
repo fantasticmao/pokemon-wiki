@@ -13,8 +13,10 @@ CREATE TABLE IF NOT EXISTS pw_pokemon (
   COMMENT '日文',
   nameEn     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '英文',
-  type       VARCHAR(16)  NOT NULL DEFAULT ''
-  COMMENT '属性',
+  type1       VARCHAR(16)  NOT NULL DEFAULT ''
+  COMMENT '属性1',
+  type2       VARCHAR(16)  NOT NULL DEFAULT ''
+  COMMENT '属性2',
   createTime DATETIME     NOT NULL DEFAULT current_timestamp
   COMMENT '创建时间',
   modifyTime DATETIME     NOT NULL DEFAULT current_timestamp

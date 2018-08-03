@@ -1,11 +1,11 @@
 package cn.fantasticmao.pokemon.spider.task;
 
 import cn.fantasticmao.pokemon.spider.Config;
+import cn.fantasticmao.pokemon.spider.bean.PokemonType;
 import lombok.Getter;
 import lombok.ToString;
 import org.jsoup.nodes.Document;
 
-import javax.validation.constraints.NotNull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -52,60 +52,33 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
         private final String nameZh;
         private final String nameJp;
         private final String nameEn;
-        private final List<Type> typeList;
+        private final PokemonType type1;
+        private final PokemonType type2;
 
-        private Data(int index, String infoUrl, String nameZh, String nameJp, String nameEn, PokemonListSpider.Type... types) {
+        private Data(int index, String infoUrl, String nameZh, String nameJp, String nameEn, PokemonType type1, PokemonType type2) {
             this.index = index;
             this.infoUrl = infoUrl;
             this.nameZh = nameZh;
             this.nameJp = nameJp;
             this.nameEn = nameEn;
-            this.typeList = Arrays.stream(types).filter(Objects::nonNull).collect(Collectors.toList());
+            this.type1 = type1;
+            this.type2 = type2;
         }
 
-    }
-
-    @Getter
-    @ToString
-    private class Type implements Comparable<Type> {
-        private final String name;
-        private final String url;
-
-        private Type(String name, String url) {
-            this.name = name;
-            this.url = url;
+        private List<PokemonType> getAllType() {
+            return Arrays.asList(type1, type2);
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Type type = (Type) o;
-            return Objects.equals(name, type.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name);
-        }
-
-        @Override
-        public int compareTo(@NotNull Type type) {
-            if (this.name.length() < type.name.length()) {
-                return -1;
-            } else if (this.name.length() == type.name.length()) {
-                return this.name.compareTo(type.name);
-            } else {
-                return 1;
-            }
-        }
     }
 
     private void savePokemonType(Connection connection, List<PokemonListSpider.Data> dataList) {
-        TreeSet<Type> typeSet = dataList.stream().flatMap(data -> data.getTypeList().stream()).collect(Collectors.toCollection(TreeSet::new));
+        TreeSet<PokemonType> typeSet = dataList.stream()
+                .flatMap(data -> data.getAllType().stream())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(TreeSet::new));
         String sql = "INSERT INTO pw_pokemon_type (`name`, url) VALUES (?, ?)";
         try (PreparedStatement prep = connection.prepareStatement(sql)) {
-            for (Type type : typeSet) {
+            for (PokemonType type : typeSet) {
                 prep.setString(1, type.getName());
                 prep.setString(2, type.getUrl());
                 prep.addBatch();
@@ -119,7 +92,7 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
 
     private void savePokemonList(Connection connection, List<PokemonListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon (`index`, infoUrl, nameZh, nameJp, nameEn, type) VALUES (?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_pokemon (`index`, infoUrl, nameZh, nameJp, nameEn, type1, type2) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement prep = connection.prepareStatement(sql)) {
             PokemonListSpider.Data tempData = null;
             for (int i = batchSize, j = 0; ; i += batchSize) {
@@ -130,7 +103,8 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     prep.setString(3, tempData.getNameZh());
                     prep.setString(4, tempData.getNameJp());
                     prep.setString(5, tempData.getNameEn());
-                    prep.setString(6, tempData.getTypeList().stream().map(Type::getName).collect(Collectors.joining(",")));
+                    prep.setString(6, tempData.getType1().getName());
+                    prep.setString(7, tempData.getType2() == null ? "" : tempData.getType2().getName());
                     prep.addBatch();
                 }
                 prep.executeBatch();
@@ -155,10 +129,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(3).child(0).html();
                     String nameJp = element.child(4).html();
                     String nameEn = element.child(5).html();
-                    Type type1 = new Type(element.child(6).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(6).child(0).html(),
                             Config.Site.BASE_URL + element.child(6).child(0).attr("href"));
-                    Type type2 = element.child(7).hasClass("hide") ? null
-                            : new Type(element.child(7).child(0).html(), Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
+                    PokemonType type2 = element.child(7).hasClass("hide") ? null
+                            : new PokemonType(element.child(7).child(0).html(), Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());
@@ -174,10 +148,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(4).child(0).html();
                     String nameJp = element.child(5).html();
                     String nameEn = element.child(6).html();
-                    Type type1 = new Type(element.child(7).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(7).child(0).html(),
                             Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
-                    Type type2 = element.child(8).hasClass("hide") ? null
-                            : new Type(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
+                    PokemonType type2 = element.child(8).hasClass("hide") ? null
+                            : new PokemonType(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());
@@ -193,10 +167,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(4).child(0).html();
                     String nameJp = element.child(5).html();
                     String nameEn = element.child(6).html();
-                    Type type1 = new Type(element.child(7).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(7).child(0).html(),
                             Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
-                    Type type2 = element.child(8).hasClass("hide") ? null
-                            : new Type(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
+                    PokemonType type2 = element.child(8).hasClass("hide") ? null
+                            : new PokemonType(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());
@@ -212,10 +186,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(3).child(0).html();
                     String nameJp = element.child(4).html();
                     String nameEn = element.child(5).html();
-                    Type type1 = new Type(element.child(6).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(6).child(0).html(),
                             Config.Site.BASE_URL + element.child(6).child(0).attr("href"));
-                    Type type2 = element.child(7).hasClass("hide") ? null
-                            : new Type(element.child(7).child(0).html(), Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
+                    PokemonType type2 = element.child(7).hasClass("hide") ? null
+                            : new PokemonType(element.child(7).child(0).html(), Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());
@@ -231,10 +205,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(4).child(0).html();
                     String nameJp = element.child(5).html();
                     String nameEn = element.child(6).html();
-                    Type type1 = new Type(element.child(7).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(7).child(0).html(),
                             Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
-                    Type type2 = element.child(8).hasClass("hide") ? null
-                            : new Type(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
+                    PokemonType type2 = element.child(8).hasClass("hide") ? null
+                            : new PokemonType(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());
@@ -250,10 +224,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(5).child(0).html();
                     String nameJp = element.child(6).html();
                     String nameEn = element.child(7).html();
-                    Type type1 = new Type(element.child(8).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(8).child(0).html(),
                             Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
-                    Type type2 = element.child(9).hasClass("hide") ? null
-                            : new Type(element.child(9).child(0).html(), Config.Site.BASE_URL + element.child(9).child(0).attr("href"));
+                    PokemonType type2 = element.child(9).hasClass("hide") ? null
+                            : new PokemonType(element.child(9).child(0).html(), Config.Site.BASE_URL + element.child(9).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());
@@ -269,10 +243,10 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
                     String nameZh = element.child(4).child(0).html();
                     String nameJp = element.child(5).html();
                     String nameEn = element.child(6).html();
-                    Type type1 = new Type(element.child(7).child(0).html(),
+                    PokemonType type1 = new PokemonType(element.child(7).child(0).html(),
                             Config.Site.BASE_URL + element.child(7).child(0).attr("href"));
-                    Type type2 = element.child(8).hasClass("hide") ? null
-                            : new Type(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
+                    PokemonType type2 = element.child(8).hasClass("hide") ? null
+                            : new PokemonType(element.child(8).child(0).html(), Config.Site.BASE_URL + element.child(8).child(0).attr("href"));
                     return new PokemonListSpider.Data(index, infoUrl, nameZh, nameJp, nameEn, type1, type2);
                 })
                 .collect(Collectors.toList());

@@ -34,10 +34,6 @@ public interface Config {
         }
     }
 
-    enum PokemonType {
-
-    }
-
     enum ConnectionHolder {
         INSTANCE;
 

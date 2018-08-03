@@ -35,6 +35,7 @@ abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable
         logger.info("解析数据...");
         final List<T> data = parseData(document);
 
+        // TODO 分解为 生产者-消费者 模式
         logger.info("保存数据...");
         logger.info(saveData(Config.ConnectionHolder.INSTANCE.connection, data) ? "保存成功！" : "保存失败！");
     }
