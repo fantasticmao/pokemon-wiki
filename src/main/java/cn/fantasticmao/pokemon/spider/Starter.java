@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.spider;
 
-import cn.fantasticmao.pokemon.spider.task.PokemonListSpider;
+import cn.fantasticmao.pokemon.spider.task.PokemonAbilityListSpider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ class Starter {
             thread.setUncaughtExceptionHandler((t, e) -> LOGGER.error(t.getName(), e));
             return thread;
         });
-        executorService.execute(new PokemonListSpider());
+        executorService.execute(new PokemonAbilityListSpider());
         executorService.shutdown();
     }
 }

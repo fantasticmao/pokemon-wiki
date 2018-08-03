@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
 
@@ -45,8 +43,10 @@ abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable
      */
     Document requestData(Config.Site site) {
         try {
-            URL url = URI.create(site.url).toURL();
-            return Jsoup.parse(url, 30_000);
+            return Jsoup.connect(site.url)
+                    .maxBodySize(10 * 1024 * 1024)
+                    .timeout(30_000)
+                    .get();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

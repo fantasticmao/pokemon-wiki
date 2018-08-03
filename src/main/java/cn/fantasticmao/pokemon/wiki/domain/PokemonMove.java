@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Pokemon
+ * PokemonMove
  *
  * @author maodh
- * @since 2018/7/29
+ * @since 2018/8/4
  */
 @Getter
 @Setter
@@ -18,13 +18,16 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pw_pokemon")
-public class Pokemon extends AbstractDomain<Integer> {
+@Table(name = "pw_pokemon_move")
+public class PokemonMove extends AbstractDomain<Integer> {
     private int index;
     private String nameZh;
     private String nameJp;
     private String nameEn;
-    private String type1;
-    private String type2;
+    private String type;
+    private String category;
+    private String power;
+    private String accuracy;
+    private String pp;
     private int generation;
 }
