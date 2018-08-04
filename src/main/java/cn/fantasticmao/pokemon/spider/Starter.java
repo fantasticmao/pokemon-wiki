@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.spider;
 
-import cn.fantasticmao.pokemon.spider.task.PokemonBaseStatListSpider;
+import cn.fantasticmao.pokemon.spider.task.PokemonMoveListSpider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,8 @@ class Starter {
         //executorService.execute(new PokemonListSpider());
         //executorService.execute(new PokemonAbilityListSpider());
         //executorService.execute(new PokemonNatureListSpider());
-        executorService.execute(new PokemonBaseStatListSpider());
+        //executorService.execute(new PokemonBaseStatListSpider());
+        executorService.execute(new PokemonMoveListSpider());
         executorService.shutdown();
     }
 }

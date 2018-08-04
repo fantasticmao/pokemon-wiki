@@ -45,7 +45,7 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
 
     @Override
     boolean saveData(Connection connection, List<PokemonNatureListSpider.Data> dataList) {
-        String sql = "INSERT INTO pw_pokemon_nature (nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO pw_pokemon_nature (nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement prep = connection.prepareStatement(sql)) {
             for (PokemonNatureListSpider.Data data : dataList) {
                 prep.setString(1, data.getNameZh());

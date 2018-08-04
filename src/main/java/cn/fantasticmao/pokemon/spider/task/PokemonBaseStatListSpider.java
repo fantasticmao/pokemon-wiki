@@ -47,7 +47,7 @@ public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatLis
     @Override
     boolean saveData(Connection connection, List<Data> dataList) {
         final int batchSize = 100;
-        String sql = "INSERT INTO pw_pokemon_base_stat (`index`, nameZh, hp, attack, defense, spAttack, spDefense, speed, total, average) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO pw_pokemon_base_stat (`index`, nameZh, hp, attack, defense, spAttack, spDefense, speed, total, average) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement prep = connection.prepareStatement(sql)) {
             PokemonBaseStatListSpider.Data temData = null;
             for (int i = batchSize, j = 0; ; i += batchSize) {
