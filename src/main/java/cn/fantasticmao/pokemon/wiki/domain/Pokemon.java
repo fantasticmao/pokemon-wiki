@@ -22,7 +22,7 @@ import javax.persistence.Table;
 public class Pokemon extends AbstractDomain<Integer> {
     private int index;
     private String nameZh;
-    private String nameJp;
+    private String nameJa;
     private String nameEn;
     private String type1;
     private String type2;

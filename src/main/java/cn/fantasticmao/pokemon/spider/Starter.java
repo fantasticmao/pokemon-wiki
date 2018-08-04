@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.spider;
 
 import cn.fantasticmao.pokemon.spider.task.PokemonAbilityListSpider;
-import cn.fantasticmao.pokemon.spider.task.PokemonNatureListSpider;
+import cn.fantasticmao.pokemon.spider.task.PokemonListSpider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,12 +20,13 @@ class Starter {
 
     public static void main(String[] args) {
         AtomicInteger atomicInteger = new AtomicInteger(1);
-        ExecutorService executorService = Executors.newFixedThreadPool(5, runnable -> {
+        ExecutorService executorService = Executors.newFixedThreadPool(1, runnable -> {
             Thread thread = new Thread(runnable, "Spider-Thread-" + atomicInteger.getAndIncrement());
             thread.setUncaughtExceptionHandler((t, e) -> LOGGER.error(t.getName(), e));
             return thread;
         });
-        executorService.execute(new PokemonNatureListSpider());
+        executorService.execute(new PokemonListSpider());
+        executorService.execute(new PokemonAbilityListSpider());
         executorService.shutdown();
     }
 }

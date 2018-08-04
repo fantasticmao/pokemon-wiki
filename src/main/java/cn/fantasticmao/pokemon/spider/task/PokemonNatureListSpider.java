@@ -29,13 +29,13 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
                 .skip(1)
                 .map(element -> {
                     String nameZh = element.child(0).html();
-                    String nameJp = element.child(1).html();
+                    String nameJa = element.child(1).html();
                     String nameEn = element.child(2).html();
                     String increasedStat = element.child(3).html();
                     String decreasedStat = element.child(4).html();
                     String favoriteFlavor = element.child(5).html();
                     String dislikedFlavor = element.child(6).html();
-                    return new PokemonNatureListSpider.Data(nameZh, nameJp, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
+                    return new PokemonNatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
                 })
                 .collect(Collectors.toList());
     }
@@ -51,7 +51,7 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
     @AllArgsConstructor
     class Data implements AbstractSpider.Data {
         private final String nameZh;
-        private final String nameJp;
+        private final String nameJa;
         private final String nameEn;
         private final String increasedStat;
         private final String decreasedStat;

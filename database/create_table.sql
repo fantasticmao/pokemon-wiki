@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS pw_pokemon (
   COMMENT '全国图鉴编号',
   nameZh     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '中文名称',
-  nameJp     VARCHAR(32)  NOT NULL DEFAULT ''
+  nameJa     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '日文名称',
   nameEn     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '英文名称',
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_nature (
   COMMENT '自增主键',
   nameZh         VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '中文名称',
-  nameJp         VARCHAR(32)  NOT NULL DEFAULT ''
+  nameJa         VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '日文名称',
   nameEn         VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '英文名称',
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_move (
   COMMENT '自增主键',
   nameZh     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '中文名称',
-  nameJp     VARCHAR(32)  NOT NULL DEFAULT ''
+  nameJa     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '日文名称',
   nameEn     VARCHAR(32)  NOT NULL DEFAULT ''
   COMMENT '英文名称',
