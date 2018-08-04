@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.sql.Connection;
 import java.util.List;
@@ -58,8 +57,7 @@ abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable
                 }
             }
         }
-        logger.info("请求失败...");
-        throw new RuntimeException(new SocketException());
+        throw new RuntimeException("请求失败");
     }
 
     /**

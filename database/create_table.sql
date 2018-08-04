@@ -132,9 +132,9 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_move (
 
 ## ----------------------------------------------------------
 
-DROP TABLE IF EXISTS pw_pokemon_base_stats;
+DROP TABLE IF EXISTS pw_pokemon_base_stat;
 
-CREATE TABLE IF NOT EXISTS pw_pokemon_base_stats (
+CREATE TABLE IF NOT EXISTS pw_pokemon_base_stat (
   id         INT UNSIGNED      NOT NULL AUTO_INCREMENT
   COMMENT '自增主键',
   `index`    INT UNSIGNED      NOT NULL DEFAULT 0
