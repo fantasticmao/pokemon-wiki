@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.sql.Connection;
 import java.util.List;
@@ -43,7 +44,7 @@ abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable
      * <code>org.jsoup.Jsoup#parse(URL, int)</code> 请求数据
      */
     Document requestData(Config.Site site) {
-        while (true) {
+        for (int i = 0; i < 3; i++) {
             try {
                 return Jsoup.connect(site.url)
                         .maxBodySize(10 * 1024 * 1024)
@@ -57,6 +58,8 @@ abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable
                 }
             }
         }
+        logger.info("请求失败...");
+        throw new RuntimeException(new SocketException());
     }
 
     /**
