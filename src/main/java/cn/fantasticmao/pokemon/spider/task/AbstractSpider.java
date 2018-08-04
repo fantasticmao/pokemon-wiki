@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.sql.Connection;
 import java.util.List;
 
@@ -42,13 +43,19 @@ abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable
      * <code>org.jsoup.Jsoup#parse(URL, int)</code> 请求数据
      */
     Document requestData(Config.Site site) {
-        try {
-            return Jsoup.connect(site.url)
-                    .maxBodySize(10 * 1024 * 1024)
-                    .timeout(30_000)
-                    .get();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        while (true) {
+            try {
+                return Jsoup.connect(site.url)
+                        .maxBodySize(10 * 1024 * 1024)
+                        .timeout(10_000)
+                        .get();
+            } catch (IOException e) {
+                if (e instanceof SocketTimeoutException) {
+                    logger.info("请求超时，正在重试...");
+                } else {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
