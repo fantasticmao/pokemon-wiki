@@ -1,13 +1,15 @@
 package cn.fantasticmao.pokemon.wiki.domain;
 
 import com.mundo.data.domain.AbstractDomain;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * PokemonBaseStats
+ * PokemonBaseStat
  *
  * @author maodh
  * @since 2018/8/4
@@ -15,11 +17,9 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "pw_pokemon_base_stats")
-public class PokemonBaseStats extends AbstractDomain<Integer> {
+@Table(name = "pw_pokemon_base_stat")
+public class PokemonBaseStat extends AbstractDomain<Integer> {
     private int index;
     private String nameZh;
     private int hp;
