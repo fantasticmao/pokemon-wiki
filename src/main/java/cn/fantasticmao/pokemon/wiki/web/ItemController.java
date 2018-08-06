@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * ItemController
+ * 道具列表
  *
  * @author maodh
+ * @see <a href="https://pokemon.fantasticmao.cn/item/list">https://pokemon.fantasticmao.cn/item/list</a>
  * @since 2018/7/29
  */
 @RestController
@@ -18,11 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/item")
 public class ItemController {
 
-    /**
-     * 道具列表接口
-     *
-     * @see <a href="https://pokemon.fantasticmao.cn/item/list">https://pokemon.fantasticmao.cn/item/list</a>
-     */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JsonApi listItem() {
         return JsonApi.success();

@@ -5,6 +5,7 @@ import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * PokemonRepositoryTest
@@ -20,5 +21,11 @@ public class PokemonRepositoryTest extends SpringTest {
     public void findOne() {
         Pokemon pokemon = pokemonRepository.findOne(1);
         System.out.println(pokemon);
+    }
+
+    @Test
+    public void findByName() {
+        List<Pokemon> pokemonList = pokemonRepository.findByName("龙");
+        System.out.println(pokemonList);
     }
 }

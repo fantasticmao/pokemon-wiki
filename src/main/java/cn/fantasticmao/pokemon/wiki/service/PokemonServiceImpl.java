@@ -1,6 +1,13 @@
 package cn.fantasticmao.pokemon.wiki.service;
 
+import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
+import cn.fantasticmao.pokemon.wiki.repoistory.PokemonRepository;
+import com.mundo.core.util.StringUtil;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * PokemonServiceImpl
@@ -10,4 +17,33 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PokemonServiceImpl implements PokemonService {
+    @Resource
+    private PokemonRepository pokemonRepository;
+
+    @Override
+    public List<Pokemon> listAll() {
+        return pokemonRepository.findAll();
+    }
+
+    @Override
+    public List<Pokemon> listByName(String name) {
+        if (StringUtil.isEmpty(name)) return Collections.emptyList();
+        List<Pokemon> pokemonList = pokemonRepository.findByName(name);
+        Collections.sort(pokemonList);
+        return pokemonList;
+    }
+
+    @Override
+    public List<Pokemon> listByType(String type) {
+        List<Pokemon> pokemonList = pokemonRepository.findByType(type);
+        Collections.sort(pokemonList);
+        return pokemonList;
+    }
+
+    @Override
+    public List<Pokemon> listByGeneration(int generation) {
+        List<Pokemon> pokemonList = pokemonRepository.findByGeneration(generation);
+        Collections.sort(pokemonList);
+        return pokemonList;
+    }
 }

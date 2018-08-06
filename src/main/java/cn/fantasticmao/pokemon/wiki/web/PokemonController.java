@@ -1,70 +1,53 @@
 package cn.fantasticmao.pokemon.wiki.web;
 
+import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
+import cn.fantasticmao.pokemon.wiki.service.PokemonService;
 import com.mundo.web.annotation.JsonpController;
 import com.mundo.web.support.JsonApi;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
- * PokemonController
+ * 宝可梦列表
  *
  * @author maodh
+ * @see <a href="https://pokemon.fantasticmao.cn/pokemon/list">https://pokemon.fantasticmao.cn/pokemon/list</a>
  * @since 2018/7/29
  */
 @RestController
 @JsonpController
 @RequestMapping("/pokemon")
 public class PokemonController {
+    @Resource
+    private PokemonService pokemonService;
 
-    /**
-     * 宝可梦列表接口
-     *
-     * @see <a href="https://pokemon.fantasticmao.cn/pokemon/list">https://pokemon.fantasticmao.cn/pokemon/list</a>
-     */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JsonApi listPokemon() {
-        return JsonApi.success();
+        List<Pokemon> pokemonList = pokemonService.listAll();
+        return JsonApi.success().data(pokemonList);
     }
 
-    /**
-     * 宝可梦特性列表接口
-     *
-     * @see <a href="https://pokemon.fantasticmao.cn/pokemon/ability/list">https://pokemon.fantasticmao.cn/pokemon/ability/list</a>
-     */
-    @GetMapping(value = "/ability/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonAbility() {
-        return JsonApi.success();
+    @GetMapping(value = "/list/name/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JsonApi listPokemonByName(@PathVariable String name) {
+        List<Pokemon> pokemonList = pokemonService.listByName(name);
+        return JsonApi.success().data(pokemonList);
     }
 
-    /**
-     * 宝可梦性格列表接口
-     *
-     * @see <a href="https://pokemon.fantasticmao.cn/pokemon/nature/list">https://pokemon.fantasticmao.cn/pokemon/nature/list</a>
-     */
-    @GetMapping(value = "/nature/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonNature() {
-        return JsonApi.success();
+    @GetMapping(value = "/list/type/{type}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JsonApi listPokemonByType(@PathVariable String type) {
+        List<Pokemon> pokemonList = pokemonService.listByType(type);
+        return JsonApi.success().data(pokemonList);
     }
 
-    /**
-     * 宝可梦招式列表接口
-     *
-     * @see <a href="https://pokemon.fantasticmao.cn/pokemon/move/list">https://pokemon.fantasticmao.cn/pokemon/move/list</a>
-     */
-    @GetMapping(value = "/move/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonMove() {
-        return JsonApi.success();
-    }
-
-    /**
-     * 宝可梦种族值列表接口
-     *
-     * @see <a href="https://pokemon.fantasticmao.cn/pokemon/base_stats/list">https://pokemon.fantasticmao.cn/pokemon/base_stats/list</a>
-     */
-    @GetMapping(value = "/base_stats/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonBaseStats() {
-        return JsonApi.success();
+    @GetMapping(value = "/list/generation/{generation}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JsonApi listPokemonByType(@PathVariable int generation) {
+        List<Pokemon> pokemonList = pokemonService.listByGeneration(generation);
+        return JsonApi.success().data(pokemonList);
     }
 }

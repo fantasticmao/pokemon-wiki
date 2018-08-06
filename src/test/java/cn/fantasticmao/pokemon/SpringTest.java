@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon;
 
-import cn.fantasticmao.pokemon.Application;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
