@@ -11,8 +11,10 @@ import org.jsoup.nodes.Document;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
 /**
@@ -23,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class PokemonAbilityListSpider extends AbstractSpider<PokemonAbilityListSpider.Data> {
 
-    public PokemonAbilityListSpider() {
-        super(Config.Site.POKEMON_ABILITY_LIST);
+    public PokemonAbilityListSpider(BlockingQueue<SaveDataTask> queue) {
+        super(Config.Site.POKEMON_ABILITY_LIST, queue);
     }
 
     @Override
@@ -37,38 +39,43 @@ public class PokemonAbilityListSpider extends AbstractSpider<PokemonAbilityListS
         dataList.addAll(getDataList5(document));
         dataList.addAll(getDataList6(document));
         dataList.addAll(getDataList7(document));
-        return dataList;
+        return Collections.unmodifiableList(dataList);
     }
 
     @Override
-    boolean saveData(Connection connection, List<PokemonAbilityListSpider.Data> dataList) {
-        final int batchSize = 100;
-        String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement prep = connection.prepareStatement(sql)) {
-            PokemonAbilityListSpider.Data tempData = null;
-            for (int i = batchSize, j = 0; ; i += batchSize) {
-                for (; j < i && j < dataList.size(); j++) {
-                    tempData = dataList.get(j);
-                    prep.setInt(1, tempData.getIndex());
-                    prep.setString(2, tempData.getNameZh());
-                    prep.setString(3, tempData.getType1());
-                    prep.setString(4, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
-                    prep.setString(5, tempData.getAbility1());
-                    prep.setString(6, ObjectUtil.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
-                    prep.setString(7, ObjectUtil.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
-                    prep.setInt(8, tempData.getGeneration());
-                    prep.addBatch();
+    SaveDataTask<PokemonAbilityListSpider.Data> newTask(List<PokemonAbilityListSpider.Data> outDataList) {
+        return new SaveDataTask<PokemonAbilityListSpider.Data>(outDataList) {
+            @Override
+            public boolean save(Connection connection) {
+                final int batchSize = 100;
+                String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement prep = connection.prepareStatement(sql)) {
+                    PokemonAbilityListSpider.Data tempData = null;
+                    for (int i = batchSize, j = 0; ; i += batchSize) {
+                        for (; j < i && j < this.dataList.size(); j++) {
+                            tempData = this.dataList.get(j);
+                            prep.setInt(1, tempData.getIndex());
+                            prep.setString(2, tempData.getNameZh());
+                            prep.setString(3, tempData.getType1());
+                            prep.setString(4, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
+                            prep.setString(5, tempData.getAbility1());
+                            prep.setString(6, ObjectUtil.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
+                            prep.setString(7, ObjectUtil.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
+                            prep.setInt(8, tempData.getGeneration());
+                            prep.addBatch();
+                        }
+                        prep.executeBatch();
+                        if (j >= this.dataList.size()) {
+                            connection.commit();
+                            return true;
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                prep.executeBatch();
-                if (j >= dataList.size()) {
-                    connection.commit();
-                    return true;
-                }
+                return false;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        };
     }
 
     @Getter

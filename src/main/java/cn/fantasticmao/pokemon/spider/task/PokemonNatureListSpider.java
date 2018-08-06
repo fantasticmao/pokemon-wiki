@@ -11,7 +11,9 @@ import org.jsoup.nodes.Document;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
 /**
@@ -22,13 +24,13 @@ import java.util.stream.Collectors;
  */
 public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpider.Data> {
 
-    public PokemonNatureListSpider() {
-        super(Config.Site.POKEMON_NATURE_LIST);
+    public PokemonNatureListSpider(BlockingQueue<SaveDataTask> queue) {
+        super(Config.Site.POKEMON_NATURE_LIST, queue);
     }
 
     @Override
     List<PokemonNatureListSpider.Data> parseData(Document document) {
-        return document.select("#mw-content-text table").get(1).select("tbody > tr").stream()
+        List<PokemonNatureListSpider.Data> dataList = document.select("#mw-content-text table").get(1).select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
                     String nameZh = element.child(0).html();
@@ -41,29 +43,35 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
                     return new PokemonNatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
                 })
                 .collect(Collectors.toList());
+        return Collections.unmodifiableList(dataList);
     }
 
     @Override
-    boolean saveData(Connection connection, List<PokemonNatureListSpider.Data> dataList) {
-        String sql = "INSERT INTO pw_pokemon_nature (nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement prep = connection.prepareStatement(sql)) {
-            for (PokemonNatureListSpider.Data data : dataList) {
-                prep.setString(1, data.getNameZh());
-                prep.setString(2, data.getNameJa());
-                prep.setString(3, data.getNameEn());
-                prep.setString(4, ObjectUtil.defaultIfNull(data.getIncreasedStat(), Constant.Strings.EMPTY));
-                prep.setString(5, ObjectUtil.defaultIfNull(data.getDecreasedStat(), Constant.Strings.EMPTY));
-                prep.setString(6, ObjectUtil.defaultIfNull(data.getFavoriteFlavor(), Constant.Strings.EMPTY));
-                prep.setString(7, ObjectUtil.defaultIfNull(data.getDislikedFlavor(), Constant.Strings.EMPTY));
-                prep.addBatch();
+    SaveDataTask<PokemonNatureListSpider.Data> newTask(List<PokemonNatureListSpider.Data> outDataList) {
+        return new SaveDataTask<PokemonNatureListSpider.Data>(outDataList) {
+            @Override
+            public boolean save(Connection connection) {
+                String sql = "INSERT INTO pw_pokemon_nature(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement prep = connection.prepareStatement(sql)) {
+                    for (PokemonNatureListSpider.Data data : this.dataList) {
+                        prep.setString(1, data.getNameZh());
+                        prep.setString(2, data.getNameJa());
+                        prep.setString(3, data.getNameEn());
+                        prep.setString(4, ObjectUtil.defaultIfNull(data.getIncreasedStat(), Constant.Strings.EMPTY));
+                        prep.setString(5, ObjectUtil.defaultIfNull(data.getDecreasedStat(), Constant.Strings.EMPTY));
+                        prep.setString(6, ObjectUtil.defaultIfNull(data.getFavoriteFlavor(), Constant.Strings.EMPTY));
+                        prep.setString(7, ObjectUtil.defaultIfNull(data.getDislikedFlavor(), Constant.Strings.EMPTY));
+                        prep.addBatch();
+                    }
+                    prep.executeBatch();
+                    connection.commit();
+                    return true;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return false;
             }
-            prep.executeBatch();
-            connection.commit();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        };
     }
 
     @Getter

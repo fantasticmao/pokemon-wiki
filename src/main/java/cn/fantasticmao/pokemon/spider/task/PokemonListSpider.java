@@ -11,8 +11,10 @@ import org.jsoup.nodes.Document;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
 /**
@@ -23,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
 
-    public PokemonListSpider() {
-        super(Config.Site.POKEMON_LIST);
+    public PokemonListSpider(BlockingQueue<SaveDataTask> queue) {
+        super(Config.Site.POKEMON_LIST, queue);
     }
 
     @Override
@@ -37,37 +39,42 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
         dataList.addAll(getDataList5(document));
         dataList.addAll(getDataList6(document));
         dataList.addAll(getDataList7(document));
-        return dataList;
+        return Collections.unmodifiableList(dataList);
     }
 
     @Override
-    boolean saveData(Connection connection, List<PokemonListSpider.Data> dataList) {
-        final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon (`index`, nameZh, nameJa, nameEn, type1, type2, generation) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement prep = connection.prepareStatement(sql)) {
-            PokemonListSpider.Data tempData = null;
-            for (int i = batchSize, j = 0; ; i += batchSize) {
-                for (; j < i && j < dataList.size(); j++) {
-                    tempData = dataList.get(j);
-                    prep.setInt(1, tempData.getIndex());
-                    prep.setString(2, tempData.getNameZh());
-                    prep.setString(3, tempData.getNameJa());
-                    prep.setString(4, tempData.getNameEn());
-                    prep.setString(5, tempData.getType1());
-                    prep.setString(6, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
-                    prep.setInt(7, tempData.getGeneration());
-                    prep.addBatch();
+    SaveDataTask<PokemonListSpider.Data> newTask(List<PokemonListSpider.Data> outDataList) {
+        return new SaveDataTask<PokemonListSpider.Data>(outDataList) {
+            @Override
+            public boolean save(Connection connection) {
+                final int batchSize = 100;
+                final String sql = "INSERT INTO pw_pokemon(`index`, nameZh, nameJa, nameEn, type1, type2, generation) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement prep = connection.prepareStatement(sql)) {
+                    PokemonListSpider.Data tempData = null;
+                    for (int i = batchSize, j = 0; ; i += batchSize) {
+                        for (; j < i && j < this.dataList.size(); j++) {
+                            tempData = this.dataList.get(j);
+                            prep.setInt(1, tempData.getIndex());
+                            prep.setString(2, tempData.getNameZh());
+                            prep.setString(3, tempData.getNameJa());
+                            prep.setString(4, tempData.getNameEn());
+                            prep.setString(5, tempData.getType1());
+                            prep.setString(6, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
+                            prep.setInt(7, tempData.getGeneration());
+                            prep.addBatch();
+                        }
+                        prep.executeBatch();
+                        if (j >= this.dataList.size()) {
+                            connection.commit();
+                            return true;
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                prep.executeBatch();
-                if (j >= dataList.size()) {
-                    connection.commit();
-                    return true;
-                }
+                return false;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        };
     }
 
     @Getter

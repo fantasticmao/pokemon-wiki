@@ -1,9 +1,5 @@
 package cn.fantasticmao.pokemon.spider;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 /**
  * Config
  *
@@ -34,19 +30,4 @@ public interface Config {
         }
     }
 
-    enum ConnectionHolder {
-        INSTANCE;
-
-        public final Connection connection;
-
-        ConnectionHolder() {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pokemon_wiki", "pokemon", "I_Love_Pokemon");
-                this.connection.setAutoCommit(false);
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }
