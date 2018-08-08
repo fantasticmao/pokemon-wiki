@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.spider;
 
-import cn.fantasticmao.pokemon.spider.task.SaveDataTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

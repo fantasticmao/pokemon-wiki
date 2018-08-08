@@ -1,6 +1,8 @@
-package cn.fantasticmao.pokemon.spider.task;
+package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
+import cn.fantasticmao.pokemon.spider.SaveDataTask;
 import com.mundo.core.support.Constant;
 import com.mundo.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
@@ -30,7 +32,7 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
     }
 
     @Override
-    List<PokemonListSpider.Data> parseData(Document document) {
+    public List<PokemonListSpider.Data> parseData(Document document) {
         List<PokemonListSpider.Data> dataList = new LinkedList<>();
         dataList.addAll(getDataList1(document));
         dataList.addAll(getDataList2(document));
@@ -43,7 +45,7 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
     }
 
     @Override
-    SaveDataTask<PokemonListSpider.Data> newTask(List<PokemonListSpider.Data> outDataList) {
+    public SaveDataTask<PokemonListSpider.Data> newTask(List<PokemonListSpider.Data> outDataList) {
         return new SaveDataTask<PokemonListSpider.Data>(outDataList) {
             @Override
             public boolean save(Connection connection) {
@@ -80,7 +82,7 @@ public class PokemonListSpider extends AbstractSpider<PokemonListSpider.Data> {
     @Getter
     @ToString
     @AllArgsConstructor
-    class Data implements AbstractSpider.Data {
+    static class Data implements AbstractSpider.Data {
         private final int index;
         private final String nameZh;
         private final String nameJa;

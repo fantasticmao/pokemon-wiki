@@ -1,6 +1,8 @@
-package cn.fantasticmao.pokemon.spider.task;
+package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
+import cn.fantasticmao.pokemon.spider.SaveDataTask;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -27,7 +29,7 @@ public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatLis
     }
 
     @Override
-    List<PokemonBaseStatListSpider.Data> parseData(Document document) {
+    public List<PokemonBaseStatListSpider.Data> parseData(Document document) {
         List<PokemonBaseStatListSpider.Data> dataList = document.select("#mw-content-text table").get(0).select("tbody > tr").stream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
@@ -48,7 +50,7 @@ public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatLis
     }
 
     @Override
-    SaveDataTask<PokemonBaseStatListSpider.Data> newTask(List<PokemonBaseStatListSpider.Data> outDataList) {
+    public SaveDataTask<PokemonBaseStatListSpider.Data> newTask(List<PokemonBaseStatListSpider.Data> outDataList) {
         return new SaveDataTask<PokemonBaseStatListSpider.Data>(outDataList) {
             @Override
             public boolean save(Connection connection) {
@@ -88,7 +90,7 @@ public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatLis
     @Getter
     @ToString
     @AllArgsConstructor
-    class Data implements AbstractSpider.Data {
+    static class Data implements AbstractSpider.Data {
         private final int index;
         private final String nameZh;
         private final int hp;

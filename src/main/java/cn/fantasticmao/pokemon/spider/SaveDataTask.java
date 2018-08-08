@@ -1,4 +1,4 @@
-package cn.fantasticmao.pokemon.spider.task;
+package cn.fantasticmao.pokemon.spider;
 
 import java.sql.Connection;
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
  * @since 2018/8/6
  */
 public abstract class SaveDataTask<T extends AbstractSpider.Data> {
-    final List<T> dataList;
+    protected final List<T> dataList;
 
-    SaveDataTask(List<T> dataList) {
+    protected SaveDataTask(List<T> dataList) {
         this.dataList = dataList;
     }
 

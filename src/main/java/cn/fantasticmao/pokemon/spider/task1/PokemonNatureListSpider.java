@@ -1,6 +1,8 @@
-package cn.fantasticmao.pokemon.spider.task;
+package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
+import cn.fantasticmao.pokemon.spider.SaveDataTask;
 import com.mundo.core.support.Constant;
 import com.mundo.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
@@ -29,7 +31,7 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
     }
 
     @Override
-    List<PokemonNatureListSpider.Data> parseData(Document document) {
+    public List<PokemonNatureListSpider.Data> parseData(Document document) {
         List<PokemonNatureListSpider.Data> dataList = document.select("#mw-content-text table").get(1).select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
@@ -47,7 +49,7 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
     }
 
     @Override
-    SaveDataTask<PokemonNatureListSpider.Data> newTask(List<PokemonNatureListSpider.Data> outDataList) {
+    public SaveDataTask<PokemonNatureListSpider.Data> newTask(List<PokemonNatureListSpider.Data> outDataList) {
         return new SaveDataTask<PokemonNatureListSpider.Data>(outDataList) {
             @Override
             public boolean save(Connection connection) {
@@ -77,7 +79,7 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
     @Getter
     @ToString
     @AllArgsConstructor
-    class Data implements AbstractSpider.Data {
+    static class Data implements AbstractSpider.Data {
         private final String nameZh;
         private final String nameJa;
         private final String nameEn;
