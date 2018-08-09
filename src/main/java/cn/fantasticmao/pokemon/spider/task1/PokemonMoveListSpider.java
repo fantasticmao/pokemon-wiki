@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.spider.task1;
 
-import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import com.mundo.core.support.Constant;
@@ -80,7 +79,7 @@ public class PokemonMoveListSpider extends AbstractSpider<PokemonMoveListSpider.
     @Getter
     @Setter
     @AllArgsConstructor
-    static class Data implements AbstractSpider.Data {
+    public static class Data implements AbstractSpider.Data {
         private final String nameZh;
         private final String nameJa;
         private final String nameEn;

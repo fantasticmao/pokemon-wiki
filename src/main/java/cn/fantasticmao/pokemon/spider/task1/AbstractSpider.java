@@ -1,5 +1,6 @@
-package cn.fantasticmao.pokemon.spider;
+package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.pokemon.spider.Config;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import java.util.concurrent.CountDownLatch;
  * @author maodh
  * @since 2018/7/29
  */
-public abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable {
+abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Config.Site site;
@@ -72,7 +73,7 @@ public abstract class AbstractSpider<T extends AbstractSpider.Data> implements R
      */
     protected abstract boolean saveData(List<T> dataList);
 
-    public interface Data {
+    interface Data {
 
     }
 }

@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.spider.task1;
 
-import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import com.mundo.core.support.Constant;
