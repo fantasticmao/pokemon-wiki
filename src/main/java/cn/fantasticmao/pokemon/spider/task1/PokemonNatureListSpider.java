@@ -2,7 +2,7 @@ package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
-import cn.fantasticmao.pokemon.spider.SaveDataTask;
+import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import com.mundo.core.support.Constant;
 import com.mundo.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 /**
@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
  */
 public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpider.Data> {
 
-    public PokemonNatureListSpider(BlockingQueue<SaveDataTask> queue) {
-        super(Config.Site.POKEMON_NATURE_LIST, queue);
+    public PokemonNatureListSpider(CountDownLatch doneSignal) {
+        super(Config.Site.POKEMON_NATURE_LIST, doneSignal);
     }
 
     @Override
@@ -49,31 +49,27 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
     }
 
     @Override
-    public SaveDataTask<PokemonNatureListSpider.Data> newTask(List<PokemonNatureListSpider.Data> outDataList) {
-        return new SaveDataTask<PokemonNatureListSpider.Data>(outDataList) {
-            @Override
-            public boolean save(Connection connection) {
-                String sql = "INSERT INTO pw_pokemon_nature(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement prep = connection.prepareStatement(sql)) {
-                    for (PokemonNatureListSpider.Data data : this.dataList) {
-                        prep.setString(1, data.getNameZh());
-                        prep.setString(2, data.getNameJa());
-                        prep.setString(3, data.getNameEn());
-                        prep.setString(4, ObjectUtil.defaultIfNull(data.getIncreasedStat(), Constant.Strings.EMPTY));
-                        prep.setString(5, ObjectUtil.defaultIfNull(data.getDecreasedStat(), Constant.Strings.EMPTY));
-                        prep.setString(6, ObjectUtil.defaultIfNull(data.getFavoriteFlavor(), Constant.Strings.EMPTY));
-                        prep.setString(7, ObjectUtil.defaultIfNull(data.getDislikedFlavor(), Constant.Strings.EMPTY));
-                        prep.addBatch();
-                    }
-                    prep.executeBatch();
-                    connection.commit();
-                    return true;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                return false;
+    public boolean saveData(List<PokemonNatureListSpider.Data> dataList) {
+        String sql = "INSERT INTO pw_pokemon_nature(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement prep = connection.prepareStatement(sql)) {
+            for (PokemonNatureListSpider.Data data : dataList) {
+                prep.setString(1, data.getNameZh());
+                prep.setString(2, data.getNameJa());
+                prep.setString(3, data.getNameEn());
+                prep.setString(4, ObjectUtil.defaultIfNull(data.getIncreasedStat(), Constant.Strings.EMPTY));
+                prep.setString(5, ObjectUtil.defaultIfNull(data.getDecreasedStat(), Constant.Strings.EMPTY));
+                prep.setString(6, ObjectUtil.defaultIfNull(data.getFavoriteFlavor(), Constant.Strings.EMPTY));
+                prep.setString(7, ObjectUtil.defaultIfNull(data.getDislikedFlavor(), Constant.Strings.EMPTY));
+                prep.addBatch();
             }
-        };
+            prep.executeBatch();
+            connection.commit();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Getter

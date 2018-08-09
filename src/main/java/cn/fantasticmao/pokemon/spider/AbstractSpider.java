@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * AbstractSpider
@@ -17,14 +17,14 @@ import java.util.concurrent.BlockingQueue;
  * @since 2018/7/29
  */
 public abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Config.Site site;
-    private final BlockingQueue<SaveDataTask> queue;
+    private final CountDownLatch doneSignal;
 
-    protected AbstractSpider(Config.Site site, BlockingQueue<SaveDataTask> queue) {
+    protected AbstractSpider(Config.Site site, CountDownLatch doneSignal) {
         this.site = site;
-        this.queue = queue;
+        this.doneSignal = doneSignal;
     }
 
     @Override
@@ -35,13 +35,11 @@ public abstract class AbstractSpider<T extends AbstractSpider.Data> implements R
         logger.info("解析数据...");
         final List<T> dataList = parseData(document);
 
-        logger.info("任务入队，等待保存...");
-        SaveDataTask<T> task = newTask(dataList);
-        try {
-            queue.put(task);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        logger.info("保存数据...");
+        final boolean result = saveData(dataList);
+        logger.info("{} {}", this.getClass().getName(), result ? "保存数据成功" : "保存数据失败");
+
+        doneSignal.countDown();
     }
 
     /**
@@ -72,7 +70,7 @@ public abstract class AbstractSpider<T extends AbstractSpider.Data> implements R
     /**
      * 使用 JDBC 批处理模式保存数据
      */
-    protected abstract SaveDataTask<T> newTask(List<T> dataList);
+    protected abstract boolean saveData(List<T> dataList);
 
     public interface Data {
 

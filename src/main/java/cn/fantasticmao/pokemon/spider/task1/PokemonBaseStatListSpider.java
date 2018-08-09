@@ -2,7 +2,7 @@ package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
-import cn.fantasticmao.pokemon.spider.SaveDataTask;
+import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 /**
@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
  */
 public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatListSpider.Data> {
 
-    public PokemonBaseStatListSpider(BlockingQueue<SaveDataTask> queue) {
-        super(Config.Site.POKEMON_BASE_STAT_LIST, queue);
+    public PokemonBaseStatListSpider(CountDownLatch doneSignal) {
+        super(Config.Site.POKEMON_BASE_STAT_LIST, doneSignal);
     }
 
     @Override
@@ -50,41 +50,37 @@ public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatLis
     }
 
     @Override
-    public SaveDataTask<PokemonBaseStatListSpider.Data> newTask(List<PokemonBaseStatListSpider.Data> outDataList) {
-        return new SaveDataTask<PokemonBaseStatListSpider.Data>(outDataList) {
-            @Override
-            public boolean save(Connection connection) {
-                final int batchSize = 100;
-                String sql = "INSERT INTO pw_pokemon_base_stat(`index`, nameZh, hp, attack, defense, spAttack, spDefense, speed, total, average) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement prep = connection.prepareStatement(sql)) {
-                    PokemonBaseStatListSpider.Data temData = null;
-                    for (int i = batchSize, j = 0; ; i += batchSize) {
-                        for (; j < i && j < this.dataList.size(); j++) {
-                            temData = this.dataList.get(j);
-                            prep.setInt(1, temData.getIndex());
-                            prep.setString(2, temData.getNameZh());
-                            prep.setInt(3, temData.getHp());
-                            prep.setInt(4, temData.getAttack());
-                            prep.setInt(5, temData.getDefense());
-                            prep.setInt(6, temData.getSpAttack());
-                            prep.setInt(7, temData.getSpDefense());
-                            prep.setInt(8, temData.getSpeed());
-                            prep.setInt(9, temData.getTotal());
-                            prep.setFloat(10, temData.getAverage());
-                            prep.addBatch();
-                        }
-                        prep.executeBatch();
-                        if (j >= this.dataList.size()) {
-                            connection.commit();
-                            return true;
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+    public boolean saveData(List<PokemonBaseStatListSpider.Data> dataList) {
+        final int batchSize = 100;
+        final String sql = "INSERT INTO pw_pokemon_base_stat(`index`, nameZh, hp, attack, defense, spAttack, spDefense, speed, total, average) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement prep = connection.prepareStatement(sql)) {
+            PokemonBaseStatListSpider.Data temData = null;
+            for (int i = batchSize, j = 0; ; i += batchSize) {
+                for (; j < i && j < dataList.size(); j++) {
+                    temData = dataList.get(j);
+                    prep.setInt(1, temData.getIndex());
+                    prep.setString(2, temData.getNameZh());
+                    prep.setInt(3, temData.getHp());
+                    prep.setInt(4, temData.getAttack());
+                    prep.setInt(5, temData.getDefense());
+                    prep.setInt(6, temData.getSpAttack());
+                    prep.setInt(7, temData.getSpDefense());
+                    prep.setInt(8, temData.getSpeed());
+                    prep.setInt(9, temData.getTotal());
+                    prep.setFloat(10, temData.getAverage());
+                    prep.addBatch();
                 }
-                return false;
+                prep.executeBatch();
+                if (j >= dataList.size()) {
+                    connection.commit();
+                    return true;
+                }
             }
-        };
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Getter

@@ -2,7 +2,7 @@ package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.pokemon.spider.AbstractSpider;
 import cn.fantasticmao.pokemon.spider.Config;
-import cn.fantasticmao.pokemon.spider.SaveDataTask;
+import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import com.mundo.core.support.Constant;
 import com.mundo.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,10 @@ import org.jsoup.nodes.Document;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 /**
@@ -27,8 +26,8 @@ import java.util.stream.Collectors;
  */
 public class PokemonAbilityListSpider extends AbstractSpider<PokemonAbilityListSpider.Data> {
 
-    public PokemonAbilityListSpider(BlockingQueue<SaveDataTask> queue) {
-        super(Config.Site.POKEMON_ABILITY_LIST, queue);
+    public PokemonAbilityListSpider(CountDownLatch doneSignal) {
+        super(Config.Site.POKEMON_ABILITY_LIST, doneSignal);
     }
 
     @Override
@@ -45,39 +44,35 @@ public class PokemonAbilityListSpider extends AbstractSpider<PokemonAbilityListS
     }
 
     @Override
-    public SaveDataTask<PokemonAbilityListSpider.Data> newTask(List<PokemonAbilityListSpider.Data> outDataList) {
-        return new SaveDataTask<PokemonAbilityListSpider.Data>(outDataList) {
-            @Override
-            public boolean save(Connection connection) {
-                final int batchSize = 100;
-                String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement prep = connection.prepareStatement(sql)) {
-                    PokemonAbilityListSpider.Data tempData = null;
-                    for (int i = batchSize, j = 0; ; i += batchSize) {
-                        for (; j < i && j < this.dataList.size(); j++) {
-                            tempData = this.dataList.get(j);
-                            prep.setInt(1, tempData.getIndex());
-                            prep.setString(2, tempData.getNameZh());
-                            prep.setString(3, tempData.getType1());
-                            prep.setString(4, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
-                            prep.setString(5, tempData.getAbility1());
-                            prep.setString(6, ObjectUtil.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
-                            prep.setString(7, ObjectUtil.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
-                            prep.setInt(8, tempData.getGeneration());
-                            prep.addBatch();
-                        }
-                        prep.executeBatch();
-                        if (j >= this.dataList.size()) {
-                            connection.commit();
-                            return true;
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+    public boolean saveData(List<PokemonAbilityListSpider.Data> dataList) {
+        final int batchSize = 100;
+        final String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement prep = connection.prepareStatement(sql)) {
+            PokemonAbilityListSpider.Data tempData = null;
+            for (int i = batchSize, j = 0; ; i += batchSize) {
+                for (; j < i && j < dataList.size(); j++) {
+                    tempData = dataList.get(j);
+                    prep.setInt(1, tempData.getIndex());
+                    prep.setString(2, tempData.getNameZh());
+                    prep.setString(3, tempData.getType1());
+                    prep.setString(4, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
+                    prep.setString(5, tempData.getAbility1());
+                    prep.setString(6, ObjectUtil.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
+                    prep.setString(7, ObjectUtil.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
+                    prep.setInt(8, tempData.getGeneration());
+                    prep.addBatch();
                 }
-                return false;
+                prep.executeBatch();
+                if (j >= dataList.size()) {
+                    connection.commit();
+                    return true;
+                }
             }
-        };
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return false;
     }
 
     @Getter
