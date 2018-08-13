@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @author maodh
  * @since 2018/8/4
  */
-public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatListSpider.Data> {
+public class PokemonBaseStatListSpider extends AbstractTask1Spider<PokemonBaseStatListSpider.Data> {
 
     public PokemonBaseStatListSpider(CountDownLatch doneSignal) {
         super(Config.Site.POKEMON_BASE_STAT_LIST, doneSignal);
@@ -85,7 +85,7 @@ public class PokemonBaseStatListSpider extends AbstractSpider<PokemonBaseStatLis
     @Getter
     @ToString
     @AllArgsConstructor
-    static class Data implements AbstractSpider.Data {
+    static class Data implements AbstractTask1Spider.Data {
         private final int index;
         private final String nameZh;
         private final int hp;

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @author maodh
  * @since 2018/8/4
  */
-public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpider.Data> {
+public class PokemonNatureListSpider extends AbstractTask1Spider<PokemonNatureListSpider.Data> {
 
     public PokemonNatureListSpider(CountDownLatch doneSignal) {
         super(Config.Site.POKEMON_NATURE_LIST, doneSignal);
@@ -74,7 +74,7 @@ public class PokemonNatureListSpider extends AbstractSpider<PokemonNatureListSpi
     @Getter
     @ToString
     @AllArgsConstructor
-    static class Data implements AbstractSpider.Data {
+    static class Data implements AbstractTask1Spider.Data {
         private final String nameZh;
         private final String nameJa;
         private final String nameEn;

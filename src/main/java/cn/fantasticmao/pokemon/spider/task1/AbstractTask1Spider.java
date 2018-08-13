@@ -12,18 +12,18 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * AbstractSpider
+ * AbstractTask1Spider
  *
  * @author maodh
  * @since 2018/7/29
  */
-abstract class AbstractSpider<T extends AbstractSpider.Data> implements Runnable {
+abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implements Runnable {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Config.Site site;
     private final CountDownLatch doneSignal;
 
-    protected AbstractSpider(Config.Site site, CountDownLatch doneSignal) {
+    protected AbstractTask1Spider(Config.Site site, CountDownLatch doneSignal) {
         this.site = site;
         this.doneSignal = doneSignal;
     }
