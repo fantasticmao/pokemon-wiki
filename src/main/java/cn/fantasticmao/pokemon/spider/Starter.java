@@ -1,6 +1,7 @@
 package cn.fantasticmao.pokemon.spider;
 
 import cn.fantasticmao.pokemon.spider.task1.*;
+import cn.fantasticmao.pokemon.spider.task2.PokemonMoveDetailSpiderScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,7 @@ class Starter {
     private static final Logger LOGGER = LoggerFactory.getLogger(Starter.class);
 
     public static void main(String[] args) throws Exception {
-        task1();
+        //task1();
 
         task2();
 
@@ -52,6 +53,8 @@ class Starter {
         ExecutorService executorService = Executors.newCachedThreadPool(threadFactory);
 
         // 2. 添加爬虫任务
+        new PokemonMoveDetailSpiderScheduler().start(executorService);
+        //new PokemonAbilityDetailSpiderScheduler().start(executorService);
 
         // 3. 结束任务
         executorService.shutdownNow();
@@ -62,7 +65,7 @@ class Starter {
         private final int poolNumber;
 
         UncaughtExceptionThreadFactory(int poolNumber) {
-            atomicInteger = new AtomicInteger(1);
+            this.atomicInteger = new AtomicInteger(1);
             this.poolNumber = poolNumber;
         }
 

@@ -44,7 +44,7 @@ abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implement
     }
 
     /**
-     * <code>org.jsoup.Jsoup#parse(URL, int)</code> 请求数据
+     * <code>org.jsoup.Jsoup#connect(String)</code> 请求数据
      */
     private Document requestData(Config.Site site) {
         for (; ; ) {
