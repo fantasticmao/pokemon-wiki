@@ -30,7 +30,7 @@ abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implement
 
     @Override
     public void run() {
-        logger.info("请求数据...");
+        logger.info("请求数据... {}", site.url);
         final Document document = requestData(site);
 
         logger.info("解析数据...");
@@ -55,9 +55,9 @@ abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implement
                         .get();
             } catch (IOException e) {
                 if (e instanceof SocketTimeoutException) {
-                    logger.info("请求超时，正在重试...");
+                    logger.info("请求超时，正在重试... {}", site.url);
                 } else {
-                    logger.info("请求异常，正在重试...");
+                    logger.info("请求异常，正在重试... {}", site.url);
                 }
             }
         }
