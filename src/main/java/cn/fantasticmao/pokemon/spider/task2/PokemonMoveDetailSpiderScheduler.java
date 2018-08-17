@@ -42,28 +42,25 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
         return false;
     }
 
-    //  1. 分批调度
-    //      1. 请求数据
-    //      2. 解析数据
-    //      3. 临时数据
-    //  2. 排序数据
-    //  3. 保存数据
-
     @Override
     public void start(ExecutorService executorService) {
         try {
             logger.info("加载索引数据...");
             final Map<Integer, String> dataIndex = this.getDataIndex();
-            logger.info("分批调度索引数据...");
-            // TODO 分批调度 Map
 
-            // TODO 解析数据 https://wiki.52poke.com/wiki/火焰拳（招式）
-            PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(dataIndex.get(1));
-            Future<PokemonMoveDetailSpider.Data> future = executorService.submit(spider);
-            PokemonMoveDetailSpider.Data data = future.get();
+            List<PokemonMoveDetailSpider.Data> dataList = new LinkedList<>();
+            List<Future<PokemonMoveDetailSpider.Data>> futureList = new LinkedList<>();
+            for (String moveName : dataIndex.values()) {
+                PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(moveName);
+                Future<PokemonMoveDetailSpider.Data> future = executorService.submit(spider);
+                futureList.add(future);
+            }
+            for (Future<PokemonMoveDetailSpider.Data> future : futureList) {
+                dataList.add(future.get());
+            }
 
             logger.info("保存数据...");
-            final boolean result = this.saveDataList(Arrays.asList(data));
+            final boolean result = this.saveDataList(dataList);
             logger.info("{} {}", this.getClass().getName(), result ? "保存数据成功" : "保存数据失败");
         } catch (SQLException | InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);

@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS pw_pokemon_move_detail;
 CREATE TABLE IF NOT EXISTS pw_pokemon_move_detail (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT
   COMMENT '自增主键',
+  nameZh     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '招式名称',
   `desc`     VARCHAR(256) NOT NULL DEFAULT ''
   COMMENT '招式描述',
   imgUrl     VARCHAR(256) NOT NULL DEFAULT ''

@@ -1,5 +1,6 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
         logger.info("请求数据... {}", url);
         Document document = requestData(url);
 
-        logger.info("解析数据...");
+        logger.info("解析数据... {}", url);
         return parseData(document);
     }
 
@@ -43,10 +44,13 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
                         .timeout(10_000)
                         .get();
             } catch (IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    logger.info("请求超时，正在重试... {}", url);
+                if (e instanceof HttpStatusException) {
+                    logger.error("{} {}", e.getMessage(), url);
+                    return null;
+                } else if (e instanceof SocketTimeoutException) {
+                    logger.info("请求超时，正在重试... " + url);
                 } else {
-                    logger.info("请求异常，正在重试... {}", url);
+                    logger.error("请求异常，正在重试... " + url, e);
                 }
             }
         }
@@ -55,7 +59,7 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
     /**
      * <code>org.jsoup.nodes.Document#select(String)</code> 解析数据
      */
-    protected abstract T parseData(Document document);
+    protected abstract T parseData(Document document) throws Exception;
 
     interface Data {
 

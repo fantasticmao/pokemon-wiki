@@ -50,7 +50,7 @@ class Starter {
     static private void task2() throws InterruptedException {
         // 1. 初始化线程池
         UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(2);
-        ExecutorService executorService = Executors.newCachedThreadPool(threadFactory);
+        ExecutorService executorService = Executors.newFixedThreadPool(100, threadFactory);
 
         // 2. 添加爬虫任务
         new PokemonMoveDetailSpiderScheduler().start(executorService);
