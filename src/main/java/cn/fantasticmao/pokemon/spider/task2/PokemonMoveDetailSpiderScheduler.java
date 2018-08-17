@@ -1,15 +1,13 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
+import com.mundo.core.util.JsonUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -40,7 +38,7 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
 
     @Override
     protected boolean saveDataList(List<PokemonMoveDetailSpider.Data> dataList) throws SQLException {
-        System.out.println(dataList);
+        System.out.println(JsonUtil.toJson(dataList));
         return false;
     }
 
@@ -65,7 +63,7 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
             PokemonMoveDetailSpider.Data data = future.get();
 
             logger.info("保存数据...");
-            final boolean result = this.saveDataList(Collections.singletonList(data));
+            final boolean result = this.saveDataList(Arrays.asList(data));
             logger.info("{} {}", this.getClass().getName(), result ? "保存数据成功" : "保存数据失败");
         } catch (SQLException | InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
