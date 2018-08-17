@@ -1,7 +1,6 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.util.JsonUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,24 +20,53 @@ import java.util.concurrent.Future;
 public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<PokemonMoveDetailSpider.Data> {
 
     @Override
-    public Map<Integer, String> getDataIndex() throws SQLException {
+    public Map<Integer, String> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
         final String sql = "SELECT id, nameZh FROM pw_pokemon_move";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement prep = connection.prepareStatement(sql);
+             ResultSet resultSet = prep.executeQuery()) {
             while (resultSet.next()) {
                 final int id = resultSet.getInt(1);
                 final String name = resultSet.getString(2);
                 dataMap.put(id, name);
             }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
         }
         return Collections.unmodifiableMap(dataMap);
     }
 
     @Override
-    protected boolean saveDataList(List<PokemonMoveDetailSpider.Data> dataList) throws SQLException {
-        System.out.println(JsonUtil.toJson(dataList));
+    protected boolean saveDataList(List<PokemonMoveDetailSpider.Data> dataList) {
+        // 1. 排序数据
+        dataList.sort(Comparator.comparingInt(PokemonMoveDetailSpider.Data::getId));
+
+        // 2. 批量保存
+        final int batchSize = 100;
+        final String sql = "INSERT INTO pw_pokemon_move_detail(nameZh, `desc`, imgUrl, notes, scope, effect) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement prep = connection.prepareStatement(sql)) {
+            for (int i = batchSize, j = 0; ; i += batchSize) {
+                for (; j < i && j < dataList.size(); j++) {
+                    PokemonMoveDetailSpider.Data tempData = dataList.get(j);
+                    prep.setString(1, tempData.getNameZh());
+                    prep.setString(2, tempData.getDesc());
+                    prep.setString(3, tempData.getImgUrl());
+                    prep.setString(4, tempData.getNotes());
+                    prep.setString(5, tempData.getScope());
+                    prep.setString(6, tempData.getEffect());
+                    prep.addBatch();
+                }
+                prep.executeBatch();
+                if (j >= dataList.size()) {
+                    connection.commit();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
         return false;
     }
 
@@ -50,11 +78,13 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
 
             List<PokemonMoveDetailSpider.Data> dataList = new LinkedList<>();
             List<Future<PokemonMoveDetailSpider.Data>> futureList = new LinkedList<>();
-            for (String moveName : dataIndex.values()) {
-                PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(moveName);
+            // 1. 提交爬虫任任务
+            for (Map.Entry<Integer, String> entry : dataIndex.entrySet()) {
+                PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(entry.getKey(), entry.getValue());
                 Future<PokemonMoveDetailSpider.Data> future = executorService.submit(spider);
                 futureList.add(future);
             }
+            // 2. 获取爬虫结果
             for (Future<PokemonMoveDetailSpider.Data> future : futureList) {
                 dataList.add(future.get());
             }
@@ -62,7 +92,7 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
             logger.info("保存数据...");
             final boolean result = this.saveDataList(dataList);
             logger.info("{} {}", this.getClass().getName(), result ? "保存数据成功" : "保存数据失败");
-        } catch (SQLException | InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e);
         }
     }

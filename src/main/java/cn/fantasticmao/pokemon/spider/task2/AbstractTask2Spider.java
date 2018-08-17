@@ -45,6 +45,8 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
                         .get();
             } catch (IOException e) {
                 if (e instanceof HttpStatusException) {
+                    // 例如请求「https://wiki.52poke.com/zh-hans/究极无敌大冲撞（招式）」的 Status Code 是 404，
+                    // 但 Response Body 却返回了真实数据，所以需要对其进行特殊处理
                     logger.error("{} {}", e.getMessage(), url);
                     return null;
                 } else if (e instanceof SocketTimeoutException) {

@@ -3,7 +3,6 @@ package cn.fantasticmao.pokemon.spider.task2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -20,12 +19,12 @@ abstract class AbstractTask2SpiderScheduler<T extends AbstractTask2Spider.Data> 
     /**
      * 从 MySQL 中获取 Key-Value 数据索引
      */
-    protected abstract Map<Integer, String> getDataIndex() throws SQLException;
+    protected abstract Map<Integer, String> getDataIndex();
 
     /**
      * 保存爬虫获取的数据至 MySQL 中
      */
-    protected abstract boolean saveDataList(List<T> dataList) throws SQLException;
+    protected abstract boolean saveDataList(List<T> dataList);
 
     /**
      * 启动执行程序

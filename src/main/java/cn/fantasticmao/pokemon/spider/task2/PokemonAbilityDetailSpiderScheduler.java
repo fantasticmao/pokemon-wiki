@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class PokemonAbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler {
 
     @Override
-    public Map<Integer, String> getDataIndex() throws SQLException {
+    public Map<Integer, String> getDataIndex() {
         // 1. 查询数据
         final Set<String> dataSet = new HashSet<>();
         final String sql = "SELECT ability1 FROM pw_pokemon_ability WHERE ability1 != '' " +
@@ -35,6 +35,8 @@ public class PokemonAbilityDetailSpiderScheduler extends AbstractTask2SpiderSche
                 final String name = resultSet.getString(1);
                 dataSet.add(name);
             }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
         }
 
         // 2. 排序数据
@@ -47,7 +49,7 @@ public class PokemonAbilityDetailSpiderScheduler extends AbstractTask2SpiderSche
     }
 
     @Override
-    protected boolean saveDataList(List dataList) throws SQLException {
+    protected boolean saveDataList(List dataList) {
         return false;
     }
 

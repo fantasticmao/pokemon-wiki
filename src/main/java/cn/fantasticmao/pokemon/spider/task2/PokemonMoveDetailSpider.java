@@ -14,10 +14,12 @@ import org.jsoup.select.Elements;
  * @since 2018/8/10
  */
 class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpider.Data> {
+    private final int id;
     private final String nameZh;
 
-    PokemonMoveDetailSpider(final String nameZh) {
+    PokemonMoveDetailSpider(final int id, final String nameZh) {
         super("https://wiki.52poke.com/zh-hans/" + nameZh + "（招式）");
+        this.id = id;
         this.nameZh = nameZh;
     }
 
@@ -25,22 +27,30 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
     protected PokemonMoveDetailSpider.Data parseData(Document document) {
         try {
             if (document == null) {
-                return PokemonMoveDetailSpider.Data.defaultByName(nameZh);
+                return PokemonMoveDetailSpider.Data.defaultByName(id, nameZh);
             } else {
                 Elements trList = document.selectFirst("#mw-content-text > .mw-parser-output > .roundy").selectFirst("tbody").children();
+                // 解析获取招式描述
                 final String desc = trList.get(1).text();
+                // 解析获取图片链接，TODO 完善
                 final String imgUrl;
                 if (trList.get(2).selectFirst("span") != null) {
+                    // 解析例如「https://wiki.52poke.com/zh-hans/拍击（招式）」的招式图片
                     imgUrl = "http:" + trList.get(2).selectFirst("span").attr("data-url");
                 } else if (trList.get(2).selectFirst("img") != null) {
+                    // 解析例如「https://wiki.52poke.com/zh-hans/火花（招式）」的招式图片
                     imgUrl = "http:" + trList.get(2).selectFirst("img").attr("src");
                 } else {
+                    // 解析例如「https://wiki.52poke.com/zh-hans/辅助齿轮（招式）」的招式图片
                     imgUrl = Constant.Strings.EMPTY;
                 }
+                // 解析获取注意事项
                 final String notes = trList.get(3).select("table > tbody > tr").get(6).select("td > ul").text();
+                // 解析获取作用范围
                 final String scope = trList.get(5).select("table > tbody > tr").get(2).text();
+                // 解析获取附加效果，TODO 完善内容
                 final String effect = document.selectFirst("#mw-content-text > .mw-parser-output > h2 ~ p").text();
-                return new PokemonMoveDetailSpider.Data(nameZh, desc, imgUrl, notes, scope, effect);
+                return new PokemonMoveDetailSpider.Data(id, nameZh, desc, imgUrl, notes, scope, effect);
             }
         } catch (Exception e) {
             logger.error("解析数据异常 " + nameZh, e);
@@ -52,6 +62,7 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
     @ToString
     @AllArgsConstructor
     static class Data implements AbstractTask2Spider.Data {
+        private final int id;
         private final String nameZh; // 招式名称
         private final String desc; // 招式描述
         private final String imgUrl; // 图片链接
@@ -59,9 +70,9 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
         private final String scope; // 作用范围
         private final String effect; // 附加效果
 
-        public static Data defaultByName(String nameZh) {
-            return new Data(nameZh, Constant.Strings.EMPTY, Constant.Strings.EMPTY,
-                    Constant.Strings.EMPTY, Constant.Strings.EMPTY, Constant.Strings.EMPTY);
+        public static Data defaultByName(int id, String nameZh) {
+            return new Data(id, nameZh, Constant.Strings.EMPTY, Constant.Strings.EMPTY, Constant.Strings.EMPTY,
+                    Constant.Strings.EMPTY, Constant.Strings.EMPTY);
         }
     }
 
