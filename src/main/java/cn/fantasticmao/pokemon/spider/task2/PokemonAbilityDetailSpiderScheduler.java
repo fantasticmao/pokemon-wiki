@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
  */
 public class PokemonAbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler {
 
+    public PokemonAbilityDetailSpiderScheduler(ExecutorService executorService) {
+        super(executorService);
+    }
+
     @Override
     public Map<Integer, String> getDataIndex() {
         // 1. 查询数据
@@ -54,6 +58,6 @@ public class PokemonAbilityDetailSpiderScheduler extends AbstractTask2SpiderSche
     }
 
     @Override
-    public void start(ExecutorService executorService) {
+    public void start() {
     }
 }

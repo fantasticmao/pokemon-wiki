@@ -53,8 +53,8 @@ class Starter {
         ExecutorService executorService = Executors.newFixedThreadPool(100, threadFactory);
 
         // 2. 添加爬虫任务
-        new PokemonMoveDetailSpiderScheduler().start(executorService);
-        //new PokemonAbilityDetailSpiderScheduler().start(executorService);
+        new PokemonMoveDetailSpiderScheduler(executorService).start();
+        //new PokemonAbilityDetailSpiderScheduler(executorService).start();
 
         // 3. 结束任务
         executorService.shutdownNow();

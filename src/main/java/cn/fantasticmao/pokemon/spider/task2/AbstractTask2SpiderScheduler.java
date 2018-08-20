@@ -15,6 +15,11 @@ import java.util.concurrent.ExecutorService;
  */
 abstract class AbstractTask2SpiderScheduler<T extends AbstractTask2Spider.Data> {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final ExecutorService executorService;
+
+    protected AbstractTask2SpiderScheduler(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
 
     /**
      * 从 MySQL 中获取 Key-Value 数据索引
@@ -28,8 +33,6 @@ abstract class AbstractTask2SpiderScheduler<T extends AbstractTask2Spider.Data> 
 
     /**
      * 启动执行程序
-     *
-     * @param executorService 调度爬虫线程的线程池
      */
-    protected abstract void start(ExecutorService executorService);
+    protected abstract void start();
 }

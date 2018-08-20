@@ -17,6 +17,10 @@ import java.util.concurrent.*;
  */
 public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<PokemonMoveDetailSpider.Data> {
 
+    public PokemonMoveDetailSpiderScheduler(ExecutorService executorService) {
+        super(executorService);
+    }
+
     @Override
     public Map<Integer, String> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
@@ -69,13 +73,13 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
     }
 
     @Override
-    public void start(ExecutorService executorService) {
+    public void start() {
         try {
             logger.info("加载索引数据...");
             final Map<Integer, String> dataIndex = this.getDataIndex();
 
             // 1. 提交爬虫任任务
-            CompletionService<PokemonMoveDetailSpider.Data> completionService = new ExecutorCompletionService<>(executorService);
+            CompletionService<PokemonMoveDetailSpider.Data> completionService = new ExecutorCompletionService<>(super.executorService);
             for (Map.Entry<Integer, String> entry : dataIndex.entrySet()) {
                 PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(entry.getKey(), entry.getValue());
                 completionService.submit(spider);
