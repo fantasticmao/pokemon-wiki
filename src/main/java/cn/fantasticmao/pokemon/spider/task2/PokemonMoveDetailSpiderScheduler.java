@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * PokemonMoveDetailSpiderScheduler
@@ -76,23 +74,27 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
             logger.info("加载索引数据...");
             final Map<Integer, String> dataIndex = this.getDataIndex();
 
-            List<PokemonMoveDetailSpider.Data> dataList = new LinkedList<>();
-            List<Future<PokemonMoveDetailSpider.Data>> futureList = new LinkedList<>();
             // 1. 提交爬虫任任务
+            CompletionService<PokemonMoveDetailSpider.Data> completionService = new ExecutorCompletionService<>(executorService);
             for (Map.Entry<Integer, String> entry : dataIndex.entrySet()) {
                 PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(entry.getKey(), entry.getValue());
-                Future<PokemonMoveDetailSpider.Data> future = executorService.submit(spider);
-                futureList.add(future);
+                completionService.submit(spider);
             }
+
             // 2. 获取爬虫结果
-            for (Future<PokemonMoveDetailSpider.Data> future : futureList) {
+            List<PokemonMoveDetailSpider.Data> dataList = new LinkedList<>();
+            for (int i = 0; i < dataIndex.size(); i++) {
+                Future<PokemonMoveDetailSpider.Data> future = completionService.take();
                 dataList.add(future.get());
             }
 
             logger.info("保存数据...");
             final boolean result = this.saveDataList(dataList);
             logger.info("{} {}", this.getClass().getName(), result ? "保存数据成功" : "保存数据失败");
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.error(e.getMessage(), e);
+        } catch (ExecutionException e) {
             logger.error(e.getMessage(), e);
         }
     }

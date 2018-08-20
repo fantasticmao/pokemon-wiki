@@ -27,6 +27,8 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
     protected PokemonMoveDetailSpider.Data parseData(Document document) {
         try {
             if (document == null) {
+                // 例如请求「https://wiki.52poke.com/zh-hans/究极无敌大冲撞（招式）」的 Status Code 是 404，
+                // 但 Response Body 却返回了真实数据，所以需要对其进行特殊处理
                 return PokemonMoveDetailSpider.Data.defaultByName(id, nameZh);
             } else {
                 Elements trList = document.selectFirst("#mw-content-text > .mw-parser-output > .roundy").selectFirst("tbody").children();
@@ -70,7 +72,7 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
         private final String scope; // 作用范围
         private final String effect; // 附加效果
 
-        public static Data defaultByName(int id, String nameZh) {
+        private static Data defaultByName(int id, String nameZh) {
             return new Data(id, nameZh, Constant.Strings.EMPTY, Constant.Strings.EMPTY, Constant.Strings.EMPTY,
                     Constant.Strings.EMPTY, Constant.Strings.EMPTY);
         }
