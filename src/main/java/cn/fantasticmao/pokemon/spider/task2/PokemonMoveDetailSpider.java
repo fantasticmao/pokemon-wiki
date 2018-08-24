@@ -50,8 +50,8 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
                 final String notes = trList.get(3).select("table > tbody > tr").get(6).select("td > ul").text();
                 // 解析获取作用范围
                 final String scope = trList.get(5).select("table > tbody > tr").get(2).text();
-                // 解析获取附加效果，TODO 完善内容
-                final String effect = document.selectFirst("#mw-content-text > .mw-parser-output > h2 ~ p").text();
+                // 解析获取附加效果
+                final String effect = document.select("#mw-content-text > .mw-parser-output > h2").eq(0).nextUntil("h2").select("p").text();
                 return new PokemonMoveDetailSpider.Data(id, nameZh, desc, imgUrl, notes, scope, effect);
             }
         } catch (Exception e) {

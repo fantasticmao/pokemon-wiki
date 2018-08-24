@@ -24,7 +24,7 @@
 
         <mundo-web.version>1.0-SNAPSHOT</mundo-web.version>
         <mundo-data.version>1.0-SNAPSHOT</mundo-data.version>
-        <jsoup.version>1.11.3</jsoup.version>
+        <jsoup.version>1.12.1-maomao-forked</jsoup.version>
         <dbcp2.version>2.5.0</dbcp2.version>
     </properties>
 
