@@ -19,20 +19,20 @@ import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 /**
- * PokemonMoveListSpider
+ * MoveListSpider
  *
  * @author maodh
  * @since 2018/8/4
  */
-public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSpider.Data> {
+public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
 
-    public PokemonMoveListSpider(CountDownLatch doneSignal) {
-        super(Config.Site.POKEMON_MOVE_LIST, doneSignal);
+    public MoveListSpider(CountDownLatch doneSignal) {
+        super(Config.Site.MOVE_LIST, doneSignal);
     }
 
     @Override
-    public List<PokemonMoveListSpider.Data> parseData(Document document) {
-        List<PokemonMoveListSpider.Data> dataList = new LinkedList<>();
+    public List<MoveListSpider.Data> parseData(Document document) {
+        List<MoveListSpider.Data> dataList = new LinkedList<>();
         dataList.addAll(getData1(document));
         dataList.addAll(getData2(document));
         dataList.addAll(getData3(document));
@@ -44,12 +44,12 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
     }
 
     @Override
-    public boolean saveData(List<PokemonMoveListSpider.Data> dataList) {
+    public boolean saveData(List<MoveListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon_move(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, generation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_move(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, generation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
-            PokemonMoveListSpider.Data tempData = null;
+            MoveListSpider.Data tempData = null;
             for (int i = batchSize, j = 0; ; i += batchSize) {
                 for (; j < i && j < dataList.size(); j++) {
                     tempData = dataList.get(j);
@@ -92,7 +92,7 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
     }
 
     // 第一世代
-    private List<PokemonMoveListSpider.Data> getData1(Document document) {
+    private List<MoveListSpider.Data> getData1(Document document) {
         return document.select(".bg-关都 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
@@ -104,13 +104,13 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 1);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 1);
                 })
                 .collect(Collectors.toList());
     }
 
     // 第二世代
-    private List<PokemonMoveListSpider.Data> getData2(Document document) {
+    private List<MoveListSpider.Data> getData2(Document document) {
         return document.select(".bg-城都 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
@@ -122,13 +122,13 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 2);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 2);
                 })
                 .collect(Collectors.toList());
     }
 
     // 第三世代
-    private List<PokemonMoveListSpider.Data> getData3(Document document) {
+    private List<MoveListSpider.Data> getData3(Document document) {
         return document.select(".bg-丰缘 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
@@ -140,13 +140,13 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 3);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 3);
                 })
                 .collect(Collectors.toList());
     }
 
     // 第四世代
-    private List<PokemonMoveListSpider.Data> getData4(Document document) {
+    private List<MoveListSpider.Data> getData4(Document document) {
         return document.select(".bg-神奥 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
@@ -158,13 +158,13 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 4);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 4);
                 })
                 .collect(Collectors.toList());
     }
 
     // 第五世代
-    private List<PokemonMoveListSpider.Data> getData5(Document document) {
+    private List<MoveListSpider.Data> getData5(Document document) {
         return document.select(".bg-合众 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
@@ -176,13 +176,13 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 5);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 5);
                 })
                 .collect(Collectors.toList());
     }
 
     // 第六世代
-    private List<PokemonMoveListSpider.Data> getData6(Document document) {
+    private List<MoveListSpider.Data> getData6(Document document) {
         return document.select(".bg-卡洛斯 > tbody > tr").stream()
                 .filter(element -> element.child(0).children().size() == 0)
                 .skip(1)
@@ -195,13 +195,13 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 6);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 6);
                 })
                 .collect(Collectors.toList());
     }
 
     // 第七世代
-    private List<PokemonMoveListSpider.Data> getData7(Document document) {
+    private List<MoveListSpider.Data> getData7(Document document) {
         return document.select(".bg-阿罗拉 > tbody > tr").stream()
                 .filter(element -> element.child(0).children().size() == 0)
                 .skip(1)
@@ -214,7 +214,7 @@ public class PokemonMoveListSpider extends AbstractTask1Spider<PokemonMoveListSp
                     String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
-                    return new PokemonMoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 7);
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 7);
                 })
                 .collect(Collectors.toList());
     }

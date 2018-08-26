@@ -22,7 +22,7 @@ class Starter {
     private static final Logger LOGGER = LoggerFactory.getLogger(Starter.class);
 
     public static void main(String[] args) throws Exception {
-        //task1();
+        task1();
 
         task2();
 
@@ -35,12 +35,13 @@ class Starter {
         ExecutorService executorService = Executors.newFixedThreadPool(6, threadFactory);
 
         // 2. 添加爬虫任务
-        final CountDownLatch doneSignal = new CountDownLatch(5);
+        final CountDownLatch doneSignal = new CountDownLatch(6);
         executorService.execute(new PokemonListSpider(doneSignal));
         executorService.execute(new PokemonAbilityListSpider(doneSignal));
-        executorService.execute(new PokemonNatureListSpider(doneSignal));
         executorService.execute(new PokemonBaseStatListSpider(doneSignal));
-        executorService.execute(new PokemonMoveListSpider(doneSignal));
+        executorService.execute(new AbilityListSpider(doneSignal));
+        executorService.execute(new NatureListSpider(doneSignal));
+        executorService.execute(new MoveListSpider(doneSignal));
 
         // 3. 结束任务
         doneSignal.await();
@@ -50,7 +51,7 @@ class Starter {
     static private void task2() throws InterruptedException {
         // 1. 初始化线程池
         UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(2);
-        ExecutorService executorService = Executors.newFixedThreadPool(100, threadFactory);
+        ExecutorService executorService = Executors.newFixedThreadPool(Config.TASK2_CONCURRENCY_THRESHOLD, threadFactory);
 
         // 2. 添加爬虫任务
         new PokemonMoveDetailSpiderScheduler(executorService).start();

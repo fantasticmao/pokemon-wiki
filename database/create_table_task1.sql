@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS pw_pokemon (
 )
   ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4'
-  COMMENT '宝可梦列表';
+  COMMENT '宝可梦列表（按全国图鉴编号）';
 
 ## ----------------------------------------------------------
 
@@ -60,75 +60,7 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_ability (
 )
   ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4'
-  COMMENT '宝可梦特性列表';
-
-## ----------------------------------------------------------
-
-DROP TABLE IF EXISTS pw_pokemon_nature;
-
-CREATE TABLE IF NOT EXISTS pw_pokemon_nature (
-  id             INT UNSIGNED NOT NULL AUTO_INCREMENT
-  COMMENT '自增主键',
-  nameZh         VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '中文名称',
-  nameJa         VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '日文名称',
-  nameEn         VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '英文名称',
-  increasedStat  VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '增加能力值',
-  decreasedStat  VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '降低能力值',
-  favoriteFlavor VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '喜欢口味',
-  dislikedFlavor VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '不喜欢口味',
-  createTime     DATETIME     NOT NULL DEFAULT current_timestamp
-  COMMENT '创建时间',
-  modifyTime     DATETIME     NOT NULL DEFAULT current_timestamp
-  ON UPDATE current_timestamp
-  COMMENT '修改时间',
-  PRIMARY KEY (id)
-)
-  ENGINE InnoDB
-  DEFAULT CHARSET 'utf8mb4'
-  COMMENT '宝可梦性格列表';
-
-## ----------------------------------------------------------
-
-DROP TABLE IF EXISTS pw_pokemon_move;
-
-CREATE TABLE IF NOT EXISTS pw_pokemon_move (
-  id         INT UNSIGNED NOT NULL AUTO_INCREMENT
-  COMMENT '自增主键',
-  nameZh     VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '中文名称',
-  nameJa     VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '日文名称',
-  nameEn     VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '英文名称',
-  type       VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '属性',
-  category   VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '分类',
-  power      VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '威力',
-  accuracy   VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT '命中',
-  pp         VARCHAR(32)  NOT NULL DEFAULT ''
-  COMMENT 'PP',
-  generation TINYINT      NOT NULL DEFAULT 0
-  COMMENT '第几世代',
-  createTime DATETIME     NOT NULL DEFAULT current_timestamp
-  COMMENT '创建时间',
-  modifyTime DATETIME     NOT NULL DEFAULT current_timestamp
-  ON UPDATE current_timestamp
-  COMMENT '修改时间',
-  PRIMARY KEY (id)
-)
-  ENGINE InnoDB
-  DEFAULT CHARSET 'utf8mb4'
-  COMMENT '宝可梦招式列表';
+  COMMENT '宝可梦特性列表（按全国图鉴编号）';
 
 ## ----------------------------------------------------------
 
@@ -166,7 +98,95 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_base_stat (
 )
   ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4'
-  COMMENT '宝可梦种族值列表';
+  COMMENT '宝可梦种族值列表（第七世代）';
+
+## ----------------------------------------------------------
+
+DROP TABLE IF EXISTS pw_ability;
+
+CREATE TABLE IF NOT EXISTS pw_ability (
+  id         INT UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '自增主键',
+  generation TINYINT      NOT NULL DEFAULT 0
+  COMMENT '第几世代',
+  createTime DATETIME     NOT NULL DEFAULT current_timestamp
+  COMMENT '创建时间',
+  modifyTime DATETIME     NOT NULL DEFAULT current_timestamp
+  ON UPDATE current_timestamp
+  COMMENT '修改时间',
+  PRIMARY KEY (id)
+)
+  ENGINE InnoDB
+  DEFAULT CHARSET 'utf8mb4'
+  COMMENT '特性列表';
+
+## ----------------------------------------------------------
+
+DROP TABLE IF EXISTS pw_nature;
+
+CREATE TABLE IF NOT EXISTS pw_nature (
+  id             INT UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '自增主键',
+  nameZh         VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '中文名称',
+  nameJa         VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '日文名称',
+  nameEn         VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '英文名称',
+  increasedStat  VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '增加能力值',
+  decreasedStat  VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '降低能力值',
+  favoriteFlavor VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '喜欢口味',
+  dislikedFlavor VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '不喜欢口味',
+  createTime     DATETIME     NOT NULL DEFAULT current_timestamp
+  COMMENT '创建时间',
+  modifyTime     DATETIME     NOT NULL DEFAULT current_timestamp
+  ON UPDATE current_timestamp
+  COMMENT '修改时间',
+  PRIMARY KEY (id)
+)
+  ENGINE InnoDB
+  DEFAULT CHARSET 'utf8mb4'
+  COMMENT '性格';
+
+## ----------------------------------------------------------
+
+DROP TABLE IF EXISTS pw_move;
+
+CREATE TABLE IF NOT EXISTS pw_move (
+  id         INT UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '自增主键',
+  nameZh     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '中文名称',
+  nameJa     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '日文名称',
+  nameEn     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '英文名称',
+  type       VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '属性',
+  category   VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '分类',
+  power      VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '威力',
+  accuracy   VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '命中',
+  pp         VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT 'PP',
+  generation TINYINT      NOT NULL DEFAULT 0
+  COMMENT '第几世代',
+  createTime DATETIME     NOT NULL DEFAULT current_timestamp
+  COMMENT '创建时间',
+  modifyTime DATETIME     NOT NULL DEFAULT current_timestamp
+  ON UPDATE current_timestamp
+  COMMENT '修改时间',
+  PRIMARY KEY (id)
+)
+  ENGINE InnoDB
+  DEFAULT CHARSET 'utf8mb4'
+  COMMENT '招式列表';
 
 ## ----------------------------------------------------------
 
@@ -185,4 +205,4 @@ CREATE TABLE IF NOT EXISTS pw_item (
 )
   ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4'
-  COMMENT '道具列表';
+  COMMENT '道具列表（主系列）';

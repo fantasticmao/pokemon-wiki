@@ -18,20 +18,20 @@ import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 /**
- * PokemonNatureListSpider
+ * NatureListSpider
  *
  * @author maodh
  * @since 2018/8/4
  */
-public class PokemonNatureListSpider extends AbstractTask1Spider<PokemonNatureListSpider.Data> {
+public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data> {
 
-    public PokemonNatureListSpider(CountDownLatch doneSignal) {
-        super(Config.Site.POKEMON_NATURE_LIST, doneSignal);
+    public NatureListSpider(CountDownLatch doneSignal) {
+        super(Config.Site.NATURE_LIST, doneSignal);
     }
 
     @Override
-    public List<PokemonNatureListSpider.Data> parseData(Document document) {
-        List<PokemonNatureListSpider.Data> dataList = document.select("#mw-content-text table").get(1).select("tbody > tr").stream()
+    public List<NatureListSpider.Data> parseData(Document document) {
+        List<NatureListSpider.Data> dataList = document.select("#mw-content-text table").get(1).select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
                     String nameZh = element.child(0).html();
@@ -41,18 +41,18 @@ public class PokemonNatureListSpider extends AbstractTask1Spider<PokemonNatureLi
                     String decreasedStat = "—".equals(element.child(4).html()) ? null : element.child(4).html();
                     String favoriteFlavor = "—".equals(element.child(5).html()) ? null : element.child(5).html();
                     String dislikedFlavor = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    return new PokemonNatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
+                    return new NatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
                 })
                 .collect(Collectors.toList());
         return Collections.unmodifiableList(dataList);
     }
 
     @Override
-    public boolean saveData(List<PokemonNatureListSpider.Data> dataList) {
-        String sql = "INSERT INTO pw_pokemon_nature(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public boolean saveData(List<NatureListSpider.Data> dataList) {
+        String sql = "INSERT INTO pw_nature(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
-            for (PokemonNatureListSpider.Data data : dataList) {
+            for (NatureListSpider.Data data : dataList) {
                 prep.setString(1, data.getNameZh());
                 prep.setString(2, data.getNameJa());
                 prep.setString(3, data.getNameEn());

@@ -24,7 +24,7 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
     @Override
     public Map<Integer, String> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
-        final String sql = "SELECT id, nameZh FROM pw_pokemon_move";
+        final String sql = "SELECT id, nameZh FROM pw_move";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql);
              ResultSet resultSet = prep.executeQuery()) {
@@ -46,7 +46,7 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
 
         // 2. 批量保存
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon_move_detail(nameZh, `desc`, imgUrl, notes, scope, effect) VALUES (?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_move_detail(nameZh, `desc`, imgUrl, notes, scope, effect) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             for (int i = batchSize, j = 0; ; i += batchSize) {

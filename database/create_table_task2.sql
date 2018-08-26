@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS pw_pokemon_move_detail;
+DROP TABLE IF EXISTS pw_move_detail;
 
-CREATE TABLE IF NOT EXISTS pw_pokemon_move_detail (
+CREATE TABLE IF NOT EXISTS pw_move_detail (
   id         INT UNSIGNED  NOT NULL AUTO_INCREMENT
   COMMENT '自增主键',
   nameZh     VARCHAR(32)   NOT NULL DEFAULT ''
@@ -24,4 +24,4 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_move_detail (
 )
   ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4'
-  COMMENT '宝可梦招式详情表';
+  COMMENT '招式详情';
