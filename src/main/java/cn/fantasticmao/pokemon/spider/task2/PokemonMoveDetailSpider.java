@@ -34,18 +34,8 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
                 Elements trList = document.selectFirst("#mw-content-text > .mw-parser-output > .roundy").selectFirst("tbody").children();
                 // 解析获取招式描述
                 final String desc = trList.get(1).text();
-                // 解析获取图片链接，TODO 完善
-                final String imgUrl;
-                if (trList.get(2).selectFirst("span") != null) {
-                    // 解析例如「https://wiki.52poke.com/zh-hans/拍击（招式）」的招式图片
-                    imgUrl = "http:" + trList.get(2).selectFirst("span").attr("data-url");
-                } else if (trList.get(2).selectFirst("img") != null) {
-                    // 解析例如「https://wiki.52poke.com/zh-hans/火花（招式）」的招式图片
-                    imgUrl = "http:" + trList.get(2).selectFirst("img").attr("src");
-                } else {
-                    // 解析例如「https://wiki.52poke.com/zh-hans/辅助齿轮（招式）」的招式图片
-                    imgUrl = Constant.Strings.EMPTY;
-                }
+                // 解析获取图片链接
+                final String imgUrl = "http://media.52poke.com/assets/animoves/AniMove" + id + ".gif";
                 // 解析获取注意事项
                 final String notes = trList.get(3).select("table > tbody > tr").get(6).select("td > ul").text();
                 // 解析获取作用范围
