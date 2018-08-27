@@ -10,14 +10,14 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * PokemonMoveDetailSpiderScheduler
+ * MoveDetailSpiderScheduler
  *
  * @author maodh
  * @since 2018/8/10
  */
-public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<PokemonMoveDetailSpider.Data> {
+public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<MoveDetailSpider.Data> {
 
-    public PokemonMoveDetailSpiderScheduler(ExecutorService executorService) {
+    public MoveDetailSpiderScheduler(ExecutorService executorService) {
         super(executorService);
     }
 
@@ -40,9 +40,9 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
     }
 
     @Override
-    protected boolean saveDataList(List<PokemonMoveDetailSpider.Data> dataList) {
+    protected boolean saveDataList(List<MoveDetailSpider.Data> dataList) {
         // 1. 排序数据
-        dataList.sort(Comparator.comparingInt(PokemonMoveDetailSpider.Data::getId));
+        dataList.sort(Comparator.comparingInt(MoveDetailSpider.Data::getId));
 
         // 2. 批量保存
         final int batchSize = 100;
@@ -51,7 +51,7 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
              PreparedStatement prep = connection.prepareStatement(sql)) {
             for (int i = batchSize, j = 0; ; i += batchSize) {
                 for (; j < i && j < dataList.size(); j++) {
-                    PokemonMoveDetailSpider.Data tempData = dataList.get(j);
+                    MoveDetailSpider.Data tempData = dataList.get(j);
                     prep.setString(1, tempData.getNameZh());
                     prep.setString(2, tempData.getDesc());
                     prep.setString(3, tempData.getImgUrl());
@@ -79,16 +79,16 @@ public class PokemonMoveDetailSpiderScheduler extends AbstractTask2SpiderSchedul
             final Map<Integer, String> dataIndex = this.getDataIndex();
 
             // 1. 提交爬虫任任务
-            CompletionService<PokemonMoveDetailSpider.Data> completionService = new ExecutorCompletionService<>(super.executorService);
+            CompletionService<MoveDetailSpider.Data> completionService = new ExecutorCompletionService<>(super.executorService);
             for (Map.Entry<Integer, String> entry : dataIndex.entrySet()) {
-                PokemonMoveDetailSpider spider = new PokemonMoveDetailSpider(entry.getKey(), entry.getValue());
+                MoveDetailSpider spider = new MoveDetailSpider(entry.getKey(), entry.getValue());
                 completionService.submit(spider);
             }
 
             // 2. 获取爬虫结果
-            List<PokemonMoveDetailSpider.Data> dataList = new LinkedList<>();
+            List<MoveDetailSpider.Data> dataList = new LinkedList<>();
             for (int i = 0; i < dataIndex.size(); i++) {
-                Future<PokemonMoveDetailSpider.Data> future = completionService.take();
+                Future<MoveDetailSpider.Data> future = completionService.take();
                 dataList.add(future.get());
             }
 

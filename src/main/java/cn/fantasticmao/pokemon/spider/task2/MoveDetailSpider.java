@@ -8,28 +8,28 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 /**
- * PokemonMoveDetailSpider
+ * MoveDetailSpider
  *
  * @author maodh
  * @since 2018/8/10
  */
-class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpider.Data> {
+class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
     private final int id;
     private final String nameZh;
 
-    PokemonMoveDetailSpider(final int id, final String nameZh) {
+    MoveDetailSpider(final int id, final String nameZh) {
         super("https://wiki.52poke.com/zh-hans/" + nameZh + "（招式）");
         this.id = id;
         this.nameZh = nameZh;
     }
 
     @Override
-    protected PokemonMoveDetailSpider.Data parseData(Document document) {
+    protected MoveDetailSpider.Data parseData(Document document) {
         try {
             if (document == null) {
                 // 例如请求「https://wiki.52poke.com/zh-hans/究极无敌大冲撞（招式）」的 Status Code 是 404，
                 // 但 Response Body 却返回了真实数据，所以需要对其进行特殊处理
-                return PokemonMoveDetailSpider.Data.defaultByName(id, nameZh);
+                return MoveDetailSpider.Data.defaultByName(id, nameZh);
             } else {
                 Elements trList = document.selectFirst("#mw-content-text > .mw-parser-output > .roundy").selectFirst("tbody").children();
                 // 解析获取招式描述
@@ -42,7 +42,7 @@ class PokemonMoveDetailSpider extends AbstractTask2Spider<PokemonMoveDetailSpide
                 final String scope = trList.get(5).select("table > tbody > tr").get(2).text();
                 // 解析获取附加效果
                 final String effect = document.select("#mw-content-text > .mw-parser-output > h2").eq(0).nextUntil("h2").select("p").text();
-                return new PokemonMoveDetailSpider.Data(id, nameZh, desc, imgUrl, notes, scope, effect);
+                return new MoveDetailSpider.Data(id, nameZh, desc, imgUrl, notes, scope, effect);
             }
         } catch (Exception e) {
             logger.error("解析数据异常 " + nameZh, e);
