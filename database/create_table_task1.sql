@@ -107,6 +107,14 @@ DROP TABLE IF EXISTS pw_ability;
 CREATE TABLE IF NOT EXISTS pw_ability (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT
   COMMENT '自增主键',
+  nameZh     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '中文名称',
+  nameJa     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '日文名称',
+  nameEn     VARCHAR(32)  NOT NULL DEFAULT ''
+  COMMENT '英文名称',
+  effect     VARCHAR(64)  NOT NULL DEFAULT ''
+  COMMENT '说明',
   generation TINYINT      NOT NULL DEFAULT 0
   COMMENT '第几世代',
   createTime DATETIME     NOT NULL DEFAULT current_timestamp
