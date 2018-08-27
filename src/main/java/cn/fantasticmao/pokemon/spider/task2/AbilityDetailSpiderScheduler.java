@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.util.JsonUtil;
+import com.mundo.core.util.CollectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,7 +45,22 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
         // 1. 排序数据
         dataList.sort(Comparator.comparingInt(AbilityDetailSpider.Data::getId));
 
-        System.out.println(JsonUtil.toJson(dataList));
+        final String sql = "INSERT INTO pw_ability_detail(nameZh, `desc`, effect, pokemons) VALUES (?, ?, ?, ?)";
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement prep = connection.prepareStatement(sql)) {
+            for (AbilityDetailSpider.Data data : dataList) {
+                prep.setString(1, data.getNameZh());
+                prep.setString(2, data.getDesc());
+                prep.setString(3, data.getEffect());
+                prep.setString(4, CollectionUtil.toString(data.getPokemonList()));
+                prep.addBatch();
+            }
+            prep.executeBatch();
+            connection.commit();
+            return true;
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
         return false;
     }
 

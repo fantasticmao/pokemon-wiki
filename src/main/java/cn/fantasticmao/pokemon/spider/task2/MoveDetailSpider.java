@@ -40,7 +40,7 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
                 final String notes = trList.get(3).select("table > tbody > tr").get(6).select("td > ul").text();
                 // 解析获取作用范围
                 final String scope = trList.get(5).select("table > tbody > tr").get(2).text();
-                // 解析获取附加效果
+                // 解析获取附加效果，TODO 完善
                 final String effect = document.select("#mw-content-text > .mw-parser-output > h2").eq(0).nextUntil("h2").select("p").text();
                 return new MoveDetailSpider.Data(id, nameZh, desc, imgUrl, notes, scope, effect);
             }

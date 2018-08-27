@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS pw_ability_detail (
   COMMENT '特性描述',
   effect     VARCHAR(512) NOT NULL DEFAULT ''
   COMMENT '特性效果',
-  pokemons   VARCHAR(64)  NOT NULL DEFAULT ''
+  pokemons   VARCHAR(256) NOT NULL DEFAULT ''
   COMMENT '拥有此特性的宝可梦',
   createTime DATETIME     NOT NULL DEFAULT current_timestamp
   COMMENT '创建时间',
