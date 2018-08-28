@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author maodh
  * @since 2018/8/27
  */
-public class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> {
+class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> {
     private final int id;
     private final String nameZh;
 

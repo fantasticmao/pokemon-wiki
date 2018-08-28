@@ -22,7 +22,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
     }
 
     @Override
-    public Map<Integer, String> getDataIndex() {
+    protected Map<Integer, String> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
         final String sql = "SELECT id, nameZh FROM pw_move";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();

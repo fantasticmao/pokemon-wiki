@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.spider;
 
 import cn.fantasticmao.pokemon.spider.task1.*;
-import cn.fantasticmao.pokemon.spider.task2.AbilityDetailSpiderScheduler;
+import cn.fantasticmao.pokemon.spider.task2.PokemonDetailSpiderScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +55,8 @@ class Starter {
 
         // 2. 添加爬虫任务
         //new MoveDetailSpiderScheduler(executorService).start();
-        new AbilityDetailSpiderScheduler(executorService).start();
+        //new AbilityDetailSpiderScheduler(executorService).start();
+        new PokemonDetailSpiderScheduler(executorService).start();
 
         // 3. 结束任务
         executorService.shutdownNow();

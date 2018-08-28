@@ -25,6 +25,8 @@
         <mundo-web.version>1.0-SNAPSHOT</mundo-web.version>
         <mundo-data.version>1.0-SNAPSHOT</mundo-data.version>
         <jsoup.version>1.12.1-maomao-forked</jsoup.version>
+        <selenuim.version>3.10.0</selenuim.version>
+        <guava.version>22.0</guava.version>
         <dbcp2.version>2.5.0</dbcp2.version>
     </properties>
 
@@ -45,6 +47,18 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenuim.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
