@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @author maodh
  * @since 2018/8/28
  */
-public class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> {
+class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> {
     private final int id;
     private final String nameZh;
 
@@ -29,14 +29,9 @@ public class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider
 
     @Override
     protected PokemonDetailSpider.Data parseData(Document document) throws Exception {
-        try {
-            Element table = document.select(".form1").size() == 0
-                    ? document : document.selectFirst("._toggle[style!='display:none;'] table");
-            return _parseData(table);
-        } catch (Exception e) {
-            logger.error(nameZh, e);
-            throw e;
-        }
+        Element table = document.select(".form1").size() == 0
+                ? document : document.selectFirst("._toggle[style!='display:none;'] table");
+        return _parseData(table);
     }
 
     @Getter

@@ -1,7 +1,6 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.util.JsonUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,7 +44,39 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
         // 1. 排序数据
         dataList.sort(Comparator.comparingInt(PokemonDetailSpider.Data::getId));
 
-        System.out.println(JsonUtil.toJson(dataList));
+        // 2. 批量保存
+        final int batchSize = 100;
+        final String sql = "INSERT INTO pw_pokemon_detail(nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup, hatchTime, effortValue) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement prep = connection.prepareStatement(sql)) {
+            for (int i = batchSize, j = 0; ; i += batchSize) {
+                for (; j < i && j < dataList.size(); j++) {
+                    PokemonDetailSpider.Data tempData = dataList.get(j);
+                    prep.setString(1, tempData.getNameZh());
+                    prep.setString(2, tempData.getImgUrl());
+                    prep.setString(3, tempData.getType());
+                    prep.setString(4, tempData.getCategory());
+                    prep.setString(5, tempData.getAbility());
+                    prep.setString(6, tempData.getHeight());
+                    prep.setString(7, tempData.getWeight());
+                    prep.setString(8, tempData.getBodyStyle());
+                    prep.setString(9, tempData.getCatchRate());
+                    prep.setString(10, tempData.getGenderRatio());
+                    prep.setString(11, tempData.getEggGroup());
+                    prep.setString(12, tempData.getHatchTime());
+                    prep.setString(13, tempData.getEffortValue());
+                    prep.addBatch();
+                }
+                prep.executeBatch();
+                if (j >= dataList.size()) {
+                    connection.commit();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
         return false;
     }
 
