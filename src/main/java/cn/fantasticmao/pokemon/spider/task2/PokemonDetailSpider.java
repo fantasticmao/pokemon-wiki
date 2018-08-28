@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,47 +30,9 @@ public class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider
     @Override
     protected PokemonDetailSpider.Data parseData(Document document) throws Exception {
         try {
-            String idStr = String.format("%03d", id);
-            final String imgUrl = document.selectFirst("img[alt^=" + idStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
-
-            final String type = document.selectFirst("[title=属性]").parent().nextElementSibling().select("span").stream()
-                    .map(element -> element.text().trim())
-                    .collect(Collectors.joining(Constant.Strings.COMMA));
-
-            final String category = document.selectFirst("[title=分类]").parent().nextElementSibling().text().trim();
-
-            List<String> abilityList = document.selectFirst("[title=特性]").parent().nextElementSibling().select("td").get(0).select("a").stream()
-                    .map(element -> element.text().trim())
-                    .collect(Collectors.toList());
-            if (document.selectFirst("[title=特性]").parent().nextElementSibling().select("td").size() > 1) {
-                String abilityHide = document.selectFirst("[title=特性]").parent().nextElementSibling().select("td").get(1).select("a").text().trim() + "（隐藏特性）";
-                abilityList.add(abilityHide);
-            }
-            final String ability = CollectionUtil.toString(abilityList);
-
-            final String height = document.selectFirst("[title=宝可梦列表（按身高排序）]").parent().nextElementSibling().text().trim();
-
-            final String weight = document.selectFirst("[title=宝可梦列表（按体重排序）]").parent().nextElementSibling().text().trim();
-
-            final String bodyStyle = document.selectFirst("[title=宝可梦列表（按体形分类）]").parent().nextElementSibling().selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
-
-            final String catchRate = document.selectFirst("[title=捕获率]").parent().nextElementSibling().select("small").text().trim();
-
-            final String genderRatio = document.selectFirst("[title=宝可梦列表（按性别比例分类）]").parent().nextElementSibling().select("span").stream()
-                    .map(element -> element.text().trim())
-                    .collect(Collectors.joining(Constant.Strings.COMMA));
-
-            final String eggGroup = document.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(0).select("a").stream()
-                    .map(element -> element.text().trim())
-                    .collect(Collectors.joining(Constant.Strings.COMMA));
-
-            String hatchTime = document.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(1).select("small").text().trim();
-            hatchTime = hatchTime.substring(1, hatchTime.length() - 1);
-
-            final String effortValue = document.selectFirst("[title=基础点数]").parent().nextElementSibling().selectFirst("tr").select("td").stream()
-                    .map(element -> element.text().trim())
-                    .collect(Collectors.joining(Constant.Strings.COMMA));
-            return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup, hatchTime, effortValue);
+            Element table = document.select(".form1").size() == 0
+                    ? document : document.selectFirst("._toggle[style!='display:none;'] table");
+            return _parseData(table);
         } catch (Exception e) {
             logger.error(nameZh, e);
             throw e;
@@ -94,5 +57,52 @@ public class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider
         private final String eggGroup; // 生蛋分组
         private final String hatchTime; // 孵化时间
         private final String effortValue; // 基础点数
+    }
+
+    private PokemonDetailSpider.Data _parseData(Element table) {
+        String idStr = String.format("%03d", id);
+        final String imgUrl = table.selectFirst("img[alt^=" + idStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+
+        final String type = table.selectFirst("[title=属性]").parent().nextElementSibling().select("span").stream()
+                .map(element -> element.text().trim())
+                .collect(Collectors.joining(Constant.Strings.COMMA));
+
+        final String category = table.selectFirst("[title=分类]").parent().nextElementSibling().text().trim();
+
+        List<String> abilityList = table.selectFirst("[title=特性]").parent().nextElementSibling().select("td").get(0).select("a").stream()
+                .map(element -> element.text().trim())
+                .collect(Collectors.toList());
+        if (table.selectFirst("[title=特性]").parent().nextElementSibling().select("td").size() > 1) {
+            String abilityHide = table.selectFirst("[title=特性]").parent().nextElementSibling().select("td").get(1).select("a").text().trim() + "（隐藏特性）";
+            abilityList.add(abilityHide);
+        }
+        final String ability = CollectionUtil.toString(abilityList);
+
+        final String height = table.selectFirst("[title=宝可梦列表（按身高排序）]").parent().nextElementSibling().text().trim();
+
+        final String weight = table.selectFirst("[title=宝可梦列表（按体重排序）]").parent().nextElementSibling().text().trim();
+
+        Element bodyStyleElement = table.selectFirst("[title=宝可梦列表（按体形分类）]").parent().nextElementSibling();
+        final String bodyStyle = bodyStyleElement.select("img").size() == 0 ? "无" : bodyStyleElement.
+                selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+
+        final String catchRate = table.selectFirst("[title=捕获率]").parent().nextElementSibling().select("small").text().trim();
+
+        List<String> genderRatioList = table.selectFirst("[title=宝可梦列表（按性别比例分类）]").parent().nextElementSibling().select("span").stream()
+                .map(element -> element.text().trim())
+                .collect(Collectors.toList());
+        final String genderRatio = CollectionUtil.isEmpty(genderRatioList) ? "无性别" : CollectionUtil.toString(genderRatioList);
+
+        final String eggGroup = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(0).select("a").stream()
+                .map(element -> element.text().trim())
+                .collect(Collectors.joining(Constant.Strings.COMMA));
+
+        String hatchTime = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(1).select("small").text().trim();
+        hatchTime = hatchTime.substring(1, hatchTime.length() - 1);
+
+        final String effortValue = table.selectFirst("[title=基础点数]").parent().nextElementSibling().selectFirst("tr").select("td").stream()
+                .map(element -> element.text().trim())
+                .collect(Collectors.joining(Constant.Strings.COMMA));
+        return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup, hatchTime, effortValue);
     }
 }
