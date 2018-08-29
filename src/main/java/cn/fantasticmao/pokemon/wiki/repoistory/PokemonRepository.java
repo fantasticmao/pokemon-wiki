@@ -18,7 +18,7 @@ public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, I
     List<Pokemon> findAll();
 
     @Query(value = "SELECT * FROM pw_pokemon WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
-    List<Pokemon> findByName(String name);
+    List<Pokemon> findByNameZh(String name);
 
     @Query(value = "SELECT * FROM pw_pokemon WHERE type1 = ?1 UNION ALL SELECT * FROM pw_pokemon WHERE type2 = ?1", nativeQuery = true)
     List<Pokemon> findByType(String type);

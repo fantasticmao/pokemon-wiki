@@ -13,10 +13,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 招式列表
+ * 招式相关接口
  *
  * @author maodh
- * @see <a href="https://pokemon.fantasticmao.cn/move/list">https://pokemon.fantasticmao.cn/move/list</a>
  * @since 2018/8/6
  */
 @RestController

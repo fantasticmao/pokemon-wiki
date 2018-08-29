@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import com.mundo.core.EnableMundoCore;
+import com.mundo.web.EnableMundoWeb;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @Profile("snapshot")
-@EnableMundoCore
+@EnableMundoWeb
 public class PokemonConfigurationSnapshot {
 
     @Bean(name = "pokemonWikiDataSource")

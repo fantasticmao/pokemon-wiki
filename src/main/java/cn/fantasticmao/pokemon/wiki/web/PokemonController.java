@@ -2,22 +2,22 @@ package cn.fantasticmao.pokemon.wiki.web;
 
 import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
+import com.mundo.core.util.StringUtil;
 import com.mundo.web.annotation.JsonpController;
 import com.mundo.web.support.JsonApi;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 宝可梦列表（按全国图鉴编号）
+ * 宝可梦相关接口
  *
  * @author maodh
- * @see <a href="https://pokemon.fantasticmao.cn/pokemon/list">https://pokemon.fantasticmao.cn/pokemon/list</a>
  * @since 2018/7/29
  */
 @RestController
@@ -27,26 +27,24 @@ public class PokemonController {
     @Resource
     private PokemonService pokemonService;
 
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemon() {
-        List<Pokemon> pokemonList = pokemonService.listAll();
+    /**
+     * @param nameZh 宝可梦的中文名称，支持模糊查询
+     */
+    @GetMapping(value = "/detail")
+    public JsonApi listPokemonDetail(@RequestParam(defaultValue = "") String nameZh) {
+        if (StringUtil.isEmpty(nameZh)) {
+            return JsonApi.error(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Pokemon> pokemonList = pokemonService.listByNameZh(nameZh);
         return JsonApi.success().data(pokemonList);
     }
 
-    @GetMapping(value = "/list/name/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonByName(@PathVariable String name) {
-        List<Pokemon> pokemonList = pokemonService.listByName(name);
-        return JsonApi.success().data(pokemonList);
-    }
-
-    @GetMapping(value = "/list/type/{type}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonByType(@PathVariable String type) {
-        List<Pokemon> pokemonList = pokemonService.listByType(type);
-        return JsonApi.success().data(pokemonList);
-    }
-
-    @GetMapping(value = "/list/generation/{generation}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonByType(@PathVariable int generation) {
+    /**
+     * @param generation 宝可梦的世代，默认 0 为全部
+     */
+    @GetMapping(value = "/list")
+    public JsonApi listPokemon(@RequestParam(defaultValue = "0") Integer generation) {
         List<Pokemon> pokemonList = pokemonService.listByGeneration(generation);
         return JsonApi.success().data(pokemonList);
     }

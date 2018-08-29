@@ -14,7 +14,7 @@ public interface PokemonService {
 
     List<Pokemon> listAll();
 
-    List<Pokemon> listByName(String name);
+    List<Pokemon> listByNameZh(String name);
 
     List<Pokemon> listByType(String type);
 

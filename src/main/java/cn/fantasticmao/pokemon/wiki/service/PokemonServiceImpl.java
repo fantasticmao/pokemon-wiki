@@ -26,9 +26,9 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public List<Pokemon> listByName(String name) {
+    public List<Pokemon> listByNameZh(String name) {
         if (StringUtil.isEmpty(name)) return Collections.emptyList();
-        List<Pokemon> pokemonList = pokemonRepository.findByName(name);
+        List<Pokemon> pokemonList = pokemonRepository.findByNameZh(name);
         Collections.sort(pokemonList);
         return pokemonList;
     }
@@ -42,8 +42,6 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<Pokemon> listByGeneration(int generation) {
-        List<Pokemon> pokemonList = pokemonRepository.findByGeneration(generation);
-        Collections.sort(pokemonList);
-        return pokemonList;
+        return generation == 0 ? pokemonRepository.findAll() : pokemonRepository.findByGeneration(generation);
     }
 }

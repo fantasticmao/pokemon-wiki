@@ -26,7 +26,7 @@ public class PokemonRepositoryTest extends SpringTest {
 
     @Test
     public void findByName() {
-        List<Pokemon> pokemonList = pokemonRepository.findByName("龙");
+        List<Pokemon> pokemonList = pokemonRepository.findByNameZh("龙");
         Assert.assertNotNull(pokemonList);
     }
 }
