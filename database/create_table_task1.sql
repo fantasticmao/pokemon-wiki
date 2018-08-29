@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS pw_nature (
 )
   ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4'
-  COMMENT '性格';
+  COMMENT '性格列表';
 
 ## ----------------------------------------------------------
 

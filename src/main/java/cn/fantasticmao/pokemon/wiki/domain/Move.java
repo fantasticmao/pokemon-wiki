@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * PokemonNature
+ * Move
  *
  * @author maodh
  * @since 2018/8/4
@@ -18,13 +18,15 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Entity
-@Table(name = "pw_pokemon_nature")
-public class PokemonNature extends AbstractDomain<Integer> {
+@Table(name = "pw_move")
+public class Move extends AbstractDomain<Integer> {
     private String nameZh;
     private String nameJa;
     private String nameEn;
-    private String increasedStat;
-    private String decreasedStat;
-    private String favoriteFlavor;
-    private String dislikedFlavor;
+    private String type;
+    private String category;
+    private String power;
+    private String accuracy;
+    private String pp;
+    private int generation;
 }

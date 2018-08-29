@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 宝可梦种族值列表
+ * 宝可梦种族值列表（第七世代）
  *
  * @author maodh
  * @see <a href="https://pokemon.fantasticmao.cn/pokemon/base_stat/list">https://pokemon.fantasticmao.cn/pokemon/base_stat/list</a>

@@ -2,6 +2,7 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.PokemonBaseStat;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -19,6 +20,6 @@ public class PokemonBaseStatRepositoryTest extends SpringTest {
     @Test
     public void findOne() {
         PokemonBaseStat pokemonBaseStat = pokemonBaseStatRepository.findOne(1);
-        System.out.println(pokemonBaseStat);
+        Assert.assertNotNull(pokemonBaseStat);
     }
 }

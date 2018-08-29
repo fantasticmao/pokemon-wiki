@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 宝可梦列表
+ * 宝可梦列表（按全国图鉴编号）
  *
  * @author maodh
  * @see <a href="https://pokemon.fantasticmao.cn/pokemon/list">https://pokemon.fantasticmao.cn/pokemon/list</a>

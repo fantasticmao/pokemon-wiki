@@ -5,6 +5,7 @@ import com.mundo.core.util.CollectionUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  */
 public class PokemonDetailSpiderTest {
 
+    @Ignore
     @Test
     public void test() throws IOException {
         Document document = Jsoup.connect("https://wiki.52poke.com/zh-hans/老翁龙").get();

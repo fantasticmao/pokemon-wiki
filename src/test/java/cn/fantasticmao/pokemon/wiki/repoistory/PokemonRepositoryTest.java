@@ -2,6 +2,7 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -20,12 +21,12 @@ public class PokemonRepositoryTest extends SpringTest {
     @Test
     public void findOne() {
         Pokemon pokemon = pokemonRepository.findOne(1);
-        System.out.println(pokemon);
+        Assert.assertNotNull(pokemon);
     }
 
     @Test
     public void findByName() {
         List<Pokemon> pokemonList = pokemonRepository.findByName("龙");
-        System.out.println(pokemonList);
+        Assert.assertNotNull(pokemonList);
     }
 }

@@ -4,6 +4,7 @@ import com.mundo.core.support.Constant;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class MoveDetailSpiderTest {
 
+    @Ignore
     @Test
     public void test() throws IOException {
         String url = "https://wiki.52poke.com/zh-hans/拍击（招式）";

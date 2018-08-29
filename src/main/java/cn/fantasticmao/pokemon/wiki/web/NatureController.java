@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.wiki.web;
 
-import cn.fantasticmao.pokemon.wiki.domain.PokemonMove;
-import cn.fantasticmao.pokemon.wiki.service.PokemonMoveService;
+import cn.fantasticmao.pokemon.wiki.domain.Nature;
+import cn.fantasticmao.pokemon.wiki.service.NatureService;
 import com.mundo.web.annotation.JsonpController;
 import com.mundo.web.support.JsonApi;
 import org.springframework.http.MediaType;
@@ -13,22 +13,22 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 宝可梦招式列表
+ * 性格列表
  *
  * @author maodh
- * @see <a href="https://pokemon.fantasticmao.cn/pokemon/move/list">https://pokemon.fantasticmao.cn/pokemon/move/list</a>
+ * @see <a href="https://pokemon.fantasticmao.cn/nature/list">https://pokemon.fantasticmao.cn/nature/list</a>
  * @since 2018/8/6
  */
 @RestController
 @JsonpController
-@RequestMapping("/pokemon/move")
-public class PokemonMoveController {
+@RequestMapping("/nature")
+public class NatureController {
     @Resource
-    private PokemonMoveService pokemonMoveService;
+    private NatureService natureService;
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonMove() {
-        List<PokemonMove> pokemonMoveList = pokemonMoveService.listAll();
-        return JsonApi.success().data(pokemonMoveList);
+    public JsonApi listPokemonNature() {
+        List<Nature> pokemonNatureList = natureService.listAll();
+        return JsonApi.success().data(pokemonNatureList);
     }
 }
