@@ -16,4 +16,10 @@ public interface PokemonAbilityRepository extends PagingAndSortingRepository<Pok
 
     @Query(value = "SELECT * FROM pw_pokemon_ability", nativeQuery = true)
     List<PokemonAbility> findAll();
+
+    @Query(value = "SELECT * FROM pw_pokemon_ability WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
+    List<PokemonAbility> findByNameZh(String nameZh);
+
+    @Query(value = "SELECT * FROM pw_pokemon_ability WHERE `index` IN ?1", nativeQuery = true)
+    List<PokemonAbility> findByIndexIn(List<Integer> idList);
 }

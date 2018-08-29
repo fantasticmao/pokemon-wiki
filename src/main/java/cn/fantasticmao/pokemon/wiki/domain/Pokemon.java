@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.annotation.Nonnull;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,7 +19,7 @@ import javax.persistence.Table;
 @ToString
 @Entity
 @Table(name = "pw_pokemon")
-public class Pokemon extends AbstractDomain<Integer> implements Comparable<Pokemon> {
+public class Pokemon extends AbstractDomain<Integer> {
     private int index;
     private String nameZh;
     private String nameJa;
@@ -28,16 +27,4 @@ public class Pokemon extends AbstractDomain<Integer> implements Comparable<Pokem
     private String type1;
     private String type2;
     private int generation;
-
-    @Override
-    public int compareTo(@Nonnull Pokemon pokemon) {
-        int r;
-        if ((r = Integer.compare(this.getGeneration(), pokemon.getGeneration())) != 0) {
-            return r;
-        } else if ((r = Integer.compare(this.getIndex(), pokemon.getIndex())) != 0) {
-            return r;
-        } else {
-            return Integer.compare(this.getId(), pokemon.getId());
-        }
-    }
 }

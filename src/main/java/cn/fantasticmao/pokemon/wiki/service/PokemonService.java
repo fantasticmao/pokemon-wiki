@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki.service;
 
-import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
+import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 
 import java.util.List;
 
@@ -12,11 +12,7 @@ import java.util.List;
  */
 public interface PokemonService {
 
-    List<Pokemon> listAll();
+    List<PokemonBean> listByNameZh(String nameZh);
 
-    List<Pokemon> listByNameZh(String name);
-
-    List<Pokemon> listByType(String type);
-
-    List<Pokemon> listByGeneration(int generation);
+    List<PokemonBean> listByGeneration(int generation);
 }

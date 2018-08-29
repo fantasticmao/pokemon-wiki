@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki.web;
 
-import cn.fantasticmao.pokemon.wiki.domain.Pokemon;
+import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
 import com.mundo.core.util.StringUtil;
 import com.mundo.web.annotation.JsonpController;
@@ -36,8 +36,8 @@ public class PokemonController {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 
-        List<Pokemon> pokemonList = pokemonService.listByNameZh(nameZh);
-        return JsonApi.success().data(pokemonList);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByNameZh(nameZh);
+        return JsonApi.success().data(pokemonBeanList);
     }
 
     /**
@@ -45,7 +45,7 @@ public class PokemonController {
      */
     @GetMapping(value = "/list")
     public JsonApi listPokemon(@RequestParam(defaultValue = "0") Integer generation) {
-        List<Pokemon> pokemonList = pokemonService.listByGeneration(generation);
-        return JsonApi.success().data(pokemonList);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByGeneration(generation);
+        return JsonApi.success().data(pokemonBeanList);
     }
 }
