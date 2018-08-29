@@ -14,9 +14,6 @@ import java.util.List;
  */
 public interface AbilityRepository extends PagingAndSortingRepository<Ability, Integer> {
 
-    @Query(value = "SELECT * FROM pw_ability", nativeQuery = true)
-    List<Ability> findAll();
-
-    @Query(value = "SELECT * FROM pw_ability WHERE nameZh = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM pw_ability WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
     List<Ability> findByNameZh(String nameZh);
 }

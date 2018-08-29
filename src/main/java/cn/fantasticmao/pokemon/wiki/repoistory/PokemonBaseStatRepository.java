@@ -14,9 +14,6 @@ import java.util.List;
  */
 public interface PokemonBaseStatRepository extends PagingAndSortingRepository<PokemonBaseStat, Integer> {
 
-    @Query(value = "SELECT * FROM pw_pokemon_base_stat", nativeQuery = true)
-    List<PokemonBaseStat> findAll();
-
     @Query(value = "SELECT * FROM pw_pokemon_base_stat WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
     List<PokemonBaseStat> findByNameZh(String nameZh);
 }

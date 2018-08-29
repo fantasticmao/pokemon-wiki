@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface MoveDetailRepository extends PagingAndSortingRepository<MoveDetail, Integer> {
 
-    @Query(value = "SELECT * FROM pw_move_detail", nativeQuery = true)
-    List<MoveDetail> findAll();
+    @Query(value = "SELECT * FROM pw_move_detail WHERE id IN ?1", nativeQuery = true)
+    List<MoveDetail> findByIdIn(List<Integer> idList);
 }

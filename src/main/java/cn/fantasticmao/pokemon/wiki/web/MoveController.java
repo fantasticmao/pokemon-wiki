@@ -1,12 +1,14 @@
 package cn.fantasticmao.pokemon.wiki.web;
 
-import cn.fantasticmao.pokemon.wiki.domain.Move;
+import cn.fantasticmao.pokemon.wiki.bean.MoveBean;
 import cn.fantasticmao.pokemon.wiki.service.MoveService;
+import com.mundo.core.util.StringUtil;
 import com.mundo.web.annotation.JsonpController;
 import com.mundo.web.support.JsonApi;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,9 +27,16 @@ public class MoveController {
     @Resource
     private MoveService moveService;
 
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi listPokemonMove() {
-        List<Move> pokemonMoveList = moveService.listAll();
-        return JsonApi.success().data(pokemonMoveList);
+    /**
+     * @param nameZh 招式中文名称
+     */
+    @GetMapping(value = "/detail")
+    public JsonApi listPokemonMove(@RequestParam(defaultValue = "") String nameZh) {
+        if (StringUtil.isEmpty(nameZh)) {
+            return JsonApi.error(HttpStatus.BAD_REQUEST);
+        }
+
+        List<MoveBean> moveBeanList = moveService.listByNameZh(nameZh);
+        return JsonApi.success().data(moveBeanList);
     }
 }

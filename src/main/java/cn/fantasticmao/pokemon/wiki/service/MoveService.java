@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki.service;
 
-import cn.fantasticmao.pokemon.wiki.domain.Move;
+import cn.fantasticmao.pokemon.wiki.bean.MoveBean;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface MoveService {
 
-    List<Move> listAll();
+    List<MoveBean> listByNameZh(String nameZh);
 }
