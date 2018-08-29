@@ -16,4 +16,7 @@ public interface AbilityRepository extends PagingAndSortingRepository<Ability, I
 
     @Query(value = "SELECT * FROM pw_ability", nativeQuery = true)
     List<Ability> findAll();
+
+    @Query(value = "SELECT * FROM pw_ability WHERE nameZh = ?1", nativeQuery = true)
+    List<Ability> findByNameZh(String nameZh);
 }

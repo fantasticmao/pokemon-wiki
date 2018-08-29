@@ -9,6 +9,7 @@ import cn.fantasticmao.pokemon.wiki.repoistory.PokemonAbilityRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.PokemonBaseStatRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.PokemonDetailRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.PokemonRepository;
+import com.mundo.core.util.CollectionUtil;
 import com.mundo.core.util.StringUtil;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,9 @@ public class PokemonServiceImpl implements PokemonService {
         }
 
         List<Pokemon> pokemonList = pokemonRepository.findByNameZh(nameZh);
+        if (CollectionUtil.isEmpty(pokemonList)) {
+            return Collections.emptyList();
+        }
 
         Map<String, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByNameZh(nameZh).stream()
                 .collect(Collectors.toMap(PokemonAbility::getNameZh, Function.identity(), (ability1, ability2) -> ability1));

@@ -16,4 +16,7 @@ public interface AbilityDetailRepository extends PagingAndSortingRepository<Abil
 
     @Query(value = "SELECT * FROM pw_ability_detail", nativeQuery = true)
     List<AbilityDetail> findAll();
+
+    @Query(value = "SELECT * FROM pw_ability_detail WHERE id IN ?1", nativeQuery = true)
+    List<AbilityDetail> findByIdIn(List<Integer> idList);
 }

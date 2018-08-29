@@ -43,7 +43,7 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
         } else if ((r = Integer.compare(this.getIndex(), pokemonBean.getIndex())) != 0) {
             return r;
         } else {
-            return Integer.compare(this.getIndex(), pokemonBean.getIndex());
+            return 0;
         }
     }
 
