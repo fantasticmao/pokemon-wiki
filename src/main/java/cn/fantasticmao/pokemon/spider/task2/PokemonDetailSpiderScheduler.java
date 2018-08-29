@@ -50,9 +50,10 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
+            PokemonDetailSpider.Data tempData = null;
             for (int i = batchSize, j = 0; ; i += batchSize) {
                 for (; j < i && j < dataList.size(); j++) {
-                    PokemonDetailSpider.Data tempData = dataList.get(j);
+                    tempData = dataList.get(j);
                     prep.setString(1, tempData.getNameZh());
                     prep.setString(2, tempData.getImgUrl());
                     prep.setString(3, tempData.getType());

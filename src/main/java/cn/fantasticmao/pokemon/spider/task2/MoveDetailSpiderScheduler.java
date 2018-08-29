@@ -49,9 +49,10 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
         final String sql = "INSERT INTO pw_move_detail(nameZh, `desc`, imgUrl, notes, scope, effect) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
+            MoveDetailSpider.Data tempData = null;
             for (int i = batchSize, j = 0; ; i += batchSize) {
                 for (; j < i && j < dataList.size(); j++) {
-                    MoveDetailSpider.Data tempData = dataList.get(j);
+                    tempData = dataList.get(j);
                     prep.setString(1, tempData.getNameZh());
                     prep.setString(2, tempData.getDesc());
                     prep.setString(3, tempData.getImgUrl());

@@ -29,6 +29,8 @@ class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> 
     @Override
     protected AbilityDetailSpider.Data parseData(Document document) {
         if (document == null) {
+            // 例如请求「https://wiki.52poke.com/zh-hans/鲜艳之躯（特性）」的 Status Code 是 404，
+            // 但 Response Body 却返回了真实数据，所以需要对其进行特殊处理
             return AbilityDetailSpider.Data.defaultByName(id, nameZh);
         } else {
             final String desc = document.selectFirst("#mw-content-text > .mw-parser-output > .at-c > tbody").children().get(3).select("table").text();
