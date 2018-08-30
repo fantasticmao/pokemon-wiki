@@ -7,7 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class Application {
 
     /**
-     * java -Xms100m -Xmx200m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC -Dfile.encoding=UTF-8 -Dspring.profiles.active=master -jar pokemon-wiki-1.0.jar >> /var/log/pokemon-wiki/pokemon_wiki.log &
+     * java -Xms100m -Xmx200m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC -Dfile.encoding=UTF-8 -Dspring.profiles.active=master -jar pokemon-wiki-1.0.jar >> /var/log/pokemon-wiki/tomcat.log &
      */
     public static void main(String[] args) {
         new SpringApplicationBuilder(Application.class)
