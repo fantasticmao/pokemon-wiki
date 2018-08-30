@@ -28,7 +28,7 @@ public class PokemonConfigurationSnapshot {
     public DataSource dataSource() {
         return DataSourceBuilder.create()
                 .driverClassName("com.mysql.jdbc.Driver")
-                .url("jdbc:mysql://localhost:3306/pokemon_wiki")
+                .url("jdbc:mysql://localhost:3306/pokemon_wiki?characterEncoding=UTF8&connectTimeout=5000&useSSL=false&zeroDateTimeBehavior=convertToNull&autoReconnectForPools=true&rewriteBatchedStatements=true")
                 .username("pokemon")
                 .password("I_Love_Pokemon")
                 .build();
