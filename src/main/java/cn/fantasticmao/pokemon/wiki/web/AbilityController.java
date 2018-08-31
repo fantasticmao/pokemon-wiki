@@ -34,7 +34,7 @@ public class AbilityController {
      */
     @GetMapping(value = "/detail")
     public JsonApi listAbilityDetail(@RequestParam(defaultValue = "") String nameZh) {
-        log.info("输入参数 nameZh: {}", nameZh);
+        log.trace("输入参数 nameZh: {}", nameZh);
         if (StringUtil.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
