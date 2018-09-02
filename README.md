@@ -12,4 +12,4 @@ Pokemon-Wiki 接口模块基于 HTTP 协议，具体请参考 [接口文档](htt
 
 - 查询宝可梦详情：[https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子](https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子)
 - 查询特性详情：[https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛](https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛)
-- 查询招式详情：[https://pokemon.fantasticmao.cn/move/detail?nameZh=火花](https://pokemon.fantasticmao.cn/move/detail?nameZh=火花)
+- 查询招式详情：[https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀](https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀)
