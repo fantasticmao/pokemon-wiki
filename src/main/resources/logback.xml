@@ -29,7 +29,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="cn.fantasticmao.pokemon.wiki" level="TRACE" additivity="false">
+    <logger name="cn.fantasticmao.pokemon.wiki" level="INFO" additivity="false">
         <appender-ref ref="pokemon_wiki_log"/>
     </logger>
 </configuration>

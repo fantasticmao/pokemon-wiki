@@ -34,7 +34,7 @@ public class MoveController {
      */
     @GetMapping(value = "/detail")
     public JsonApi listPokemonMove(@RequestParam(defaultValue = "") String nameZh) {
-        log.trace("输入参数 nameZh: {}", nameZh);
+        log.info("输入参数 nameZh: {}", nameZh);
         if (StringUtil.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
