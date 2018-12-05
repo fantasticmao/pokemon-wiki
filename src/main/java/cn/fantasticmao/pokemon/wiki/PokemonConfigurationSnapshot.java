@@ -1,6 +1,7 @@
 package cn.fantasticmao.pokemon.wiki;
 
 import com.mundo.web.EnableMundoWeb;
+import com.mundo.web.mvc.WeChatConfigController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -57,5 +58,10 @@ public class PokemonConfigurationSnapshot {
     @Bean
     PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory().getObject());
+    }
+
+    @Bean(name = WeChatConfigController.TOKEN_BEAN_NAME)
+    String weChatToken() {
+        return "I_Love_Pokemon";
     }
 }
