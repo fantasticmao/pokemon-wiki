@@ -3,7 +3,6 @@ package cn.fantasticmao.pokemon.wiki.web;
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
 import com.mundo.core.util.StringUtil;
-import com.mundo.web.annotation.JsonpController;
 import com.mundo.web.support.JsonApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@JsonpController
 @RequestMapping("/pokemon")
 public class PokemonController {
     @Resource

@@ -19,7 +19,7 @@ public class NatureRepositoryTest extends SpringTest {
 
     @Test
     public void findOne() {
-        Nature nature = natureRepository.findOne(1);
+        Nature nature = natureRepository.findById(1).orElseThrow(RuntimeException::new);
         Assert.assertNotNull(nature);
     }
 }

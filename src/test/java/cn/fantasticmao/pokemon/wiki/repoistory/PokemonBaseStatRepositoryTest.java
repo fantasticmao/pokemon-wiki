@@ -19,7 +19,7 @@ public class PokemonBaseStatRepositoryTest extends SpringTest {
 
     @Test
     public void findOne() {
-        PokemonBaseStat pokemonBaseStat = pokemonBaseStatRepository.findOne(1);
+        PokemonBaseStat pokemonBaseStat = pokemonBaseStatRepository.findById(1).orElseThrow(RuntimeException::new);
         Assert.assertNotNull(pokemonBaseStat);
     }
 }

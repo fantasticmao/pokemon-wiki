@@ -19,7 +19,7 @@ public class AbilityDetailRepositoryTest extends SpringTest {
 
     @Test
     public void findOne() {
-        AbilityDetail abilityDetail = abilityDetailRepository.findOne(1);
+        AbilityDetail abilityDetail = abilityDetailRepository.findById(1).orElseThrow(RuntimeException::new);
         Assert.assertNotNull(abilityDetail);
     }
 

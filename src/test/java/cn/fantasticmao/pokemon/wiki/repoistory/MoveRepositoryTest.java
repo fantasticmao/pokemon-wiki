@@ -19,7 +19,7 @@ public class MoveRepositoryTest extends SpringTest {
 
     @Test
     public void findOne() {
-        Move move = moveRepository.findOne(1);
+        Move move = moveRepository.findById(1).orElseThrow(RuntimeException::new);
         Assert.assertNotNull(move);
     }
 }

@@ -19,7 +19,7 @@ public class MoveDetailRepositoryTest extends SpringTest {
 
     @Test
     public void findOne() {
-        MoveDetail moveDetail = moveDetailRepository.findOne(1);
+        MoveDetail moveDetail = moveDetailRepository.findById(1).orElseThrow(RuntimeException::new);
         Assert.assertNotNull(moveDetail);
     }
 

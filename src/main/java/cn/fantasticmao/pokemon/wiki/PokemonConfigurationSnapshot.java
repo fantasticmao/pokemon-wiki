@@ -2,6 +2,8 @@ package cn.fantasticmao.pokemon.wiki;
 
 import com.mundo.web.EnableMundoWeb;
 import com.mundo.web.mvc.WeChatConfigController;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,19 +28,14 @@ public class PokemonConfigurationSnapshot {
 
     @Bean
     public DataSource dataSource() {
-        org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/pokemon_wiki");
-        dataSource.setUsername("pokemon");
-        dataSource.setPassword("I_Love_Pokemon");
-        dataSource.setInitialSize(5);
-        dataSource.setMinIdle(5);
-        dataSource.setMinIdle(20);
-        dataSource.setMaxWait(3_000);
-        dataSource.setConnectionProperties("characterEncoding=UTF8;connectTimeout=5000;useSSL=false;zeroDateTimeBehavior=convertToNull;rewriteBatchedStatements=true");
-        dataSource.setTestOnBorrow(true);
-        dataSource.setValidationQuery("SELECT 1");
-        return dataSource;
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("com.mysql.jdbc.Driver");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/pokemon_wiki?characterEncoding=UTF8&connectTimeout=5000&useSSL=false&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true");
+        config.setUsername("pokemon");
+        config.setPassword("I_Love_Pokemon");
+        config.setConnectionTimeout(5_000);
+        config.setMaximumPoolSize(5);
+        return new HikariDataSource(config);
     }
 
     @Bean
@@ -57,7 +54,7 @@ public class PokemonConfigurationSnapshot {
 
     @Bean
     PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager(entityManagerFactory().getObject());
+        return new JpaTransactionManager();
     }
 
     @Bean(name = WeChatConfigController.TOKEN_BEAN_NAME)

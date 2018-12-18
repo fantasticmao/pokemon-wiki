@@ -19,7 +19,7 @@ public class PokemonDetailRepositoryTest extends SpringTest {
 
     @Test
     public void findOne() {
-        PokemonDetail pokemonDetail = pokemonDetailRepository.findOne(1);
+        PokemonDetail pokemonDetail = pokemonDetailRepository.findById(1).orElseThrow(RuntimeException::new);
         Assert.assertNotNull(pokemonDetail);
     }
 
