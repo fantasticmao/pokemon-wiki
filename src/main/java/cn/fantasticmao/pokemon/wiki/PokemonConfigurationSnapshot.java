@@ -29,7 +29,7 @@ public class PokemonConfigurationSnapshot {
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("com.mysql.jdbc.Driver");
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setJdbcUrl("jdbc:mysql://localhost:3306/pokemon_wiki?characterEncoding=UTF8&connectTimeout=5000&useSSL=false&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true");
         config.setUsername("pokemon");
         config.setPassword("I_Love_Pokemon");
