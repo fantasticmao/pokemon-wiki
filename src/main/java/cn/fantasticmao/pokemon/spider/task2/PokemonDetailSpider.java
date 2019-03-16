@@ -49,7 +49,8 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         private final String bodyStyle; // 体形
         private final String catchRate; // 捕获率
         private final String genderRatio; // 性别比例
-        private final String eggGroup; // 生蛋分组
+        private final String eggGroup1; // 第一生蛋分组
+        private final String eggGroup2; // 第二生蛋分组
         private final String hatchTime; // 孵化时间
         private final String effortValue; // 基础点数
     }
@@ -88,9 +89,11 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                 .collect(Collectors.toList());
         final String genderRatio = CollectionUtil.isEmpty(genderRatioList) ? "无性别" : CollectionUtil.toString(genderRatioList);
 
-        final String eggGroup = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(0).select("a").stream()
+        List<String> eggGroupList = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(0).select("a").stream()
                 .map(element -> element.text().trim())
-                .collect(Collectors.joining(Constant.Strings.COMMA));
+                .collect(Collectors.toList());
+        final String eggGroup1 = eggGroupList.size() >= 1 ? eggGroupList.get(0) : Constant.Strings.EMPTY;
+        final String eggGroup2 = eggGroupList.size() >= 2 ? eggGroupList.get(1) : Constant.Strings.EMPTY;
 
         String hatchTime = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(1).select("small").text().trim();
         hatchTime = hatchTime.substring(1, hatchTime.length() - 1);
@@ -98,6 +101,6 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         final String effortValue = table.selectFirst("[title=基础点数]").parent().nextElementSibling().selectFirst("tr").select("td").stream()
                 .map(element -> element.text().trim())
                 .collect(Collectors.joining(Constant.Strings.COMMA));
-        return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup, hatchTime, effortValue);
+        return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue);
     }
 }

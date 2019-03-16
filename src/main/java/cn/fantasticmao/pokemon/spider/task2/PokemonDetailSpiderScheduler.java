@@ -46,8 +46,8 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
 
         // 2. 批量保存
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon_detail(nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup, hatchTime, effortValue) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_pokemon_detail(nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             PokemonDetailSpider.Data tempData = null;
@@ -64,9 +64,10 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                     prep.setString(8, tempData.getBodyStyle());
                     prep.setString(9, tempData.getCatchRate());
                     prep.setString(10, tempData.getGenderRatio());
-                    prep.setString(11, tempData.getEggGroup());
-                    prep.setString(12, tempData.getHatchTime());
-                    prep.setString(13, tempData.getEffortValue());
+                    prep.setString(11, tempData.getEggGroup1());
+                    prep.setString(12, tempData.getEggGroup2());
+                    prep.setString(13, tempData.getHatchTime());
+                    prep.setString(14, tempData.getEffortValue());
                     prep.addBatch();
                 }
                 prep.executeBatch();

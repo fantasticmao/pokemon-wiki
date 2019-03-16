@@ -30,7 +30,8 @@ public class PokemonDetail extends AbstractDomain<Integer> {
     private String bodyStyle;
     private String catchRate;
     private String genderRatio;
-    private String eggGroup;
+    private String eggGroup1;
+    private String eggGroup2;
     private String hatchTime;
     private String effortValue;
 }

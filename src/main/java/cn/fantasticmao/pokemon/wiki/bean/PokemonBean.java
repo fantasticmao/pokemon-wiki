@@ -79,12 +79,13 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
         private final String bodyStyle;
         private final String catchRate;
         private final String genderRatio;
-        private final String eggGroup;
+        private final String eggGroup1;
+        private final String eggGroup2;
         private final String hatchTime;
         private final String effortValue;
 
         private Detail(String imgUrl, String category, String height, String weight, String bodyStyle, String catchRate,
-                       String genderRatio, String eggGroup, String hatchTime, String effortValue) {
+                       String genderRatio, String eggGroup1, String eggGroup2, String hatchTime, String effortValue) {
             this.imgUrl = imgUrl;
             this.category = category;
             this.height = height;
@@ -92,15 +93,17 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
             this.bodyStyle = bodyStyle;
             this.catchRate = catchRate;
             this.genderRatio = genderRatio;
-            this.eggGroup = eggGroup;
+            this.eggGroup1 = eggGroup1;
+            this.eggGroup2 = eggGroup2;
             this.hatchTime = hatchTime;
             this.effortValue = effortValue;
         }
 
         private static Detail ofDomain(PokemonDetail pokemonDetail) {
-            return new Detail(pokemonDetail.getImgUrl(), pokemonDetail.getCategory(), pokemonDetail.getHeight(), pokemonDetail.getWeight(),
-                    pokemonDetail.getBodyStyle(), pokemonDetail.getCatchRate(), pokemonDetail.getGenderRatio(),
-                    pokemonDetail.getEggGroup(), pokemonDetail.getHatchTime(), pokemonDetail.getEffortValue());
+            return new Detail(pokemonDetail.getImgUrl(), pokemonDetail.getCategory(), pokemonDetail.getHeight(),
+                    pokemonDetail.getWeight(), pokemonDetail.getBodyStyle(), pokemonDetail.getCatchRate(),
+                    pokemonDetail.getGenderRatio(), pokemonDetail.getEggGroup1(), pokemonDetail.getEggGroup2(),
+                    pokemonDetail.getHatchTime(), pokemonDetail.getEffortValue());
         }
     }
 
