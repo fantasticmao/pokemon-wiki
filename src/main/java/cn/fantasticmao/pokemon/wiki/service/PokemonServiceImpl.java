@@ -44,9 +44,7 @@ public class PokemonServiceImpl implements PokemonService {
         }
 
         List<Pokemon> pokemonList = pokemonRepository.findByNameZh(nameZh);
-        if (CollectionUtil.isEmpty(pokemonList)) {
-            return Collections.emptyList();
-        }
+        if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
 
         Map<String, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByNameZh(nameZh).stream()
                 .collect(Collectors.toMap(PokemonAbility::getNameZh, Function.identity(), (ability1, ability2) -> ability1));
@@ -69,14 +67,29 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public List<PokemonBean> listByGeneration(int generation) {
+    public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup) {
         List<Pokemon> pokemonList = generation == 0 ? pokemonRepository.findAll() : pokemonRepository.findByGeneration(generation);
+        if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
 
-        List<Integer> pokemonIdList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
-        Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIdList).stream()
+        List<Integer> pokemonIdList = pokemonList.stream().map(Pokemon::getId).collect(Collectors.toList());
+        List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
+
+        Map<Integer, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByIdIn(pokemonIdList).stream()
+                .collect(Collectors.toMap(PokemonDetail::getId, Function.identity(), (ability1, ability2) -> ability1));
+
+        Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIndexList).stream()
                 .collect(Collectors.toMap(PokemonAbility::getIndex, Function.identity(), (ability1, ability2) -> ability1));
 
         return pokemonList.stream()
+                .filter(pokemon -> {
+                    if (StringUtil.isNotEmpty(eggGroup)) {
+                        PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getId());
+                        return pokemonDetail != null
+                                && (eggGroup.equals(pokemonDetail.getEggGroup1()) || eggGroup.equals(pokemonDetail.getEggGroup2()));
+                    } else {
+                        return true;
+                    }
+                })
                 .map(pokemon -> {
                     PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
                     return new PokemonBean(pokemon, pokemonAbility);
