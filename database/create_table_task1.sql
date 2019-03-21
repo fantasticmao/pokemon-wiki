@@ -120,9 +120,15 @@ DROP TABLE IF EXISTS pw_item;
 
 CREATE TABLE IF NOT EXISTS pw_item (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  ## TODO 完善
+  type       VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '道具类别',
+  imgUrl     VARCHAR(128) NOT NULL DEFAULT '' COMMENT '图片链接',
+  nameZh     VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '中文名称',
+  nameJa     VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '日文名称',
+  nameEn     VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '英文名称',
+  `desc`     VARCHAR(256) NOT NULL DEFAULT '' COMMENT '道具描述',
+  generation TINYINT      NOT NULL DEFAULT 0 COMMENT '第几世代',
   createTime DATETIME     NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
   modifyTime DATETIME     NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
   PRIMARY KEY (id)
 ) ENGINE InnoDB
-  DEFAULT CHARSET 'utf8mb4' COMMENT '道具列表（主系列）';
+  DEFAULT CHARSET 'utf8mb4' COMMENT '道具列表';

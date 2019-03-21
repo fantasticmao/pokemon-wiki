@@ -16,7 +16,7 @@ public interface Config {
         ABILITY_LIST("https://wiki.52poke.com/zh-hans/特性列表"),
         NATURE_LIST("https://wiki.52poke.com/zh-hans/性格"),
         MOVE_LIST("https://wiki.52poke.com/zh-hans/招式列表"),
-        ITEM_LIST("https://wiki.52poke.com/zh-hans/道具列表（主系列）");
+        ITEM_LIST("https://wiki.52poke.com/zh-hans/道具列表");
 
         public String url;
 
