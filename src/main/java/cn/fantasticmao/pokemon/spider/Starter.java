@@ -26,7 +26,7 @@ class Starter {
     public static void main(String[] args) throws Exception {
         task1();
 
-        task2();
+        //task2();
 
         PokemonDataSource.INSTANCE.shutDownDataSource();
     }
@@ -37,13 +37,13 @@ class Starter {
         ExecutorService executorService = Executors.newFixedThreadPool(6, threadFactory);
 
         // 2. 添加爬虫任务
-        final CountDownLatch doneSignal = new CountDownLatch(7);
-        executorService.execute(new PokemonListSpider(doneSignal));
-        executorService.execute(new PokemonAbilityListSpider(doneSignal));
-        executorService.execute(new PokemonBaseStatListSpider(doneSignal));
-        executorService.execute(new AbilityListSpider(doneSignal));
-        executorService.execute(new NatureListSpider(doneSignal));
-        executorService.execute(new MoveListSpider(doneSignal));
+        final CountDownLatch doneSignal = new CountDownLatch(1);
+        //executorService.execute(new PokemonListSpider(doneSignal));
+        //executorService.execute(new PokemonAbilityListSpider(doneSignal));
+        //executorService.execute(new PokemonBaseStatListSpider(doneSignal));
+        //executorService.execute(new AbilityListSpider(doneSignal));
+        //executorService.execute(new NatureListSpider(doneSignal));
+        //executorService.execute(new MoveListSpider(doneSignal));
         executorService.execute(new ItemListSpider(doneSignal));
 
         // 3. 结束任务
