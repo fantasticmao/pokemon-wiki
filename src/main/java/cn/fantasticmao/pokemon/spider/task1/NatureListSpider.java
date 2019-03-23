@@ -31,7 +31,7 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
 
     @Override
     public List<NatureListSpider.Data> parseData(Document document) {
-        List<NatureListSpider.Data> dataList = document.select("#mw-content-text table").get(1).select("tbody > tr").stream()
+        List<NatureListSpider.Data> dataList = document.selectFirst("#mw-content-text table").select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
                     String nameZh = element.child(0).html();

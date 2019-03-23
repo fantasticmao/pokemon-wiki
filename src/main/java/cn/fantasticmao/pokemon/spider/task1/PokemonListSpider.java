@@ -90,7 +90,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
 
     // 关都地区
     private List<PokemonListSpider.Data> getDataList1(Document document) {
-        return document.select(".s-关都 > tbody > tr").parallelStream()
+        return document.selectFirst(".s-关都").select("tbody > tr").parallelStream()
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(1).html().replace("#", ""));
