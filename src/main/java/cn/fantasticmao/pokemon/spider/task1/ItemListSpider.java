@@ -57,7 +57,14 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         dataList.addAll(getData22(document));
         dataList.addAll(getData23(document));
         dataList.addAll(getData24(document));
-        // TODO 解析数据
+        dataList.addAll(getData25(document));
+        dataList.addAll(getData26(document));
+        dataList.addAll(getData27(document));
+        dataList.addAll(getData28(document));
+        dataList.addAll(getData29(document));
+        dataList.addAll(getData30(document));
+        dataList.addAll(getData31(document));
+        dataList.addAll(getData32(document));
         return Collections.unmodifiableList(dataList);
     }
 
@@ -669,6 +676,653 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         final String type = "树果";
         final int generation = 6;
         return document.selectFirst("#第六世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    String imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String desc = element.child(4).text();
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第一世代
+    private List<ItemListSpider.Data> getData25(Document document) {
+        final String type = "重要物品";
+        final int generation = 1;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第一世代起").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第二世代
+    private List<ItemListSpider.Data> getData26(Document document) {
+        final String type = "重要物品";
+        final int generation = 2;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第二世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第三世代
+    private List<ItemListSpider.Data> getData27(Document document) {
+        final String type = "重要物品";
+        final int generation = 3;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第三世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第四世代
+    private List<ItemListSpider.Data> getData28(Document document) {
+        final String type = "重要物品";
+        final int generation = 4;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第四世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第五世代
+    private List<ItemListSpider.Data> getData29(Document document) {
+        final String type = "重要物品";
+        final int generation = 5;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第五世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第六世代
+    private List<ItemListSpider.Data> getData30(Document document) {
+        final String type = "重要物品";
+        final int generation = 6;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第六世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 重要物品 - 第七世代
+    private List<ItemListSpider.Data> getData31(Document document) {
+        final String type = "重要物品";
+        final int generation = 7;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
+        return document.selectFirst("#第七世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
+                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 洛托姆之力
+    private List<ItemListSpider.Data> getData32(Document document) {
+        final String type = "洛托姆之力";
+        final int generation = 0;
+        return document.selectFirst("#洛托姆之力").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
                     String imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
