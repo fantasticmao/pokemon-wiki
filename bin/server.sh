@@ -1,13 +1,20 @@
 #!/bin/bash
 
 NAME=pokemon-wiki
+ENV=$2
+
+if [ -z ${ENV} ]; then
+    ENV=master
+fi
 
 LOG_HOME=/var/log/$NAME
 TOMCAT_LOG=$LOG_HOME/tomcat.log
 TOMCAT_PID=$LOG_HOME/tomcat.pid
 
-JVM_OPTS="-Xms100m -Xmx200m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC"
-APP_OPTS="-Dfile.encoding=UTF-8 -Dspring.profiles.active=master"
+JVM_OPTS="${JVM_OPTS} -server -Xms100m -Xmx200m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC"
+JVM_OPTS="${JVM_OPTS} -verbose:gc -Xloggc:${LOG_HOME}/gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy"
+JVM_OPTS="${JVM_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
+APP_OPTS="-Dfile.encoding=UTF-8 -Dspring.profiles.active=${ENV}"
 
 MAOMAO_DEPLOY_HOME="/opt/maomao"
 
@@ -21,11 +28,11 @@ case "$1" in
         test -f $TOMCAT_LOG && rm $TOMCAT_LOG
 
         # start up command
-        $JAVA_HOME/bin/java $JVM_OPTS $APP_OPTS -jar $MAOMAO_DEPLOY_HOME/pokemon-wiki-1.0.jar >> $TOMCAT_LOG &
+        nohup $JAVA_HOME/bin/java $JVM_OPTS $APP_OPTS -jar $MAOMAO_DEPLOY_HOME/pokemon-wiki-1.0.jar >> $TOMCAT_LOG &
 
         echo $! > $TOMCAT_PID
         if [ -f $TOMCAT_PID ] && [ -n `cat $TOMCAT_PID` ]; then
-            echo "$NAME started"
+            echo "$NAME started at ${ENV}"
         else
             echo "$NAME start failed !!!"
         fi

@@ -33,11 +33,12 @@ class Starter {
 
     static private void task1() throws InterruptedException {
         // 1. 初始化线程池
+        final int threads = 7;
         UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(1);
-        ExecutorService executorService = Executors.newFixedThreadPool(6, threadFactory);
+        ExecutorService executorService = Executors.newFixedThreadPool(threads, threadFactory);
 
         // 2. 添加爬虫任务
-        final CountDownLatch doneSignal = new CountDownLatch(7);
+        final CountDownLatch doneSignal = new CountDownLatch(threads);
         executorService.execute(new PokemonListSpider(doneSignal));
         executorService.execute(new PokemonAbilityListSpider(doneSignal));
         executorService.execute(new PokemonBaseStatListSpider(doneSignal));
