@@ -4,6 +4,7 @@ import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
 import com.mundo.core.support.Constant;
 import com.mundo.core.util.StringUtil;
+import com.mundo.web.annotation.LogRequestInfo;
 import com.mundo.web.support.JsonApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,7 @@ public class PokemonController {
     /**
      * @param nameZh 宝可梦的中文名称，支持模糊查询
      */
+    @LogRequestInfo
     @GetMapping(value = "/detail")
     public JsonApi listPokemonDetail(@RequestParam(defaultValue = "") String nameZh) {
         log.info("输入参数 nameZh: {}", nameZh);
