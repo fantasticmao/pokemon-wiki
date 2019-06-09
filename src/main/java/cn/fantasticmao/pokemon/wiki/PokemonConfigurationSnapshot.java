@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import com.mundo.web.EnableMundoWeb;
 import com.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -23,7 +22,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 @Profile("snapshot")
-@EnableMundoWeb
 public class PokemonConfigurationSnapshot {
 
     @Bean
