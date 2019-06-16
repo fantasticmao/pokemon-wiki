@@ -34,10 +34,10 @@
     </logger>
 
     <!-- http request log -->
-    <appender name="logRequestInfoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="http_request_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${pokemon_wiki_log_home}/http-request.log</file>
         <encoder>
-            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS}%n%message%n###%n%n</pattern>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{5}:%L%n%message%n###%n%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -46,7 +46,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="logRequestInfo" level="TRACE" additivity="false">
-        <appender-ref ref="logRequestInfoAppender"/>
+    <logger name="HttpFormatRequestLoggingFilter" level="TRACE" additivity="false">
+        <appender-ref ref="http_request_info"/>
     </logger>
 </configuration>
