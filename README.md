@@ -6,7 +6,7 @@ Pokemon-Wiki 是爬取神奇宝贝百科站点，并提供组合数据查询接�
 
 Pokemon-Wiki 爬虫模块使用多线程技术，在网络良好的情况下，当配置线程池大小为 100 时，可以在一分钟内爬完所需的 1774 个页面。
 
-Pokemon-Wiki 接口模块基于 HTTP 协议，具体请参考 [接口文档](https://github.com/FantasticMao/pokemon-wiki/tree/master/apiDoc)。
+Pokemon-Wiki 接口模块基于 HTTP 协议，具体请参考 [接口文档](https://pokemon.fantasticmao.cn/swagger-ui.html)。
 
 常用接口示例：
 

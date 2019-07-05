@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * AdminController
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2018/9/19
  */
 @Slf4j
+@ApiIgnore
 @RestController
 @RequestMapping("/admin")
 public class AdminController {

@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import com.mundo.web.filter.HttpFormatRequestLoggingFilter;
 import com.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -13,7 +12,6 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 /**
@@ -60,10 +58,5 @@ public class PokemonConfigurationSnapshot {
     @Bean(name = WeChatConfigController.TOKEN_BEAN_NAME)
     String weChatToken() {
         return "I_Love_Pokemon";
-    }
-
-    @Bean
-    Filter httpFormatRequestLoggingFilter() {
-        return new HttpFormatRequestLoggingFilter();
     }
 }
