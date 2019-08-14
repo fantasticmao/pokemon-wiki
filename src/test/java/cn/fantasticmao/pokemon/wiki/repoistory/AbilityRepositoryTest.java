@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * AbilityRepositoryTest
@@ -18,9 +19,10 @@ public class AbilityRepositoryTest extends SpringTest {
     private AbilityRepository abilityRepository;
 
     @Test
-    public void findOne() {
-        Ability ability = abilityRepository.findById(1).orElseThrow(RuntimeException::new);
-        Assert.assertNotNull(ability);
+    public void findByNameZh() {
+        List<Ability> abilityList = abilityRepository.findByNameZh("茂盛");
+        Assert.assertNotNull(abilityList);
+        System.out.println(abilityList);
     }
 
 }

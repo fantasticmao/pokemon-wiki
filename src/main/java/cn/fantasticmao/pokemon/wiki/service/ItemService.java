@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface ItemService {
 
-    List<ItemBean> list();
+    List<ItemBean> listAll();
 }

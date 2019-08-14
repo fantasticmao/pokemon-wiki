@@ -14,9 +14,6 @@ import java.util.List;
  */
 public interface PokemonAbilityRepository extends PagingAndSortingRepository<PokemonAbility, Integer> {
 
-    @Query(value = "SELECT * FROM pw_pokemon_ability WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
-    List<PokemonAbility> findByNameZh(String nameZh);
-
     @Query(value = "SELECT * FROM pw_pokemon_ability WHERE `index` IN ?1", nativeQuery = true)
     List<PokemonAbility> findByIndexIn(List<Integer> idList);
 }

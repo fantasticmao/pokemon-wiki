@@ -38,14 +38,16 @@ public class PokemonController {
      */
     @ApiOperation(value = "宝可梦详情接口")
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JsonApi<List<PokemonBean>> listPokemonDetail(@ApiParam(value = "中文名称，支持模糊查询，例如「妙蛙」", example = "妙蛙种子", required = true)
+    public JsonApi<List<PokemonBean>> listPokemonDetail(@ApiParam(value = "全国图鉴编号", example = "1")
+                                                        @RequestParam(defaultValue = "0") Integer index,
+                                                        @ApiParam(value = "中文名称，支持模糊查询，例如「妙蛙」", example = "妙蛙种子")
                                                         @RequestParam(defaultValue = "") String nameZh) {
-        log.info("输入参数 nameZh: {}", nameZh);
-        if (StringUtil.isEmpty(nameZh)) {
+        log.info("输入参数 index:{} nameZh: {}", index, nameZh);
+        if ((index == null || index <= 0) && StringUtil.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 
-        List<PokemonBean> pokemonBeanList = pokemonService.listByNameZh(nameZh);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh);
         return JsonApi.<List<PokemonBean>>success().data(pokemonBeanList);
     }
 

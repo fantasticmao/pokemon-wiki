@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * ItemRepositoryTest
@@ -18,9 +19,10 @@ public class ItemRepositoryTest extends SpringTest {
     private ItemRepository itemRepository;
 
     @Test
-    public void test() {
-        Item item = itemRepository.findById(1).orElseThrow(RuntimeException::new);
-        Assert.assertNotNull(item);
+    public void findAll() {
+        List<Item> itemList = itemRepository.findAll();
+        Assert.assertNotNull(itemList);
+        System.out.println(itemList);
     }
 
 }

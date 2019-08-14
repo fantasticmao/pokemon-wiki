@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * PokemonBaseStatRepositoryTest
@@ -18,8 +20,9 @@ public class PokemonBaseStatRepositoryTest extends SpringTest {
     private PokemonBaseStatRepository pokemonBaseStatRepository;
 
     @Test
-    public void findOne() {
-        PokemonBaseStat pokemonBaseStat = pokemonBaseStatRepository.findById(1).orElseThrow(RuntimeException::new);
-        Assert.assertNotNull(pokemonBaseStat);
+    public void findByIndexIn() {
+        List<PokemonBaseStat> pokemonBaseStatList = pokemonBaseStatRepository.findByIndexIn(Arrays.asList(1, 2));
+        Assert.assertNotNull(pokemonBaseStatList);
+        System.out.println(pokemonBaseStatList);
     }
 }

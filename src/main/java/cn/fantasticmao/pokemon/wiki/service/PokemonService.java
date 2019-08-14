@@ -12,7 +12,11 @@ import java.util.List;
  */
 public interface PokemonService {
 
-    List<PokemonBean> listByNameZh(String nameZh);
+    default List<PokemonBean> listByNameZh(String nameZh) {
+        return listByIndexOrNameZh(null, nameZh);
+    }
+
+    List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh);
 
     List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup);
 }
