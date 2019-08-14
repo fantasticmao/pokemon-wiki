@@ -39,37 +39,37 @@ public class PokemonServiceImpl implements PokemonService {
     private PokemonDetailRepository pokemonDetailRepository;
 
     @Override
-    public PokemonBean listByIndex(Integer index) {
-        if (index <= 0) {
-            return null;
-        }
-        Optional<Pokemon> pokemonOptional = pokemonRepository.findByIndex(index);
-        return null;
-    }
-
-    @Override
-    public List<PokemonBean> listByNameZh(String nameZh) {
-        if (StringUtil.isEmpty(nameZh)) {
+    public List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh) {
+        if ((index == null || index <= 0) && StringUtil.isEmpty(nameZh)) {
             return Collections.emptyList();
         }
 
-        List<Pokemon> pokemonList = pokemonRepository.findByNameZh(nameZh);
+        final List<Pokemon> pokemonList;
+        if (index != null && index > 0) { // 按全国图鉴编号查找
+            Optional<Pokemon> pokemonOptional = pokemonRepository.findByIndex(index);
+            pokemonList = pokemonOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+        } else { // 按中文名称查找
+            pokemonList = pokemonRepository.findByNameZh(nameZh);
+        }
         if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
 
-        Map<String, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByNameZh(nameZh).stream()
-                .collect(Collectors.toMap(PokemonAbility::getNameZh, Function.identity(), (ability1, ability2) -> ability1));
+        List<Integer> pokemonIdList = pokemonList.stream().map(Pokemon::getId).collect(Collectors.toList());
+        List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
 
-        Map<String, PokemonBaseStat> pokemonBaseStatMap = pokemonBaseStatRepository.findByNameZh(nameZh).stream()
-                .collect(Collectors.toMap(PokemonBaseStat::getNameZh, Function.identity(), (baseStat1, baseStat2) -> baseStat1));
+        Map<Integer, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByIdIn(pokemonIdList).stream()
+                .collect(Collectors.toMap(PokemonDetail::getId, Function.identity(), (ability1, ability2) -> ability1));
 
-        Map<String, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByNameZh(nameZh).stream()
-                .collect(Collectors.toMap(PokemonDetail::getNameZh, Function.identity(), (detail1, detail2) -> detail1));
+        Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIndexList).stream()
+                .collect(Collectors.toMap(PokemonAbility::getIndex, Function.identity(), (ability1, ability2) -> ability1));
+
+        Map<Integer, PokemonBaseStat> pokemonBaseStatMap = pokemonBaseStatRepository.findByIndexIn(pokemonIndexList).stream()
+                .collect(Collectors.toMap(PokemonBaseStat::getIndex, Function.identity(), (baseStat1, baseStat2) -> baseStat1));
 
         return pokemonList.stream()
                 .map(pokemon -> {
-                    PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getNameZh());
-                    PokemonBaseStat pokemonBaseStat = pokemonBaseStatMap.get(pokemon.getNameZh());
-                    PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getNameZh());
+                    PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
+                    PokemonBaseStat pokemonBaseStat = pokemonBaseStatMap.get(pokemon.getIndex());
+                    PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getId());
                     return new PokemonBean(pokemon, pokemonAbility, pokemonDetail, pokemonBaseStat);
                 })
                 .sorted()

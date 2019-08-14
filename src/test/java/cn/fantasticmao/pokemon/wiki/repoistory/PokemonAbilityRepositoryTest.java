@@ -20,20 +20,6 @@ public class PokemonAbilityRepositoryTest extends SpringTest {
     private PokemonAbilityRepository pokemonAbilityRepository;
 
     @Test
-    public void findByNameZh() {
-        List<PokemonAbility> pokemonAbilityList = pokemonAbilityRepository.findByNameZh("妙蛙种子");
-        Assert.assertNotNull(pokemonAbilityList);
-        System.out.println(pokemonAbilityList);
-    }
-
-    @Test
-    public void findByIndex() {
-        PokemonAbility pokemonAbility = pokemonAbilityRepository.findByIndex(1);
-        Assert.assertNotNull(pokemonAbility);
-        System.out.println(pokemonAbility);
-    }
-
-    @Test
     public void findByIndexIn() {
         List<PokemonAbility> pokemonAbilityList = pokemonAbilityRepository.findByIndexIn(Arrays.asList(1, 2));
         Assert.assertNotNull(pokemonAbilityList);

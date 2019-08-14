@@ -43,11 +43,11 @@ public class PokemonController {
                                                         @ApiParam(value = "中文名称，支持模糊查询，例如「妙蛙」", example = "妙蛙种子")
                                                         @RequestParam(defaultValue = "") String nameZh) {
         log.info("输入参数 index:{} nameZh: {}", index, nameZh);
-        if (index <= 0 && StringUtil.isEmpty(nameZh)) {
+        if ((index == null || index <= 0) && StringUtil.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 
-        List<PokemonBean> pokemonBeanList = pokemonService.listByNameZh(nameZh);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh);
         return JsonApi.<List<PokemonBean>>success().data(pokemonBeanList);
     }
 
