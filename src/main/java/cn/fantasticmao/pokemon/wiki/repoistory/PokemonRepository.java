@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * PokemonRepository
@@ -19,6 +20,9 @@ public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, I
 
     @Query(value = "SELECT * FROM pw_pokemon WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
     List<Pokemon> findByNameZh(String nameZh);
+
+    @Query(value = "SELECT * FROM pw_pokemon WHERE `index` = ?1", nativeQuery = true)
+    Optional<Pokemon> findByIndex(Integer index);
 
     @Query(value = "SELECT * FROM pw_pokemon WHERE generation = ?1", nativeQuery = true)
     List<Pokemon> findByGeneration(int generation);

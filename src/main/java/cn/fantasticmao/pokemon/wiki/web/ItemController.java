@@ -31,7 +31,7 @@ public class ItemController {
     @ApiOperation(value = "道具列表接口")
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JsonApi<List<ItemBean>> listItem() {
-        List<ItemBean> itemList = itemService.list();
+        List<ItemBean> itemList = itemService.listAll();
         return JsonApi.<List<ItemBean>>success().data(itemList);
     }
 }

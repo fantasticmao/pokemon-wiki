@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,15 @@ public class PokemonServiceImpl implements PokemonService {
     private PokemonBaseStatRepository pokemonBaseStatRepository;
     @Resource
     private PokemonDetailRepository pokemonDetailRepository;
+
+    @Override
+    public PokemonBean listByIndex(Integer index) {
+        if (index <= 0) {
+            return null;
+        }
+        Optional<Pokemon> pokemonOptional = pokemonRepository.findByIndex(index);
+        return null;
+    }
 
     @Override
     public List<PokemonBean> listByNameZh(String nameZh) {

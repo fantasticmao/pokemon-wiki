@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * NatureRepositoryTest
@@ -18,8 +19,9 @@ public class NatureRepositoryTest extends SpringTest {
     private NatureRepository natureRepository;
 
     @Test
-    public void findOne() {
-        Nature nature = natureRepository.findById(1).orElseThrow(RuntimeException::new);
-        Assert.assertNotNull(nature);
+    public void findAll() {
+        List<Nature> natureList = natureRepository.findAll();
+        Assert.assertNotNull(natureList);
+        System.out.println(natureList);
     }
 }

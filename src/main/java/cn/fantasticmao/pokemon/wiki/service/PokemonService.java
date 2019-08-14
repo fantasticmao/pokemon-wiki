@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface PokemonService {
 
+    PokemonBean listByIndex(Integer index);
+
     List<PokemonBean> listByNameZh(String nameZh);
 
     List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup);

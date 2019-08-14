@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * MoveDetailRepositoryTest
@@ -18,9 +20,10 @@ public class MoveDetailRepositoryTest extends SpringTest {
     private MoveDetailRepository moveDetailRepository;
 
     @Test
-    public void findOne() {
-        MoveDetail moveDetail = moveDetailRepository.findById(1).orElseThrow(RuntimeException::new);
-        Assert.assertNotNull(moveDetail);
+    public void findByIdIn() {
+        List<MoveDetail> moveDetailList = moveDetailRepository.findByIdIn(Arrays.asList(1, 2));
+        Assert.assertNotNull(moveDetailList);
+        System.out.println(moveDetailList);
     }
 
 }

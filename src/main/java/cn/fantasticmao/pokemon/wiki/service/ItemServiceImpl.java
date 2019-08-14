@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemRepository itemRepository;
 
     @Override
-    public List<ItemBean> list() {
+    public List<ItemBean> listAll() {
         return itemRepository.findAll().stream()
                 .map(ItemBean::ofDomain)
                 .collect(Collectors.toList());

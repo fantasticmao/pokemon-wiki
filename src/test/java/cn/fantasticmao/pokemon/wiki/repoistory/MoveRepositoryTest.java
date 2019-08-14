@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * MoveRepositoryTest
@@ -18,8 +19,9 @@ public class MoveRepositoryTest extends SpringTest {
     private MoveRepository moveRepository;
 
     @Test
-    public void findOne() {
-        Move move = moveRepository.findById(1).orElseThrow(RuntimeException::new);
-        Assert.assertNotNull(move);
+    public void findByNameZh() {
+        List<Move> moveList = moveRepository.findByNameZh("飞叶快刀");
+        Assert.assertNotNull(moveList);
+        System.out.println(moveList);
     }
 }
