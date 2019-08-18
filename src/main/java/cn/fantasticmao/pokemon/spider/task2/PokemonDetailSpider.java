@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +30,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
 
     @Override
     protected PokemonDetailSpider.Data parseData(Document document) throws Exception {
-        Element table = document.select(".form1").size() == 0
-                ? document : document.selectFirst("._toggle[style!='display:none;'] table");
-        return _parseData(table);
+        return _parseData(document);
     }
 
     @Getter
@@ -53,9 +52,56 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         private final String eggGroup2; // 第二生蛋分组
         private final String hatchTime; // 孵化时间
         private final String effortValue; // 基础点数
+        private final List<LearnSetByLevelingUp> learnSetByLevelingUpList; // 可学会的招式
+        private final List<LearnSetByTechnicalMachine> learnSetByTechnicalMachineList; // 能使用的招式学习器
+        private final List<LearnSetByBreeding> learnSetByBreedingList; // 蛋招式
+
+        @Getter
+        @ToString
+        @AllArgsConstructor
+        static class LearnSetByLevelingUp {
+            private final String level1; // 太阳/月亮
+            private final String level2; // 究极之日/究极之月
+            private final String move; // 招式
+            private final String type; // 属性
+            private final String category; // 分类
+            private final String power; // 威力
+            private final String accuracy; // 命中
+            private final String pp; // pp
+        }
+
+        @Getter
+        @ToString
+        @AllArgsConstructor
+        static class LearnSetByTechnicalMachine {
+            private final String imgUrl;
+            private final String technicalMachine;
+            private final String move;
+            private final String type;
+            private final String category;
+            private final String power;
+            private final String accuracy;
+            private final String pp;
+        }
+
+        @Getter
+        @ToString
+        @AllArgsConstructor
+        static class LearnSetByBreeding {
+            private final String parent;
+            private final String move;
+            private final String type;
+            private final String category;
+            private final String power;
+            private final String accuracy;
+            private final String pp;
+        }
     }
 
-    private PokemonDetailSpider.Data _parseData(Element table) {
+    private PokemonDetailSpider.Data _parseData(Document document) {
+        final Element table = document.select(".form1").size() == 0
+                ? document : document.selectFirst("._toggle[style!='display:none;'] table");
+
         String idStr = String.format("%03d", id);
         final String imgUrl = table.selectFirst("img[alt^=" + idStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
 
@@ -101,6 +147,39 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         final String effortValue = table.selectFirst("[title=基础点数]").parent().nextElementSibling().selectFirst("tr").select("td").stream()
                 .map(element -> element.text().trim())
                 .collect(Collectors.joining(Constant.Strings.COMMA));
-        return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue);
+
+        final List<Data.LearnSetByLevelingUp> learnSetByLevelingUpList = document.selectFirst("#可学会的招式_2").parent().nextElementSibling().select("tbody > tr").stream()
+                .filter(element -> element.hasClass("bgwhite"))
+                .map(element -> {
+                    final String _level1 = element.child(0).text();
+                    final String _level2 = element.child(1).text();
+                    final String _move = element.child(2).child(0).text();
+                    final String _type = element.child(3).text();
+                    final String _category = element.child(4).text();
+                    final String _power = element.child(5).text();
+                    final String _accuracy = element.child(6).text();
+                    final String _pp = element.child(7).text();
+                    return new Data.LearnSetByLevelingUp(_level1, _level2, _move, _type, _category, _power, _accuracy, _pp);
+                })
+                .collect(Collectors.toList());
+
+        final List<Data.LearnSetByTechnicalMachine> learnSetByTechnicalMachineList = document.selectFirst("#能使用的招式学习器_2").parent().nextElementSibling().select("tbody > tr").stream()
+                .filter(element -> element.hasClass("bgwhite"))
+                .map(element -> {
+                    final String _imgUrl = element.selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                    final String _technicalMachine = element.child(1).text();
+                    final String _move = element.child(2).child(0).text();
+                    final String _type = element.child(3).text();
+                    final String _category = element.child(4).text();
+                    final String _power = element.child(5).text();
+                    final String _accuracy = element.child(6).text();
+                    final String _pp = element.child(7).text();
+                    return new Data.LearnSetByTechnicalMachine(_imgUrl, _technicalMachine, _move, _type, _category, _power, _accuracy, _pp);
+                })
+                .collect(Collectors.toList());
+        //final List<Data.LearnSetByBreeding> learnSetByBreedingList = document.select("#蛋招式");
+
+        return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue,
+                learnSetByLevelingUpList, learnSetByTechnicalMachineList, Collections.emptyList());
     }
 }
