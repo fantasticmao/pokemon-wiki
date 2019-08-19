@@ -8,7 +8,6 @@ import lombok.ToString;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,12 +18,12 @@ import java.util.stream.Collectors;
  * @since 2018/8/28
  */
 class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> {
-    private final int id;
+    private final int index;
     private final String nameZh;
 
-    PokemonDetailSpider(int id, String nameZh) {
+    PokemonDetailSpider(int index, String nameZh) {
         super("https://wiki.52poke.com/zh-hans/" + nameZh);
-        this.id = id;
+        this.index = index;
         this.nameZh = nameZh;
     }
 
@@ -37,7 +36,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     @ToString
     @AllArgsConstructor
     static class Data implements AbstractTask2Spider.Data {
-        private final int id;
+        private final int index;
         private final String nameZh;
         private final String imgUrl; // 图片链接
         private final String type; // 属性
@@ -62,12 +61,12 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         static class LearnSetByLevelingUp {
             private final String level1; // 太阳/月亮
             private final String level2; // 究极之日/究极之月
-            private final String move; // 招式
-            private final String type; // 属性
-            private final String category; // 分类
-            private final String power; // 威力
-            private final String accuracy; // 命中
-            private final String pp; // pp
+            private final String move;
+            private final String type;
+            private final String category;
+            private final String power;
+            private final String accuracy;
+            private final String pp;
         }
 
         @Getter
@@ -99,11 +98,10 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     }
 
     private PokemonDetailSpider.Data _parseData(Document document) {
-        final Element table = document.select(".form1").size() == 0
-                ? document : document.selectFirst("._toggle[style!='display:none;'] table");
+        final Element table = document.select("#mw-content-text > .mw-parser-output > table").get(1);
 
-        String idStr = String.format("%03d", id);
-        final String imgUrl = table.selectFirst("img[alt^=" + idStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+        String indexStr = String.format("%03d", index);
+        final String imgUrl = table.selectFirst("img[alt^=" + indexStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
 
         final String type = table.selectFirst("[title=属性]").parent().nextElementSibling().select("span").stream()
                 .map(element -> element.text().trim())
@@ -148,7 +146,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                 .map(element -> element.text().trim())
                 .collect(Collectors.joining(Constant.Strings.COMMA));
 
-        final List<Data.LearnSetByLevelingUp> learnSetByLevelingUpList = document.selectFirst("#可学会的招式_2").parent().nextElementSibling().select("tbody > tr").stream()
+        final List<Data.LearnSetByLevelingUp> learnSetByLevelingUpList = document.selectFirst(index > 151 ? "#可学会的招式" : "#可学会的招式_2").parent().nextElementSibling().select("tbody > tr").stream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
                     final String _level1 = element.child(0).text();
@@ -163,7 +161,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                 })
                 .collect(Collectors.toList());
 
-        final List<Data.LearnSetByTechnicalMachine> learnSetByTechnicalMachineList = document.selectFirst("#能使用的招式学习器_2").parent().nextElementSibling().select("tbody > tr").stream()
+        final List<Data.LearnSetByTechnicalMachine> learnSetByTechnicalMachineList = document.selectFirst(index > 151 ? "#能使用的招式学习器" : "#能使用的招式学习器_2").parent().nextElementSibling().select("tbody > tr").stream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
                     final String _imgUrl = element.selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
@@ -177,9 +175,24 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                     return new Data.LearnSetByTechnicalMachine(_imgUrl, _technicalMachine, _move, _type, _category, _power, _accuracy, _pp);
                 })
                 .collect(Collectors.toList());
-        //final List<Data.LearnSetByBreeding> learnSetByBreedingList = document.select("#蛋招式");
 
-        return new PokemonDetailSpider.Data(id, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue,
-                learnSetByLevelingUpList, learnSetByTechnicalMachineList, Collections.emptyList());
+        final List<Data.LearnSetByBreeding> learnSetByBreedingList = document.selectFirst("#蛋招式").parent().nextElementSibling().select("tbody > tr").stream()
+                .filter(element -> element.hasClass("bgwhite"))
+                .map(element -> {
+                    final String _parent = element.child(0).select("a").stream()
+                            .map(e -> e.child(0).attr("title"))
+                            .collect(Collectors.joining(Constant.Strings.COMMA));
+                    final String _move = element.child(1).child(0).text();
+                    final String _type = element.child(2).text();
+                    final String _category = element.child(3).text();
+                    final String _power = element.child(4).text();
+                    final String _accuracy = element.child(5).text();
+                    final String _pp = element.child(6).text();
+                    return new Data.LearnSetByBreeding(_parent, _move, _type, _category, _power, _accuracy, _pp);
+                })
+                .collect(Collectors.toList());
+
+        return new PokemonDetailSpider.Data(index, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue,
+                learnSetByLevelingUpList, learnSetByTechnicalMachineList, learnSetByBreedingList);
     }
 }

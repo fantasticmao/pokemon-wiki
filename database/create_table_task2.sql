@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS pw_pokemon_detail;
 
 CREATE TABLE IF NOT EXISTS pw_pokemon_detail (
   id          INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  nameZh      VARCHAR(16)  NOT NULL DEFAULT '' COMMENT '宝可梦名称',
+  `index`     INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '全国图鉴编号',
   imgUrl      VARCHAR(128) NOT NULL DEFAULT '' COMMENT '图片链接',
   type        VARCHAR(16)  NOT NULL DEFAULT '' COMMENT '属性',
   category    VARCHAR(16)  NOT NULL DEFAULT '' COMMENT '分类',
@@ -21,6 +21,68 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_detail (
   PRIMARY KEY (id)
 ) ENGINE InnoDB
   DEFAULT CHARSET 'utf8mb4' COMMENT '宝可梦详情';
+
+## ----------------------------------------------------------
+
+DROP TABLE IF EXISTS pw_pokemon_detail_learn_set_by_leveling_up;
+
+CREATE TABLE IF NOT EXISTS pw_pokemon_detail_learn_set_by_leveling_up (
+  id         INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `index`    INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '全国图鉴编号',
+  level1     CHAR(4)      NOT NULL DEFAULT '' COMMENT '等级（太阳/月亮）',
+  level2     CHAR(4)      NOT NULL DEFAULT '' COMMENT '等级（究极之日/究极之月）',
+  move       VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '招式名称',
+  type       VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '属性',
+  category   VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '分类',
+  power      VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '威力',
+  accuracy   VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '命中',
+  pp         VARCHAR(32)  NOT NULL DEFAULT '' COMMENT 'PP',
+  createTime DATETIME     NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  modifyTime DATETIME     NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
+  PRIMARY KEY (id)
+) ENGINE InnoDB
+  DEFAULT CHARSET 'utf8mb4' COMMENT '宝可梦可学会的招式';
+
+## ----------------------------------------------------------
+
+DROP TABLE IF EXISTS pw_pokemon_detail_learn_set_by_technical_machine;
+
+CREATE TABLE IF NOT EXISTS pw_pokemon_detail_learn_set_by_technical_machine (
+  id               INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `index`          INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '全国图鉴编号',
+  imgUrl           VARCHAR(128) NOT NULL DEFAULT '' COMMENT '招式学习器图片链接',
+  technicalMachine VARCHAR(16)  NOT NULL DEFAULT '' COMMENT '招式学习器名称',
+  move             VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '招式名称',
+  type             VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '属性',
+  category         VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '分类',
+  power            VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '威力',
+  accuracy         VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '命中',
+  pp               VARCHAR(32)  NOT NULL DEFAULT '' COMMENT 'PP',
+  createTime       DATETIME     NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  modifyTime       DATETIME     NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
+  PRIMARY KEY (id)
+) ENGINE InnoDB
+  DEFAULT CHARSET 'utf8mb4' COMMENT '宝可梦能使用的招式学习器';
+
+## ----------------------------------------------------------
+
+DROP TABLE IF EXISTS pw_pokemon_detail_learn_set_by_breeding;
+
+CREATE TABLE IF NOT EXISTS pw_pokemon_detail_learn_set_by_breeding (
+  id         INT UNSIGNED  NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `index`    INT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '全国图鉴编号',
+  parent     VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '亲代',
+  move       VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '招式名称',
+  type       VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '属性',
+  category   VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '分类',
+  power      VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '威力',
+  accuracy   VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '命中',
+  pp         VARCHAR(32)   NOT NULL DEFAULT '' COMMENT 'PP',
+  createTime DATETIME      NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  modifyTime DATETIME      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
+  PRIMARY KEY (id)
+) ENGINE InnoDB
+  DEFAULT CHARSET 'utf8mb4' COMMENT '宝可梦蛋招式';
 
 ## ----------------------------------------------------------
 
