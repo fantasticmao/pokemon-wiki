@@ -20,8 +20,8 @@ public class PokemonDetailRepositoryTest extends SpringTest {
     private PokemonDetailRepository pokemonDetailRepository;
 
     @Test
-    public void findByIdIn() {
-        List<PokemonDetail> pokemonDetailList = pokemonDetailRepository.findByIdIn(Arrays.asList(1, 2));
+    public void findByIndexIn() {
+        List<PokemonDetail> pokemonDetailList = pokemonDetailRepository.findByIndexIn(Arrays.asList(1, 2));
         Assert.assertNotNull(pokemonDetailList);
         System.out.println(pokemonDetailList);
     }

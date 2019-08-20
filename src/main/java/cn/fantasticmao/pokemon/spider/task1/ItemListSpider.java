@@ -116,14 +116,87 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     private List<ItemListSpider.Data> getData1(Document document) {
         final String type = "野外使用和其它类别道具";
         final int generation = 0;
+        Queue<String> rowSpanImgUrlQueue = new LinkedList<>();
+        Queue<String> rowSpanNameZhQueue = new LinkedList<>();
+        Queue<String> rowSpanNameJaQueue = new LinkedList<>();
+        Queue<String> rowSpanNameEnQueue = new LinkedList<>();
+        Queue<String> rowSpanDescQueue = new LinkedList<>();
         return document.selectFirst("#野外使用和其它类别道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
-                    String nameZh = element.child(1).text();
-                    String nameJa = element.child(2).text();
-                    String nameEn = element.child(3).text();
-                    String desc = element.child(4).text();
+                    int offset = 0;
+                    String imgUrl;
+                    if (rowSpanImgUrlQueue.isEmpty()) {
+                        imgUrl = element.child(0).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
+                        if (element.child(0).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(0).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanImgUrlQueue.offer(imgUrl);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        imgUrl = rowSpanImgUrlQueue.poll();
+                    }
+
+                    // 处理中文名称 rowspan 跨行问题
+                    String nameZh;
+                    if (rowSpanNameZhQueue.isEmpty()) {
+                        nameZh = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameZhQueue.offer(nameZh);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameZh = rowSpanNameZhQueue.poll();
+                    }
+
+                    // 处理日文名称 rowspan 跨行问题
+                    String nameJa;
+                    if (rowSpanNameJaQueue.isEmpty()) {
+                        nameJa = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameJaQueue.offer(nameJa);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameJa = rowSpanNameJaQueue.poll();
+                    }
+
+                    // 处理英文名称 rowspan 跨行问题
+                    String nameEn;
+                    if (rowSpanNameEnQueue.isEmpty()) {
+                        nameEn = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanNameEnQueue.offer(nameEn);
+                            }
+                        }
+                        offset++;
+                    } else {
+                        nameEn = rowSpanNameEnQueue.poll();
+                    }
+
+                    // 处理道具描述 rowspan 跨行问题
+                    String desc;
+                    if (rowSpanDescQueue.isEmpty()) {
+                        desc = element.child(offset).text();
+                        if (element.child(offset).hasAttr("rowspan")) {
+                            int rowCount = Integer.valueOf(element.child(offset).attr("rowspan")) - 1;
+                            for (int i = 0; i < rowCount; i++) {
+                                rowSpanDescQueue.offer(desc);
+                            }
+                        }
+                    } else {
+                        desc = rowSpanDescQueue.poll();
+                    }
                     return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
                 })
                 .collect(Collectors.toList());

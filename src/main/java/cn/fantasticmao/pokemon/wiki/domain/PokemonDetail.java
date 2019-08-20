@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pw_pokemon_detail")
 public class PokemonDetail extends AbstractDomain<Integer> {
-    private String nameZh;
+    private int index;
     private String imgUrl;
     private String type;
     private String category;
