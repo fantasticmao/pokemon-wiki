@@ -134,7 +134,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         final String genderRatio = CollectionUtil.isEmpty(genderRatioList) ? "无性别" : CollectionUtil.toString(genderRatioList);
 
         List<String> eggGroupList = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(0).select("a").stream()
-                .map(element -> element.text().trim())
+                .map(element -> element.attr("title").trim().replaceAll("（.*）", ""))
                 .collect(Collectors.toList());
         final String eggGroup1 = eggGroupList.size() >= 1 ? eggGroupList.get(0) : Constant.Strings.EMPTY;
         final String eggGroup2 = eggGroupList.size() >= 2 ? eggGroupList.get(1) : Constant.Strings.EMPTY;
