@@ -25,7 +25,7 @@
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <maxHistory>30</maxHistory>
-            <fileNamePattern>${pokemon_wiki_log_home}/pokemon-wiki.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${pokemon_wiki_log_home}/pokemon-wiki.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
         </rollingPolicy>
     </appender>
 
@@ -42,7 +42,7 @@
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <maxHistory>30</maxHistory>
-            <fileNamePattern>${pokemon_wiki_log_home}/http-request.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${pokemon_wiki_log_home}/http-request.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
         </rollingPolicy>
     </appender>
 
