@@ -1,4 +1,4 @@
-# Pokemon-Wiki
+# Pokemon-Wiki [![Build Status](https://travis-ci.org/FantasticMao/pokemon-wiki.svg?branch=master)](https://travis-ci.org/FantasticMao/pokemon-wiki)
 
 > Pokemon-Wiki 数据来源自 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主页)**。
 

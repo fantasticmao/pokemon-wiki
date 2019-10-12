@@ -45,7 +45,7 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
     @Override
     public boolean saveData(List<PokemonAbilityListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             PokemonAbilityListSpider.Data tempData = null;

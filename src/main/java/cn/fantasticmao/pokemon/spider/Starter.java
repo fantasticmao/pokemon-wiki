@@ -8,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,10 +31,12 @@ class Starter {
 
         task2();
 
+        dumpDatabase();
+
         PokemonDataSource.INSTANCE.shutDownDataSource();
     }
 
-    static private void task1() throws InterruptedException {
+    private static void task1() throws InterruptedException {
         // 1. 初始化线程池
         final int threads = 7;
         UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(1);
@@ -52,7 +57,7 @@ class Starter {
         executorService.shutdownNow();
     }
 
-    static private void task2() throws InterruptedException {
+    private static void task2() throws InterruptedException {
         // 1. 初始化线程池
         UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(2);
         ExecutorService executorService = Executors.newFixedThreadPool(Config.TASK2_CONCURRENCY_THRESHOLD, threadFactory);
@@ -64,6 +69,15 @@ class Starter {
 
         // 3. 结束任务
         executorService.shutdownNow();
+    }
+
+    private static void dumpDatabase() {
+        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SCRIPT TO '" + Config.SQL_DATABASE + "' CHARSET 'utf-8'")) {
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     static class UncaughtExceptionThreadFactory implements ThreadFactory {
