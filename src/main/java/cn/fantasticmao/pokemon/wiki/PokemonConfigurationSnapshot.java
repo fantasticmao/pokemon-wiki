@@ -3,8 +3,10 @@ package cn.fantasticmao.pokemon.wiki;
 import com.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,12 +40,14 @@ public class PokemonConfigurationSnapshot {
         config.setDriverClassName("org.h2.Driver");
         String jdbcUrl = "jdbc:h2:mem:pokemon_wiki;";
         final Resource resource = resourceLoader.getResource("classpath:database.sql");
-        if (resource.exists()) {
+        if (resource.isReadable() && resource.isFile()) {
             try {
                 jdbcUrl = jdbcUrl + String.format("INIT=RUNSCRIPT FROM '%s'", resource.getFile().getPath());
             } catch (IOException e) {
                 LOGGER.error("could not load run script from 'database.sql'", e);
             }
+        } else {
+            LOGGER.error("could not load run script from 'database.sql'");
         }
         config.setJdbcUrl(jdbcUrl);
         config.setUsername("sa");
@@ -52,6 +56,11 @@ public class PokemonConfigurationSnapshot {
         config.setConnectionTimeout(5_000);
         config.setMaximumPoolSize(5);
         return new HikariDataSource(config);
+    }
+
+    @Bean
+    public ServletRegistrationBean<WebServlet> h2Console() {
+        return new ServletRegistrationBean<>(new WebServlet(), "/h2-console/*");
     }
 
     @Bean
