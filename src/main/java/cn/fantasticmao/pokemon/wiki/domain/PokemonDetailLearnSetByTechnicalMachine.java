@@ -1,5 +1,6 @@
 package cn.fantasticmao.pokemon.wiki.domain;
 
+import com.mundo.data.domain.AbstractDomain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

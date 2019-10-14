@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <mundo-web.version>1.0-SNAPSHOT</mundo-web.version>
+        <mundo.version>1.0-SNAPSHOT</mundo.version>
         <jsoup.version>1.12.1-maomao-forked</jsoup.version>
         <dbcp2.version>2.5.0</dbcp2.version>
     </properties>
@@ -32,7 +32,13 @@
         <dependency>
             <groupId>com.mundo</groupId>
             <artifactId>mundo-web</artifactId>
-            <version>${mundo-web.version}</version>
+            <version>${mundo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mundo</groupId>
+            <artifactId>mundo-data</artifactId>
+            <version>${mundo.version}</version>
         </dependency>
 
         <dependency>
@@ -40,11 +46,6 @@
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
@@ -83,48 +84,12 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
+                    <compilerVersion>${java.version}</compilerVersion>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-                <executions>
-                    <execution>
-                        <id>install-mundo-web</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>com.mundo</groupId>
-                            <artifactId>mundo-web</artifactId>
-                            <version>${mundo-web.version}</version>
-                            <packaging>jar</packaging>
-                            <file>${project.basedir}/lib/mundo-web-1.0-SNAPSHOT.jar</file>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>install-jsoup</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>org.jsoup</groupId>
-                            <artifactId>jsoup</artifactId>
-                            <version>${jsoup.version}</version>
-                            <packaging>jar</packaging>
-                            <file>${project.basedir}/lib/jsoup-1.12.1-maomao-forked.jar</file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-
 </project>
