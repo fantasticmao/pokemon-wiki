@@ -16,3 +16,5 @@ before_install:
   - mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-web-1.0-SNAPSHOT.jar
   - mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-data-1.0-SNAPSHOT.jar
   - mvn org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/jsoup-1.12.1-maomao-forked.jar
+  - sudo mkdir /var/log/pokemon-wiki
+  - sudo chown travis /var/log/pokemon-wiki
