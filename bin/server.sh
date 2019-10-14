@@ -11,7 +11,7 @@ LOG_HOME=/var/log/$NAME
 TOMCAT_LOG=$LOG_HOME/tomcat.log
 TOMCAT_PID=$LOG_HOME/tomcat.pid
 
-JVM_OPTS="${JVM_OPTS} -server -Xms100m -Xmx200m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC"
+JVM_OPTS="${JVM_OPTS} -server -Xms400m -Xmx400m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC"
 JVM_OPTS="${JVM_OPTS} -verbose:gc -Xloggc:${LOG_HOME}/gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy"
 JVM_OPTS="${JVM_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
 APP_OPTS="-Dfile.encoding=UTF-8 -Dspring.profiles.active=${ENV}"
