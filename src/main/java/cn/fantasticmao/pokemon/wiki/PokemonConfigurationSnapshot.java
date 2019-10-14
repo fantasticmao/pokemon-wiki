@@ -40,14 +40,15 @@ public class PokemonConfigurationSnapshot {
         config.setDriverClassName("org.h2.Driver");
         String jdbcUrl = "jdbc:h2:mem:pokemon_wiki;";
         final Resource resource = resourceLoader.getResource("classpath:database.sql");
-        if (resource.isReadable() && resource.isFile()) {
+        if (resource.isReadable()) {
             try {
-                jdbcUrl = jdbcUrl + String.format("INIT=RUNSCRIPT FROM '%s'", resource.getFile().getPath());
+                final String sql = resource.getURL().toString();
+                jdbcUrl = jdbcUrl + String.format("INIT=RUNSCRIPT FROM '%s'", sql);
             } catch (IOException e) {
-                LOGGER.error("could not load run script from 'database.sql'", e);
+                LOGGER.error("could not run script from 'database.sql'", e);
             }
         } else {
-            LOGGER.error("could not load run script from 'database.sql'");
+            LOGGER.error("could not run script from 'database.sql'");
         }
         config.setJdbcUrl(jdbcUrl);
         config.setUsername("sa");
