@@ -1,6 +1,0 @@
-DROP DATABASE IF EXISTS pokemon_wiki;
-
-CREATE DATABASE IF NOT EXISTS pokemon_wiki
-  DEFAULT CHARSET utf8mb4;
-
-SHOW CREATE DATABASE pokemon_wiki;

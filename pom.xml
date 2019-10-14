@@ -23,11 +23,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <mundo-web.version>1.0-SNAPSHOT</mundo-web.version>
-        <mundo-data.version>1.0-SNAPSHOT</mundo-data.version>
+        <mundo.version>1.0-SNAPSHOT</mundo.version>
         <jsoup.version>1.12.1-maomao-forked</jsoup.version>
-        <selenuim.version>3.10.0</selenuim.version>
-        <guava.version>22.0</guava.version>
         <dbcp2.version>2.5.0</dbcp2.version>
     </properties>
 
@@ -35,31 +32,25 @@
         <dependency>
             <groupId>com.mundo</groupId>
             <artifactId>mundo-web</artifactId>
-            <version>${mundo-web.version}</version>
+            <version>${mundo.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.mundo</groupId>
             <artifactId>mundo-data</artifactId>
-            <version>${mundo-data.version}</version>
+            <version>${mundo.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenuim.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
 
         <dependency>
@@ -87,7 +78,34 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <compilerVersion>${java.version}</compilerVersion>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

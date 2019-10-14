@@ -15,11 +15,11 @@ import java.sql.SQLException;
  * @since 2018/8/9
  */
 public enum PokemonDataSource {
-    INSTANCE("jdbc:mysql://localhost:3306/pokemon_wiki", "pokemon", "I_Love_Pokemon");
+    INSTANCE("jdbc:h2:mem:pokemon_wiki;INIT=RUNSCRIPT FROM '" + Config.SQL_INIT_TABLE + "'", "sa", "");
 
     static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
