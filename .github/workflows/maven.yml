@@ -17,6 +17,10 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
       - name: Install Custom Dependencies
         run: |
           ./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-all-1.0-SNAPSHOT.pom -DgroupId=com.mundo -DartifactId=mundo-all -Dversion=1.0-SNAPSHOT -Dpackaging=pom
@@ -28,9 +32,5 @@ jobs:
         run: |
           sudo mkdir /var/log/pokemon-wiki
           sudo chmod 755 /var/log/pokemon-wiki
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
       - name: Build with Maven
         run: ./mvnw test -B
