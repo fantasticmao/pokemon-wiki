@@ -31,6 +31,6 @@ jobs:
       - name: Make Log Directory
         run: |
           sudo mkdir /var/log/pokemon-wiki
-          sudo chmod 755 /var/log/pokemon-wiki
+          sudo chown $USER /var/log/pokemon-wiki
       - name: Build with Maven
         run: ./mvnw test -B
