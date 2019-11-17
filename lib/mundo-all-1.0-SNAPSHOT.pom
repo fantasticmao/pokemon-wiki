@@ -25,8 +25,8 @@
         <commons-lang3.version>3.6</commons-lang3.version>
         <guava.version>25.0-jre</guava.version>
         <xmemcached.version>2.4.5</xmemcached.version>
-        <springfox-swagger2.version>2.9.0</springfox-swagger2.version>
-        <springfox-swagger-ui.version>2.9.0</springfox-swagger-ui.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
     </properties>
 
     <modules>

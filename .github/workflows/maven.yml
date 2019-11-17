@@ -1,0 +1,36 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Install Custom Dependencies
+        run: |
+          ./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-all-1.0-SNAPSHOT.pom -DgroupId=com.mundo -DartifactId=mundo-all -Dversion=1.0-SNAPSHOT -Dpackaging=pom
+          ./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-core-1.0-SNAPSHOT.jar
+          ./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-web-1.0-SNAPSHOT.jar
+          ./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/mundo-data-1.0-SNAPSHOT.jar
+          ./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file -Dfile=lib/jsoup-1.12.1-maomao-forked.jar
+      - name: Make Log Directory
+        run: |
+          sudo mkdir /var/log/pokemon-wiki
+          sudo chown $USER /var/log/pokemon-wiki
+      - name: Build with Maven
+        run: ./mvnw test -B
