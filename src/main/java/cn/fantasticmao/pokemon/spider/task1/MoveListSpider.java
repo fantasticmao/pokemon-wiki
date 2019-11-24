@@ -40,6 +40,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         dataList.addAll(getData5(document));
         dataList.addAll(getData6(document));
         dataList.addAll(getData7(document));
+        dataList.addAll(getData8(document));
         return Collections.unmodifiableList(dataList);
     }
 
@@ -215,6 +216,25 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                     String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
                     String pp = element.child(8).html();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 7);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 第八世代
+    private List<MoveListSpider.Data> getData8(Document document) {
+        return document.select(".bg-伽勒尔 > tbody > tr").stream()
+                .filter(element -> element.child(0).children().size() == 0)
+                .skip(1)
+                .map(element -> {
+                    String nameZh = element.child(1).children().size() == 1 ? element.child(1).child(0).html() : element.child(1).child(1).html();
+                    String nameJa = element.child(2).html();
+                    String nameEn = element.child(3).html();
+                    String type = element.child(4).child(0).html();
+                    String category = element.child(5).child(0).html();
+                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
+                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
+                    String pp = element.child(8).html();
+                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 8);
                 })
                 .collect(Collectors.toList());
     }
