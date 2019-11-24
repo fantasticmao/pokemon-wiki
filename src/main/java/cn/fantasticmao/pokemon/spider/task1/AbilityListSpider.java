@@ -35,6 +35,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         dataList.addAll(getDataList5(document));
         dataList.addAll(getDataList6(document));
         dataList.addAll(getDataList7(document));
+        dataList.addAll(getDataList8(document));
         return dataList;
     }
 
@@ -141,6 +142,21 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
                     String nameEn = element.child(3).html();
                     String effect = element.child(4).html();
                     int generation = 7;
+                    return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
+                })
+                .collect(Collectors.toList());
+    }
+
+    // 伽勒尔地区
+    private List<AbilityListSpider.Data> getDataList8(Document document) {
+        return document.select(".b-伽勒尔 > tbody > tr").stream()
+                .skip(1)
+                .map(element -> {
+                    String nameZh = element.child(1).child(0).html();
+                    String nameJa = element.child(2).html();
+                    String nameEn = element.child(3).html();
+                    String effect = element.child(4).html();
+                    int generation = 8;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })
                 .collect(Collectors.toList());
