@@ -68,7 +68,7 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
         this(pokemon, pokemonAbility, null, null, null, null, null);
     }
 
-    public PokemonBean(Pokemon pokemon, PokemonAbility pokemonAbility, PokemonBaseStat pokemonBaseStat, PokemonDetail pokemonDetail,
+    public PokemonBean(Pokemon pokemon, PokemonAbility pokemonAbility, PokemonDetailBaseStat pokemonDetailBaseStat, PokemonDetail pokemonDetail,
                        List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUp,
                        List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachine,
                        List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreeding) {
@@ -82,7 +82,7 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
         this.ability2 = pokemonAbility.getAbility2();
         this.abilityHide = pokemonAbility.getAbilityHide();
         this.generation = pokemon.getGeneration();
-        this.baseStat = pokemonBaseStat == null ? null : BaseStat.ofDomain(pokemonBaseStat);
+        this.baseStat = pokemonDetailBaseStat == null ? null : BaseStat.ofDomain(pokemonDetailBaseStat);
         this.detail = pokemonDetail == null ? null : Detail.ofDomain(pokemonDetail);
         this.learnSetByLevelingUp = CollectionUtil.isEmpty(pokemonDetailLearnSetByLevelingUp)
                 ? null : pokemonDetailLearnSetByLevelingUp.stream().map(LearnSetByLevelingUp::ofDomain).collect(Collectors.toList());
@@ -126,7 +126,7 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
             this.average = average;
         }
 
-        private static BaseStat ofDomain(PokemonBaseStat pokemonBaseStat) {
+        private static BaseStat ofDomain(PokemonDetailBaseStat pokemonBaseStat) {
             return new BaseStat(pokemonBaseStat.getHp(), pokemonBaseStat.getAttack(), pokemonBaseStat.getDefense(),
                     pokemonBaseStat.getSpAttack(), pokemonBaseStat.getSpDefense(), pokemonBaseStat.getSpeed(),
                     pokemonBaseStat.getTotal(), pokemonBaseStat.getAverage());

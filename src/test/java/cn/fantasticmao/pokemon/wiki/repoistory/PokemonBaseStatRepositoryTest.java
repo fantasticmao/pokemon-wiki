@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
-import cn.fantasticmao.pokemon.wiki.domain.PokemonBaseStat;
+import cn.fantasticmao.pokemon.wiki.domain.PokemonDetailBaseStat;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,11 +17,11 @@ import java.util.List;
  */
 public class PokemonBaseStatRepositoryTest extends SpringTest {
     @Resource
-    private PokemonBaseStatRepository pokemonBaseStatRepository;
+    private PokemonDetailBaseStatRepository pokemonDetailBaseStatRepository;
 
     @Test
     public void findByIndexIn() {
-        List<PokemonBaseStat> pokemonBaseStatList = pokemonBaseStatRepository.findByIndexIn(Arrays.asList(1, 2));
+        List<PokemonDetailBaseStat> pokemonBaseStatList = pokemonDetailBaseStatRepository.findByIndexIn(Arrays.asList(1, 2));
         Assert.assertNotNull(pokemonBaseStatList);
         System.out.println(pokemonBaseStatList);
     }

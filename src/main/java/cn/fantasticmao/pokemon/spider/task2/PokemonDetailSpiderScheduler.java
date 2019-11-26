@@ -48,6 +48,8 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
         // 2. 批量保存
         final String sqlPokemonDetail = "INSERT INTO pw_pokemon_detail(`index`, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sqlPokemonDetailBaseStat = "INSERT INTO pw_pokemon_detail_base_stat(`index`, hp, attack, defense, spAttack, spDefense, speed, total, average) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByLevelingUp = "INSERT INTO pw_pokemon_detail_learn_set_by_leveling_up(`index`, level1, level2, move, type, category, power, accuracy, pp) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByTechnicalMachine = "INSERT INTO pw_pokemon_detail_learn_set_by_technical_machine(`index`, imgUrl, technicalMachine, move, type, category, power, accuracy, pp) " +
@@ -56,6 +58,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prepPokemonDetail = connection.prepareStatement(sqlPokemonDetail);
+             PreparedStatement prepPokemonDetailBaseStat = connection.prepareStatement(sqlPokemonDetailBaseStat);
              PreparedStatement prepPokemonDetailLearnSetByLevelingUp = connection.prepareStatement(sqlPokemonDetailLearnSetByLevelingUp);
              PreparedStatement prepPokemonDetailLearnSetByTechnicalMachine = connection.prepareStatement(sqlPokemonDetailLearnSetByTechnicalMachine);
              PreparedStatement prepPokemonDetailLearnSetByBreeding = connection.prepareStatement(sqlPokemonDetailLearnSetByBreeding)) {
@@ -63,6 +66,8 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
             for (int i = batchSize, j = 0; ; i += batchSize) {
                 for (; j < i && j < dataList.size(); j++) {
                     tempData = dataList.get(j);
+
+                    // 基本信息
                     prepPokemonDetail.setInt(1, tempData.getIndex());
                     prepPokemonDetail.setString(2, tempData.getImgUrl());
                     prepPokemonDetail.setString(3, tempData.getType());
@@ -79,6 +84,20 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                     prepPokemonDetail.setString(14, tempData.getEffortValue());
                     prepPokemonDetail.addBatch();
 
+                    // 种族值
+                    PokemonDetailSpider.Data.BaseStat baseStat = tempData.getBaseStat();
+                    prepPokemonDetailBaseStat.setInt(1, tempData.getIndex());
+                    prepPokemonDetailBaseStat.setInt(2, baseStat.getHp());
+                    prepPokemonDetailBaseStat.setInt(3, baseStat.getAttack());
+                    prepPokemonDetailBaseStat.setInt(4, baseStat.getDefense());
+                    prepPokemonDetailBaseStat.setInt(5, baseStat.getSpAttack());
+                    prepPokemonDetailBaseStat.setInt(6, baseStat.getSpDefense());
+                    prepPokemonDetailBaseStat.setInt(7, baseStat.getSpeed());
+                    prepPokemonDetailBaseStat.setInt(8, baseStat.getTotal());
+                    prepPokemonDetailBaseStat.setFloat(9, baseStat.getAverage());
+                    prepPokemonDetailBaseStat.addBatch();
+
+                    // 升级可学的招式
                     for (PokemonDetailSpider.Data.LearnSetByLevelingUp learnSetByLevelingUp : tempData.getLearnSetByLevelingUpList()) {
                         prepPokemonDetailLearnSetByLevelingUp.setInt(1, tempData.getIndex());
                         prepPokemonDetailLearnSetByLevelingUp.setString(2, learnSetByLevelingUp.getLevel1());
@@ -92,6 +111,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                         prepPokemonDetailLearnSetByLevelingUp.addBatch();
                     }
 
+                    // 可使用的招式学习器
                     for (PokemonDetailSpider.Data.LearnSetByTechnicalMachine learnSetByTechnicalMachine : tempData.getLearnSetByTechnicalMachineList()) {
                         prepPokemonDetailLearnSetByTechnicalMachine.setInt(1, tempData.getIndex());
                         prepPokemonDetailLearnSetByTechnicalMachine.setString(2, learnSetByTechnicalMachine.getImgUrl());
@@ -105,6 +125,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                         prepPokemonDetailLearnSetByTechnicalMachine.addBatch();
                     }
 
+                    // 蛋招式
                     for (PokemonDetailSpider.Data.LearnSetByBreeding learnSetByBreeding : tempData.getLearnSetByBreedingList()) {
                         prepPokemonDetailLearnSetByBreeding.setInt(1, tempData.getIndex());
                         prepPokemonDetailLearnSetByBreeding.setString(2, learnSetByBreeding.getParent());
@@ -118,6 +139,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                     }
                 }
                 prepPokemonDetail.executeBatch();
+                prepPokemonDetailBaseStat.executeBatch();
                 prepPokemonDetailLearnSetByLevelingUp.executeBatch();
                 prepPokemonDetailLearnSetByTechnicalMachine.executeBatch();
                 prepPokemonDetailLearnSetByBreeding.executeBatch();

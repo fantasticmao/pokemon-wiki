@@ -52,9 +52,24 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         private final String eggGroup2; // 第二生蛋分组
         private final String hatchTime; // 孵化时间
         private final String effortValue; // 基础点数
+        private final BaseStat BaseStat;
         private final List<LearnSetByLevelingUp> learnSetByLevelingUpList; // 可学会的招式
         private final List<LearnSetByTechnicalMachine> learnSetByTechnicalMachineList; // 能使用的招式学习器
         private final List<LearnSetByBreeding> learnSetByBreedingList; // 蛋招式
+
+        @Getter
+        @ToString
+        @AllArgsConstructor
+        static class BaseStat {
+            private final int hp;
+            private final int attack;
+            private final int defense;
+            private final int spAttack;
+            private final int spDefense;
+            private final int speed;
+            private final int total;
+            private final float average;
+        }
 
         @Getter
         @ToString
@@ -150,6 +165,27 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                 .map(element -> element.text().trim())
                 .collect(Collectors.joining(Constant.Strings.COMMA));
 
+        // 兼容拳拳蛸
+        Element baseStatSpan = document.selectFirst("#种族值_2");
+        if (baseStatSpan == null) {
+            // 正常情况
+            baseStatSpan = document.selectFirst("#种族值");
+        }
+        if (baseStatSpan == null) {
+            // 兼容小磁怪
+            baseStatSpan = document.selectFirst("#種族值");
+        }
+        final Element baseStatTable = baseStatSpan.parent().nextElementSibling();
+        final int hp = Integer.parseInt(baseStatTable.selectFirst("th[class=bgl-HP]").text());
+        final int attack = Integer.parseInt(baseStatTable.selectFirst("th[class=bgl-攻击]").text());
+        final int defense = Integer.parseInt(baseStatTable.selectFirst("th[class=bgl-防御]").text());
+        final int spAttack = Integer.parseInt(baseStatTable.selectFirst("th[class=bgl-特攻]").text());
+        final int spDefense = Integer.parseInt(baseStatTable.selectFirst("th[class=bgl-特防]").text());
+        final int speed = Integer.parseInt(baseStatTable.selectFirst("th[class=bgl-速度]").text());
+        final int total = hp + attack + defense + spAttack + spDefense + speed;
+        final float average = total / 6.0F;
+        final Data.BaseStat baseStat = new Data.BaseStat(hp, attack, defense, spAttack, spDefense, speed, total, average);
+
         Element learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式_2");
         if (learnSetByLevelingUpSpan == null) {
             learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式");
@@ -223,6 +259,6 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                 : Collections.emptyList();
 
         return new PokemonDetailSpider.Data(index, nameZh, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue,
-                learnSetByLevelingUpList, learnSetByTechnicalMachineList, learnSetByBreedingList);
+                baseStat, learnSetByLevelingUpList, learnSetByTechnicalMachineList, learnSetByBreedingList);
     }
 }
