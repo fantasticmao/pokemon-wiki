@@ -28,7 +28,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Resource
     private PokemonAbilityRepository pokemonAbilityRepository;
     @Resource
-    private PokemonBaseStatRepository pokemonBaseStatRepository;
+    private PokemonDetailBaseStatRepository pokemonDetailBaseStatRepository;
     @Resource
     private PokemonDetailRepository pokemonDetailRepository;
     @Resource
@@ -74,8 +74,8 @@ public class PokemonServiceImpl implements PokemonService {
         Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIndexList).stream()
                 .collect(Collectors.toMap(PokemonAbility::getIndex, Function.identity(), (ability1, ability2) -> ability1));
 
-        Map<Integer, PokemonBaseStat> pokemonBaseStatMap = pokemonBaseStatRepository.findByIndexIn(pokemonIndexList).stream()
-                .collect(Collectors.toMap(PokemonBaseStat::getIndex, Function.identity(), (baseStat1, baseStat2) -> baseStat1));
+        Map<Integer, PokemonDetailBaseStat> pokemonDetailBaseStatMap = pokemonDetailBaseStatRepository.findByIndexIn(pokemonIndexList).stream()
+                .collect(Collectors.toMap(PokemonDetailBaseStat::getIndex, Function.identity(), (baseStat1, baseStat2) -> baseStat1));
 
         return pokemonList.stream()
                 .map(pokemon -> {
@@ -87,7 +87,7 @@ public class PokemonServiceImpl implements PokemonService {
                     List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreedingList
                             = pokemonDetailLearnSetByBreedingMap.get(pokemon.getIndex());
                     PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
-                    PokemonBaseStat pokemonBaseStat = pokemonBaseStatMap.get(pokemon.getIndex());
+                    PokemonDetailBaseStat pokemonBaseStat = pokemonDetailBaseStatMap.get(pokemon.getIndex());
                     return new PokemonBean(pokemon, pokemonAbility, pokemonBaseStat, pokemonDetail,
                             pokemonDetailLearnSetByLevelingUpList, pokemonDetailLearnSetByTechnicalMachineList,
                             pokemonDetailLearnSetByBreedingList);

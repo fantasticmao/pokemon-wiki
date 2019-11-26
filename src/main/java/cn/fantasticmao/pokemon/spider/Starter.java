@@ -38,7 +38,7 @@ class Starter {
 
     private static void task1() throws InterruptedException {
         // 1. 初始化线程池
-        final int threads = 7;
+        final int threads = 6;
         UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(1);
         ExecutorService executorService = Executors.newFixedThreadPool(threads, threadFactory);
 
@@ -46,7 +46,6 @@ class Starter {
         final CountDownLatch doneSignal = new CountDownLatch(threads);
         executorService.execute(new PokemonListSpider(doneSignal));
         executorService.execute(new PokemonAbilityListSpider(doneSignal));
-        executorService.execute(new PokemonBaseStatListSpider(doneSignal));
         executorService.execute(new AbilityListSpider(doneSignal));
         executorService.execute(new NatureListSpider(doneSignal));
         executorService.execute(new MoveListSpider(doneSignal));

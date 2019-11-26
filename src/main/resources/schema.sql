@@ -27,23 +27,6 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_ability (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS pw_pokemon_base_stat (
-  id         INT         NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `index`    INT         NOT NULL DEFAULT 0 COMMENT '全国图鉴编号',
-  nameZh     VARCHAR(32) NOT NULL DEFAULT '' COMMENT '中文名称',
-  hp         INT         NOT NULL DEFAULT 0 COMMENT 'HP',
-  attack     INT         NOT NULL DEFAULT 0 COMMENT '攻击',
-  defense    INT         NOT NULL DEFAULT 0 COMMENT '防御',
-  spAttack   INT         NOT NULL DEFAULT 0 COMMENT '特攻',
-  spDefense  INT         NOT NULL DEFAULT 0 COMMENT '特防',
-  speed      INT         NOT NULL DEFAULT 0 COMMENT '速度',
-  total      SMALLINT    NOT NULL DEFAULT 0 COMMENT '总和',
-  average    FLOAT       NOT NULL DEFAULT 0 COMMENT '平均值',
-  createTime DATETIME    NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
-  modifyTime DATETIME    NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
-  PRIMARY KEY (id)
-);
-
 CREATE TABLE IF NOT EXISTS pw_ability (
   id         INT         NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   nameZh     VARCHAR(32) NOT NULL DEFAULT '' COMMENT '中文名称',
@@ -118,6 +101,22 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_detail (
   effortValue VARCHAR(32)  NOT NULL DEFAULT '' COMMENT '基础点数',
   createTime  DATETIME     NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
   modifyTime  DATETIME     NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS pw_pokemon_detail_base_stat (
+  id         INT      NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `index`    INT      NOT NULL DEFAULT 0 COMMENT '全国图鉴编号',
+  hp         INT      NOT NULL DEFAULT 0 COMMENT 'HP',
+  attack     INT      NOT NULL DEFAULT 0 COMMENT '攻击',
+  defense    INT      NOT NULL DEFAULT 0 COMMENT '防御',
+  spAttack   INT      NOT NULL DEFAULT 0 COMMENT '特攻',
+  spDefense  INT      NOT NULL DEFAULT 0 COMMENT '特防',
+  speed      INT      NOT NULL DEFAULT 0 COMMENT '速度',
+  total      SMALLINT NOT NULL DEFAULT 0 COMMENT '总和',
+  average    FLOAT    NOT NULL DEFAULT 0 COMMENT '平均值',
+  createTime DATETIME NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
+  modifyTime DATETIME NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
   PRIMARY KEY (id)
 );
 
