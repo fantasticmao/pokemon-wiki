@@ -3,6 +3,9 @@ package cn.fantasticmao.pokemon.wiki;
 import com.mundo.web.filter.HttpFormatRequestLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,7 +24,13 @@ import javax.servlet.Filter;
  */
 @EnableSwagger2
 @Configuration
-public class PokemonConfiguration {
+public class PokemonConfiguration implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("redirect:/swagger-ui.html");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
 
     @Bean
     public Docket callbackDocket() {

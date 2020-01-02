@@ -16,6 +16,6 @@ Pokemon-Wiki 接口模块基于 HTTP 协议，具体请参考 [接口文档](htt
 
 ---
 
-Docker Hub 地址：[https://hub.docker.com/repository/docker/maomao233/pokemon-wiki/](https://hub.docker.com/repository/docker/maomao233/pokemon-wiki/)
+Docker Hub 地址：[https://hub.docker.com/r/maomao233/pokemon-wiki](https://hub.docker.com/r/maomao233/pokemon-wiki)
 
 微信小程序地址：![image](wechat.jpeg)
