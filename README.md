@@ -1,4 +1,4 @@
-# Pokemon-Wiki [![Actions Status](https://github.com/FantasticMao/pokemon-wiki/workflows/action/badge.svg)](https://github.com/FantasticMao/pokemon-wiki/actions)
+# Pokemon-Wiki [![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/action/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions) [![Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/maomao233/pokemon-wiki) [![License](https://img.shields.io/github/license/fantasticmao/pokemon-wiki)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
 
 > Pokemon-Wiki 数据来源自 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主页)**。
 
