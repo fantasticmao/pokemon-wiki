@@ -18,6 +18,20 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <repositories>
+        <repository>
+            <id>github.fantasticmao.mundo</id>
+            <name>GitHub fantasticmao Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/fantasticmao/mundo</url>
+        </repository>
+
+        <repository>
+            <id>github.fantasticmao.jsoup</id>
+            <name>GitHub fantasticmao Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/fantasticmao/jsoup</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

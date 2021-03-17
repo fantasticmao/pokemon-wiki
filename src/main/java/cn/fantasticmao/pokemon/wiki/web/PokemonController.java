@@ -3,12 +3,12 @@ package cn.fantasticmao.pokemon.wiki.web;
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
 import com.mundo.core.support.Constant;
-import com.mundo.core.util.StringUtil;
 import com.mundo.web.support.JsonApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +43,7 @@ public class PokemonController {
                                                         @ApiParam(value = "中文名称，支持模糊查询，例如「妙蛙」", example = "妙蛙种子")
                                                         @RequestParam(defaultValue = "") String nameZh) {
         log.info("输入参数 index:{} nameZh: {}", index, nameZh);
-        if ((index == null || index <= 0) && StringUtil.isEmpty(nameZh)) {
+        if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 

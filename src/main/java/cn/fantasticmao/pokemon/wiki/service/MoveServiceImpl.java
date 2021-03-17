@@ -6,7 +6,7 @@ import cn.fantasticmao.pokemon.wiki.domain.MoveDetail;
 import cn.fantasticmao.pokemon.wiki.repoistory.MoveDetailRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.MoveRepository;
 import com.mundo.core.util.CollectionUtil;
-import com.mundo.core.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,7 +31,7 @@ public class MoveServiceImpl implements MoveService {
 
     @Override
     public List<MoveBean> listByNameZh(String nameZh) {
-        if (StringUtil.isEmpty(nameZh)) {
+        if (StringUtils.isEmpty(nameZh)) {
             return Collections.emptyList();
         }
 

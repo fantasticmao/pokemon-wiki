@@ -1,10 +1,10 @@
+.DS_Store
+target/
+
 /src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
-/target/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
-
-.DS_Store

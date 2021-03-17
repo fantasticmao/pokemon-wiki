@@ -16,7 +16,7 @@ JVM_OPTS="${JVM_OPTS} -verbose:gc -Xloggc:${LOG_HOME}/gc_%p.log -XX:+PrintGCDeta
 JVM_OPTS="${JVM_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
 APP_OPTS="-Dfile.encoding=UTF-8 -Dspring.profiles.active=${ENV} -Dserver.port=1234"
 
-MAOMAO_DEPLOY_HOME="/opt/maomao"
+MAOMAO_DEPLOY_HOME="/opt/maomao/$NAME"
 
 case "$1" in
     start)

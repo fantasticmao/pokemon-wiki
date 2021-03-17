@@ -2,12 +2,12 @@ package cn.fantasticmao.pokemon.wiki.web;
 
 import cn.fantasticmao.pokemon.wiki.bean.MoveBean;
 import cn.fantasticmao.pokemon.wiki.service.MoveService;
-import com.mundo.core.util.StringUtil;
 import com.mundo.web.support.JsonApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +40,7 @@ public class MoveController {
     public JsonApi<List<MoveBean>> listPokemonMove(@ApiParam(value = "中文名称，支持模糊查询，例如「火」", example = "火", required = true)
                                                    @RequestParam(defaultValue = "") String nameZh) {
         log.info("输入参数 nameZh: {}", nameZh);
-        if (StringUtil.isEmpty(nameZh)) {
+        if (StringUtils.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 
