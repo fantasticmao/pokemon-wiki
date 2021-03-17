@@ -3,6 +3,8 @@ target/
 
 /src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
 
+!target/pokemon-wiki.jar
+
 ### IntelliJ IDEA ###
 .idea/
 *.iws

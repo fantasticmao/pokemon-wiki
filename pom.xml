@@ -21,13 +21,13 @@
     <repositories>
         <repository>
             <id>github.fantasticmao.mundo</id>
-            <name>GitHub fantasticmao Apache Maven Packages</name>
+            <name>GitHub Packages: fantasticmao/mundo</name>
             <url>https://maven.pkg.github.com/fantasticmao/mundo</url>
         </repository>
 
         <repository>
             <id>github.fantasticmao.jsoup</id>
-            <name>GitHub fantasticmao Apache Maven Packages</name>
+            <name>GitHub Packages: fantasticmao/jsoup</name>
             <url>https://maven.pkg.github.com/fantasticmao/jsoup</url>
         </repository>
     </repositories>
@@ -81,6 +81,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
