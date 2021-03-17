@@ -20,13 +20,13 @@
 
     <repositories>
         <repository>
-            <id>github.fantasticmao.mundo</id>
+            <id>github</id>
             <name>GitHub Packages: fantasticmao/mundo</name>
             <url>https://maven.pkg.github.com/fantasticmao/mundo</url>
         </repository>
 
         <repository>
-            <id>github.fantasticmao.jsoup</id>
+            <id>github</id>
             <name>GitHub Packages: fantasticmao/jsoup</name>
             <url>https://maven.pkg.github.com/fantasticmao/jsoup</url>
         </repository>
