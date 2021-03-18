@@ -5,7 +5,7 @@ import cn.fantasticmao.pokemon.wiki.domain.Ability;
 import cn.fantasticmao.pokemon.wiki.domain.AbilityDetail;
 import cn.fantasticmao.pokemon.wiki.repoistory.AbilityDetailRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.AbilityRepository;
-import com.mundo.core.util.CollectionUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class AbilityServiceImpl implements AbilityService {
         }
 
         List<Ability> abilityList = abilityRepository.findByNameZh(nameZh);
-        if (CollectionUtil.isEmpty(abilityList)) {
+        if (CollectionUtils.isEmpty(abilityList)) {
             return Collections.emptyList();
         }
 

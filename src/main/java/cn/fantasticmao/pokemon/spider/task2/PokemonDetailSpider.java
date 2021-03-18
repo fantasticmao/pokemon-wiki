@@ -1,10 +1,10 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
-import com.mundo.core.support.Constant;
-import com.mundo.core.util.CollectionUtil;
+import cn.fantasticmao.mundo.core.support.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.collections4.CollectionUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -135,7 +135,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             String abilityHide = table.selectFirst("[title=特性]").parent().nextElementSibling().select("td").get(1).select("a").text().trim() + "（隐藏特性）";
             abilityList.add(abilityHide);
         }
-        final String ability = CollectionUtil.toString(abilityList);
+        final String ability = String.join(Constant.Strings.COMMA, abilityList);
 
         final String height = table.selectFirst("[title=宝可梦列表（按身高排序）]").parent().nextElementSibling().text().trim();
 
@@ -150,7 +150,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         List<String> genderRatioList = table.selectFirst("[title=宝可梦列表（按性别比例分类）]").parent().nextElementSibling().select("span").stream()
                 .map(element -> element.text().trim())
                 .collect(Collectors.toList());
-        final String genderRatio = CollectionUtil.isEmpty(genderRatioList) ? "无性别" : CollectionUtil.toString(genderRatioList);
+        final String genderRatio = CollectionUtils.isEmpty(genderRatioList) ? "无性别" : String.join(Constant.Strings.COMMA, genderRatioList);
 
         List<String> eggGroupList = table.selectFirst("[title=宝可梦培育]").parent().nextElementSibling().select("td").get(0).select("a").stream()
                 .map(element -> element.attr("title").trim().replaceAll("（.*）", ""))

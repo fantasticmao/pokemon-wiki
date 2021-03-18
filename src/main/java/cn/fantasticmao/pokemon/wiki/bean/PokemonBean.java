@@ -2,10 +2,10 @@ package cn.fantasticmao.pokemon.wiki.bean;
 
 import cn.fantasticmao.pokemon.wiki.domain.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.mundo.core.util.CollectionUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.collections4.CollectionUtils;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
@@ -84,11 +84,11 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
         this.generation = pokemon.getGeneration();
         this.baseStat = pokemonDetailBaseStat == null ? null : BaseStat.ofDomain(pokemonDetailBaseStat);
         this.detail = pokemonDetail == null ? null : Detail.ofDomain(pokemonDetail);
-        this.learnSetByLevelingUp = CollectionUtil.isEmpty(pokemonDetailLearnSetByLevelingUp)
+        this.learnSetByLevelingUp = CollectionUtils.isEmpty(pokemonDetailLearnSetByLevelingUp)
                 ? null : pokemonDetailLearnSetByLevelingUp.stream().map(LearnSetByLevelingUp::ofDomain).collect(Collectors.toList());
-        this.learnSetByTechnicalMachine = CollectionUtil.isEmpty(pokemonDetailLearnSetByTechnicalMachine)
+        this.learnSetByTechnicalMachine = CollectionUtils.isEmpty(pokemonDetailLearnSetByTechnicalMachine)
                 ? null : pokemonDetailLearnSetByTechnicalMachine.stream().map(LearnSetByTechnicalMachine::ofDomain).collect(Collectors.toList());
-        this.learnSetByBreeding = CollectionUtil.isEmpty(pokemonDetailLearnSetByBreeding)
+        this.learnSetByBreeding = CollectionUtils.isEmpty(pokemonDetailLearnSetByBreeding)
                 ? null : pokemonDetailLearnSetByBreeding.stream().map(LearnSetByBreeding::ofDomain).collect(Collectors.toList());
     }
 

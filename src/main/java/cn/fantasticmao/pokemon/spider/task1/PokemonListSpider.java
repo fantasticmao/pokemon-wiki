@@ -2,11 +2,11 @@ package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.support.Constant;
-import com.mundo.core.util.ObjectUtil;
+import cn.fantasticmao.mundo.core.support.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 
 import java.sql.Connection;
@@ -59,7 +59,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                     prep.setString(3, tempData.getNameJa());
                     prep.setString(4, tempData.getNameEn());
                     prep.setString(5, tempData.getType1());
-                    prep.setString(6, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
+                    prep.setString(6, ObjectUtils.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
                     prep.setInt(7, tempData.getGeneration());
                     prep.addBatch();
                 }

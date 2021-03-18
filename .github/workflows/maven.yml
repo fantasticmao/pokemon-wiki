@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:
   build:
@@ -26,6 +23,13 @@ jobs:
           sudo mkdir /var/log/pokemon-wiki
           sudo chown $USER /var/log/pokemon-wiki
       - name: Build with Maven
-        run: ./mvnw test -B
+        run: ./mvnw package -B
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: maomao233/pokemon-wiki
+          tag_with_ref: true

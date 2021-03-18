@@ -3,7 +3,7 @@ package cn.fantasticmao.pokemon.wiki.service;
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.domain.*;
 import cn.fantasticmao.pokemon.wiki.repoistory.*;
-import com.mundo.core.util.CollectionUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +52,7 @@ public class PokemonServiceImpl implements PokemonService {
         } else { // 按中文名称查找
             pokemonList = pokemonRepository.findByNameZh(nameZh);
         }
-        if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
+        if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
 
         final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
 
@@ -99,7 +99,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup) {
         List<Pokemon> pokemonList = generation == 0 ? pokemonRepository.findAll() : pokemonRepository.findByGeneration(generation);
-        if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
+        if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
 
         final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
 

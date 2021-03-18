@@ -2,11 +2,11 @@ package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.support.Constant;
-import com.mundo.core.util.ObjectUtil;
+import cn.fantasticmao.mundo.core.support.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 
 import java.sql.Connection;
@@ -59,8 +59,8 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                     prep.setString(3, tempData.getNameEn());
                     prep.setString(4, tempData.getType());
                     prep.setString(5, tempData.getCategory());
-                    prep.setString(6, ObjectUtil.defaultIfNull(tempData.getPower(), Constant.Strings.EMPTY));
-                    prep.setString(7, ObjectUtil.defaultIfNull(tempData.getAccuracy(), Constant.Strings.EMPTY));
+                    prep.setString(6, ObjectUtils.defaultIfNull(tempData.getPower(), Constant.Strings.EMPTY));
+                    prep.setString(7, ObjectUtils.defaultIfNull(tempData.getAccuracy(), Constant.Strings.EMPTY));
                     prep.setString(8, tempData.getPp());
                     prep.setInt(9, tempData.getGeneration());
                     prep.addBatch();

@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
+import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.util.CollectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,7 +53,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
                 prep.setString(1, data.getNameZh());
                 prep.setString(2, data.getDesc());
                 prep.setString(3, data.getEffect());
-                prep.setString(4, CollectionUtil.toString(data.getPokemonList()));
+                prep.setString(4, String.join(Constant.Strings.COMMA, data.getPokemonList()));
                 prep.addBatch();
             }
             prep.executeBatch();

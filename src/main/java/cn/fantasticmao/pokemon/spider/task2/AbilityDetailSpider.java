@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
-import com.mundo.core.support.Constant;
+import cn.fantasticmao.mundo.core.support.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;

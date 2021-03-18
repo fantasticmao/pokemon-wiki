@@ -2,14 +2,14 @@ package cn.fantasticmao.pokemon.wiki.web;
 
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
-import com.mundo.core.util.CollectionUtil;
-import com.mundo.core.util.JsonUtil;
-import com.mundo.web.mvc.WeChatConfigController;
-import com.mundo.web.support.wechat.WeChatMessage;
-import com.mundo.web.support.wechat.WeChatMessageFactory;
-import com.mundo.web.support.wechat.WeChatMessageType;
-import com.mundo.web.support.wechat.WeChatTextMessage;
+import cn.fantasticmao.mundo.core.util.JsonUtil;
+import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
+import cn.fantasticmao.mundo.web.support.wechat.WeChatMessage;
+import cn.fantasticmao.mundo.web.support.wechat.WeChatMessageFactory;
+import cn.fantasticmao.mundo.web.support.wechat.WeChatMessageType;
+import cn.fantasticmao.mundo.web.support.wechat.WeChatTextMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +53,7 @@ public class WeChatController extends WeChatConfigController {
             }
 
             List<PokemonBean> pokemonBeanList = pokemonService.listByNameZh(content);
-            final String replyContent = CollectionUtil.isNotEmpty(pokemonBeanList)
+            final String replyContent = CollectionUtils.isNotEmpty(pokemonBeanList)
                     ? JsonUtil.toJson(pokemonBeanList) : "未找到相关宝可梦";
             final String replyContentXml = WeChatMessageFactory.newXmlByTextMessage(
                     weChatTextMessage.getFromUserName(), weChatTextMessage.getToUserName(), replyContent);

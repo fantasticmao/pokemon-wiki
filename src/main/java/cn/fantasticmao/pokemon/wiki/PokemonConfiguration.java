@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import com.mundo.web.filter.HttpFormatRequestLoggingFilter;
+import cn.fantasticmao.mundo.web.filter.HttpFormatRequestLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

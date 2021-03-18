@@ -1,12 +1,12 @@
 package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import com.mundo.core.support.Constant;
-import com.mundo.core.util.ObjectUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 
 import java.sql.Connection;
@@ -56,10 +56,10 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
                     prep.setInt(1, tempData.getIndex());
                     prep.setString(2, tempData.getNameZh());
                     prep.setString(3, tempData.getType1());
-                    prep.setString(4, ObjectUtil.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
+                    prep.setString(4, ObjectUtils.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
                     prep.setString(5, tempData.getAbility1());
-                    prep.setString(6, ObjectUtil.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
-                    prep.setString(7, ObjectUtil.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
+                    prep.setString(6, ObjectUtils.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
+                    prep.setString(7, ObjectUtils.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
                     prep.setInt(8, tempData.getGeneration());
                     prep.addBatch();
                 }

@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.web;
 
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.service.PokemonService;
-import com.mundo.core.support.Constant;
-import com.mundo.web.support.JsonApi;
+import cn.fantasticmao.mundo.core.support.Constant;
+import cn.fantasticmao.mundo.web.support.JsonApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
