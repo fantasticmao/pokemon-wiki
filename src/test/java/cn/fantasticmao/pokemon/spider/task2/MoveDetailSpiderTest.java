@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
-import com.mundo.core.support.Constant;
+import cn.fantasticmao.mundo.core.support.Constant;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

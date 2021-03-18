@@ -1,8 +1,8 @@
 package cn.fantasticmao.pokemon.wiki.web;
 
+import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.wiki.bean.ItemBean;
 import cn.fantasticmao.pokemon.wiki.service.ItemService;
-import com.mundo.web.support.JsonApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

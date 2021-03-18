@@ -18,25 +18,32 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/fantasticmao/jsoup</url>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <mundo.version>1.0-SNAPSHOT</mundo.version>
+        <mundo.version>1.0</mundo.version>
         <jsoup.version>1.12.1-maomao-forked</jsoup.version>
         <dbcp2.version>2.5.0</dbcp2.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.mundo</groupId>
+            <groupId>cn.fantasticmao.mundo</groupId>
             <artifactId>mundo-web</artifactId>
             <version>${mundo.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.mundo</groupId>
+            <groupId>cn.fantasticmao.mundo</groupId>
             <artifactId>mundo-data</artifactId>
             <version>${mundo.version}</version>
         </dependency>
@@ -67,6 +74,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

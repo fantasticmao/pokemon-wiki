@@ -3,8 +3,8 @@ package cn.fantasticmao.pokemon.wiki.service;
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.domain.*;
 import cn.fantasticmao.pokemon.wiki.repoistory.*;
-import com.mundo.core.util.CollectionUtil;
-import com.mundo.core.util.StringUtil;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,7 +41,7 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh) {
-        if ((index == null || index <= 0) && StringUtil.isEmpty(nameZh)) {
+        if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return Collections.emptyList();
         }
 
@@ -52,7 +52,7 @@ public class PokemonServiceImpl implements PokemonService {
         } else { // 按中文名称查找
             pokemonList = pokemonRepository.findByNameZh(nameZh);
         }
-        if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
+        if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
 
         final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
 
@@ -99,7 +99,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup) {
         List<Pokemon> pokemonList = generation == 0 ? pokemonRepository.findAll() : pokemonRepository.findByGeneration(generation);
-        if (CollectionUtil.isEmpty(pokemonList)) return Collections.emptyList();
+        if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
 
         final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
 
@@ -111,7 +111,7 @@ public class PokemonServiceImpl implements PokemonService {
 
         return pokemonList.stream()
                 .filter(pokemon -> {
-                    if (StringUtil.isNotEmpty(eggGroup)) {
+                    if (StringUtils.isNotEmpty(eggGroup)) {
                         PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIndex());
                         return pokemonDetail != null
                                 && (eggGroup.equals(pokemonDetail.getEggGroup1()) || eggGroup.equals(pokemonDetail.getEggGroup2()));

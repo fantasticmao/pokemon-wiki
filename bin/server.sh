@@ -16,7 +16,7 @@ JVM_OPTS="${JVM_OPTS} -verbose:gc -Xloggc:${LOG_HOME}/gc_%p.log -XX:+PrintGCDeta
 JVM_OPTS="${JVM_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
 APP_OPTS="-Dfile.encoding=UTF-8 -Dspring.profiles.active=${ENV} -Dserver.port=1234"
 
-MAOMAO_DEPLOY_HOME="/opt/maomao"
+MAOMAO_DEPLOY_HOME="/opt/maomao/$NAME"
 
 case "$1" in
     start)
@@ -28,7 +28,7 @@ case "$1" in
         test -f $TOMCAT_LOG && rm $TOMCAT_LOG
 
         # start up command
-        nohup $JAVA_HOME/bin/java $JVM_OPTS $APP_OPTS -jar $MAOMAO_DEPLOY_HOME/pokemon-wiki-1.0.jar >> $TOMCAT_LOG &
+        nohup java $JVM_OPTS $APP_OPTS -jar $MAOMAO_DEPLOY_HOME/pokemon-wiki.jar >> $TOMCAT_LOG &
 
         echo $! > $TOMCAT_PID
         if [ -f $TOMCAT_PID ] && [ -n `cat $TOMCAT_PID` ]; then

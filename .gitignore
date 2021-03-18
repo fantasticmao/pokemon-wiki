@@ -1,12 +1,11 @@
-/src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
-
-/target/
+.DS_Store
+target/
 !.mvn/wrapper/maven-wrapper.jar
 
+/src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
+
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
-
-.DS_Store

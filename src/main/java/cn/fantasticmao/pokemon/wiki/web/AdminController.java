@@ -3,7 +3,7 @@ package cn.fantasticmao.pokemon.wiki.web;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import com.mundo.web.support.JsonApi;
+import cn.fantasticmao.mundo.web.support.JsonApi;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;

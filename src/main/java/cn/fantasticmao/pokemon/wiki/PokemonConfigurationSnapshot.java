@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import com.mundo.web.mvc.WeChatConfigController;
+import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.h2.server.web.WebServlet;
