@@ -25,10 +25,10 @@ public enum PokemonDataSource {
         }
     }
 
-    private PoolingDataSource poolingDataSource;
+    private final PoolingDataSource<PoolableConnection> poolingDataSource;
 
     PokemonDataSource(String url, String userName, String userPassword) {
-        GenericObjectPoolConfig config = new GenericObjectPoolConfig();
+        GenericObjectPoolConfig<PoolableConnection> config = new GenericObjectPoolConfig<>();
         config.setMaxTotal(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
         config.setMaxIdle(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
         this.poolingDataSource = setupDataSource(url, userName, userPassword, config);
@@ -46,7 +46,8 @@ public enum PokemonDataSource {
         poolingDataSource.close();
     }
 
-    private PoolingDataSource setupDataSource(String url, String userName, String userPassword, GenericObjectPoolConfig config) {
+    private PoolingDataSource<PoolableConnection> setupDataSource(String url, String userName, String userPassword,
+                                                                  GenericObjectPoolConfig<PoolableConnection> config) {
         // First, we'll create a ConnectionFactory that the pool will use to create Connections.
         // We'll use the DriverManagerConnectionFactory, using the connect string passed in the command line arguments.
         ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(url, userName, userPassword);

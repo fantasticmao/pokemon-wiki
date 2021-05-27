@@ -77,10 +77,10 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".s-丰缘 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String effect = element.child(4).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String effect = element.child(4).text();
                     int generation = 3;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })
@@ -92,10 +92,10 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".s-神奥 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String effect = element.child(4).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String effect = element.child(4).text();
                     int generation = 4;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })
@@ -107,10 +107,10 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".s-合众 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String effect = element.child(4).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String effect = element.child(4).text();
                     int generation = 5;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })
@@ -122,10 +122,10 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".s-卡洛斯 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String effect = element.child(4).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String effect = element.child(4).text();
                     int generation = 6;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })
@@ -137,10 +137,10 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".s-阿羅拉 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String effect = element.child(4).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String effect = element.child(4).text();
                     int generation = 7;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })
@@ -152,10 +152,10 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".b-伽勒尔 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String effect = element.child(4).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String effect = element.child(4).text();
                     int generation = 8;
                     return new AbilityListSpider.Data(nameZh, nameJa, nameEn, effect, generation);
                 })

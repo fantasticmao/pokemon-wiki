@@ -1,8 +1,8 @@
 package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import cn.fantasticmao.mundo.core.support.Constant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -97,14 +97,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-关都 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).children().size() == 0 ? element.child(3).html() : element.child(3).child(0).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 1);
                 })
                 .collect(Collectors.toList());
@@ -115,14 +115,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-城都 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 2);
                 })
                 .collect(Collectors.toList());
@@ -133,14 +133,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-丰缘 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 3);
                 })
                 .collect(Collectors.toList());
@@ -151,14 +151,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-神奥 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 4);
                 })
                 .collect(Collectors.toList());
@@ -169,14 +169,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-合众 > tbody > tr").stream()
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 5);
                 })
                 .collect(Collectors.toList());
@@ -188,14 +188,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                 .filter(element -> element.child(0).children().size() == 0)
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 6);
                 })
                 .collect(Collectors.toList());
@@ -207,14 +207,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                 .filter(element -> element.child(0).children().size() == 0)
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).children().size() == 1 ? element.child(1).child(0).html() : element.child(1).child(1).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 7);
                 })
                 .collect(Collectors.toList());
@@ -226,14 +226,14 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                 .filter(element -> element.child(0).children().size() == 0)
                 .skip(1)
                 .map(element -> {
-                    String nameZh = element.child(1).children().size() == 1 ? element.child(1).child(0).html() : element.child(1).child(1).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
+                    String nameZh = element.child(1).text();
+                    String nameJa = element.child(2).text();
+                    String nameEn = element.child(3).text();
+                    String type = element.child(4).text();
+                    String category = element.child(5).text();
+                    String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                    String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+                    String pp = element.child(8).text();
                     return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 8);
                 })
                 .collect(Collectors.toList());

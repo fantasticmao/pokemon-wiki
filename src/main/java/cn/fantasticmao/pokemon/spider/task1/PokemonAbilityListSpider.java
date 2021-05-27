@@ -94,13 +94,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-关都 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new PokemonAbilityListSpider.Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 1);
                 })
                 .collect(Collectors.toList());
@@ -111,13 +111,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-城都 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new PokemonAbilityListSpider.Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 2);
                 })
                 .collect(Collectors.toList());
@@ -128,13 +128,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-丰缘 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new PokemonAbilityListSpider.Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 3);
                 })
                 .collect(Collectors.toList());
@@ -145,13 +145,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-神奥 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new PokemonAbilityListSpider.Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 4);
                 })
                 .collect(Collectors.toList());
@@ -162,13 +162,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-合众 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new PokemonAbilityListSpider.Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 5);
                 })
                 .collect(Collectors.toList());
@@ -179,13 +179,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-卡洛斯 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new PokemonAbilityListSpider.Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 6);
                 })
                 .collect(Collectors.toList());
@@ -196,13 +196,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-阿羅拉 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 7);
                 })
                 .collect(Collectors.toList());
@@ -213,13 +213,13 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-伽勒尔 > tbody > tr").parallelStream()
                 .filter(element -> element.hasClass("bgwhite"))
                 .map(element -> {
-                    int index = Integer.parseInt(element.child(0).html());
-                    String nameZh = element.child(2).child(0).html();
-                    String type1 = element.child(3).child(0).html();
-                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).child(0).html();
-                    String ability1 = element.child(5).child(0).html();
-                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).child(0).html();
-                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).child(0).html();
+                    int index = Integer.parseInt(element.child(0).text());
+                    String nameZh = element.child(2).text();
+                    String type1 = element.child(3).text();
+                    String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
+                    String ability1 = element.child(5).text();
+                    String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+                    String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
                     return new Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, 8);
                 })
                 .collect(Collectors.toList());
