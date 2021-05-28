@@ -1,5 +1,6 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,38 +19,42 @@ import java.util.concurrent.Callable;
  */
 abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implements Callable<T> {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final String url;
+    private final String baseUrl;
+    private final String suffix;
 
-    protected AbstractTask2Spider(String url) {
-        this.url = url;
+    protected AbstractTask2Spider(String baseUrl, String suffix) {
+        this.baseUrl = baseUrl;
+        this.suffix = suffix;
     }
 
     @Override
     public T call() throws Exception {
-        logger.info("请求数据... {}", url);
-        Document document = requestData(url);
+        logger.info("请求数据... {}{}", baseUrl, suffix);
+        Document document = requestData(baseUrl, suffix);
 
-        logger.info("解析数据... {}", url);
+        logger.info("解析数据... {}{}", baseUrl, suffix);
         return parseData(document);
     }
 
     /**
      * <code>org.jsoup.Jsoup#connect(String)</code> 请求数据
      */
-    private Document requestData(String url) {
+    private Document requestData(String baseUrl, String suffix) {
+        String url = StringUtils.isNoneBlank(suffix) ? baseUrl + suffix : baseUrl;
         for (; ; ) {
             try {
                 return Jsoup.connect(url)
-                        .maxBodySize(10 * 1024 * 1024)
-                        .timeout(30_000)
-                        .get();
+                    .maxBodySize(10 * 1024 * 1024)
+                    .timeout(30_000)
+                    .get();
             } catch (IOException e) {
                 if (e instanceof HttpStatusException) {
-                    logger.error("{} {}", e.getMessage(), url);
                     // 例如请求「https://wiki.52poke.com/zh-hans/究极无敌大冲撞（招式）」的 Status Code 是 404，
-                    // 但 Response Body 却返回了真实数据，所以需要对其进行特殊处理
+                    // 该资源的真实 URL 为「https://wiki.52poke.com/zh-hans/究极无敌大冲撞」
                     if (((HttpStatusException) e).getStatusCode() == 404) {
-                        return null;
+                        url = baseUrl;
+                    } else {
+                        logger.error("{} {}", e.getMessage(), url);
                     }
                 } else if (e instanceof SocketTimeoutException) {
                     logger.info("请求超时，正在重试... " + url);

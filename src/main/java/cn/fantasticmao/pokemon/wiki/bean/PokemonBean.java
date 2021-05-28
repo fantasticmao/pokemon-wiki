@@ -85,11 +85,11 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
         this.baseStat = pokemonDetailBaseStat == null ? null : BaseStat.ofDomain(pokemonDetailBaseStat);
         this.detail = pokemonDetail == null ? null : Detail.ofDomain(pokemonDetail);
         this.learnSetByLevelingUp = CollectionUtils.isEmpty(pokemonDetailLearnSetByLevelingUp)
-                ? null : pokemonDetailLearnSetByLevelingUp.stream().map(LearnSetByLevelingUp::ofDomain).collect(Collectors.toList());
+            ? null : pokemonDetailLearnSetByLevelingUp.stream().map(LearnSetByLevelingUp::ofDomain).collect(Collectors.toList());
         this.learnSetByTechnicalMachine = CollectionUtils.isEmpty(pokemonDetailLearnSetByTechnicalMachine)
-                ? null : pokemonDetailLearnSetByTechnicalMachine.stream().map(LearnSetByTechnicalMachine::ofDomain).collect(Collectors.toList());
+            ? null : pokemonDetailLearnSetByTechnicalMachine.stream().map(LearnSetByTechnicalMachine::ofDomain).collect(Collectors.toList());
         this.learnSetByBreeding = CollectionUtils.isEmpty(pokemonDetailLearnSetByBreeding)
-                ? null : pokemonDetailLearnSetByBreeding.stream().map(LearnSetByBreeding::ofDomain).collect(Collectors.toList());
+            ? null : pokemonDetailLearnSetByBreeding.stream().map(LearnSetByBreeding::ofDomain).collect(Collectors.toList());
     }
 
     /**
@@ -128,8 +128,8 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
 
         private static BaseStat ofDomain(PokemonDetailBaseStat pokemonBaseStat) {
             return new BaseStat(pokemonBaseStat.getHp(), pokemonBaseStat.getAttack(), pokemonBaseStat.getDefense(),
-                    pokemonBaseStat.getSpAttack(), pokemonBaseStat.getSpDefense(), pokemonBaseStat.getSpeed(),
-                    pokemonBaseStat.getTotal(), pokemonBaseStat.getAverage());
+                pokemonBaseStat.getSpAttack(), pokemonBaseStat.getSpDefense(), pokemonBaseStat.getSpeed(),
+                pokemonBaseStat.getTotal(), pokemonBaseStat.getAverage());
         }
     }
 
@@ -179,9 +179,9 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
 
         private static Detail ofDomain(PokemonDetail pokemonDetail) {
             return new Detail(pokemonDetail.getImgUrl(), pokemonDetail.getCategory(), pokemonDetail.getHeight(),
-                    pokemonDetail.getWeight(), pokemonDetail.getBodyStyle(), pokemonDetail.getCatchRate(),
-                    pokemonDetail.getGenderRatio(), pokemonDetail.getEggGroup1(), pokemonDetail.getEggGroup2(),
-                    pokemonDetail.getHatchTime(), pokemonDetail.getEffortValue());
+                pokemonDetail.getWeight(), pokemonDetail.getBodyStyle(), pokemonDetail.getCatchRate(),
+                pokemonDetail.getGenderRatio(), pokemonDetail.getEggGroup1(), pokemonDetail.getEggGroup2(),
+                pokemonDetail.getHatchTime(), pokemonDetail.getEffortValue());
         }
     }
 
@@ -218,8 +218,8 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
 
         private static LearnSetByLevelingUp ofDomain(PokemonDetailLearnSetByLevelingUp pokemonDetailLearnSetByLevelingUp) {
             return new LearnSetByLevelingUp(pokemonDetailLearnSetByLevelingUp.getLevel1(), pokemonDetailLearnSetByLevelingUp.getLevel2(),
-                    pokemonDetailLearnSetByLevelingUp.getMove(), pokemonDetailLearnSetByLevelingUp.getType(), pokemonDetailLearnSetByLevelingUp.getCategory(),
-                    pokemonDetailLearnSetByLevelingUp.getPower(), pokemonDetailLearnSetByLevelingUp.getAccuracy(), pokemonDetailLearnSetByLevelingUp.getPp());
+                pokemonDetailLearnSetByLevelingUp.getMove(), pokemonDetailLearnSetByLevelingUp.getType(), pokemonDetailLearnSetByLevelingUp.getCategory(),
+                pokemonDetailLearnSetByLevelingUp.getPower(), pokemonDetailLearnSetByLevelingUp.getAccuracy(), pokemonDetailLearnSetByLevelingUp.getPp());
         }
     }
 
@@ -256,9 +256,9 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
 
         private static LearnSetByTechnicalMachine ofDomain(PokemonDetailLearnSetByTechnicalMachine pokemonDetailLearnSetByTechnicalMachine) {
             return new LearnSetByTechnicalMachine(pokemonDetailLearnSetByTechnicalMachine.getImgUrl(), pokemonDetailLearnSetByTechnicalMachine.getTechnicalMachine(),
-                    pokemonDetailLearnSetByTechnicalMachine.getMove(), pokemonDetailLearnSetByTechnicalMachine.getType(),
-                    pokemonDetailLearnSetByTechnicalMachine.getCategory(), pokemonDetailLearnSetByTechnicalMachine.getPower(),
-                    pokemonDetailLearnSetByTechnicalMachine.getAccuracy(), pokemonDetailLearnSetByTechnicalMachine.getPp());
+                pokemonDetailLearnSetByTechnicalMachine.getMove(), pokemonDetailLearnSetByTechnicalMachine.getType(),
+                pokemonDetailLearnSetByTechnicalMachine.getCategory(), pokemonDetailLearnSetByTechnicalMachine.getPower(),
+                pokemonDetailLearnSetByTechnicalMachine.getAccuracy(), pokemonDetailLearnSetByTechnicalMachine.getPp());
         }
     }
 
@@ -292,9 +292,9 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
 
         private static LearnSetByBreeding ofDomain(PokemonDetailLearnSetByBreeding pokemonDetailLearnSetByBreeding) {
             return new LearnSetByBreeding(pokemonDetailLearnSetByBreeding.getParent(), pokemonDetailLearnSetByBreeding.getMove(),
-                    pokemonDetailLearnSetByBreeding.getType(), pokemonDetailLearnSetByBreeding.getCategory(),
-                    pokemonDetailLearnSetByBreeding.getPower(), pokemonDetailLearnSetByBreeding.getAccuracy(),
-                    pokemonDetailLearnSetByBreeding.getPp());
+                pokemonDetailLearnSetByBreeding.getType(), pokemonDetailLearnSetByBreeding.getCategory(),
+                pokemonDetailLearnSetByBreeding.getPower(), pokemonDetailLearnSetByBreeding.getAccuracy(),
+                pokemonDetailLearnSetByBreeding.getPp());
         }
     }
 

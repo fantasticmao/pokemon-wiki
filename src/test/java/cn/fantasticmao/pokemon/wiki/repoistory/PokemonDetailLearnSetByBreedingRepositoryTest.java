@@ -22,7 +22,7 @@ public class PokemonDetailLearnSetByBreedingRepositoryTest extends SpringTest {
     @Test
     public void findByIndexIn() {
         List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreedingList
-                = pokemonDetailLearnSetByBreedingRepository.findByIndexIn(Collections.singletonList(1));
+            = pokemonDetailLearnSetByBreedingRepository.findByIndexIn(Collections.singletonList(1));
         Assert.assertNotNull(pokemonDetailLearnSetByBreedingList);
         System.out.println(pokemonDetailLearnSetByBreedingList);
     }

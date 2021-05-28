@@ -50,9 +50,9 @@ abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implement
         for (; ; ) {
             try {
                 return Jsoup.connect(site.url)
-                        .maxBodySize(10 * 1024 * 1024)
-                        .timeout(10_000)
-                        .get();
+                    .maxBodySize(10 * 1024 * 1024)
+                    .timeout(10_000)
+                    .get();
             } catch (IOException e) {
                 if (e instanceof SocketTimeoutException) {
                     logger.info("请求超时，正在重试... {}", site.url);

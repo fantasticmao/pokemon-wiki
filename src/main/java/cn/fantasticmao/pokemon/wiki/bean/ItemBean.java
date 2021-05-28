@@ -59,6 +59,6 @@ public class ItemBean implements Serializable, Comparable<ItemBean> {
 
     public static ItemBean ofDomain(Item item) {
         return new ItemBean(item.getId(), item.getType(), item.getImgUrl(), item.getNameZh(), item.getNameJa(),
-                item.getNameEn(), item.getDesc(), item.getGeneration());
+            item.getNameEn(), item.getDesc(), item.getGeneration());
     }
 }

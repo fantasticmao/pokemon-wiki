@@ -27,7 +27,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class AdminController {
 
     @PostMapping(value = "/logLevel")
-    public JsonApi changeLogLevel(@RequestParam String level) {
+    public JsonApi<Void> changeLogLevel(@RequestParam String level) {
         ILoggerFactory loggerFactory = LoggerFactory.getILoggerFactory();
 
         if (loggerFactory instanceof LoggerContext) {
@@ -38,7 +38,7 @@ public class AdminController {
             Level levelAfter = Level.valueOf(level);
             logger.setLevel(levelAfter);
 
-            System.out.println(String.format("修改日志等级成功：%s => %s", levelBefore, levelAfter));
+            System.out.printf("修改日志等级成功：%s => %s%n", levelBefore, levelAfter);
             return JsonApi.success();
         }
         return JsonApi.error(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -10,8 +10,8 @@ public class Application extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return super.configure(builder)
-                .sources(Application.class)
-                .properties("spring.profiles.default=snapshot");
+            .sources(Application.class)
+            .properties("spring.profiles.default=snapshot");
     }
 
     /**
@@ -19,7 +19,7 @@ public class Application extends SpringBootServletInitializer {
      */
     public static void main(String[] args) {
         new SpringApplicationBuilder(Application.class)
-                .properties("spring.profiles.default=snapshot")
-                .run(args);
+            .properties("spring.profiles.default=snapshot")
+            .run(args);
     }
 }

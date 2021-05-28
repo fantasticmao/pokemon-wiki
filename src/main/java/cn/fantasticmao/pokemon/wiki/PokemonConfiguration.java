@@ -35,17 +35,17 @@ public class PokemonConfiguration implements WebMvcConfigurer {
     @Bean
     public Docket callbackDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("pokemon-wiki")
-                .apiInfo(new ApiInfoBuilder()
-                        .title("Pokemon-Wiki Api Documentation")
-                        .contact(new Contact("fantasticmao", "https://github.com/fantasticmao/pokemon-wiki", "maomao8017@gmail.com"))
-                        .license("MIT License")
-                        .licenseUrl("https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE")
-                        .build())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.fantasticmao.pokemon.wiki.web"))
-                .paths(PathSelectors.any())
-                .build();
+            .groupName("pokemon-wiki")
+            .apiInfo(new ApiInfoBuilder()
+                .title("Pokemon-Wiki Api Documentation")
+                .contact(new Contact("fantasticmao", "https://github.com/fantasticmao/pokemon-wiki", "maomao8017@gmail.com"))
+                .license("MIT License")
+                .licenseUrl("https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE")
+                .build())
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("cn.fantasticmao.pokemon.wiki.web"))
+            .paths(PathSelectors.any())
+            .build();
     }
 
     @Bean

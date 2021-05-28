@@ -1,13 +1,15 @@
 package cn.fantasticmao.pokemon.spider.task1;
 
+import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import cn.fantasticmao.mundo.core.support.Constant;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +18,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -79,8 +82,9 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
 
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
-    public static class Data implements AbstractTask1Spider.Data {
+    static class Data implements AbstractTask1Spider.Data {
         private final String nameZh;
         private final String nameJa;
         private final String nameEn;
@@ -92,150 +96,109 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         private final int generation;
     }
 
+    private static final Function<Element, MoveListSpider.Data.DataBuilder> PARSER = element -> {
+        String nameZh = element.child(1).text();
+        String nameJa = element.child(2).text();
+        String nameEn = element.child(3).text();
+        String type = element.child(4).text();
+        String category = element.child(5).text();
+        String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+        String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
+        String pp = element.child(8).text();
+        return new Data.DataBuilder()
+            .nameZh(nameZh).nameJa(nameJa).nameEn(nameEn)
+            .type(type).category(category)
+            .power(power).accuracy(accuracy).pp(pp);
+    };
+
     // 第一世代
     private List<MoveListSpider.Data> getData1(Document document) {
         return document.select(".bg-关都 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).children().size() == 0 ? element.child(3).html() : element.child(3).child(0).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 1);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(1)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第二世代
     private List<MoveListSpider.Data> getData2(Document document) {
         return document.select(".bg-城都 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 2);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(2)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第三世代
     private List<MoveListSpider.Data> getData3(Document document) {
         return document.select(".bg-丰缘 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 3);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(3)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第四世代
     private List<MoveListSpider.Data> getData4(Document document) {
         return document.select(".bg-神奥 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 4);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(4)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第五世代
     private List<MoveListSpider.Data> getData5(Document document) {
         return document.select(".bg-合众 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 5);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(5)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第六世代
     private List<MoveListSpider.Data> getData6(Document document) {
         return document.select(".bg-卡洛斯 > tbody > tr").stream()
-                .filter(element -> element.child(0).children().size() == 0)
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).child(0).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 6);
-                })
-                .collect(Collectors.toList());
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(6)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第七世代
     private List<MoveListSpider.Data> getData7(Document document) {
         return document.select(".bg-阿罗拉 > tbody > tr").stream()
-                .filter(element -> element.child(0).children().size() == 0)
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).children().size() == 1 ? element.child(1).child(0).html() : element.child(1).child(1).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 7);
-                })
-                .collect(Collectors.toList());
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(7)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第八世代
     private List<MoveListSpider.Data> getData8(Document document) {
         return document.select(".bg-伽勒尔 > tbody > tr").stream()
-                .filter(element -> element.child(0).children().size() == 0)
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(1).children().size() == 1 ? element.child(1).child(0).html() : element.child(1).child(1).html();
-                    String nameJa = element.child(2).html();
-                    String nameEn = element.child(3).html();
-                    String type = element.child(4).child(0).html();
-                    String category = element.child(5).child(0).html();
-                    String power = "—".equals(element.child(6).html()) ? null : element.child(6).html();
-                    String accuracy = "—".equals(element.child(7).html()) ? null : element.child(7).html();
-                    String pp = element.child(8).html();
-                    return new MoveListSpider.Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, 8);
-                })
-                .collect(Collectors.toList());
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(8)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 }

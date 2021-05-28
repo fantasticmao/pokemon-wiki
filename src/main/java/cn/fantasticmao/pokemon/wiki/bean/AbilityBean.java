@@ -60,6 +60,6 @@ public class AbilityBean implements Serializable, Comparable<AbilityBean> {
 
     public static AbilityBean ofDomain(Ability ability, AbilityDetail abilityDetail) {
         return new AbilityBean(ability.getId(), ability.getNameZh(), ability.getNameJa(), ability.getNameEn(),
-                ability.getGeneration(), abilityDetail.getDesc(), abilityDetail.getEffect(), abilityDetail.getPokemons());
+            ability.getGeneration(), abilityDetail.getDesc(), abilityDetail.getEffect(), abilityDetail.getPokemons());
     }
 }
