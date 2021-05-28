@@ -23,7 +23,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     private final String nameZh;
 
     PokemonDetailSpider(int index, String nameZh) {
-        super("https://wiki.52poke.com/zh-hans/" + nameZh);
+        super("https://wiki.52poke.com/zh-hans/" + nameZh, "");
         this.index = index;
         this.nameZh = nameZh;
     }
