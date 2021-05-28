@@ -213,8 +213,8 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             desc = ROW_SPAN_DESC_QUEUE.poll();
         }
         return new Data.DataBuilder().imgUrl(imgUrl)
-                .nameZh(nameZh).nameJa(nameJa)
-                .nameEn(nameEn).desc(desc);
+            .nameZh(nameZh).nameJa(nameJa)
+            .nameEn(nameEn).desc(desc);
     };
 
     // 道具 - 野外使用和其它类别道具
@@ -222,12 +222,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "野外使用和其它类别道具";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -238,12 +238,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "进化道具";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -254,12 +254,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "可交换道具";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -270,12 +270,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "球果";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -287,12 +287,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 2;
             return document.selectFirst("#第二世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -304,12 +304,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 3;
             return document.selectFirst("#第三世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -321,12 +321,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 4;
             return document.selectFirst("#第四世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -338,12 +338,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 5;
             return document.selectFirst("#第五世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -355,12 +355,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 6;
             return document.selectFirst("#第六世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -372,12 +372,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 7;
             return document.selectFirst("#第七世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -389,12 +389,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "携带物品";
             final int generation = 8;
             return document.selectFirst("#第八世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -405,16 +405,16 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         final String type = "邮件";
         final int generation = 2;
         return document.selectFirst("#第二世代").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String imgUrl = Constant.Strings.EMPTY;
-                    String nameZh = element.child(0).text();
-                    String nameJa = element.child(1).text();
-                    String nameEn = element.child(2).text();
-                    String desc = element.child(3).text();
-                    return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> {
+                String imgUrl = Constant.Strings.EMPTY;
+                String nameZh = element.child(0).text();
+                String nameJa = element.child(1).text();
+                String nameEn = element.child(2).text();
+                String desc = element.child(3).text();
+                return new ItemListSpider.Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
+            })
+            .collect(Collectors.toList());
     }
 
     // 道具 - 邮件 - 第三世代
@@ -423,12 +423,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "邮件";
             final int generation = 3;
             return document.selectFirst("#第三世代").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -440,12 +440,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "邮件";
             final int generation = 4;
             return document.selectFirst("#第四世代").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -457,12 +457,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "邮件";
             final int generation = 5;
             return document.selectFirst("#第五世代").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -473,12 +473,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "糖果";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -489,12 +489,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "精灵球";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -505,12 +505,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "贵重道具";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -521,12 +521,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "化石";
             return document.selectFirst("#" + type).parent().nextElementSibling().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -537,12 +537,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "战斗道具";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -555,12 +555,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "回复道具";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -571,12 +571,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "Z纯晶-训练家使用";
             return document.selectFirst("#训练家使用的Ｚ纯晶").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -587,12 +587,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "Z纯晶-宝可梦使用";
             return document.selectFirst("#宝可梦使用的Ｚ纯晶").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -603,12 +603,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "食材";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -620,12 +620,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "树果";
             final int generation = 3;
             return document.selectFirst("#第三世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -636,12 +636,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         final String type = "树果";
         final int generation = 4;
         return document.selectFirst("#第四世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .type(type).generation(generation)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .type(type).generation(generation)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 树果 - 第六世代
@@ -650,12 +650,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "树果";
             final int generation = 6;
             return document.selectFirst("#第六世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -667,12 +667,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "树果";
             final int generation = 7;
             return document.selectFirst("#第七世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -684,12 +684,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 1;
             return document.selectFirst("#第一世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -701,12 +701,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 2;
             return document.selectFirst("#第二世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -718,12 +718,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 3;
             return document.selectFirst("#第三世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -735,12 +735,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 4;
             return document.selectFirst("#第四世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -752,12 +752,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 5;
             return document.selectFirst("#第五世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -769,12 +769,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 6;
             return document.selectFirst("#第六世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -786,12 +786,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 7;
             return document.selectFirst("#第七世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -803,12 +803,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 8;
             return document.selectFirst("#第八世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -820,12 +820,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             final String type = "重要物品";
             final int generation = 0;
             return document.selectFirst("#曾经是重要物品的道具").parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(generation)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(generation)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
@@ -836,12 +836,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             final String type = "洛托姆之力";
             return document.selectFirst("#" + type).parent().nextElementSibling().select("tbody > tr").stream()
-                    .skip(1)
-                    .map(element -> PARSER.apply(element)
-                            .type(type).generation(0)
-                            .build()
-                    )
-                    .collect(Collectors.toList());
+                .skip(1)
+                .map(element -> PARSER.apply(element)
+                    .type(type).generation(0)
+                    .build()
+                )
+                .collect(Collectors.toList());
         } finally {
             clearQueue();
         }

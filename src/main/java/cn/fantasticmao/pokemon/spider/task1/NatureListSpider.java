@@ -32,18 +32,18 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
     @Override
     public List<NatureListSpider.Data> parseData(Document document) {
         List<NatureListSpider.Data> dataList = document.selectFirst("#mw-content-text table").select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> {
-                    String nameZh = element.child(0).text();
-                    String nameJa = element.child(1).text();
-                    String nameEn = element.child(2).text();
-                    String increasedStat = "—".equals(element.child(3).text()) ? null : element.child(3).text();
-                    String decreasedStat = "—".equals(element.child(4).text()) ? null : element.child(4).text();
-                    String favoriteFlavor = "—".equals(element.child(5).text()) ? null : element.child(5).text();
-                    String dislikedFlavor = "—".equals(element.child(6).text()) ? null : element.child(6).text();
-                    return new NatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
-                })
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> {
+                String nameZh = element.child(0).text();
+                String nameJa = element.child(1).text();
+                String nameEn = element.child(2).text();
+                String increasedStat = "—".equals(element.child(3).text()) ? null : element.child(3).text();
+                String decreasedStat = "—".equals(element.child(4).text()) ? null : element.child(4).text();
+                String favoriteFlavor = "—".equals(element.child(5).text()) ? null : element.child(5).text();
+                String dislikedFlavor = "—".equals(element.child(6).text()) ? null : element.child(6).text();
+                return new NatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
+            })
+            .collect(Collectors.toList());
         return Collections.unmodifiableList(dataList);
     }
 

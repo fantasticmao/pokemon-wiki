@@ -106,99 +106,99 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
         String pp = element.child(8).text();
         return new Data.DataBuilder()
-                .nameZh(nameZh).nameJa(nameJa).nameEn(nameEn)
-                .type(type).category(category)
-                .power(power).accuracy(accuracy).pp(pp);
+            .nameZh(nameZh).nameJa(nameJa).nameEn(nameEn)
+            .type(type).category(category)
+            .power(power).accuracy(accuracy).pp(pp);
     };
 
     // 第一世代
     private List<MoveListSpider.Data> getData1(Document document) {
         return document.select(".bg-关都 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(1)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(1)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第二世代
     private List<MoveListSpider.Data> getData2(Document document) {
         return document.select(".bg-城都 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(2)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(2)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第三世代
     private List<MoveListSpider.Data> getData3(Document document) {
         return document.select(".bg-丰缘 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(3)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(3)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第四世代
     private List<MoveListSpider.Data> getData4(Document document) {
         return document.select(".bg-神奥 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(4)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(4)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第五世代
     private List<MoveListSpider.Data> getData5(Document document) {
         return document.select(".bg-合众 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(5)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(5)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第六世代
     private List<MoveListSpider.Data> getData6(Document document) {
         return document.select(".bg-卡洛斯 > tbody > tr").stream()
-                .filter(element -> element.child(0).children().size() == 0)
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(6)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(6)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第七世代
     private List<MoveListSpider.Data> getData7(Document document) {
         return document.select(".bg-阿罗拉 > tbody > tr").stream()
-                .filter(element -> element.child(0).children().size() == 0)
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(7)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(7)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 第八世代
     private List<MoveListSpider.Data> getData8(Document document) {
         return document.select(".bg-伽勒尔 > tbody > tr").stream()
-                .filter(element -> element.child(0).children().size() == 0)
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(8)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(8)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 }

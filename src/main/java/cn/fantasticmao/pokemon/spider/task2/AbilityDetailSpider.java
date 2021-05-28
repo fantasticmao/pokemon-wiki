@@ -36,9 +36,9 @@ class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> 
             final String desc = document.selectFirst("#mw-content-text > .mw-parser-output > .at-c > tbody").children().get(3).select("table").text();
             final String effect = document.select("#mw-content-text > .mw-parser-output > h2").eq(0).nextUntil("h2").select("p,h3").text();
             final List<String> pokemonList = document.select("#mw-content-text > .mw-parser-output > .at-c > tbody").get(1).select("tr").stream()
-                    .filter(element -> element.hasClass("bgwhite"))
-                    .map(element -> element.child(2).text())
-                    .collect(Collectors.toList());
+                .filter(element -> element.hasClass("bgwhite"))
+                .map(element -> element.child(2).text())
+                .collect(Collectors.toList());
             return new AbilityDetailSpider.Data(id, nameZh, desc, effect, pokemonList);
         }
     }

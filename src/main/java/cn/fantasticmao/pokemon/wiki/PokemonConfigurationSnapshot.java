@@ -39,7 +39,7 @@ public class PokemonConfigurationSnapshot {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.h2.Driver");
         String jdbcUrl = "jdbc:h2:mem:pokemon_wiki;";
-        final Resource resource = resourceLoader.getResource("classpath:database.sql");
+        final Resource resource = resourceLoader.getResource("file:/Users/maomao/database.sql");
         if (resource.isReadable()) {
             try {
                 final String sql = resource.getURL().toString();

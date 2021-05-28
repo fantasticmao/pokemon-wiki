@@ -22,7 +22,7 @@ public class PokemonDetailLearnSetByTechnicalMachineRepositoryTest extends Sprin
     @Test
     public void findByIndexIn() {
         List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachineList
-                = pokemonDetailLearnSetByTechnicalMachineRepository.findByIndexIn(Collections.singletonList(1));
+            = pokemonDetailLearnSetByTechnicalMachineRepository.findByIndexIn(Collections.singletonList(1));
         Assert.assertNotNull(pokemonDetailLearnSetByTechnicalMachineList);
         System.out.println(pokemonDetailLearnSetByTechnicalMachineList);
     }

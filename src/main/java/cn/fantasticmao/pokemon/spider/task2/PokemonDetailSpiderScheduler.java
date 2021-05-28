@@ -47,15 +47,15 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
         final int batchSize = 100;
         // 2. 批量保存
         final String sqlPokemonDetail = "INSERT INTO pw_pokemon_detail(`index`, imgUrl, type, category, ability, height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailBaseStat = "INSERT INTO pw_pokemon_detail_base_stat(`index`, hp, attack, defense, spAttack, spDefense, speed, total, average) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByLevelingUp = "INSERT INTO pw_pokemon_detail_learn_set_by_leveling_up(`index`, level1, level2, move, type, category, power, accuracy, pp) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByTechnicalMachine = "INSERT INTO pw_pokemon_detail_learn_set_by_technical_machine(`index`, imgUrl, technicalMachine, move, type, category, power, accuracy, pp) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByBreeding = "INSERT INTO pw_pokemon_detail_learn_set_by_breeding(`index`, parent, move, type, category, power, accuracy, pp) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prepPokemonDetail = connection.prepareStatement(sqlPokemonDetail);
              PreparedStatement prepPokemonDetailBaseStat = connection.prepareStatement(sqlPokemonDetailBaseStat);

@@ -42,14 +42,14 @@ public class MoveServiceImpl implements MoveService {
 
         List<Integer> moveIdList = moveList.stream().map(Move::getId).collect(Collectors.toList());
         Map<Integer, MoveDetail> moveDetailMap = moveDetailRepository.findByIdIn(moveIdList).stream()
-                .collect(Collectors.toMap(MoveDetail::getId, Function.identity()));
+            .collect(Collectors.toMap(MoveDetail::getId, Function.identity()));
 
         return moveList.stream()
-                .map(move -> {
-                    MoveDetail moveDetail = moveDetailMap.get(move.getId());
-                    return MoveBean.ofDomain(move, moveDetail);
-                })
-                .sorted()
-                .collect(Collectors.toList());
+            .map(move -> {
+                MoveDetail moveDetail = moveDetailMap.get(move.getId());
+                return MoveBean.ofDomain(move, moveDetail);
+            })
+            .sorted()
+            .collect(Collectors.toList());
     }
 }

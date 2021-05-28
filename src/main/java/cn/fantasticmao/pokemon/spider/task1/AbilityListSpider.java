@@ -82,73 +82,73 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         String nameEn = element.child(3).text();
         String effect = element.child(4).text();
         return new Data.DataBuilder()
-                .nameZh(nameZh).nameJa(nameJa)
-                .nameEn(nameEn).effect(effect);
+            .nameZh(nameZh).nameJa(nameJa)
+            .nameEn(nameEn).effect(effect);
     };
 
     // 丰缘地区
     private List<AbilityListSpider.Data> getDataList3(Document document) {
         return document.select(".s-丰缘 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(3)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(3)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 神奥地区
     private List<AbilityListSpider.Data> getDataList4(Document document) {
         return document.select(".s-神奥 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(4)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(4)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 合众地区
     private List<AbilityListSpider.Data> getDataList5(Document document) {
         return document.select(".s-合众 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(5)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(5)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 卡洛斯地区
     private List<AbilityListSpider.Data> getDataList6(Document document) {
         return document.select(".s-卡洛斯 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(6)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(6)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 阿罗拉地区
     private List<AbilityListSpider.Data> getDataList7(Document document) {
         return document.select(".s-阿羅拉 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(7)
-                        .build()
-                )
-                .collect(Collectors.toList());
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(7)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 
     // 伽勒尔地区
     private List<AbilityListSpider.Data> getDataList8(Document document) {
-        return document.select(".b-伽勒尔 > tbody > tr").stream()
-                .skip(1)
-                .map(element -> PARSER.apply(element)
-                        .generation(8)
-                        .build()
-                )
-                .collect(Collectors.toList());
+        return document.select(".s-伽勒尔 > tbody > tr").stream()
+            .skip(1)
+            .map(element -> PARSER.apply(element)
+                .generation(8)
+                .build()
+            )
+            .collect(Collectors.toList());
     }
 }

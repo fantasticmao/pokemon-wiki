@@ -68,7 +68,7 @@ public class MoveBean implements Serializable, Comparable<MoveBean> {
 
     public static MoveBean ofDomain(Move move, MoveDetail moveDetail) {
         return new MoveBean(move.getId(), move.getNameZh(), move.getNameJa(), move.getNameEn(), move.getType(), move.getCategory(),
-                move.getPower(), move.getAccuracy(), move.getPp(), move.getGeneration(), Detail.ofDomain(moveDetail));
+            move.getPower(), move.getAccuracy(), move.getPp(), move.getGeneration(), Detail.ofDomain(moveDetail));
     }
 
     @Getter

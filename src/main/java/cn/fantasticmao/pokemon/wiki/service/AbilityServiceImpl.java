@@ -42,14 +42,14 @@ public class AbilityServiceImpl implements AbilityService {
 
         List<Integer> abilityIdList = abilityList.stream().map(Ability::getId).collect(Collectors.toList());
         Map<Integer, AbilityDetail> abilityDetailMap = abilityDetailRepository.findByIdIn(abilityIdList).stream()
-                .collect(Collectors.toMap(AbilityDetail::getId, Function.identity()));
+            .collect(Collectors.toMap(AbilityDetail::getId, Function.identity()));
 
         return abilityList.stream()
-                .map(ability -> {
-                    AbilityDetail abilityDetail = abilityDetailMap.get(ability.getId());
-                    return AbilityBean.ofDomain(ability, abilityDetail);
-                })
-                .sorted()
-                .collect(Collectors.toList());
+            .map(ability -> {
+                AbilityDetail abilityDetail = abilityDetailMap.get(ability.getId());
+                return AbilityBean.ofDomain(ability, abilityDetail);
+            })
+            .sorted()
+            .collect(Collectors.toList());
     }
 }

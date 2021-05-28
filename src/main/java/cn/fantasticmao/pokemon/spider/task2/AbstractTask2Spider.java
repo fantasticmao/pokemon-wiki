@@ -40,9 +40,9 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
         for (; ; ) {
             try {
                 return Jsoup.connect(url)
-                        .maxBodySize(10 * 1024 * 1024)
-                        .timeout(30_000)
-                        .get();
+                    .maxBodySize(10 * 1024 * 1024)
+                    .timeout(30_000)
+                    .get();
             } catch (IOException e) {
                 if (e instanceof HttpStatusException) {
                     logger.error("{} {}", e.getMessage(), url);
