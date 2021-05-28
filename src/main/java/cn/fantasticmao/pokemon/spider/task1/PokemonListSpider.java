@@ -95,7 +95,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                    String nameZh = element.child(3).text();
+                    String nameZh = element.child(3).child(0).text();
                     String nameJa = element.child(4).text();
                     String nameEn = element.child(5).text();
                     String type1 = element.child(6).text();
@@ -107,7 +107,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                    String nameZh = element.child(3).text();
+                    String nameZh = element.child(3).child(0).text();
                     String nameJa = element.child(4).text();
                     String nameEn = element.child(5).text();
                     String type1 = element.child(6).text();
@@ -125,7 +125,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                    String nameZh = element.child(4).text();
+                    String nameZh = element.child(4).child(0).text();
                     String nameJa = element.child(5).text();
                     String nameEn = element.child(6).text();
                     String type1 = element.child(7).text();
@@ -141,7 +141,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                    String nameZh = element.child(4).text();
+                    String nameZh = element.child(4).child(0).text();
                     String nameJa = element.child(5).text();
                     String nameEn = element.child(6).text();
                     String type1 = element.child(7).text();
@@ -157,7 +157,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                    String nameZh = element.child(3).text();
+                    String nameZh = element.child(3).child(0).text();
                     String nameJa = element.child(4).text();
                     String nameEn = element.child(5).text();
                     String type1 = element.child(6).text();
@@ -173,7 +173,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                    String nameZh = element.child(4).text();
+                    String nameZh = element.child(4).child(0).text();
                     String nameJa = element.child(5).text();
                     String nameEn = element.child(6).text();
                     String type1 = element.child(7).text();
@@ -189,7 +189,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(3).text().replace("#", ""));
-                    String nameZh = element.child(5).text();
+                    String nameZh = element.child(5).child(0).text();
                     String nameJa = element.child(6).text();
                     String nameEn = element.child(7).text();
                     String type1 = element.child(8).text();
@@ -205,7 +205,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                    String nameZh = element.child(4).text();
+                    String nameZh = element.child(4).child(0).text();
                     String nameJa = element.child(5).text();
                     String nameEn = element.child(6).text();
                     String type1 = element.child(7).text();
@@ -221,7 +221,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 .skip(2)
                 .map(element -> {
                     int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                    String nameZh = element.child(3).text();
+                    String nameZh = element.child(3).child(0).text();
                     String nameJa = element.child(4).text();
                     String nameEn = element.child(5).text();
                     String type1 = element.child(6).text();
