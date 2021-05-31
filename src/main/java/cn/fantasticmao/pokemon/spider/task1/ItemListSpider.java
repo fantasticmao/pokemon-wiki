@@ -70,7 +70,6 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         dataList.addAll(getData15_3(document));
         dataList.addAll(getData15_4(document));
         dataList.addAll(getData15_5(document));
-        dataList.addAll(getData15_5(document));
         dataList.addAll(getData15_6(document));
         dataList.addAll(getData15_7(document));
         dataList.addAll(getData15_8(document));
