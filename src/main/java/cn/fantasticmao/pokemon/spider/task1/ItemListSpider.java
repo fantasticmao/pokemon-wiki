@@ -62,9 +62,9 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         dataList.addAll(getData12_2(document));
         dataList.addAll(getData13(document));
         dataList.addAll(getData14_1(document));
+        dataList.addAll(getData14_2(document));
         dataList.addAll(getData14_3(document));
         dataList.addAll(getData14_4(document));
-        dataList.addAll(getData14_5(document));
         dataList.addAll(getData15_1(document));
         dataList.addAll(getData15_2(document));
         dataList.addAll(getData15_3(document));
@@ -631,7 +631,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 树果 - 第四世代
-    private List<ItemListSpider.Data> getData14_3(Document document) {
+    private List<ItemListSpider.Data> getData14_2(Document document) {
         final String type = "树果";
         final int generation = 4;
         return document.selectFirst("#第四世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
@@ -644,7 +644,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 树果 - 第六世代
-    private List<ItemListSpider.Data> getData14_4(Document document) {
+    private List<ItemListSpider.Data> getData14_3(Document document) {
         try {
             final String type = "树果";
             final int generation = 6;
@@ -661,7 +661,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 树果 - 第七世代
-    private List<ItemListSpider.Data> getData14_5(Document document) {
+    private List<ItemListSpider.Data> getData14_4(Document document) {
         try {
             final String type = "树果";
             final int generation = 7;
