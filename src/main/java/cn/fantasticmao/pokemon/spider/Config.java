@@ -29,7 +29,7 @@ public interface Config {
         }
     }
 
-    String SQL_INIT_TABLE = Config.class.getResource("/").getPath() + "schema.sql";
+    String SQL_INIT_TABLE = "classpath:schema.sql";
 
     String SQL_DATABASE = "~/database.sql";
 

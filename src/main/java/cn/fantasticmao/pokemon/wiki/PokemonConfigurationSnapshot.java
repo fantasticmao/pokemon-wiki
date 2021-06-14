@@ -38,18 +38,7 @@ public class PokemonConfigurationSnapshot {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.h2.Driver");
-        String jdbcUrl = "jdbc:h2:mem:pokemon_wiki;";
-        final Resource resource = resourceLoader.getResource("classpath:database.sql");
-        if (resource.isReadable()) {
-            try {
-                final String sql = resource.getURL().toString();
-                jdbcUrl = jdbcUrl + String.format("INIT=RUNSCRIPT FROM '%s'", sql);
-            } catch (IOException e) {
-                LOGGER.error("could not run script from 'database.sql'", e);
-            }
-        } else {
-            LOGGER.error("could not run script from 'database.sql'");
-        }
+        String jdbcUrl = "jdbc:h2:mem:pokemon_wiki;INIT=RUNSCRIPT FROM 'classpath:database.sql'";
         config.setJdbcUrl(jdbcUrl);
         config.setUsername("sa");
         config.setPassword("");
