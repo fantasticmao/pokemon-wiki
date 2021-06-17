@@ -29,7 +29,7 @@ public interface Config {
         }
     }
 
-    int TASK_POOLING_DATA_SOURCE_MAX_SIZE = 5;
+    int TASK_POOLING_DATA_SOURCE_MAX_SIZE = 20;
 
     int TASK2_CONCURRENCY_THRESHOLD = 100;
 }

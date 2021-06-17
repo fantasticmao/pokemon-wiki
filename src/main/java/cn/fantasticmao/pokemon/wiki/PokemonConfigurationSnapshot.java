@@ -3,15 +3,9 @@ package cn.fantasticmao.pokemon.wiki;
 import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.h2.server.web.WebServlet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -19,7 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 
 /**
  * PokemonConfigurationSnapshot
@@ -30,27 +23,16 @@ import java.io.IOException;
 @Configuration
 @Profile("snapshot")
 public class PokemonConfigurationSnapshot {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PokemonConfigurationSnapshot.class);
-    @javax.annotation.Resource
-    private ResourceLoader resourceLoader;
 
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.h2.Driver");
-        String jdbcUrl = "jdbc:h2:mem:pokemon_wiki;INIT=RUNSCRIPT FROM 'classpath:database.sql'";
+        config.setDriverClassName("org.sqlite.JDBC");
+        String jdbcUrl = "jdbc:sqlite:pokemon_wiki.db";
         config.setJdbcUrl(jdbcUrl);
-        config.setUsername("sa");
-        config.setPassword("");
-        config.setReadOnly(true);
         config.setConnectionTimeout(5_000);
-        config.setMaximumPoolSize(5);
+        config.setMaximumPoolSize(20);
         return new HikariDataSource(config);
-    }
-
-    @Bean
-    public ServletRegistrationBean<WebServlet> h2Console() {
-        return new ServletRegistrationBean<>(new WebServlet(), "/h2-console/*");
     }
 
     @Bean
@@ -58,7 +40,7 @@ public class PokemonConfigurationSnapshot {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setShowSql(true);
         vendorAdapter.setGenerateDdl(false);
-        vendorAdapter.setDatabase(Database.H2);
+        vendorAdapter.setDatabase(Database.MYSQL);
 
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
