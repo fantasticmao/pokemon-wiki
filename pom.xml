@@ -33,6 +33,7 @@
         <mundo.version>1.0</mundo.version>
         <jsoup.version>1.12.1-maomao-forked</jsoup.version>
         <dbcp2.version>2.5.0</dbcp2.version>
+        <sqlite-jdbc.version>3.34.0</sqlite-jdbc.version>
     </properties>
 
     <dependencies>
@@ -55,8 +56,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite-jdbc.version}</version>
         </dependency>
 
         <dependency>

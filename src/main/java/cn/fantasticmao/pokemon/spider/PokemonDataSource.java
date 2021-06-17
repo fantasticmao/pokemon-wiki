@@ -1,12 +1,25 @@
 package cn.fantasticmao.pokemon.spider;
 
+import cn.fantasticmao.mundo.core.support.Constant;
 import org.apache.commons.dbcp2.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * PokemonDataSource
@@ -15,25 +28,18 @@ import java.sql.SQLException;
  * @since 2018/8/9
  */
 public enum PokemonDataSource {
-    INSTANCE("jdbc:h2:mem:pokemon_wiki;INIT=RUNSCRIPT FROM '" + Config.SQL_INIT_TABLE + "'", "sa", "");
-
-    static {
-        try {
-            Class.forName("org.h2.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    INSTANCE("jdbc:sqlite:pokemon_wiki.db", "schema.sql");
 
     private final PoolingDataSource<PoolableConnection> poolingDataSource;
+    private final Logger logger = LoggerFactory.getLogger(PokemonDataSource.class);
 
-    PokemonDataSource(String url, String userName, String userPassword) {
-        GenericObjectPoolConfig<PoolableConnection> config = new GenericObjectPoolConfig<>();
-        config.setMaxTotal(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
-        config.setMaxIdle(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
-        this.poolingDataSource = setupDataSource(url, userName, userPassword, config);
+    PokemonDataSource(String jdbcUrl, String schemaUrl) {
+        GenericObjectPoolConfig<PoolableConnection> poolConfig = new GenericObjectPoolConfig<>();
+        poolConfig.setMaxTotal(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
+        poolConfig.setMaxIdle(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
+        this.poolingDataSource = setupDataSource(jdbcUrl, poolConfig);
+        this.initDatabase(schemaUrl);
     }
-
 
     /**
      * 从连接池中，获取数据库连接
@@ -46,11 +52,11 @@ public enum PokemonDataSource {
         poolingDataSource.close();
     }
 
-    private PoolingDataSource<PoolableConnection> setupDataSource(String url, String userName, String userPassword,
-                                                                  GenericObjectPoolConfig<PoolableConnection> config) {
+    private PoolingDataSource<PoolableConnection> setupDataSource(String url,
+                                                                  GenericObjectPoolConfig<PoolableConnection> poolConfig) {
         // First, we'll create a ConnectionFactory that the pool will use to create Connections.
         // We'll use the DriverManagerConnectionFactory, using the connect string passed in the command line arguments.
-        ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(url, userName, userPassword);
+        ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(url);
 
         // Next we'll create the PoolableConnectionFactory, which wraps the "real" Connections created by the ConnectionFactory with
         // the classes that implement the pooling functionality.
@@ -59,7 +65,7 @@ public enum PokemonDataSource {
 
         // Now we'll need a ObjectPool that serves as the actual pool of connections.
         // We'll use a GenericObjectPool instance, although any ObjectPool implementation will suffice.
-        ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolableConnectionFactory, config);
+        ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolableConnectionFactory, poolConfig);
 
         // Set the factory's pool property to the owning pool
         poolableConnectionFactory.setPool(connectionPool);
@@ -68,4 +74,38 @@ public enum PokemonDataSource {
         return new PoolingDataSource<>(connectionPool);
     }
 
+    private void initDatabase(String schemaUrl) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        URL schemaResource = classLoader.getResource(schemaUrl);
+        if (Objects.isNull(schemaResource)) {
+            throw new IllegalArgumentException("schema file does not exist: '" + schemaUrl + "'");
+        }
+
+        final String initSql;
+        try {
+            Path schemaPath = Paths.get(schemaResource.toURI());
+            List<String> lines = Files.readAllLines(schemaPath);
+            initSql = String.join(Constant.Strings.EMPTY, lines);
+        } catch (URISyntaxException | IOException e) {
+            throw new IllegalArgumentException("read schema file error", e);
+        }
+
+        Objects.requireNonNull(initSql, "init sql in schema file error");
+        try (Connection connection = this.getConnection();
+             Statement statement = connection.createStatement()) {
+            for (String sql : initSql.split(";")) {
+                if (StringUtils.isBlank(sql)) {
+                    continue;
+                }
+
+                sql = sql.trim();
+                statement.executeUpdate(sql);
+                logger.info("execute sql: {}", sql);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            logger.error("init database error", e);
+            Runtime.getRuntime().exit(1);
+        }
+    }
 }

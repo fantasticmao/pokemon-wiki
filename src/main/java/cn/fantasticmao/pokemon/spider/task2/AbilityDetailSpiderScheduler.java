@@ -46,7 +46,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
         dataList.sort(Comparator.comparingInt(AbilityDetailSpider.Data::getId));
 
         // 2. 保存数据
-        final String sql = "INSERT INTO pw_ability_detail(nameZh, `desc`, effect, pokemons) VALUES (?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_ability_detail(nameZh, desc, effect, pokemons) VALUES (?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             for (AbilityDetailSpider.Data data : dataList) {

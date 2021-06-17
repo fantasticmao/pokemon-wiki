@@ -29,10 +29,6 @@ public interface Config {
         }
     }
 
-    String SQL_INIT_TABLE = "classpath:schema.sql";
-
-    String SQL_DATABASE = "~/database.sql";
-
     int TASK_POOLING_DATA_SOURCE_MAX_SIZE = 5;
 
     int TASK2_CONCURRENCY_THRESHOLD = 100;

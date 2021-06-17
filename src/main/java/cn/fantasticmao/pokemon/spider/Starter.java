@@ -8,9 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,8 +27,6 @@ class Starter {
         task1();
 
         task2();
-
-        dumpDatabase();
 
         PokemonDataSource.INSTANCE.shutDownDataSource();
     }
@@ -68,15 +63,6 @@ class Starter {
 
         // 3. 结束任务
         executorService.shutdownNow();
-    }
-
-    private static void dumpDatabase() {
-        try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SCRIPT TO '" + Config.SQL_DATABASE + "' CHARSET 'utf-8'")) {
-            statement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     static class UncaughtExceptionThreadFactory implements ThreadFactory {
