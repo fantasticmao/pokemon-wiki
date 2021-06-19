@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.sqlite.SQLiteConfig;
 
 import javax.sql.DataSource;
 
@@ -26,13 +27,13 @@ public class PokemonConfigurationSnapshot {
 
     @Bean
     public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.sqlite.JDBC");
-        String jdbcUrl = "jdbc:sqlite:pokemon_wiki.db";
-        config.setJdbcUrl(jdbcUrl);
-        config.setConnectionTimeout(5_000);
-        config.setMaximumPoolSize(20);
-        return new HikariDataSource(config);
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl("jdbc:sqlite:pokemon_wiki.db");
+
+        SQLiteConfig sqLiteConfig = new SQLiteConfig();
+        sqLiteConfig.setDateStringFormat("yyyy-MM-dd HH:mm:ss");
+        hikariConfig.setDataSourceProperties(sqLiteConfig.toProperties());
+        return new HikariDataSource(hikariConfig);
     }
 
     @Bean

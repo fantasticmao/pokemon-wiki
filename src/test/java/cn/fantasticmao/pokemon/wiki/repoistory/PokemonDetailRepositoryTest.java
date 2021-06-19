@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.PokemonDetail;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public class PokemonDetailRepositoryTest extends SpringTest {
     @Test
     public void findByIndexIn() {
         List<PokemonDetail> pokemonDetailList = pokemonDetailRepository.findByIndexIn(Arrays.asList(1, 2));
-        Assert.assertNotNull(pokemonDetailList);
+        Assertions.assertNotNull(pokemonDetailList);
         System.out.println(pokemonDetailList);
     }
 

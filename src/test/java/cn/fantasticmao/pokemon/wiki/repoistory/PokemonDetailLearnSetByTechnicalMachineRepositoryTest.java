@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.PokemonDetailLearnSetByTechnicalMachine;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class PokemonDetailLearnSetByTechnicalMachineRepositoryTest extends Sprin
     public void findByIndexIn() {
         List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachineList
             = pokemonDetailLearnSetByTechnicalMachineRepository.findByIndexIn(Collections.singletonList(1));
-        Assert.assertNotNull(pokemonDetailLearnSetByTechnicalMachineList);
+        Assertions.assertNotNull(pokemonDetailLearnSetByTechnicalMachineList);
         System.out.println(pokemonDetailLearnSetByTechnicalMachineList);
     }
 }

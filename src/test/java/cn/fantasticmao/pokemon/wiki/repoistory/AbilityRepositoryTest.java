@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.Ability;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +21,7 @@ public class AbilityRepositoryTest extends SpringTest {
     @Test
     public void findByNameZh() {
         List<Ability> abilityList = abilityRepository.findByNameZh("茂盛");
-        Assert.assertNotNull(abilityList);
+        Assertions.assertNotNull(abilityList);
         System.out.println(abilityList);
     }
 

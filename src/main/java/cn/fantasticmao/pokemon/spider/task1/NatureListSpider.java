@@ -1,12 +1,12 @@
 package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.mundo.core.support.Constant;
-import cn.fantasticmao.mundo.core.util.ObjectUtil;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 
 import java.sql.Connection;
@@ -56,10 +56,10 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
                 prep.setString(1, data.getNameZh());
                 prep.setString(2, data.getNameJa());
                 prep.setString(3, data.getNameEn());
-                prep.setString(4, ObjectUtil.defaultIfNull(data.getIncreasedStat(), Constant.Strings.EMPTY));
-                prep.setString(5, ObjectUtil.defaultIfNull(data.getDecreasedStat(), Constant.Strings.EMPTY));
-                prep.setString(6, ObjectUtil.defaultIfNull(data.getFavoriteFlavor(), Constant.Strings.EMPTY));
-                prep.setString(7, ObjectUtil.defaultIfNull(data.getDislikedFlavor(), Constant.Strings.EMPTY));
+                prep.setString(4, ObjectUtils.defaultIfNull(data.getIncreasedStat(), Constant.Strings.EMPTY));
+                prep.setString(5, ObjectUtils.defaultIfNull(data.getDecreasedStat(), Constant.Strings.EMPTY));
+                prep.setString(6, ObjectUtils.defaultIfNull(data.getFavoriteFlavor(), Constant.Strings.EMPTY));
+                prep.setString(7, ObjectUtils.defaultIfNull(data.getDislikedFlavor(), Constant.Strings.EMPTY));
                 prep.addBatch();
             }
             prep.executeBatch();

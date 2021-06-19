@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.PokemonDetailLearnSetByLevelingUp;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class PokemonDetailLearnSetByLevelingUpRepositoryTest extends SpringTest 
     public void findByIndexIn() {
         List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUpList
             = pokemonDetailLearnSetByLevelingUpRepository.findByIndexIn(Collections.singletonList(1));
-        Assert.assertNotNull(pokemonDetailLearnSetByLevelingUpList);
+        Assertions.assertNotNull(pokemonDetailLearnSetByLevelingUpList);
         System.out.println(pokemonDetailLearnSetByLevelingUpList);
     }
 }

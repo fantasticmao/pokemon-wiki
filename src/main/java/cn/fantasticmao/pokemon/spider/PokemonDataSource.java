@@ -93,7 +93,7 @@ public enum PokemonDataSource {
         Objects.requireNonNull(initSql, "init sql in schema file error");
         try (Connection connection = this.getConnection();
              Statement statement = connection.createStatement()) {
-            for (String sql : initSql.split(";")) {
+            for (String sql : initSql.split(Constant.Strings.SEMICOLON)) {
                 if (StringUtils.isBlank(sql)) {
                     continue;
                 }
