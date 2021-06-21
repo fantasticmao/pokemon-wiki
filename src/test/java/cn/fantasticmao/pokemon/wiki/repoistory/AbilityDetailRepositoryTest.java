@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.AbilityDetail;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public class AbilityDetailRepositoryTest extends SpringTest {
     @Test
     public void findByIdIn() {
         List<AbilityDetail> abilityDetailList = abilityDetailRepository.findByIdIn(Arrays.asList(1, 2));
-        Assert.assertNotNull(abilityDetailList);
+        Assertions.assertNotNull(abilityDetailList);
         System.out.println(abilityDetailList);
     }
 

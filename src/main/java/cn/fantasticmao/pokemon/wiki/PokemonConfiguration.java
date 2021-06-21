@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import cn.fantasticmao.mundo.web.filter.HttpFormatRequestLoggingFilter;
+import cn.fantasticmao.mundo.web.filter.StandardFormatRequestLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -50,6 +50,6 @@ public class PokemonConfiguration implements WebMvcConfigurer {
 
     @Bean
     Filter httpFormatRequestLoggingFilter() {
-        return new HttpFormatRequestLoggingFilter();
+        return new StandardFormatRequestLoggingFilter();
     }
 }

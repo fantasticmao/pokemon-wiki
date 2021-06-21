@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface MoveRepository extends PagingAndSortingRepository<Move, Integer> {
 
-    @Query(value = "SELECT * FROM pw_move WHERE nameZh LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
+    @Query(value = "SELECT * FROM pw_move WHERE nameZh LIKE '%' || ?1 || '%'", nativeQuery = true)
     List<Move> findByNameZh(String nameZh);
 }

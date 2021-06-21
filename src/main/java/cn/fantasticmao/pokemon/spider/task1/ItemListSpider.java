@@ -81,9 +81,9 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     @Override
     protected boolean saveData(List<ItemListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_item(type, imgUrl, nameZh, nameJa, nameEn, `desc`, generation) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_item(type, imgUrl, nameZh, nameJa, nameEn, desc, generation) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
-             PreparedStatement prep = connection.prepareCall(sql)) {
+             PreparedStatement prep = connection.prepareStatement(sql)) {
             ItemListSpider.Data tmpData = null;
             for (int i = batchSize, j = 0; ; i += batchSize) {
                 for (; j < i && j < dataList.size(); j++) {

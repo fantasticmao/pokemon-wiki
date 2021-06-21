@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.Move;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +21,7 @@ public class MoveRepositoryTest extends SpringTest {
     @Test
     public void findByNameZh() {
         List<Move> moveList = moveRepository.findByNameZh("飞叶快刀");
-        Assert.assertNotNull(moveList);
+        Assertions.assertNotNull(moveList);
         System.out.println(moveList);
     }
 }

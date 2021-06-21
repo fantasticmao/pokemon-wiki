@@ -2,8 +2,8 @@ package cn.fantasticmao.pokemon.wiki.repoistory;
 
 import cn.fantasticmao.pokemon.SpringTest;
 import cn.fantasticmao.pokemon.wiki.domain.Nature;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +21,7 @@ public class NatureRepositoryTest extends SpringTest {
     @Test
     public void findAll() {
         List<Nature> natureList = natureRepository.findAll();
-        Assert.assertNotNull(natureList);
+        Assertions.assertNotNull(natureList);
         System.out.println(natureList);
     }
 }
