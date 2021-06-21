@@ -36,7 +36,7 @@ public class AbilityController {
      * @param nameZh 特性中文名称
      */
     @ApiOperation(value = "特性详情接口")
-    @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonApi<List<AbilityBean>> listAbilityDetail(@ApiParam(value = "中文名称，支持模糊查询，例如「火」", example = "火", required = true)
                                                         @RequestParam(defaultValue = "") String nameZh) {
         log.info("输入参数 nameZh: {}", nameZh);
