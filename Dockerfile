@@ -7,6 +7,7 @@ ENV APP_ENV=snapshot \
 -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
 WORKDIR /opt/app/
 COPY ./target/pokemon-wiki.jar .
+COPY ./pokemon_wiki.db .
 VOLUME ${APP_LOG_DIR}
 EXPOSE 8080
 CMD java ${JVM_OPTS} ${APP_OPTS} -jar pokemon-wiki.jar

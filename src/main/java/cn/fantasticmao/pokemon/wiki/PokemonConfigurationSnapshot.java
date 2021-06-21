@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 @Configuration
 @Profile("snapshot")
 public class PokemonConfigurationSnapshot {
-    @Value("${app.dbfile}")
+    @Value("${app.dbfile:pokemon_wiki.db}")
     private String databaseFile;
 
     @Bean
