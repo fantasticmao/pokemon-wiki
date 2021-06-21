@@ -3,6 +3,7 @@ package cn.fantasticmao.pokemon.wiki;
 import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -24,11 +25,13 @@ import javax.sql.DataSource;
 @Configuration
 @Profile("snapshot")
 public class PokemonConfigurationSnapshot {
+    @Value("${app.dbfile}")
+    private String databaseFile;
 
     @Bean
     public DataSource dataSource() {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:sqlite:pokemon_wiki.db");
+        hikariConfig.setJdbcUrl("jdbc:sqlite:" + databaseFile);
 
         SQLiteConfig sqLiteConfig = new SQLiteConfig();
         sqLiteConfig.setDateStringFormat("yyyy-MM-dd HH:mm:ss");
