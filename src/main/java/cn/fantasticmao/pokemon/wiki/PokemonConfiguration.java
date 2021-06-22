@@ -12,7 +12,6 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.Filter;
 
@@ -22,13 +21,12 @@ import javax.servlet.Filter;
  * @author maomao
  * @since 2019-07-05
  */
-@EnableSwagger2
 @Configuration
 public class PokemonConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/swagger-ui.html");
+        registry.addViewController("/").setViewName("redirect:/swagger-ui/");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
