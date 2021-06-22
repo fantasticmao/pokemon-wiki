@@ -1,8 +1,9 @@
-package cn.fantasticmao.pokemon.wiki.service;
+package cn.fantasticmao.pokemon.wiki.service.impl;
 
 import cn.fantasticmao.pokemon.wiki.bean.PokemonBean;
 import cn.fantasticmao.pokemon.wiki.domain.*;
 import cn.fantasticmao.pokemon.wiki.repoistory.*;
+import cn.fantasticmao.pokemon.wiki.service.PokemonService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
