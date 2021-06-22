@@ -1,10 +1,11 @@
-package cn.fantasticmao.pokemon.wiki.service;
+package cn.fantasticmao.pokemon.wiki.service.impl;
 
 import cn.fantasticmao.pokemon.wiki.bean.AbilityBean;
 import cn.fantasticmao.pokemon.wiki.domain.Ability;
 import cn.fantasticmao.pokemon.wiki.domain.AbilityDetail;
 import cn.fantasticmao.pokemon.wiki.repoistory.AbilityDetailRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.AbilityRepository;
+import cn.fantasticmao.pokemon.wiki.service.AbilityService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

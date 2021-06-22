@@ -1,7 +1,8 @@
-package cn.fantasticmao.pokemon.wiki.service;
+package cn.fantasticmao.pokemon.wiki.service.impl;
 
 import cn.fantasticmao.pokemon.wiki.bean.ItemBean;
 import cn.fantasticmao.pokemon.wiki.repoistory.ItemRepository;
+import cn.fantasticmao.pokemon.wiki.service.ItemService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

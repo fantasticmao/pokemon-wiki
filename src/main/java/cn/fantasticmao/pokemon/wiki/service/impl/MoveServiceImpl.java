@@ -1,10 +1,11 @@
-package cn.fantasticmao.pokemon.wiki.service;
+package cn.fantasticmao.pokemon.wiki.service.impl;
 
 import cn.fantasticmao.pokemon.wiki.bean.MoveBean;
 import cn.fantasticmao.pokemon.wiki.domain.Move;
 import cn.fantasticmao.pokemon.wiki.domain.MoveDetail;
 import cn.fantasticmao.pokemon.wiki.repoistory.MoveDetailRepository;
 import cn.fantasticmao.pokemon.wiki.repoistory.MoveRepository;
+import cn.fantasticmao.pokemon.wiki.service.MoveService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
