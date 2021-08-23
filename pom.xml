@@ -31,7 +31,7 @@
         <java.version>1.8</java.version>
 
         <mundo.version>1.0.1</mundo.version>
-        <jsoup.version>1.12.1-maomao-forked</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
         <dbcp2.version>2.5.0</dbcp2.version>
         <sqlite-jdbc.version>3.34.0</sqlite-jdbc.version>
     </properties>
