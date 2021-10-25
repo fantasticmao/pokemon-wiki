@@ -1,6 +1,7 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.mundo.core.support.Constant;
+import cn.fantasticmao.pokemon.spider.JsoupUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -49,7 +50,8 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
         // 解析获取作用范围
         final String scope = trList.get(6).select("b + table > tbody > tr").get(1).text();
         // 解析获取附加效果
-        final String effect = document.select("#mw-content-text > .mw-parser-output > h2").eq(0).nextUntil("h2").select("p").text();
+        Elements elements = document.select("#mw-content-text > .mw-parser-output > h2").eq(0);
+        final String effect = JsoupUtil.nextUntil(elements, "h2").select("p").text();
         return new MoveDetailSpider.Data(id, nameZh, desc, imgUrl, notes, scope, effect);
     }
 

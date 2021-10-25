@@ -1,6 +1,7 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.mundo.core.support.Constant;
+import cn.fantasticmao.pokemon.spider.JsoupUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -52,7 +53,8 @@ public class MoveDetailSpiderTest {
         String scope = trList.get(5).select("table > tbody > tr").get(2).text();
         System.out.println("scope: " + scope);
 
-        String effect = document.select("#mw-content-text > .mw-parser-output > h2").eq(0).nextUntil("h2").select("p").text();
+        Elements elements = document.select("#mw-content-text > .mw-parser-output > h2").eq(0);
+        String effect = JsoupUtil.nextUntil(elements, "h2").select("p").text();
         System.out.println("effect: " + effect);
     }
 }

@@ -1,6 +1,6 @@
 # Pokemon-Wiki
 
-[![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/action/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions)
+[![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/ci/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions)
 [![Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/maomao233/pokemon-wiki)
 [![License](https://img.shields.io/github/license/fantasticmao/pokemon-wiki)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
 
@@ -17,7 +17,3 @@ Pokemon-Wiki 接口模块基于 HTTP 协议，具体请参考 [接口文档](api
 - 查询宝可梦详情：[https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子](https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子)
 - 查询特性详情：[https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛](https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛)
 - 查询招式详情：[https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀](https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀)
-
----
-
-Docker Hub 地址：[https://hub.docker.com/r/maomao233/pokemon-wiki](https://hub.docker.com/r/maomao233/pokemon-wiki)

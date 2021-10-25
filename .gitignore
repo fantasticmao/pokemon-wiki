@@ -1,8 +1,6 @@
 .DS_Store
 target/
-!.mvn/wrapper/maven-wrapper.jar
-
-/src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
+src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
 
 ### IntelliJ IDEA ###
 .idea/
