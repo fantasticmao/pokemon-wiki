@@ -5,7 +5,9 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>true</withJansi>
         <encoder>
-            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%thread] %cyan(%logger{5}):%L#%M - %message%n</pattern>
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [%thread] %cyan(%logger{5}):%L#%M - %message%n
+            </pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>
@@ -31,22 +33,5 @@
 
     <logger name="cn.fantasticmao.pokemon.wiki" level="INFO" additivity="false">
         <appender-ref ref="pokemon_wiki_log"/>
-    </logger>
-
-    <!-- http request log -->
-    <appender name="http_request_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${pokemon_wiki_log_home}/http-request.log</file>
-        <encoder>
-            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{5}:%L%n%message%n###%n%n</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <maxHistory>30</maxHistory>
-            <fileNamePattern>${pokemon_wiki_log_home}/http-request.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <logger name="StandardFormatRequestLoggingFilter" level="TRACE" additivity="false">
-        <appender-ref ref="http_request_info"/>
     </logger>
 </configuration>

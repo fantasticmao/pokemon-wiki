@@ -1,7 +1,6 @@
 package cn.fantasticmao.pokemon.wiki.bean;
 
 import cn.fantasticmao.pokemon.wiki.domain.Item;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -17,21 +16,44 @@ import java.io.Serializable;
 @Getter
 @ToString
 public class ItemBean implements Serializable, Comparable<ItemBean> {
-    @ApiModelProperty(value = "道具编号", example = "1")
+    /**
+     * 道具编号
+     */
     private final int id;
-    @ApiModelProperty(value = "道具类型", example = "野外使用和其它类别道具")
+
+    /**
+     * 道具类型
+     */
     private final String type;
-    @ApiModelProperty(value = "预览图片", example = "https://s1.52poke.wiki/wiki/7/7d/Bag_%E9%99%A4%E8%99%AB%E5%96%B7%E9%9B%BE_Sprite.png")
+
+    /**
+     * 预览图片
+     */
     private final String imgUrl;
-    @ApiModelProperty(value = "中文名称", example = "除虫喷雾")
+
+    /**
+     * 中文名称
+     */
     private final String nameZh;
-    @ApiModelProperty(value = "日文名称", example = "むしよけスプレー")
+
+    /**
+     * 日文名称
+     */
     private final String nameJa;
-    @ApiModelProperty(value = "英文名称", example = "Repel")
+
+    /**
+     * 英文名称
+     */
     private final String nameEn;
-    @ApiModelProperty(value = "道具描述", example = "使用后，在较短的一段时间内，弱小的野生宝可梦将完全不会出现。")
+
+    /**
+     * 道具描述
+     */
     private final String desc;
-    @ApiModelProperty(value = "第几世代", example = "0")
+
+    /**
+     * 第几世代
+     */
     private final int generation;
 
     @Override

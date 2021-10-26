@@ -1,19 +1,20 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import cn.fantasticmao.mundo.web.filter.StandardFormatRequestLoggingFilter;
+import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
+import org.sqlite.SQLiteConfig;
 
-import javax.servlet.Filter;
+import javax.sql.DataSource;
 
 /**
  * PokemonConfiguration
@@ -23,31 +24,41 @@ import javax.servlet.Filter;
  */
 @Configuration
 public class PokemonConfiguration implements WebMvcConfigurer {
+    @Value("${app.dbfile:pokemon_wiki.db}")
+    private String databaseFile;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/swagger-ui/");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    @Bean
+    public DataSource dataSource() {
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl("jdbc:sqlite:" + databaseFile);
+
+        SQLiteConfig sqLiteConfig = new SQLiteConfig();
+        sqLiteConfig.setDateStringFormat("yyyy-MM-dd HH:mm:ss");
+        hikariConfig.setDataSourceProperties(sqLiteConfig.toProperties());
+        return new HikariDataSource(hikariConfig);
     }
 
     @Bean
-    public Docket callbackDocket() {
-        return new Docket(DocumentationType.SWAGGER_2)
-            .groupName("pokemon-wiki")
-            .apiInfo(new ApiInfoBuilder()
-                .title("Pokemon-Wiki Api Documentation")
-                .contact(new Contact("fantasticmao", "https://github.com/fantasticmao/pokemon-wiki", "maomao8017@gmail.com"))
-                .license("MIT License")
-                .licenseUrl("https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE")
-                .build())
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("cn.fantasticmao.pokemon.wiki.web"))
-            .paths(PathSelectors.any())
-            .build();
+    LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setShowSql(false);
+        vendorAdapter.setGenerateDdl(false);
+        vendorAdapter.setDatabase(Database.MYSQL);
+
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+        factoryBean.setDataSource(dataSource());
+        factoryBean.setJpaVendorAdapter(vendorAdapter);
+        factoryBean.setPackagesToScan("cn.fantasticmao");
+        return factoryBean;
     }
 
     @Bean
-    Filter httpFormatRequestLoggingFilter() {
-        return new StandardFormatRequestLoggingFilter();
+    PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager();
+    }
+
+    @Bean(name = WeChatConfigController.TOKEN_BEAN_NAME)
+    String weChatToken() {
+        return "I_Love_Pokemon";
     }
 }

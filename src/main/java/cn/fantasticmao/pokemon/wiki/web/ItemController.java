@@ -3,8 +3,6 @@ package cn.fantasticmao.pokemon.wiki.web;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.wiki.bean.ItemBean;
 import cn.fantasticmao.pokemon.wiki.service.ItemService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +19,12 @@ import java.util.List;
  * @since 2019-03-23
  */
 @Slf4j
-@Api(tags = "道具相关接口")
 @RestController
 @RequestMapping("/item")
 public class ItemController {
     @Resource
     private ItemService itemService;
 
-    @ApiOperation(value = "道具列表接口")
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonApi<List<ItemBean>> listItem() {
         List<ItemBean> itemList = itemService.listAll();

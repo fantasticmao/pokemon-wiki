@@ -2,7 +2,6 @@ package cn.fantasticmao.pokemon.wiki.bean;
 
 import cn.fantasticmao.pokemon.wiki.domain.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,34 +20,68 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 public class PokemonBean implements Serializable, Comparable<PokemonBean> {
-    @ApiModelProperty(value = "全国图鉴", example = "1")
+    /**
+     * 全国图鉴
+     */
     private final int index;
-    @ApiModelProperty(value = "中文名称", example = "妙蛙种子")
+
+    /**
+     * 中文名称
+     */
     private final String nameZh;
-    @ApiModelProperty(value = "日文名称", example = "フシギダネ")
+
+    /**
+     * 日文名称
+     */
     private final String nameJa;
-    @ApiModelProperty(value = "英文名称", example = "Bulbasaur")
+
+    /**
+     * 英文名称
+     */
     private final String nameEn;
-    @ApiModelProperty(value = "属性1", example = "草")
+
+    /**
+     * 属性1
+     */
     private final String type1;
-    @ApiModelProperty(value = "属性2", example = "毒")
+
+    /**
+     * 属性2
+     */
     private final String type2;
-    @ApiModelProperty(value = "特性1", example = "茂盛")
+
+    /**
+     * 特性1
+     */
     private final String ability1;
-    @ApiModelProperty(value = "特性2", example = "")
+
+    /**
+     * 特性2
+     */
     private final String ability2;
-    @ApiModelProperty(value = "隐藏特性", example = "叶绿素")
+
+    /**
+     * 隐藏特性
+     */
     private final String abilityHide;
-    @ApiModelProperty(value = "第几世代", example = "1")
+
+    /**
+     * 第几世代
+     */
     private final int generation;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final BaseStat baseStat;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Detail detail;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LearnSetByLevelingUp> learnSetByLevelingUp;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LearnSetByTechnicalMachine> learnSetByTechnicalMachine;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<LearnSetByBreeding> learnSetByBreeding;
 
@@ -98,21 +131,44 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
     @Getter
     @ToString
     private static class BaseStat implements Serializable {
-        @ApiModelProperty(value = "HP", example = "45")
+        /**
+         * HP
+         */
         private final int hp;
-        @ApiModelProperty(value = "攻击", example = "49")
+
+        /**
+         * 攻击
+         */
         private final int attack;
-        @ApiModelProperty(value = "防御", example = "49")
+
+        /**
+         * 防御
+         */
         private final int defense;
-        @ApiModelProperty(value = "特攻", example = "65")
+
+        /**
+         * 特攻
+         */
         private final int spAttack;
-        @ApiModelProperty(value = "特防", example = "65")
+
+        /**
+         * 特防
+         */
         private final int spDefense;
-        @ApiModelProperty(value = "速度", example = "45")
+
+        /**
+         * 速度
+         */
         private final int speed;
-        @ApiModelProperty(value = "总合", example = "318")
+
+        /**
+         * 总合
+         */
         private final int total;
-        @ApiModelProperty(value = "平均值", example = "53")
+
+        /**
+         * 平均值
+         */
         private final float average;
 
         private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
@@ -139,27 +195,59 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
     @Getter
     @ToString
     private static class Detail implements Serializable {
-        @ApiModelProperty(value = "预览图片", example = "https://s1.52poke.wiki/wiki/thumb/2/21/001Bulbasaur.png/300px-001Bulbasaur.png")
+        /**
+         * 预览图片
+         */
         private final String imgUrl;
-        @ApiModelProperty(value = "分类", example = "种子宝可梦")
+
+        /**
+         * 分类
+         */
         private final String category;
-        @ApiModelProperty(value = "身高", example = "0.7m")
+
+        /**
+         * 身高
+         */
         private final String height;
-        @ApiModelProperty(value = "体重", example = "6.9kg")
+
+        /**
+         * 体重
+         */
         private final String weight;
-        @ApiModelProperty(value = "体型", example = "https://s1.52poke.wiki/wiki/c/cc/Body08.png")
+
+        /**
+         * 体型
+         */
         private final String bodyStyle;
-        @ApiModelProperty(value = "捕获率", example = "5.9%")
+
+        /**
+         * 捕获率
+         */
         private final String catchRate;
-        @ApiModelProperty(value = "性别比例，以逗号分隔", example = "雄性 87.5%,雌性 12.5%")
+
+        /**
+         * 性别比例，以逗号分隔
+         */
         private final String genderRatio;
-        @ApiModelProperty(value = "蛋组1", example = "怪兽")
+
+        /**
+         * 蛋组1
+         */
         private final String eggGroup1;
-        @ApiModelProperty(value = "蛋组2", example = "植物群")
+
+        /**
+         * 蛋组2
+         */
         private final String eggGroup2;
-        @ApiModelProperty(value = "孵化时间", example = "5140步")
+
+        /**
+         * 孵化时间
+         */
         private final String hatchTime;
-        @ApiModelProperty(value = "基础点数，以逗号分隔", example = "HP 0,攻击 0,防御 0,特攻 1,特防 0,速度 0")
+
+        /**
+         * 基础点数，以逗号分隔
+         */
         private final String effortValue;
 
         private Detail(String imgUrl, String category, String height, String weight, String bodyStyle, String catchRate,
@@ -188,22 +276,45 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
     @Getter
     @ToString
     private static class LearnSetByLevelingUp implements Serializable {
-        @ApiModelProperty(value = "等级（太阳/月亮）", example = "—")
-        private String level1;
-        @ApiModelProperty(value = "等级（究极之日/究极之月）", example = "—")
-        private String level2;
-        @ApiModelProperty(value = "招式名称", example = "撞击")
-        private String move;
-        @ApiModelProperty(value = "属性", example = "一般")
-        private String type;
-        @ApiModelProperty(value = "分类", example = "物理")
-        private String category;
-        @ApiModelProperty(value = "威力", example = "40")
-        private String power;
-        @ApiModelProperty(value = "命中", example = "100")
-        private String accuracy;
-        @ApiModelProperty(value = "PP", example = "35")
-        private String pp;
+        /**
+         * 等级（太阳/月亮）
+         */
+        private final String level1;
+
+        /**
+         * 等级（究极之日/究极之月）
+         */
+        private final String level2;
+
+        /**
+         * 招式名称
+         */
+        private final String move;
+
+        /**
+         * 属性
+         */
+        private final String type;
+
+        /**
+         * 分类
+         */
+        private final String category;
+
+        /**
+         * 威力
+         */
+        private final String power;
+
+        /**
+         * 命中
+         */
+        private final String accuracy;
+
+        /**
+         * PP
+         */
+        private final String pp;
 
         private LearnSetByLevelingUp(String level1, String level2, String move, String type, String category, String power, String accuracy, String pp) {
             this.level1 = level1;
@@ -226,22 +337,45 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
     @Getter
     @ToString
     private static class LearnSetByTechnicalMachine implements Serializable {
-        @ApiModelProperty(value = "招式学习器图片链接", example = "https://s1.52poke.wiki/wiki/e/e3/Bag_TM_%E4%B8%80%E8%88%AC_Sprite.png")
-        private String imgUrl;
-        @ApiModelProperty(value = "招式学习器名称", example = "招式学习器０１")
-        private String technicalMachine;
-        @ApiModelProperty(value = "招式名称", example = "叫声")
-        private String move;
-        @ApiModelProperty(value = "属性", example = "一般")
-        private String type;
-        @ApiModelProperty(value = "分类", example = "变化")
-        private String category;
-        @ApiModelProperty(value = "威力", example = "—")
-        private String power;
-        @ApiModelProperty(value = "命中", example = "100")
-        private String accuracy;
-        @ApiModelProperty(value = "PP", example = "40")
-        private String pp;
+        /**
+         * 招式学习器图片链接
+         */
+        private final String imgUrl;
+
+        /**
+         * 招式学习器名称
+         */
+        private final String technicalMachine;
+
+        /**
+         * 招式名称
+         */
+        private final String move;
+
+        /**
+         * 属性
+         */
+        private final String type;
+
+        /**
+         * 分类
+         */
+        private final String category;
+
+        /**
+         * 威力
+         */
+        private final String power;
+
+        /**
+         * 命中
+         */
+        private final String accuracy;
+
+        /**
+         * PP
+         */
+        private final String pp;
 
         private LearnSetByTechnicalMachine(String imgUrl, String technicalMachine, String move, String type, String category, String power, String accuracy, String pp) {
             this.imgUrl = imgUrl;
@@ -265,20 +399,40 @@ public class PokemonBean implements Serializable, Comparable<PokemonBean> {
     @Getter
     @ToString
     private static class LearnSetByBreeding implements Serializable {
-        @ApiModelProperty(value = "亲代", example = "呆呆兽,呆壳兽,卡比兽")
-        private String parent;
-        @ApiModelProperty(value = "招式名称", example = "瞬间失忆")
-        private String move;
-        @ApiModelProperty(value = "属性", example = "超能力")
-        private String type;
-        @ApiModelProperty(value = "分类", example = "变化")
-        private String category;
-        @ApiModelProperty(value = "威力", example = "—")
-        private String power;
-        @ApiModelProperty(value = "命中", example = "—")
-        private String accuracy;
-        @ApiModelProperty(value = "PP", example = "20")
-        private String pp;
+        /**
+         * 亲代
+         */
+        private final String parent;
+
+        /**
+         * 招式名称
+         */
+        private final String move;
+
+        /**
+         * 属性
+         */
+        private final String type;
+
+        /**
+         * 分类
+         */
+        private final String category;
+
+        /**
+         * 威力
+         */
+        private final String power;
+
+        /**
+         * 命中
+         */
+        private final String accuracy;
+
+        /**
+         * PP
+         */
+        private final String pp;
 
         private LearnSetByBreeding(String parent, String move, String type, String category, String power, String accuracy, String pp) {
             this.parent = parent;

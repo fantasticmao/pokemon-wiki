@@ -39,7 +39,6 @@ public class PokemonServiceImpl implements PokemonService {
     @Resource
     private PokemonDetailLearnSetByBreedingRepository pokemonDetailLearnSetByBreedingRepository;
 
-
     @Override
     public List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh) {
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
