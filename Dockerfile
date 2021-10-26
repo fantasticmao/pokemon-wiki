@@ -1,13 +1,11 @@
 FROM openjdk:8-jdk-alpine
-ENV APP_ENV=snapshot \
-    APP_LOG_DIR=/var/log/pokemon-wiki \
-    APP_OPTS="-Dfile.encoding=UTF-8 -Dspring.profiles.active=${APP_ENV}" \
+ENV APP_LOG_DIR=/var/log/pokemon-wiki \
+    APP_OPTS="-Dfile.encoding=UTF-8" \
     JVM_OPTS="-server -Xms500m -Xmx500m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC \
 -verbose:gc -Xloggc:${APP_LOG_DIR}/gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy \
 -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
-WORKDIR /opt/app/
-COPY ./target/pokemon-wiki.jar .
-COPY ./pokemon_wiki.db .
-VOLUME ${APP_LOG_DIR}
-EXPOSE 8080
+WORKDIR /app
+COPY ./target/pokemon-wiki.jar /app
+COPY ./pokemon_wiki.db /app
+EXPOSE 1234
 CMD java ${JVM_OPTS} ${APP_OPTS} -jar pokemon-wiki.jar

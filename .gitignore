@@ -1,6 +1,5 @@
 .DS_Store
 target/
-src/main/java/cn/fantasticmao/pokemon/wiki/PokemonConfigurationMaster.java
 
 ### IntelliJ IDEA ###
 .idea/
