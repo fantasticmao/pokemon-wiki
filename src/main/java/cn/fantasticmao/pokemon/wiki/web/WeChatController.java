@@ -1,10 +1,6 @@
 package cn.fantasticmao.pokemon.wiki.web;
 
-import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
-import cn.fantasticmao.mundo.web.support.wechat.WeChatMessage;
-import cn.fantasticmao.mundo.web.support.wechat.WeChatMessageFactory;
-import cn.fantasticmao.mundo.web.support.wechat.WeChatMessageType;
-import cn.fantasticmao.mundo.web.support.wechat.WeChatTextMessage;
+import cn.fantasticmao.mundo.web.support.wechat.*;
 import cn.fantasticmao.pokemon.wiki.service.WechatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -24,14 +20,14 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @RestController
-public class WeChatController extends WeChatConfigController {
+public class WeChatController extends WeChatServerConfig {
     @Resource
     private WechatService wechatService;
 
     @GetMapping("/wechat")
     @Override
-    public String configServer(HttpServletRequest request) {
-        return super.configServer(request);
+    public String config(HttpServletRequest request) {
+        return super.config(request);
     }
 
     @PostMapping(value = "/wechat", produces = MediaType.TEXT_XML_VALUE)

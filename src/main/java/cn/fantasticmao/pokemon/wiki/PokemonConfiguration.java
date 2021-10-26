@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.wiki;
 
-import cn.fantasticmao.mundo.web.mvc.WeChatConfigController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,8 +56,4 @@ public class PokemonConfiguration implements WebMvcConfigurer {
         return new JpaTransactionManager();
     }
 
-    @Bean(name = WeChatConfigController.TOKEN_BEAN_NAME)
-    String weChatToken() {
-        return "I_Love_Pokemon";
-    }
 }

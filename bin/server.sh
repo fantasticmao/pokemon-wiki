@@ -1,6 +1,11 @@
 #!/bin/bash
 
 NAME=pokemon-wiki
+APP_WECHAT_TOKEN=$2
+
+if [ -z ${ENV} ]; then
+    APP_WECHAT_TOKEN='I_Love_Pokemon'
+fi
 
 LOG_HOME=/var/log/$NAME
 TOMCAT_LOG=$LOG_HOME/tomcat.log
@@ -11,7 +16,7 @@ MAOMAO_DEPLOY_HOME="/opt/maomao/$NAME"
 JVM_OPTS="${JVM_OPTS} -server -Xms500m -Xmx500m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC"
 JVM_OPTS="${JVM_OPTS} -verbose:gc -Xloggc:${LOG_HOME}/gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy"
 JVM_OPTS="${JVM_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
-APP_OPTS="-Dfile.encoding=UTF-8 -Dserver.port=1234 -Dapp.dbfile=${MAOMAO_DEPLOY_HOME}/pokemon_wiki.db"
+APP_OPTS="-Dfile.encoding=UTF-8 -Dapp.wechat.token=${APP_WECHAT_TOKEN} -Dserver.port=1234 -Dapp.dbfile=${MAOMAO_DEPLOY_HOME}/pokemon_wiki.db"
 
 case "$1" in
     start)

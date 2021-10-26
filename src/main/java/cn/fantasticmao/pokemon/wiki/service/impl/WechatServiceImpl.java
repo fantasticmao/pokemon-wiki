@@ -9,6 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,12 @@ public class WechatServiceImpl implements WechatService {
     private PokemonAbilityRepository pokemonAbilityRepository;
 
     private static final int MAX_CONTENT_LENGTH = 1500;
+
+    @Nonnull
+    @Override
+    public String token() {
+        return System.getProperty("app.wechat.token", "I_Love_Pokemon");
+    }
 
     @Override
     public String searchPokemonInfosByName(String nameZh) {
