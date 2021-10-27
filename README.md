@@ -1,19 +1,29 @@
-# Pokemon-Wiki
+# Pokemon Wiki
 
 [![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/ci/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions)
 [![Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/maomao233/pokemon-wiki)
 [![License](https://img.shields.io/github/license/fantasticmao/pokemon-wiki)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
 
-> Pokemon-Wiki 数据来源自 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主页)**。
+Pokemon-Wiki 是爬取 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主页)** 站点，并提供组合数据查询的项目。
 
-Pokemon-Wiki 是爬取神奇宝贝百科站点，并提供组合数据查询接口的项目，爬虫模块基于 [java.net](https://docs.oracle.com/javase/10/docs/api/java/net/package-summary.html) + [Jsoup](https://github.com/jhy/jsoup)，接口模块基于 [Spring](https://spring.io/)。
+## 实现方式
 
-Pokemon-Wiki 爬虫模块使用多线程技术，在网络良好的情况下，当配置线程池大小为 100 时，可以在一分钟内爬完所需的 1774 个页面。
+Pokemon-Wiki 爬虫模块基于 [jsoup](https://github.com/jhy/jsoup)，使用多线程实现并行数据爬取，在网络畅通的情况下，当线程池大小配置为 100 时，可以在一分钟内爬完所需的 1700+ 个页面。
 
-Pokemon-Wiki 接口模块基于 HTTP 协议，具体请参考 [接口文档](apiDoc)。
+Pokemon-Wiki 爬虫模块获取的数据存于 [SQLite](https://www.sqlite.org/index.html) 中，二次开发可直接使用 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db) 文件。
 
-常用接口示例：
+Pokemon-Wiki 接口模块基于 [Spring Web MVC](https://spring.io/)，API 详情可见 [接口文档](https://github.com/fantasticmao/pokemon-wiki/tree/master/apiDoc)，常用接口示例：
 
 - 查询宝可梦详情：[https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子](https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子)
 - 查询特性详情：[https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛](https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛)
 - 查询招式详情：[https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀](https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀)
+
+## 许可声明
+
+Pokemon-Wiki 数据来源自 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主页)** 站点，Pokemon-Wiki 仅提供组合数据查询。
+
+神奇宝贝百科 [版权声明](https://wiki.52poke.com/wiki/%E7%A5%9E%E5%A5%87%E5%AE%9D%E8%B4%9D%E7%99%BE%E7%A7%91:%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E)
+
+Pokemon-Wiki [GPL-3.0 License](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
+
+Copyright (c) 2018 fantasticmao
