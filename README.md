@@ -2,7 +2,7 @@
 
 [![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/ci/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions)
 [![Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/maomao233/pokemon-wiki)
-[![License](https://img.shields.io/github/license/fantasticmao/pokemon-wiki)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-BY--NC--SA--3.0-orange)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
 
 Pokemon-Wiki 是爬取 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主页)** 站点，并提供组合数据查询的项目。
 
