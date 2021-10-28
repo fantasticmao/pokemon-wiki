@@ -24,6 +24,6 @@ Pokemon-Wiki 数据来源自 **[神奇宝贝百科](https://wiki.52poke.com/wiki
 
 神奇宝贝百科 [版权声明](https://wiki.52poke.com/wiki/%E7%A5%9E%E5%A5%87%E5%AE%9D%E8%B4%9D%E7%99%BE%E7%A7%91:%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E)
 
-Pokemon-Wiki [GPL-3.0 License](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
+Pokemon-Wiki [许可声明](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
 
 Copyright (c) 2018 fantasticmao
