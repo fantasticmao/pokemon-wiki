@@ -23,7 +23,7 @@ public class MoveDetailRepositoryTest extends SpringTest {
     public void findByIdIn() {
         List<MoveDetail> moveDetailList = moveDetailRepository.findByIdIn(Arrays.asList(1, 2));
         Assertions.assertNotNull(moveDetailList);
-        System.out.println(moveDetailList);
+        Assertions.assertEquals(2, moveDetailList.size());
     }
 
 }

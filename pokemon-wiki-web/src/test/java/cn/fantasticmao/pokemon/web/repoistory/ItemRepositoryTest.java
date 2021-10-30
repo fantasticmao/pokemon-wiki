@@ -20,9 +20,9 @@ public class ItemRepositoryTest extends SpringTest {
 
     @Test
     public void findAll() {
+        // FIXME
         List<Item> itemList = itemRepository.findAll();
         Assertions.assertNotNull(itemList);
-        System.out.println(itemList);
     }
 
 }

@@ -24,6 +24,6 @@ public class PokemonDetailLearnSetByLevelingUpRepositoryTest extends SpringTest 
         List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUpList
             = pokemonDetailLearnSetByLevelingUpRepository.findByIndexIn(Collections.singletonList(1));
         Assertions.assertNotNull(pokemonDetailLearnSetByLevelingUpList);
-        System.out.println(pokemonDetailLearnSetByLevelingUpList);
+        Assertions.assertTrue(pokemonDetailLearnSetByLevelingUpList.size() > 1);
     }
 }

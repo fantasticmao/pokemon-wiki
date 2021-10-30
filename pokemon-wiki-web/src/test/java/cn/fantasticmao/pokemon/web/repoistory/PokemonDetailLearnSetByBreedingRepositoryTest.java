@@ -24,7 +24,7 @@ public class PokemonDetailLearnSetByBreedingRepositoryTest extends SpringTest {
         List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreedingList
             = pokemonDetailLearnSetByBreedingRepository.findByIndexIn(Collections.singletonList(1));
         Assertions.assertNotNull(pokemonDetailLearnSetByBreedingList);
-        System.out.println(pokemonDetailLearnSetByBreedingList);
+        Assertions.assertTrue(pokemonDetailLearnSetByBreedingList.size() > 1);
     }
 
 }

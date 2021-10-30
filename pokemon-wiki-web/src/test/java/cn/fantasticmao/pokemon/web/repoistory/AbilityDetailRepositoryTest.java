@@ -23,7 +23,7 @@ public class AbilityDetailRepositoryTest extends SpringTest {
     public void findByIdIn() {
         List<AbilityDetail> abilityDetailList = abilityDetailRepository.findByIdIn(Arrays.asList(1, 2));
         Assertions.assertNotNull(abilityDetailList);
-        System.out.println(abilityDetailList);
+        Assertions.assertEquals(2, abilityDetailList.size());
     }
 
 }

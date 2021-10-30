@@ -24,6 +24,6 @@ public class PokemonDetailLearnSetByTechnicalMachineRepositoryTest extends Sprin
         List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachineList
             = pokemonDetailLearnSetByTechnicalMachineRepository.findByIndexIn(Collections.singletonList(1));
         Assertions.assertNotNull(pokemonDetailLearnSetByTechnicalMachineList);
-        System.out.println(pokemonDetailLearnSetByTechnicalMachineList);
+        Assertions.assertTrue(pokemonDetailLearnSetByTechnicalMachineList.size() > 1);
     }
 }

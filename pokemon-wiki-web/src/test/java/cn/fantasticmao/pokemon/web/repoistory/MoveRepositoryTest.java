@@ -22,6 +22,6 @@ public class MoveRepositoryTest extends SpringTest {
     public void findByNameZh() {
         List<Move> moveList = moveRepository.findByNameZh("飞叶快刀");
         Assertions.assertNotNull(moveList);
-        System.out.println(moveList);
+        Assertions.assertEquals(1, moveList.size());
     }
 }

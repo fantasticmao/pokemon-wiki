@@ -22,6 +22,6 @@ public class NatureRepositoryTest extends SpringTest {
     public void findAll() {
         List<Nature> natureList = natureRepository.findAll();
         Assertions.assertNotNull(natureList);
-        System.out.println(natureList);
+        Assertions.assertEquals(25, natureList.size());
     }
 }

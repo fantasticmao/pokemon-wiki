@@ -21,15 +21,14 @@ public class PokemonRepositoryTest extends SpringTest {
 
     @Test
     public void findByNameZh() {
-        List<Pokemon> pokemonList = pokemonRepository.findByNameZh("妙蛙种子");
+        List<Pokemon> pokemonList = pokemonRepository.findByNameZh("妙蛙");
         Assertions.assertNotNull(pokemonList);
-        System.out.println(pokemonList);
+        Assertions.assertEquals(3, pokemonList.size());
     }
 
     @Test
     public void findByIndex() {
         Optional<Pokemon> pokemonOptional = pokemonRepository.findByIndex(1);
         Assertions.assertTrue(pokemonOptional.isPresent());
-        System.out.println(pokemonOptional);
     }
 }

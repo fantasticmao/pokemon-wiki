@@ -22,7 +22,7 @@ public class AbilityRepositoryTest extends SpringTest {
     public void findByNameZh() {
         List<Ability> abilityList = abilityRepository.findByNameZh("茂盛");
         Assertions.assertNotNull(abilityList);
-        System.out.println(abilityList);
+        Assertions.assertEquals(1, abilityList.size());
     }
 
 }

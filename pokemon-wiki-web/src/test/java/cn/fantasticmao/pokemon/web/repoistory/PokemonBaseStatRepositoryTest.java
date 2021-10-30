@@ -23,6 +23,6 @@ public class PokemonBaseStatRepositoryTest extends SpringTest {
     public void findByIndexIn() {
         List<PokemonDetailBaseStat> pokemonBaseStatList = pokemonDetailBaseStatRepository.findByIndexIn(Arrays.asList(1, 2));
         Assertions.assertNotNull(pokemonBaseStatList);
-        System.out.println(pokemonBaseStatList);
+        Assertions.assertEquals(2, pokemonBaseStatList.size());
     }
 }

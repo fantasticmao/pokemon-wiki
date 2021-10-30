@@ -5,7 +5,7 @@ ENV APP_LOG_DIR=/var/log/pokemon-wiki \
 -verbose:gc -Xloggc:${APP_LOG_DIR}/gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy \
 -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
 WORKDIR /app
-COPY ./target/pokemon-wiki.jar /app
-COPY pokemon-wiki-web/pokemon_wiki.db /app
+COPY ./pokemon-wiki-web/target/pokemon-wiki-web.jar /app
+COPY ./pokemon-wiki-web/pokemon_wiki.db /app
 EXPOSE 1234
-CMD java ${JVM_OPTS} ${APP_OPTS} -jar pokemon-wiki.jar
+CMD java ${JVM_OPTS} ${APP_OPTS} -jar pokemon-wiki-web.jar
