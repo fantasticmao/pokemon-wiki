@@ -1,6 +1,6 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
-import cn.fantasticmao.pokemon.SpringTest;
+import cn.fantasticmao.pokemon.web.SpringTest;
 import cn.fantasticmao.pokemon.web.domain.AbilityDetail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

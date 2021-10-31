@@ -1,6 +1,7 @@
 # Pokemon Wiki
 
 [![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/ci/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions)
+[![codecov](https://codecov.io/gh/fantasticmao/pokemon-wiki/branch/master/graph/badge.svg)](https://codecov.io/gh/fantasticmao/pokemon-wiki)
 [![Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/maomao233/pokemon-wiki)
 [![License](https://img.shields.io/badge/license-BY--NC--SA--3.0-orange)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
 
