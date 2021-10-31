@@ -3,7 +3,7 @@
 NAME=pokemon-wiki
 APP_WECHAT_TOKEN=$2
 
-if [ -z ${ENV} ]; then
+if [ -z ${APP_WECHAT_TOKEN} ]; then
     APP_WECHAT_TOKEN='I_Love_Pokemon'
 fi
 
@@ -28,7 +28,7 @@ case "$1" in
         test -f $TOMCAT_LOG && rm $TOMCAT_LOG
 
         # start up command
-        nohup java $JVM_OPTS $APP_OPTS -jar $MAOMAO_DEPLOY_HOME/pokemon-wiki.jar >> $TOMCAT_LOG &
+        nohup java $JVM_OPTS $APP_OPTS -jar $MAOMAO_DEPLOY_HOME/pokemon-wiki-web.jar >> $TOMCAT_LOG &
 
         echo $! > $TOMCAT_PID
         if [ -f $TOMCAT_PID ] && [ -n `cat $TOMCAT_PID` ]; then

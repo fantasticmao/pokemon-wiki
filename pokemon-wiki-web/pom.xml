@@ -14,6 +14,24 @@
     <name>pokemon-wiki-web</name>
     <description>Pokemon Wiki Web</description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <configuration>
+                    <offline>true</offline>
+                    <useNativeGit>true</useNativeGit>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>cn.fantasticmao.mundo</groupId>
