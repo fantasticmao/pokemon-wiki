@@ -2,11 +2,12 @@ package cn.fantasticmao.pokemon.web.bean;
 
 import cn.fantasticmao.pokemon.web.domain.Move;
 import cn.fantasticmao.pokemon.web.domain.MoveDetail;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
-import java.io.Serializable;
+import javax.annotation.Nullable;
 
 /**
  * MoveBean
@@ -16,7 +17,7 @@ import java.io.Serializable;
  */
 @Getter
 @ToString
-public class MoveBean implements Serializable, Comparable<MoveBean> {
+public class MoveBean implements Comparable<MoveBean> {
     /**
      * 招式编号
      */
@@ -70,21 +71,23 @@ public class MoveBean implements Serializable, Comparable<MoveBean> {
     /**
      * 招式详情
      */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Detail detail;
 
     @Override
-    public int compareTo(@Nonnull MoveBean moveBean) {
+    public int compareTo(@Nonnull MoveBean that) {
         int r;
-        if ((r = Integer.compare(this.getGeneration(), moveBean.getGeneration())) != 0) {
+        if ((r = Integer.compare(this.getGeneration(), that.getGeneration())) != 0) {
             return r;
-        } else if ((r = Integer.compare(this.getId(), moveBean.getId())) != 0) {
+        } else if ((r = Integer.compare(this.getId(), that.getId())) != 0) {
             return r;
         } else {
             return 0;
         }
     }
 
-    private MoveBean(int id, String nameZh, String nameJa, String nameEn, String type, String category, String power, String accuracy, String pp, int generation, Detail detail) {
+    private MoveBean(int id, String nameZh, String nameJa, String nameEn, String type, String category, String power,
+                     String accuracy, String pp, int generation, Detail detail) {
         this.id = id;
         this.nameZh = nameZh;
         this.nameJa = nameJa;
@@ -98,14 +101,15 @@ public class MoveBean implements Serializable, Comparable<MoveBean> {
         this.detail = detail;
     }
 
-    public static MoveBean ofDomain(Move move, MoveDetail moveDetail) {
-        return new MoveBean(move.getId(), move.getNameZh(), move.getNameJa(), move.getNameEn(), move.getType(), move.getCategory(),
-            move.getPower(), move.getAccuracy(), move.getPp(), move.getGeneration(), Detail.ofDomain(moveDetail));
+    public static MoveBean ofDomain(@Nonnull Move move, @Nullable MoveDetail moveDetail) {
+        return new MoveBean(move.getId(), move.getNameZh(), move.getNameJa(), move.getNameEn(), move.getType(),
+            move.getCategory(), move.getPower(), move.getAccuracy(), move.getPp(), move.getGeneration(),
+            Detail.ofDomain(moveDetail));
     }
 
     @Getter
     @ToString
-    private static class Detail implements Serializable {
+    private static class Detail {
         /**
          * 招式描述
          */
@@ -139,8 +143,12 @@ public class MoveBean implements Serializable, Comparable<MoveBean> {
             this.effect = effect;
         }
 
-        private static Detail ofDomain(MoveDetail moveDetail) {
-            return new Detail(moveDetail.getDesc(), moveDetail.getImgUrl(), moveDetail.getNotes(), moveDetail.getScope(), moveDetail.getEffect());
+        private static Detail ofDomain(@Nullable MoveDetail domain) {
+            if (domain == null) {
+                return null;
+            }
+            return new Detail(domain.getDesc(), domain.getImgUrl(), domain.getNotes(), domain.getScope(),
+                domain.getEffect());
         }
     }
 }

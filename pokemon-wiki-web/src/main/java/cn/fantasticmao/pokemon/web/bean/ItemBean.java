@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
-import java.io.Serializable;
 
 /**
  * ItemBean
@@ -15,7 +14,7 @@ import java.io.Serializable;
  */
 @Getter
 @ToString
-public class ItemBean implements Serializable, Comparable<ItemBean> {
+public class ItemBean implements Comparable<ItemBean> {
     /**
      * 道具编号
      */
@@ -57,18 +56,19 @@ public class ItemBean implements Serializable, Comparable<ItemBean> {
     private final int generation;
 
     @Override
-    public int compareTo(@Nonnull ItemBean itemBean) {
+    public int compareTo(@Nonnull ItemBean that) {
         int r;
-        if ((r = Integer.compare(this.getGeneration(), itemBean.getGeneration())) != 0) {
+        if ((r = Integer.compare(this.getGeneration(), that.getGeneration())) != 0) {
             return r;
-        } else if ((r = Integer.compare(this.getId(), itemBean.getId())) != 0) {
+        } else if ((r = Integer.compare(this.getId(), that.getId())) != 0) {
             return r;
         } else {
             return 0;
         }
     }
 
-    private ItemBean(int id, String type, String imgUrl, String nameZh, String nameJa, String nameEn, String desc, int generation) {
+    private ItemBean(int id, String type, String imgUrl, String nameZh, String nameJa, String nameEn, String desc,
+                     int generation) {
         this.id = id;
         this.type = type;
         this.imgUrl = imgUrl;
@@ -79,7 +79,7 @@ public class ItemBean implements Serializable, Comparable<ItemBean> {
         this.generation = generation;
     }
 
-    public static ItemBean ofDomain(Item item) {
+    public static ItemBean ofDomain(@Nonnull Item item) {
         return new ItemBean(item.getId(), item.getType(), item.getImgUrl(), item.getNameZh(), item.getNameJa(),
             item.getNameEn(), item.getDesc(), item.getGeneration());
     }

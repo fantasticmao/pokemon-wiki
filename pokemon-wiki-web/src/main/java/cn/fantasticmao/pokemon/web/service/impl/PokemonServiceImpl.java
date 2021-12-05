@@ -81,11 +81,11 @@ public class PokemonServiceImpl implements PokemonService {
             .map(pokemon -> {
                 PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIndex());
                 List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUpList
-                    = pokemonDetailLearnSetByLevelingUpMap.get(pokemon.getIndex());
+                    = pokemonDetailLearnSetByLevelingUpMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
                 List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachineList
-                    = pokemonDetailLearnSetByTechnicalMachineMap.get(pokemon.getIndex());
+                    = pokemonDetailLearnSetByTechnicalMachineMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
                 List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreedingList
-                    = pokemonDetailLearnSetByBreedingMap.get(pokemon.getIndex());
+                    = pokemonDetailLearnSetByBreedingMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
                 PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
                 PokemonDetailBaseStat pokemonBaseStat = pokemonDetailBaseStatMap.get(pokemon.getIndex());
                 return new PokemonBean(pokemon, pokemonAbility, pokemonBaseStat, pokemonDetail,
