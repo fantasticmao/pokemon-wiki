@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * PokemonDetailLearnSetByTechnicalMachineRepository
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-08-20
  */
 public interface PokemonDetailLearnSetByTechnicalMachineRepository extends PagingAndSortingRepository<PokemonDetailLearnSetByTechnicalMachine, Integer> {

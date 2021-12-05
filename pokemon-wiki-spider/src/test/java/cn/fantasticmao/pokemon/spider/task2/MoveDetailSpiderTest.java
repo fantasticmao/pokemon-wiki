@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * MoveDetailSpiderTest
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 public class MoveDetailSpiderTest {

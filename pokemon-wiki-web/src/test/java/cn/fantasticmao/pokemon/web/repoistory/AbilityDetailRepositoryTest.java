@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * AbilityDetailRepositoryTest
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 public class AbilityDetailRepositoryTest extends SpringTest {

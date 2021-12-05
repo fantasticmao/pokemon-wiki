@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * PokemonDataSource
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/9
  */
 public enum PokemonDataSource {

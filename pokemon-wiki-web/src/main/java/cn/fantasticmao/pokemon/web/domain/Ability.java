@@ -11,7 +11,7 @@ import javax.persistence.Table;
 /**
  * Ability
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 @Getter

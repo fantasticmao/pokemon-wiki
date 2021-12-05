@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * MoveDetailRepositoryTest
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 public class MoveDetailRepositoryTest extends SpringTest {

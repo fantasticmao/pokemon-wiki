@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * PokemonBaseStatRepositoryTest
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/5
  */
 public class PokemonBaseStatRepositoryTest extends SpringTest {

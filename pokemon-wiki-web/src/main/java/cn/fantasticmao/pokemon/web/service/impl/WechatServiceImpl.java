@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * WechatServiceImpl
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2021/6/22
  */
 @Service

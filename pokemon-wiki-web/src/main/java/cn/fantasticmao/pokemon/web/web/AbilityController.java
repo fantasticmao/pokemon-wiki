@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 特性相关接口
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 @Slf4j

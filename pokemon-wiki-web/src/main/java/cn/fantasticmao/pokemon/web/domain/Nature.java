@@ -11,7 +11,7 @@ import javax.persistence.Table;
 /**
  * Nature
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/4
  */
 @Getter

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * NatureListSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/4
  */
 public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data> {

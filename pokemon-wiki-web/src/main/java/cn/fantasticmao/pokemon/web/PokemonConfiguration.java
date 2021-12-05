@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 /**
  * PokemonConfiguration
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-07-05
  */
 @Configuration

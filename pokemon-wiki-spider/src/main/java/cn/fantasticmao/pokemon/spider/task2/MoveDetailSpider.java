@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * MoveDetailSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/10
  */
 class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {

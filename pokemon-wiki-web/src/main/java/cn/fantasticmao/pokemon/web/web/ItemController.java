@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 道具相关接口
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-03-23
  */
 @Slf4j

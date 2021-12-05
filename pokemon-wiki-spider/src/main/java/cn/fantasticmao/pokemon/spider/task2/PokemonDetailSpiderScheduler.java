@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 /**
  * PokemonDetailSpiderScheduler
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/28
  */
 public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<PokemonDetailSpider.Data> {

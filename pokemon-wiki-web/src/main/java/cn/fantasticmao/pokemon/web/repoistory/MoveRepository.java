@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * MoveRepository
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/5
  */
 public interface MoveRepository extends PagingAndSortingRepository<Move, Integer> {

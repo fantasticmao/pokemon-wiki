@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * PokemonService
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 public interface PokemonService {

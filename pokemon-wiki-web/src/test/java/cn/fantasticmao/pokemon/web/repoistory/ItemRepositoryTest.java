@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * ItemRepositoryTest
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-03-23
  */
 public class ItemRepositoryTest extends SpringTest {

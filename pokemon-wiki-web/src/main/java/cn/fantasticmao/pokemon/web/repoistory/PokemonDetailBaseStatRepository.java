@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * PokemonDetailBaseStatRepository
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/5
  */
 public interface PokemonDetailBaseStatRepository extends PagingAndSortingRepository<PokemonDetailBaseStat, Integer> {

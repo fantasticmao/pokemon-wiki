@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * AbilityDetailSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/27
  */
 class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> {

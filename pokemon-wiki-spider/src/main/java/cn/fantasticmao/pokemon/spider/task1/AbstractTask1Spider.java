@@ -14,7 +14,7 @@ import java.util.concurrent.CountDownLatch;
 /**
  * AbstractTask1Spider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implements Runnable {

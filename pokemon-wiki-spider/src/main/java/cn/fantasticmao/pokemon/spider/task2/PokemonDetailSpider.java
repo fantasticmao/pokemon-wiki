@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * PokemonDetailSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/28
  */
 class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> {

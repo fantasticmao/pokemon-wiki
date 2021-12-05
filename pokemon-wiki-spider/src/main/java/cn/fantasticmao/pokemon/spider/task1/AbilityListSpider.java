@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * AbilityListSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/26
  */
 public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Data> {

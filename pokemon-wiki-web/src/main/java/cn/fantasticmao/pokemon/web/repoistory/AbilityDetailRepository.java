@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * AbilityDetailRepository
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 public interface AbilityDetailRepository extends PagingAndSortingRepository<AbilityDetail, Integer> {

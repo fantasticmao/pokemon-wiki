@@ -11,7 +11,7 @@ import javax.persistence.Table;
 /**
  * PokemonDetailLearnSetByLevelingUp
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-08-20
  */
 @Getter

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * PokemonBean
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 @Getter

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * ItemService
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-03-23
  */
 public interface ItemService {

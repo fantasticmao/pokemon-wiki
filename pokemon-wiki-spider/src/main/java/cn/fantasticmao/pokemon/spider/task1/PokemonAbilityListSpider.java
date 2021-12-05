@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * PokemonAbilityListSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/1
  */
 public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbilityListSpider.Data> {

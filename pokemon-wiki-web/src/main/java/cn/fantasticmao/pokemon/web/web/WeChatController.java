@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * WeChatController
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/12/5
  */
 @Slf4j

@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * PokemonRepository
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, Integer> {

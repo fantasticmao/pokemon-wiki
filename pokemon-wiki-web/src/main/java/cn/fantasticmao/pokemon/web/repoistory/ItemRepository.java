@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * ItemRepository
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-03-23
  */
 public interface ItemRepository extends PagingAndSortingRepository<Item, Integer> {

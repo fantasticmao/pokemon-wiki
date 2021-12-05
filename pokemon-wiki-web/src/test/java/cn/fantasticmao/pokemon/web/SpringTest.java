@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 /**
  * SpringTest
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/5
  */
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)

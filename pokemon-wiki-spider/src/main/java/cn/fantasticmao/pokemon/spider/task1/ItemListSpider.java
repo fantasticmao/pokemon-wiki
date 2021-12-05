@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * ItemListSpider
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-03-20
  */
 public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {

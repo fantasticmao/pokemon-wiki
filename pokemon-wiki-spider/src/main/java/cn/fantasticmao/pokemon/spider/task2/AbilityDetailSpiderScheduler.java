@@ -13,7 +13,7 @@ import java.util.concurrent.*;
 /**
  * AbilityDetailSpiderScheduler
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/13
  */
 public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<AbilityDetailSpider.Data> {

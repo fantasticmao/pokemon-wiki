@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * AdminController
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/9/19
  */
 @Slf4j

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * AbilityService
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 public interface AbilityService {

@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * MoveBean
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/29
  */
 @Getter

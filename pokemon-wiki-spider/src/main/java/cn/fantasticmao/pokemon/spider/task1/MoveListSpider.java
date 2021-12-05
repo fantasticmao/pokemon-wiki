@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * MoveListSpider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/4
  */
 public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {

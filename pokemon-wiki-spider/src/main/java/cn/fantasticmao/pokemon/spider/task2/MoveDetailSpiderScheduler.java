@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 /**
  * MoveDetailSpiderScheduler
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/10
  */
 public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<MoveDetailSpider.Data> {

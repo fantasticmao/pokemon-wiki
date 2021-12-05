@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * AbstractTask2SpiderScheduler
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/13
  */
 abstract class AbstractTask2SpiderScheduler<T extends AbstractTask2Spider.Data> {

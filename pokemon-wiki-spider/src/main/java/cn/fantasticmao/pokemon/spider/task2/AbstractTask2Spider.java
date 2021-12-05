@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
 /**
  * AbstractTask2Spider
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/14
  */
 abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implements Callable<T> {

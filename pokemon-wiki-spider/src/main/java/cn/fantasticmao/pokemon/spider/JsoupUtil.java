@@ -8,7 +8,7 @@ import org.jsoup.select.QueryParser;
 /**
  * JsoupUtil
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2021-10-26
  */
 public interface JsoupUtil {

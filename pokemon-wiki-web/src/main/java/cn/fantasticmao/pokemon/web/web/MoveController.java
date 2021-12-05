@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 招式相关接口
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/6
  */
 @Slf4j

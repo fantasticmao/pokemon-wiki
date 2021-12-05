@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Starter
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 class Starter {

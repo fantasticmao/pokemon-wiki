@@ -3,7 +3,7 @@ package cn.fantasticmao.pokemon.spider;
 /**
  * Config
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 public interface Config {

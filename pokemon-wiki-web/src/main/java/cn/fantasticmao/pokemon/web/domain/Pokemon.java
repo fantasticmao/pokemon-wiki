@@ -11,7 +11,7 @@ import javax.persistence.Table;
 /**
  * Pokemon
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 @Getter

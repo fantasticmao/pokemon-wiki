@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * NatureRepository
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/5
  */
 public interface NatureRepository extends PagingAndSortingRepository<Nature, Integer> {

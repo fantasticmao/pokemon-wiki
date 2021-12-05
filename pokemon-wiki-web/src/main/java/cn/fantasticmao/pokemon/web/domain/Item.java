@@ -11,7 +11,7 @@ import javax.persistence.Table;
 /**
  * Item
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-03-23
  */
 @Getter

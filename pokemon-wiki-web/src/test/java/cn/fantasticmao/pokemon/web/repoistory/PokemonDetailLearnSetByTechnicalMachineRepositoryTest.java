@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * PokemonDetailLearnSetByTechnicalMachineRepositoryTest
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2019-08-20
  */
 public class PokemonDetailLearnSetByTechnicalMachineRepositoryTest extends SpringTest {

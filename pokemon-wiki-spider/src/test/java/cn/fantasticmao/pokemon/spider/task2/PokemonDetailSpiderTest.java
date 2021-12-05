@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * PokemonDetailSpiderTest
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/8/28
  */
 public class PokemonDetailSpiderTest {

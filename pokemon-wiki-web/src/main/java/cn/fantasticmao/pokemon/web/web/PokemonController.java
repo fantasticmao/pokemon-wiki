@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 宝可梦相关接口
  *
- * @author maodh
+ * @author fantasticmao
  * @since 2018/7/29
  */
 @Slf4j

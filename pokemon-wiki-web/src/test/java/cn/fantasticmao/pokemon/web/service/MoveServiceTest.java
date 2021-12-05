@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * MoveServiceTest
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2021-10-31
  */
 public class MoveServiceTest extends SpringTest {

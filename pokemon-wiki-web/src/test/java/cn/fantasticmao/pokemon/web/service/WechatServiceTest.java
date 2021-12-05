@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 /**
  * WechatServiceTest
  *
- * @author maomao
+ * @author fantasticmao
  * @since 2021-10-31
  */
 public class WechatServiceTest extends SpringTest {
