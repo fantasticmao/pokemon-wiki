@@ -13,4 +13,6 @@ import java.util.List;
 public interface AbilityService {
 
     List<AbilityBean> listByNameZh(String nameZh);
+
+    List<AbilityBean> list(int page, int size);
 }

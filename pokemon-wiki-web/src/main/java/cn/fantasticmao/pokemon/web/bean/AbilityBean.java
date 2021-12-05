@@ -46,18 +46,21 @@ public class AbilityBean implements Comparable<AbilityBean> {
      * 特性描述，以空格分隔
      */
     @Deprecated
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String desc;
 
     /**
      * 特性效果，以空格分隔
      */
     @Deprecated
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String effect;
 
     /**
      * 拥有此特性的宝可梦，以逗号分隔
      */
     @Deprecated
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String pokemons;
 
     /**

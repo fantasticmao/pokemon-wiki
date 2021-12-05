@@ -22,12 +22,12 @@ abstract class AbstractTask2SpiderScheduler<T extends AbstractTask2Spider.Data> 
     }
 
     /**
-     * 从 MySQL 中获取 Key-Value 数据索引
+     * 从 Database 中获取 Key-Value 数据索引
      */
     protected abstract Map<Integer, String> getDataIndex();
 
     /**
-     * 保存爬虫获取的数据至 MySQL 中
+     * 保存爬虫获取的数据至 Database 中
      */
     protected abstract boolean saveDataList(List<T> dataList);
 

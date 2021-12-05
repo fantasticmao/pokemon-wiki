@@ -20,8 +20,15 @@ public class ItemServiceTest extends SpringTest {
 
     @Test
     public void listAll() {
-        // FIXME
-        List<ItemBean> itemBeanList = itemService.listAll();
+        // FIXME page < 0
+        List<ItemBean> itemBeanList = itemService.list(-1, 0);
         Assertions.assertNotNull(itemBeanList);
+    }
+
+    @Test
+    public void list() {
+        List<ItemBean> itemBeanList = itemService.list(0, 20);
+        Assertions.assertNotNull(itemBeanList);
+        Assertions.assertEquals(20, itemBeanList.size());
     }
 }

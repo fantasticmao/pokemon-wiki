@@ -79,6 +79,8 @@ public class PokemonServiceImpl implements PokemonService {
 
         return pokemonList.stream()
             .map(pokemon -> {
+                PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
+                PokemonDetailBaseStat pokemonBaseStat = pokemonDetailBaseStatMap.get(pokemon.getIndex());
                 PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIndex());
                 List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUpList
                     = pokemonDetailLearnSetByLevelingUpMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
@@ -86,8 +88,6 @@ public class PokemonServiceImpl implements PokemonService {
                     = pokemonDetailLearnSetByTechnicalMachineMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
                 List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreedingList
                     = pokemonDetailLearnSetByBreedingMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
-                PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
-                PokemonDetailBaseStat pokemonBaseStat = pokemonDetailBaseStatMap.get(pokemon.getIndex());
                 return new PokemonBean(pokemon, pokemonAbility, pokemonBaseStat, pokemonDetail,
                     pokemonDetailLearnSetByLevelingUpList, pokemonDetailLearnSetByTechnicalMachineList,
                     pokemonDetailLearnSetByBreedingList);
@@ -97,7 +97,8 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup) {
+    public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup, int page, int size) {
+        // TODO pageable
         List<Pokemon> pokemonList = generation == 0 ? pokemonRepository.findAll() : pokemonRepository.findByGeneration(generation);
         if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
 

@@ -53,4 +53,15 @@ public class MoveServiceImpl implements MoveService {
             .sorted()
             .collect(Collectors.toList());
     }
+
+    @Override
+    public List<MoveBean> list(int page, int size) {
+        if (page < 0 || size < 1) {
+            return Collections.emptyList();
+        }
+        List<Move> moveList = moveRepository.find(page * size, size);
+        return moveList.stream()
+            .map(move -> MoveBean.ofDomain(move, null))
+            .collect(Collectors.toList());
+    }
 }

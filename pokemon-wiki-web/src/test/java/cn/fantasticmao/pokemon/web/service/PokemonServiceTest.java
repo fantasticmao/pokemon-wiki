@@ -34,14 +34,14 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByGeneration() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "");
+        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "", 0, 20);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(153, pokemonBeanList.size());
     }
 
     @Test
     public void listByGenerationAndEggGroup() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "龙");
+        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "龙", 0, 20);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertTrue(pokemonBeanList.size() < 153);
     }

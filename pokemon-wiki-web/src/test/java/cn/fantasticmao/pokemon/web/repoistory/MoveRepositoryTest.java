@@ -24,4 +24,11 @@ public class MoveRepositoryTest extends SpringTest {
         Assertions.assertNotNull(moveList);
         Assertions.assertEquals(1, moveList.size());
     }
+
+    @Test
+    public void find() {
+        List<Move> moveList = moveRepository.find(0, 20);
+        Assertions.assertNotNull(moveList);
+        Assertions.assertEquals(20, moveList.size());
+    }
 }

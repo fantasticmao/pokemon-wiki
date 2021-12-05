@@ -11,7 +11,7 @@ Pokemon-Wiki 是爬取 **[神奇宝贝百科](https://wiki.52poke.com/wiki/主�
 
 Pokemon-Wiki 爬虫模块基于 [jsoup](https://github.com/jhy/jsoup)，使用多线程实现并行数据爬取，在网络畅通的情况下，当线程池大小配置为 100 时，可以在一分钟内爬完所需的 1700+ 个页面。
 
-Pokemon-Wiki 爬虫模块获取的数据存于 [SQLite](https://www.sqlite.org/index.html) 中，二次开发可直接使用 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon-wiki-web/pokemon_wiki.db) 文件。
+Pokemon-Wiki 爬虫模块获取的数据存于 [SQLite](https://www.sqlite.org/index.html) 中，二次开发可直接使用 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db) 文件。
 
 Pokemon-Wiki 接口模块基于 [Spring Web MVC](https://spring.io/)，API 详情可见 [接口文档](https://github.com/fantasticmao/pokemon-wiki/tree/master/apiDoc)，常用接口示例：
 

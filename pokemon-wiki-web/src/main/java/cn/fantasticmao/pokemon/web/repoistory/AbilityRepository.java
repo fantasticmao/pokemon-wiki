@@ -16,4 +16,7 @@ public interface AbilityRepository extends PagingAndSortingRepository<Ability, I
 
     @Query(value = "SELECT * FROM pw_ability WHERE nameZh LIKE '%' || ?1 || '%'", nativeQuery = true)
     List<Ability> findByNameZh(String nameZh);
+
+    @Query(value = "SELECT * FROM pw_ability LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Ability> find(int offset, int limit);
 }

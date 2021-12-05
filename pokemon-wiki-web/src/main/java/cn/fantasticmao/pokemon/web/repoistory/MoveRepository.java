@@ -16,4 +16,7 @@ public interface MoveRepository extends PagingAndSortingRepository<Move, Integer
 
     @Query(value = "SELECT * FROM pw_move WHERE nameZh LIKE '%' || ?1 || '%'", nativeQuery = true)
     List<Move> findByNameZh(String nameZh);
+
+    @Query(value = "SELECT * FROM pw_move LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Move> find(int offset, int limit);
 }

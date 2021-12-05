@@ -24,4 +24,11 @@ public class AbilityServiceTest extends SpringTest {
         Assertions.assertNotNull(abilityBeanList);
         Assertions.assertEquals(1, abilityBeanList.size());
     }
+
+    @Test
+    public void list() {
+        List<AbilityBean> abilityBeanList = abilityService.list(0, 20);
+        Assertions.assertNotNull(abilityBeanList);
+        Assertions.assertEquals(20, abilityBeanList.size());
+    }
 }

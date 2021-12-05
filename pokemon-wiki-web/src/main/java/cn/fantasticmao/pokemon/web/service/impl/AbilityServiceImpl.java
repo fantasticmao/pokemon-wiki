@@ -53,4 +53,15 @@ public class AbilityServiceImpl implements AbilityService {
             .sorted()
             .collect(Collectors.toList());
     }
+
+    @Override
+    public List<AbilityBean> list(int page, int size) {
+        if (page < 0 || size < 1) {
+            return Collections.emptyList();
+        }
+        List<Ability> abilityList = abilityRepository.find(page * size, size);
+        return abilityList.stream()
+            .map(ability -> AbilityBean.ofDomain(ability, null))
+            .collect(Collectors.toList());
+    }
 }

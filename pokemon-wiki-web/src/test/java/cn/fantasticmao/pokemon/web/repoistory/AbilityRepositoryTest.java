@@ -25,4 +25,11 @@ public class AbilityRepositoryTest extends SpringTest {
         Assertions.assertEquals(1, abilityList.size());
     }
 
+    @Test
+    public void find() {
+        List<Ability> abilityList = abilityRepository.find(0, 20);
+        Assertions.assertNotNull(abilityList);
+        Assertions.assertEquals(20, abilityList.size());
+    }
+
 }

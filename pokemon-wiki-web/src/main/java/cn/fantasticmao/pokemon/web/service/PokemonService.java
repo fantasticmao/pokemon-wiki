@@ -14,5 +14,5 @@ public interface PokemonService {
 
     List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh);
 
-    List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup);
+    List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup, int page, int size);
 }

@@ -25,4 +25,11 @@ public class ItemRepositoryTest extends SpringTest {
         Assertions.assertNotNull(itemList);
     }
 
+    @Test
+    public void find() {
+        List<Item> itemList = itemRepository.find(0, 20);
+        Assertions.assertNotNull(itemList);
+        Assertions.assertEquals(20, itemList.size());
+    }
+
 }

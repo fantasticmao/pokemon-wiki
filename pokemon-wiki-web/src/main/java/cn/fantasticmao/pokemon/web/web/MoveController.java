@@ -34,13 +34,29 @@ public class MoveController {
      * @param nameZh 招式中文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<MoveBean>> listPokemonMove(@RequestParam(defaultValue = "") String nameZh) {
+    public JsonApi<List<MoveBean>> listMoveDetail(@RequestParam(defaultValue = "") String nameZh) {
         log.info("输入参数 nameZh: {}", nameZh);
         if (StringUtils.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 
         List<MoveBean> moveBeanList = moveService.listByNameZh(nameZh);
+        return JsonApi.<List<MoveBean>>success().data(moveBeanList);
+    }
+
+    /**
+     * 招式列表接口
+     *
+     * @param page 页数，默认 0 表示首页
+     * @param size 页长，默认 50
+     */
+    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public JsonApi<List<MoveBean>> listMove(@RequestParam(defaultValue = "0") Integer page,
+                                            @RequestParam(defaultValue = "50") Integer size) {
+        page = Math.max(page, 0);
+        size = Math.max(size, 1);
+        size = Math.min(size, 500);
+        List<MoveBean> moveBeanList = moveService.list(page, size);
         return JsonApi.<List<MoveBean>>success().data(moveBeanList);
     }
 }

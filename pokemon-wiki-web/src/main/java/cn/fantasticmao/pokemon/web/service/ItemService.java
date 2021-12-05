@@ -12,5 +12,7 @@ import java.util.List;
  */
 public interface ItemService {
 
-    List<ItemBean> listAll();
+    List<ItemBean> listByNameZh(String nameZh);
+
+    List<ItemBean> list(int page, int size);
 }

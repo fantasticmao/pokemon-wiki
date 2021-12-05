@@ -16,4 +16,10 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Integer
 
     @Query(value = "SELECT * FROM pw_item", nativeQuery = true)
     List<Item> findAll();
+
+    @Query(value = "SELECT * FROM pw_item WHERE nameZh LIKE '%' || ?1 || '%'", nativeQuery = true)
+    List<Item> findByNameZh(String nameZh);
+
+    @Query(value = "SELECT * FROM pw_item LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    List<Item> find(int offset, int limit);
 }

@@ -25,4 +25,11 @@ public class MoveServiceTest extends SpringTest {
         Assertions.assertEquals(1, moveBeanList.size());
     }
 
+    @Test
+    public void list() {
+        List<MoveBean> moveBeanList = moveService.list(0, 20);
+        Assertions.assertNotNull(moveBeanList);
+        Assertions.assertEquals(20, moveBeanList.size());
+    }
+
 }

@@ -13,4 +13,6 @@ import java.util.List;
 public interface MoveService {
 
     List<MoveBean> listByNameZh(String nameZh);
+
+    List<MoveBean> list(int page, int size);
 }

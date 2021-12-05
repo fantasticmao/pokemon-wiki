@@ -21,11 +21,4 @@ public class WechatServiceTest extends SpringTest {
         String token = wechatService.token();
         Assertions.assertNotNull(token);
     }
-
-    public void searchPokemonInfosByName() {
-        String message = wechatService.searchPokemonInfosByName("妙蛙");
-        Assertions.assertNotNull(message);
-        int lines = message.split(System.lineSeparator()).length;
-        Assertions.assertEquals(3, lines);
-    }
 }
