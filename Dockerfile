@@ -6,6 +6,6 @@ ENV APP_LOG_DIR=/var/log/pokemon-wiki \
 -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"
 WORKDIR /app
 COPY ./pokemon-wiki-web/target/pokemon-wiki-web.jar /app
-COPY ./pokemon-wiki-web/pokemon_wiki.db /app
+COPY ./pokemon_wiki.db /app
 EXPOSE 1234
 CMD java ${JVM_OPTS} ${APP_OPTS} -jar pokemon-wiki-web.jar

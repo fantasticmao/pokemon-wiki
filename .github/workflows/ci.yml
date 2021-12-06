@@ -23,7 +23,7 @@ jobs:
           sudo mkdir /var/log/pokemon-wiki
           sudo chown $USER /var/log/pokemon-wiki
       - name: Build with Maven
-        run: ./mvnw package -B
+        run: ./mvnw package -B -Dapp.dbfile=`pwd`/pokemon_wiki.db
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:

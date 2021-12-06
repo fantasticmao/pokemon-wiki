@@ -47,7 +47,7 @@ public class AbilityController {
     /**
      * 特性列表接口
      *
-     * @param page 页数，默认 0 表示首页
+     * @param page 页数，默认 0，表示首页
      * @param size 页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
