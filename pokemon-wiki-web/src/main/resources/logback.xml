@@ -16,22 +16,8 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <property name="pokemon_wiki_log_home" value="/var/log/pokemon-wiki"/>
-
     <!-- pokemon wiki log -->
-    <appender name="pokemon_wiki_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${pokemon_wiki_log_home}/pokemon-wiki.log</file>
-        <encoder>
-            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{5}:%L#%M - %message%n</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <maxHistory>30</maxHistory>
-            <fileNamePattern>${pokemon_wiki_log_home}/pokemon-wiki.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <logger name="cn.fantasticmao.pokemon" level="INFO" additivity="false">
-        <appender-ref ref="pokemon_wiki_log"/>
+    <logger name="cn.fantasticmao" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
     </logger>
 </configuration>

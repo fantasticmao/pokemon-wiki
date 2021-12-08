@@ -37,7 +37,6 @@ public class PokemonController {
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonApi<List<PokemonBean>> listPokemonDetail(@RequestParam(defaultValue = "0") Integer index,
                                                         @RequestParam(defaultValue = "") String nameZh) {
-        log.info("输入参数 index:{} nameZh: {}", index, nameZh);
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }

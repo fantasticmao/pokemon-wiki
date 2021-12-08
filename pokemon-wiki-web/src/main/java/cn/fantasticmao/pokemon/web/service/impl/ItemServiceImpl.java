@@ -1,5 +1,6 @@
 package cn.fantasticmao.pokemon.web.service.impl;
 
+import cn.fantasticmao.mundo.core.util.PageUtil;
 import cn.fantasticmao.pokemon.web.bean.ItemBean;
 import cn.fantasticmao.pokemon.web.domain.Item;
 import cn.fantasticmao.pokemon.web.repoistory.ItemRepository;
@@ -42,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
         }
         List<Item> itemList = page < 0
             ? itemRepository.findAll() // FIXME page < 0
-            : itemRepository.find(page * size, size);
+            : itemRepository.find(PageUtil.offset(page, size), PageUtil.size(size));
         return itemList.stream()
             .map(ItemBean::ofDomain)
             .collect(Collectors.toList());

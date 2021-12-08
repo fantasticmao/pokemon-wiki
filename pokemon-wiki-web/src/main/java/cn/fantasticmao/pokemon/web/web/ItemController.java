@@ -52,8 +52,6 @@ public class ItemController {
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonApi<List<ItemBean>> listItem(@RequestParam(defaultValue = "-1") Integer page,
                                             @RequestParam(defaultValue = "50") Integer size) {
-        size = Math.max(size, 0);
-        size = Math.min(size, 500);
         List<ItemBean> itemList = itemService.list(page, size);
         return JsonApi.<List<ItemBean>>success().data(itemList);
     }
