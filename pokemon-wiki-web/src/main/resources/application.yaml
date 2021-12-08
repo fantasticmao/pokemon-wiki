@@ -1,0 +1,12 @@
+server:
+  port: 1234
+  tomcat:
+    uri-encoding: UTF-8
+    mbeanregistry:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"

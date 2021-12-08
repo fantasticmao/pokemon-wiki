@@ -1,15 +1,17 @@
 # Changelog
 
-## 2021-12-06
+## 2021-12-10
 
 - 更新 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db)
+- 暴露 Prometheus 指标数据
+- 升级 `cn.fantasticmao.mundo:mundo-all:1.0.3`
+- 清理代码
 - 新增接口
     1. **招式列表**
     2. **特性列表**
     3. **道具详情**
 - 更新接口
     1. **道具列表**：支持分页查询
-- 清理代码
 
 ## 2021-10-31
 

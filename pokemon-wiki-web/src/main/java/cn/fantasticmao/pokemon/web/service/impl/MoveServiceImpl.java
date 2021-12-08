@@ -1,5 +1,6 @@
 package cn.fantasticmao.pokemon.web.service.impl;
 
+import cn.fantasticmao.mundo.core.util.PageUtil;
 import cn.fantasticmao.pokemon.web.bean.MoveBean;
 import cn.fantasticmao.pokemon.web.domain.Move;
 import cn.fantasticmao.pokemon.web.domain.MoveDetail;
@@ -59,7 +60,7 @@ public class MoveServiceImpl implements MoveService {
         if (page < 0 || size < 1) {
             return Collections.emptyList();
         }
-        List<Move> moveList = moveRepository.find(page * size, size);
+        List<Move> moveList = moveRepository.find(PageUtil.offset(page, size), PageUtil.size(size));
         return moveList.stream()
             .map(move -> MoveBean.ofDomain(move, null))
             .collect(Collectors.toList());

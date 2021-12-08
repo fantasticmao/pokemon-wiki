@@ -1,5 +1,6 @@
 package cn.fantasticmao.pokemon.web.service.impl;
 
+import cn.fantasticmao.mundo.core.util.PageUtil;
 import cn.fantasticmao.pokemon.web.bean.AbilityBean;
 import cn.fantasticmao.pokemon.web.domain.Ability;
 import cn.fantasticmao.pokemon.web.domain.AbilityDetail;
@@ -59,7 +60,7 @@ public class AbilityServiceImpl implements AbilityService {
         if (page < 0 || size < 1) {
             return Collections.emptyList();
         }
-        List<Ability> abilityList = abilityRepository.find(page * size, size);
+        List<Ability> abilityList = abilityRepository.find(PageUtil.offset(page, size), PageUtil.size(size));
         return abilityList.stream()
             .map(ability -> AbilityBean.ofDomain(ability, null))
             .collect(Collectors.toList());

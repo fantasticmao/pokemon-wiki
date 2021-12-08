@@ -35,7 +35,6 @@ public class MoveController {
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonApi<List<MoveBean>> listMoveDetail(@RequestParam(defaultValue = "") String nameZh) {
-        log.info("输入参数 nameZh: {}", nameZh);
         if (StringUtils.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
@@ -53,9 +52,6 @@ public class MoveController {
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonApi<List<MoveBean>> listMove(@RequestParam(defaultValue = "0") Integer page,
                                             @RequestParam(defaultValue = "50") Integer size) {
-        page = Math.max(page, 0);
-        size = Math.max(size, 1);
-        size = Math.min(size, 500);
         List<MoveBean> moveBeanList = moveService.list(page, size);
         return JsonApi.<List<MoveBean>>success().data(moveBeanList);
     }

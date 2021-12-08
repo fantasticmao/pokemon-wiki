@@ -25,19 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     @PostMapping(value = "/logLevel")
-    public JsonApi<Void> changeLogLevel(@RequestParam String level) {
+    public JsonApi<String> changeLogLevel(@RequestParam String level) {
         ILoggerFactory loggerFactory = LoggerFactory.getILoggerFactory();
 
         if (loggerFactory instanceof LoggerContext) {
             LoggerContext loggerContext = (LoggerContext) loggerFactory;
-            Logger logger = loggerContext.getLogger("cn.fantasticmao.pokemon.wiki");
+            Logger logger = loggerContext.getLogger("cn.fantasticmao");
 
-            Level levelBefore = logger.getLevel();
-            Level levelAfter = Level.valueOf(level);
-            logger.setLevel(levelAfter);
+            Level before = logger.getLevel();
+            Level after = Level.valueOf(level);
+            logger.setLevel(after);
 
-            System.out.printf("修改日志等级成功：%s => %s%n", levelBefore, levelAfter);
-            return JsonApi.success();
+            String message = String.format("修改日志等级成功：%s => %s", before, after);
+            return JsonApi.<String>success().data(message);
         }
         return JsonApi.error(HttpStatus.INTERNAL_SERVER_ERROR);
     }
