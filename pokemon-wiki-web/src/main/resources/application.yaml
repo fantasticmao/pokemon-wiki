@@ -10,3 +10,13 @@ management:
     web:
       exposure:
         include: "health,prometheus"
+  metrics:
+    data:
+      repository:
+        autotime:
+          percentiles: 0.5,0.95
+    web:
+      server:
+        request:
+          autotime:
+            percentiles: 0.5,0.95
