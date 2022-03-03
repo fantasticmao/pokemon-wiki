@@ -4,6 +4,8 @@ import cn.fantasticmao.pokemon.web.domain.Move;
 import cn.fantasticmao.pokemon.web.domain.MoveDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
@@ -16,63 +18,65 @@ import javax.annotation.Nullable;
  * @since 2018/8/29
  */
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
 public class MoveBean implements Comparable<MoveBean> {
     /**
      * 招式编号
      */
-    private final int id;
+    private int id;
 
     /**
      * 中文名称
      */
-    private final String nameZh;
+    private String nameZh;
 
     /**
      * 日文名称
      */
-    private final String nameJa;
+    private String nameJa;
 
     /**
      * 英文名称
      */
-    private final String nameEn;
+    private String nameEn;
 
     /**
      * 属性
      */
-    private final String type;
+    private String type;
 
     /**
      * 分类
      */
-    private final String category;
+    private String category;
 
     /**
      * 威力
      */
-    private final String power;
+    private String power;
 
     /**
      * 命中
      */
-    private final String accuracy;
+    private String accuracy;
 
     /**
      * PP
      */
-    private final String pp;
+    private String pp;
 
     /**
      * 第几世代
      */
-    private final int generation;
+    private int generation;
 
     /**
      * 招式详情
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Detail detail;
+    private Detail detail;
 
     @Override
     public int compareTo(@Nonnull MoveBean that) {
@@ -108,32 +112,34 @@ public class MoveBean implements Comparable<MoveBean> {
     }
 
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class Detail {
         /**
          * 招式描述
          */
-        private final String desc;
+        private String desc;
 
         /**
          * 图片链接
          */
-        private final String imgUrl;
+        private String imgUrl;
 
         /**
          * 注意事项
          */
-        private final String notes;
+        private String notes;
 
         /**
          * 作用范围
          */
-        private final String scope;
+        private String scope;
 
         /**
          * 附加效果
          */
-        private final String effect;
+        private String effect;
 
         private Detail(String desc, String imgUrl, String notes, String scope, String effect) {
             this.desc = desc;

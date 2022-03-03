@@ -52,7 +52,9 @@ public class PokemonServiceImpl implements PokemonService {
         } else { // 按中文名称查找
             pokemonList = pokemonRepository.findByNameZh(nameZh);
         }
-        if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
+        if (CollectionUtils.isEmpty(pokemonList)) {
+            return Collections.emptyList();
+        }
 
         final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
 
@@ -99,10 +101,16 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup, int page, int size) {
         // TODO pageable
-        List<Pokemon> pokemonList = generation == 0 ? pokemonRepository.findAll() : pokemonRepository.findByGeneration(generation);
-        if (CollectionUtils.isEmpty(pokemonList)) return Collections.emptyList();
+        List<Pokemon> pokemonList = generation == 0 ?
+            pokemonRepository.findAll() :
+            pokemonRepository.findByGeneration(generation);
+        if (CollectionUtils.isEmpty(pokemonList)) {
+            return Collections.emptyList();
+        }
 
-        final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
+        final List<Integer> pokemonIndexList = pokemonList.stream()
+            .map(Pokemon::getIndex)
+            .collect(Collectors.toList());
 
         Map<Integer, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByIndexIn(pokemonIndexList).stream()
             .collect(Collectors.toMap(PokemonDetail::getIndex, Function.identity(), (ability1, ability2) -> ability1));

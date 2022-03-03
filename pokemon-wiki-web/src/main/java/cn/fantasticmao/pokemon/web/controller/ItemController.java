@@ -1,8 +1,8 @@
-package cn.fantasticmao.pokemon.web.web;
+package cn.fantasticmao.pokemon.web.controller;
 
 import cn.fantasticmao.mundo.web.support.JsonApi;
-import cn.fantasticmao.pokemon.web.bean.MoveBean;
-import cn.fantasticmao.pokemon.web.service.MoveService;
+import cn.fantasticmao.pokemon.web.bean.ItemBean;
+import cn.fantasticmao.pokemon.web.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -16,43 +16,43 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 招式相关接口
+ * 道具相关接口
  *
  * @author fantasticmao
- * @since 2018/8/6
+ * @since 2019-03-23
  */
 @Slf4j
 @RestController
-@RequestMapping("/move")
-public class MoveController {
+@RequestMapping("/item")
+public class ItemController {
     @Resource
-    private MoveService moveService;
+    private ItemService itemService;
 
     /**
-     * 招式详情接口
+     * 道具详情接口
      *
-     * @param nameZh 招式中文名称
+     * @param nameZh 道具中文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<MoveBean>> listMoveDetail(@RequestParam(defaultValue = "") String nameZh) {
+    public JsonApi<List<ItemBean>> listItemDetail(@RequestParam(defaultValue = "") String nameZh) {
         if (StringUtils.isEmpty(nameZh)) {
             return JsonApi.error(HttpStatus.BAD_REQUEST);
         }
 
-        List<MoveBean> moveBeanList = moveService.listByNameZh(nameZh);
-        return JsonApi.<List<MoveBean>>success().data(moveBeanList);
+        List<ItemBean> itemList = itemService.listByNameZh(nameZh);
+        return JsonApi.<List<ItemBean>>success().data(itemList);
     }
 
     /**
-     * 招式列表接口
+     * 道具列表接口
      *
-     * @param page 页数，默认 0，表示首页
+     * @param page 页数，默认 -1，表示获取全量数据
      * @param size 页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<MoveBean>> listMove(@RequestParam(defaultValue = "0") Integer page,
+    public JsonApi<List<ItemBean>> listItem(@RequestParam(defaultValue = "-1") Integer page,
                                             @RequestParam(defaultValue = "50") Integer size) {
-        List<MoveBean> moveBeanList = moveService.list(page, size);
-        return JsonApi.<List<MoveBean>>success().data(moveBeanList);
+        List<ItemBean> itemList = itemService.list(page, size);
+        return JsonApi.<List<ItemBean>>success().data(itemList);
     }
 }

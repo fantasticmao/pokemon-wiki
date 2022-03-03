@@ -3,6 +3,8 @@ package cn.fantasticmao.pokemon.web.bean;
 import cn.fantasticmao.pokemon.web.domain.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
@@ -18,72 +20,74 @@ import java.util.stream.Collectors;
  * @since 2018/8/29
  */
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
 public class PokemonBean implements Comparable<PokemonBean> {
     /**
      * 全国图鉴
      */
-    private final int index;
+    private int index;
 
     /**
      * 中文名称
      */
-    private final String nameZh;
+    private String nameZh;
 
     /**
      * 日文名称
      */
-    private final String nameJa;
+    private String nameJa;
 
     /**
      * 英文名称
      */
-    private final String nameEn;
+    private String nameEn;
 
     /**
      * 属性1
      */
-    private final String type1;
+    private String type1;
 
     /**
      * 属性2
      */
-    private final String type2;
+    private String type2;
 
     /**
      * 特性1
      */
-    private final String ability1;
+    private String ability1;
 
     /**
      * 特性2
      */
-    private final String ability2;
+    private String ability2;
 
     /**
      * 隐藏特性
      */
-    private final String abilityHide;
+    private String abilityHide;
 
     /**
      * 第几世代
      */
-    private final int generation;
+    private int generation;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final BaseStat baseStat;
+    private BaseStat baseStat;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Detail detail;
+    private Detail detail;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private final List<LearnSetByLevelingUp> learnSetByLevelingUp;
+    private List<LearnSetByLevelingUp> learnSetByLevelingUp;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private final List<LearnSetByTechnicalMachine> learnSetByTechnicalMachine;
+    private List<LearnSetByTechnicalMachine> learnSetByTechnicalMachine;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private final List<LearnSetByBreeding> learnSetByBreeding;
+    private List<LearnSetByBreeding> learnSetByBreeding;
 
     @Override
     public int compareTo(@Nonnull PokemonBean that) {
@@ -134,47 +138,49 @@ public class PokemonBean implements Comparable<PokemonBean> {
      * 种族值
      */
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class BaseStat {
         /**
          * HP
          */
-        private final int hp;
+        private int hp;
 
         /**
          * 攻击
          */
-        private final int attack;
+        private int attack;
 
         /**
          * 防御
          */
-        private final int defense;
+        private int defense;
 
         /**
          * 特攻
          */
-        private final int spAttack;
+        private int spAttack;
 
         /**
          * 特防
          */
-        private final int spDefense;
+        private int spDefense;
 
         /**
          * 速度
          */
-        private final int speed;
+        private int speed;
 
         /**
          * 总合
          */
-        private final int total;
+        private int total;
 
         /**
          * 平均值
          */
-        private final float average;
+        private float average;
 
         private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
             this.hp = hp;
@@ -200,62 +206,64 @@ public class PokemonBean implements Comparable<PokemonBean> {
      * 详细信息
      */
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class Detail {
         /**
          * 预览图片
          */
-        private final String imgUrl;
+        private String imgUrl;
 
         /**
          * 分类
          */
-        private final String category;
+        private String category;
 
         /**
          * 身高
          */
-        private final String height;
+        private String height;
 
         /**
          * 体重
          */
-        private final String weight;
+        private String weight;
 
         /**
          * 体型
          */
-        private final String bodyStyle;
+        private String bodyStyle;
 
         /**
          * 捕获率
          */
-        private final String catchRate;
+        private String catchRate;
 
         /**
          * 性别比例，以逗号分隔
          */
-        private final String genderRatio;
+        private String genderRatio;
 
         /**
          * 蛋组1
          */
-        private final String eggGroup1;
+        private String eggGroup1;
 
         /**
          * 蛋组2
          */
-        private final String eggGroup2;
+        private String eggGroup2;
 
         /**
          * 孵化时间
          */
-        private final String hatchTime;
+        private String hatchTime;
 
         /**
          * 基础点数，以逗号分隔
          */
-        private final String effortValue;
+        private String effortValue;
 
         private Detail(String imgUrl, String category, String height, String weight, String bodyStyle, String catchRate,
                        String genderRatio, String eggGroup1, String eggGroup2, String hatchTime, String effortValue) {
@@ -283,47 +291,49 @@ public class PokemonBean implements Comparable<PokemonBean> {
     }
 
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class LearnSetByLevelingUp {
         /**
          * 等级（太阳/月亮）
          */
-        private final String level1;
+        private String level1;
 
         /**
          * 等级（究极之日/究极之月）
          */
-        private final String level2;
+        private String level2;
 
         /**
          * 招式名称
          */
-        private final String move;
+        private String move;
 
         /**
          * 属性
          */
-        private final String type;
+        private String type;
 
         /**
          * 分类
          */
-        private final String category;
+        private String category;
 
         /**
          * 威力
          */
-        private final String power;
+        private String power;
 
         /**
          * 命中
          */
-        private final String accuracy;
+        private String accuracy;
 
         /**
          * PP
          */
-        private final String pp;
+        private String pp;
 
         private LearnSetByLevelingUp(String level1, String level2, String move, String type, String category,
                                      String power, String accuracy, String pp) {
@@ -347,47 +357,49 @@ public class PokemonBean implements Comparable<PokemonBean> {
     }
 
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class LearnSetByTechnicalMachine {
         /**
          * 招式学习器图片链接
          */
-        private final String imgUrl;
+        private String imgUrl;
 
         /**
          * 招式学习器名称
          */
-        private final String technicalMachine;
+        private String technicalMachine;
 
         /**
          * 招式名称
          */
-        private final String move;
+        private String move;
 
         /**
          * 属性
          */
-        private final String type;
+        private String type;
 
         /**
          * 分类
          */
-        private final String category;
+        private String category;
 
         /**
          * 威力
          */
-        private final String power;
+        private String power;
 
         /**
          * 命中
          */
-        private final String accuracy;
+        private String accuracy;
 
         /**
          * PP
          */
-        private final String pp;
+        private String pp;
 
         private LearnSetByTechnicalMachine(String imgUrl, String technicalMachine, String move, String type,
                                            String category, String power, String accuracy, String pp) {
@@ -411,42 +423,44 @@ public class PokemonBean implements Comparable<PokemonBean> {
     }
 
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class LearnSetByBreeding {
         /**
          * 亲代
          */
-        private final String parent;
+        private String parent;
 
         /**
          * 招式名称
          */
-        private final String move;
+        private String move;
 
         /**
          * 属性
          */
-        private final String type;
+        private String type;
 
         /**
          * 分类
          */
-        private final String category;
+        private String category;
 
         /**
          * 威力
          */
-        private final String power;
+        private String power;
 
         /**
          * 命中
          */
-        private final String accuracy;
+        private String accuracy;
 
         /**
          * PP
          */
-        private final String pp;
+        private String pp;
 
         private LearnSetByBreeding(String parent, String move, String type, String category, String power,
                                    String accuracy, String pp) {

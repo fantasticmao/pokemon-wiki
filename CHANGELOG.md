@@ -1,5 +1,11 @@
 # Changelog
 
+## 2022-03-03
+
+- 升级 JDK 版本至 11
+- 添加 Controller 单元测试
+- 升级 `cn.fantasticmao.mundo:mundo-all:1.0.4`
+
 ## 2022-01-18
 
 - 暴露 Spring MVC 和 Spring Data Repository 百分位耗时指标数据
