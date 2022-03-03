@@ -1,4 +1,4 @@
-package cn.fantasticmao.pokemon.web.web;
+package cn.fantasticmao.pokemon.web.controller;
 
 import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.mundo.web.support.JsonApi;

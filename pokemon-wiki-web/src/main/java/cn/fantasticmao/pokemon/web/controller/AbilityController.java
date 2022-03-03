@@ -1,4 +1,4 @@
-package cn.fantasticmao.pokemon.web.web;
+package cn.fantasticmao.pokemon.web.controller;
 
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.AbilityBean;

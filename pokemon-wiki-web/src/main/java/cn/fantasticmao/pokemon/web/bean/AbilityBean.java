@@ -4,6 +4,8 @@ import cn.fantasticmao.pokemon.web.domain.Ability;
 import cn.fantasticmao.pokemon.web.domain.AbilityDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
@@ -16,58 +18,60 @@ import javax.annotation.Nullable;
  * @since 2018/8/29
  */
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
 public class AbilityBean implements Comparable<AbilityBean> {
     /**
      * 特性编号
      */
-    private final int id;
+    private int id;
 
     /**
      * 中文名称
      */
-    private final String nameZh;
+    private String nameZh;
     /**
      * 日文名称
      */
-    private final String nameJa;
+    private String nameJa;
 
     /**
      * 英文名称
      */
-    private final String nameEn;
+    private String nameEn;
 
     /**
      * 第几世代
      */
-    private final int generation;
+    private int generation;
 
     /**
      * 特性描述，以空格分隔
      */
     @Deprecated
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String desc;
+    private String desc;
 
     /**
      * 特性效果，以空格分隔
      */
     @Deprecated
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String effect;
+    private String effect;
 
     /**
      * 拥有此特性的宝可梦，以逗号分隔
      */
     @Deprecated
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final String pokemons;
+    private String pokemons;
 
     /**
      * 特性详情
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final Detail detail;
+    private Detail detail;
 
     @Override
     public int compareTo(@Nonnull AbilityBean that) {
@@ -104,22 +108,24 @@ public class AbilityBean implements Comparable<AbilityBean> {
     }
 
     @Getter
+    @Setter
     @ToString
+    @NoArgsConstructor
     private static class Detail {
         /**
          * 特性描述，以空格分隔
          */
-        private final String desc;
+        private String desc;
 
         /**
          * 特性效果，以空格分隔
          */
-        private final String effect;
+        private String effect;
 
         /**
          * 拥有此特性的宝可梦，以逗号分隔
          */
-        private final String pokemons;
+        private String pokemons;
 
         private Detail(String desc, String effect, String pokemons) {
             this.desc = desc;

@@ -2,6 +2,8 @@ package cn.fantasticmao.pokemon.web.bean;
 
 import cn.fantasticmao.pokemon.web.domain.Item;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
@@ -13,47 +15,49 @@ import javax.annotation.Nonnull;
  * @since 2019-03-23
  */
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
 public class ItemBean implements Comparable<ItemBean> {
     /**
      * 道具编号
      */
-    private final int id;
+    private int id;
 
     /**
      * 道具类型
      */
-    private final String type;
+    private String type;
 
     /**
      * 预览图片
      */
-    private final String imgUrl;
+    private String imgUrl;
 
     /**
      * 中文名称
      */
-    private final String nameZh;
+    private String nameZh;
 
     /**
      * 日文名称
      */
-    private final String nameJa;
+    private String nameJa;
 
     /**
      * 英文名称
      */
-    private final String nameEn;
+    private String nameEn;
 
     /**
      * 道具描述
      */
-    private final String desc;
+    private String desc;
 
     /**
      * 第几世代
      */
-    private final int generation;
+    private int generation;
 
     @Override
     public int compareTo(@Nonnull ItemBean that) {

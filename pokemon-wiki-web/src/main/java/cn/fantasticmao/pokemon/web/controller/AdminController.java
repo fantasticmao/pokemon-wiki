@@ -1,4 +1,4 @@
-package cn.fantasticmao.pokemon.web.web;
+package cn.fantasticmao.pokemon.web.controller;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

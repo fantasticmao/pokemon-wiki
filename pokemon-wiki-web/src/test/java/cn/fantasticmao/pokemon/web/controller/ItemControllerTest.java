@@ -1,9 +1,9 @@
-package cn.fantasticmao.pokemon.web.web;
+package cn.fantasticmao.pokemon.web.controller;
 
 import cn.fantasticmao.mundo.core.util.JsonUtil;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.SpringTest;
-import cn.fantasticmao.pokemon.web.bean.PokemonBean;
+import cn.fantasticmao.pokemon.web.bean.ItemBean;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,23 +18,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * PokemonControllerTest
+ * ItemControllerTest
  *
  * @author fantasticmao
- * @since 2022/3/2
+ * @see ItemController
+ * @since 2022/3/3
  */
-public class PokemonControllerTest extends SpringTest {
+public class ItemControllerTest extends SpringTest {
     @Resource
     private MockMvc mvc;
 
     @Test
-    public void listPokemonDetail_badRequest() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/pokemon/detail"))
+    public void listItemDetail_badRequest() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/item/detail"))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
                 MockHttpServletResponse response = result.getResponse();
                 String bodyJson = response.getContentAsString(StandardCharsets.UTF_8);
-                JsonApi<List<PokemonBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
+                JsonApi<List<ItemBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
                 });
 
                 Assertions.assertFalse(jsonApi.isStatus());
@@ -44,48 +45,45 @@ public class PokemonControllerTest extends SpringTest {
     }
 
     @Test
-    public void listPokemonDetail_ok() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/pokemon/detail?index=1"))
+    public void listItemDetail_ok() throws Exception {
+        final String nameZh = "除虫喷雾";
+        mvc.perform(MockMvcRequestBuilders.get("/item/detail?nameZh=" + nameZh))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
                 MockHttpServletResponse response = result.getResponse();
                 String bodyJson = response.getContentAsString(StandardCharsets.UTF_8);
-                JsonApi<List<PokemonBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
+                JsonApi<List<ItemBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
                 });
 
                 Assertions.assertTrue(jsonApi.isStatus());
                 Assertions.assertEquals(HttpStatus.OK.value(), jsonApi.getCode());
                 Assertions.assertEquals(HttpStatus.OK.getReasonPhrase(), jsonApi.getMessage());
 
-                List<PokemonBean> list = jsonApi.getData();
+                List<ItemBean> list = jsonApi.getData();
                 Assertions.assertEquals(1, list.size());
 
-                PokemonBean pokemon = list.get(0);
-                Assertions.assertEquals(1, pokemon.getIndex());
-                Assertions.assertEquals("妙蛙种子", pokemon.getNameZh());
+                ItemBean item = list.get(0);
+                Assertions.assertEquals(nameZh, item.getNameZh());
             });
     }
 
     @Test
-    public void listPokemon_ok() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/pokemon/list?generation=1"))
+    public void listItem() throws Exception {
+        final int pageSize = 20;
+        mvc.perform(MockMvcRequestBuilders.get("/item/list?page=1&size=" + pageSize))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
                 MockHttpServletResponse response = result.getResponse();
                 String bodyJson = response.getContentAsString(StandardCharsets.UTF_8);
-                JsonApi<List<PokemonBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
+                JsonApi<List<ItemBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
                 });
 
                 Assertions.assertTrue(jsonApi.isStatus());
                 Assertions.assertEquals(HttpStatus.OK.value(), jsonApi.getCode());
                 Assertions.assertEquals(HttpStatus.OK.getReasonPhrase(), jsonApi.getMessage());
 
-                List<PokemonBean> list = jsonApi.getData();
-                Assertions.assertEquals(153, list.size());
-
-                PokemonBean pokemon = list.get(0);
-                Assertions.assertEquals(1, pokemon.getIndex());
-                Assertions.assertEquals("妙蛙种子", pokemon.getNameZh());
+                List<ItemBean> list = jsonApi.getData();
+                Assertions.assertEquals(pageSize, list.size());
             });
     }
 }
