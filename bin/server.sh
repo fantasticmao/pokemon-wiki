@@ -13,7 +13,7 @@ TOMCAT_PID=$LOG_HOME/tomcat.pid
 
 MAOMAO_DEPLOY_HOME="/opt/maomao/$NAME"
 
-JVM_OPTS="${JVM_OPTS} -XX:+UseG1GC -Xms500m -Xmx500m -XX:MaxGCPauseMillis=500 -XX:+HeapDumpOnOutOfMemoryError"
+JVM_OPTS="${JVM_OPTS} -XX:+UseG1GC -Xms500m -Xmx500m -XX:MaxGCPauseMillis=50 -XX:+HeapDumpOnOutOfMemoryError"
 JVM_OPTS="${JVM_OPTS} -Xlog:gc*:file=${LOG_HOME}/gc_%p.log::filecount=5,filesize=10M"
 APP_OPTS="-Dapp.wechat.token=${APP_WECHAT_TOKEN} -Dapp.dbfile=${MAOMAO_DEPLOY_HOME}/pokemon_wiki.db"
 
