@@ -3,9 +3,7 @@ package cn.fantasticmao.pokemon.spider.task1;
 import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 
@@ -72,8 +70,6 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
     }
 
     @Getter
-    @ToString
-    @AllArgsConstructor
     static class Data implements AbstractTask1Spider.Data {
         private final String nameZh;
         private final String nameJa;
@@ -82,5 +78,16 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
         private final String decreasedStat;
         private final String favoriteFlavor;
         private final String dislikedFlavor;
+
+        public Data(String nameZh, String nameJa, String nameEn, String increasedStat, String decreasedStat,
+                    String favoriteFlavor, String dislikedFlavor) {
+            this.nameZh = nameZh;
+            this.nameJa = nameJa;
+            this.nameEn = nameEn;
+            this.increasedStat = increasedStat;
+            this.decreasedStat = decreasedStat;
+            this.favoriteFlavor = favoriteFlavor;
+            this.dislikedFlavor = dislikedFlavor;
+        }
     }
 }

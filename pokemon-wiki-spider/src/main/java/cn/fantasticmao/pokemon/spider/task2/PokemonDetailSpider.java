@@ -1,9 +1,7 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.mundo.core.support.Constant;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.apache.commons.collections4.CollectionUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,8 +32,6 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     }
 
     @Getter
-    @ToString
-    @AllArgsConstructor
     static class Data implements AbstractTask2Spider.Data {
         private final int index;
         private final String nameZh;
@@ -57,9 +53,34 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         private final List<LearnSetByTechnicalMachine> learnSetByTechnicalMachineList; // 能使用的招式学习器
         private final List<LearnSetByBreeding> learnSetByBreedingList; // 蛋招式
 
+        public Data(int index, String nameZh, String imgUrl, String type, String category, String ability, String height,
+                    String weight, String bodyStyle, String catchRate, String genderRatio, String eggGroup1, String eggGroup2,
+                    String hatchTime, String effortValue, Data.BaseStat baseStat,
+                    List<LearnSetByLevelingUp> learnSetByLevelingUpList,
+                    List<LearnSetByTechnicalMachine> learnSetByTechnicalMachineList,
+                    List<LearnSetByBreeding> learnSetByBreedingList) {
+            this.index = index;
+            this.nameZh = nameZh;
+            this.imgUrl = imgUrl;
+            this.type = type;
+            this.category = category;
+            this.ability = ability;
+            this.height = height;
+            this.weight = weight;
+            this.bodyStyle = bodyStyle;
+            this.catchRate = catchRate;
+            this.genderRatio = genderRatio;
+            this.eggGroup1 = eggGroup1;
+            this.eggGroup2 = eggGroup2;
+            this.hatchTime = hatchTime;
+            this.effortValue = effortValue;
+            BaseStat = baseStat;
+            this.learnSetByLevelingUpList = learnSetByLevelingUpList;
+            this.learnSetByTechnicalMachineList = learnSetByTechnicalMachineList;
+            this.learnSetByBreedingList = learnSetByBreedingList;
+        }
+
         @Getter
-        @ToString
-        @AllArgsConstructor
         static class BaseStat {
             private final int hp;
             private final int attack;
@@ -69,11 +90,20 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             private final int speed;
             private final int total;
             private final float average;
+
+            public BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
+                this.hp = hp;
+                this.attack = attack;
+                this.defense = defense;
+                this.spAttack = spAttack;
+                this.spDefense = spDefense;
+                this.speed = speed;
+                this.total = total;
+                this.average = average;
+            }
         }
 
         @Getter
-        @ToString
-        @AllArgsConstructor
         static class LearnSetByLevelingUp {
             private final String level1; // 太阳/月亮
             private final String level2; // 究极之日/究极之月
@@ -83,11 +113,21 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             private final String power;
             private final String accuracy;
             private final String pp;
+
+            public LearnSetByLevelingUp(String level1, String level2, String move, String type, String category,
+                                        String power, String accuracy, String pp) {
+                this.level1 = level1;
+                this.level2 = level2;
+                this.move = move;
+                this.type = type;
+                this.category = category;
+                this.power = power;
+                this.accuracy = accuracy;
+                this.pp = pp;
+            }
         }
 
         @Getter
-        @ToString
-        @AllArgsConstructor
         static class LearnSetByTechnicalMachine {
             private final String imgUrl;
             private final String technicalMachine;
@@ -97,11 +137,21 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             private final String power;
             private final String accuracy;
             private final String pp;
+
+            public LearnSetByTechnicalMachine(String imgUrl, String technicalMachine, String move, String type,
+                                              String category, String power, String accuracy, String pp) {
+                this.imgUrl = imgUrl;
+                this.technicalMachine = technicalMachine;
+                this.move = move;
+                this.type = type;
+                this.category = category;
+                this.power = power;
+                this.accuracy = accuracy;
+                this.pp = pp;
+            }
         }
 
         @Getter
-        @ToString
-        @AllArgsConstructor
         static class LearnSetByBreeding {
             private final String parent;
             private final String move;
@@ -110,6 +160,17 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             private final String power;
             private final String accuracy;
             private final String pp;
+
+            public LearnSetByBreeding(String parent, String move, String type, String category, String power,
+                                      String accuracy, String pp) {
+                this.parent = parent;
+                this.move = move;
+                this.type = type;
+                this.category = category;
+                this.power = power;
+                this.accuracy = accuracy;
+                this.pp = pp;
+            }
         }
     }
 

@@ -2,9 +2,7 @@ package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.JsoupUtil;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -56,8 +54,6 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
     }
 
     @Getter
-    @ToString
-    @AllArgsConstructor
     static class Data implements AbstractTask2Spider.Data {
         private final int id;
         private final String nameZh; // 招式名称
@@ -66,6 +62,16 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
         private final String notes; // 注意事项
         private final String scope; // 作用范围
         private final String effect; // 附加效果
+
+        public Data(int id, String nameZh, String desc, String imgUrl, String notes, String scope, String effect) {
+            this.id = id;
+            this.nameZh = nameZh;
+            this.desc = desc;
+            this.imgUrl = imgUrl;
+            this.notes = notes;
+            this.scope = scope;
+            this.effect = effect;
+        }
     }
 
 }
