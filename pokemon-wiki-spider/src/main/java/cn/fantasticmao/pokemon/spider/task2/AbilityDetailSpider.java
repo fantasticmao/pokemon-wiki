@@ -1,9 +1,7 @@
 package cn.fantasticmao.pokemon.spider.task2;
 
 import cn.fantasticmao.pokemon.spider.JsoupUtil;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -40,13 +38,19 @@ class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> 
     }
 
     @Getter
-    @ToString
-    @AllArgsConstructor
     static class Data implements AbstractTask2Spider.Data {
         private final int id;
         private final String nameZh; // 特性名称
         private final String desc; // 特性描述
         private final String effect; // 特性效果
         private final List<String> pokemonList; // 拥有此特性的宝可梦
+
+        public Data(int id, String nameZh, String desc, String effect, List<String> pokemonList) {
+            this.id = id;
+            this.nameZh = nameZh;
+            this.desc = desc;
+            this.effect = effect;
+            this.pokemonList = pokemonList;
+        }
     }
 }

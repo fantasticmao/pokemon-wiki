@@ -2,10 +2,7 @@ package cn.fantasticmao.pokemon.spider.task1;
 
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -15,7 +12,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -65,35 +62,35 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
     }
 
     @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
     static class Data implements AbstractTask1Spider.Data {
         private final String nameZh;
         private final String nameJa;
         private final String nameEn;
         private final String effect;
         private final int generation;
+
+        public Data(String nameZh, String nameJa, String nameEn, String effect, int generation) {
+            this.nameZh = nameZh;
+            this.nameJa = nameJa;
+            this.nameEn = nameEn;
+            this.effect = effect;
+            this.generation = generation;
+        }
     }
 
-    private static final Function<Element, AbilityListSpider.Data.DataBuilder> PARSER = element -> {
+    private static final BiFunction<Element, Integer, Data> PARSER = (element, generation) -> {
         String nameZh = element.child(1).text();
         String nameJa = element.child(2).text();
         String nameEn = element.child(3).text();
         String effect = element.child(4).text();
-        return new Data.DataBuilder()
-            .nameZh(nameZh).nameJa(nameJa)
-            .nameEn(nameEn).effect(effect);
+        return new Data(nameZh, nameJa, nameEn, effect, generation);
     };
 
     // 丰缘地区
     private List<AbilityListSpider.Data> getDataList3(Document document) {
         return document.select(".s-丰缘 > tbody > tr").stream()
             .skip(1)
-            .map(element -> PARSER.apply(element)
-                .generation(3)
-                .build()
-            )
+            .map(element -> PARSER.apply(element, 3))
             .collect(Collectors.toList());
     }
 
@@ -101,10 +98,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
     private List<AbilityListSpider.Data> getDataList4(Document document) {
         return document.select(".s-神奥 > tbody > tr").stream()
             .skip(1)
-            .map(element -> PARSER.apply(element)
-                .generation(4)
-                .build()
-            )
+            .map(element -> PARSER.apply(element, 4))
             .collect(Collectors.toList());
     }
 
@@ -112,10 +106,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
     private List<AbilityListSpider.Data> getDataList5(Document document) {
         return document.select(".s-合众 > tbody > tr").stream()
             .skip(1)
-            .map(element -> PARSER.apply(element)
-                .generation(5)
-                .build()
-            )
+            .map(element -> PARSER.apply(element, 5))
             .collect(Collectors.toList());
     }
 
@@ -123,10 +114,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
     private List<AbilityListSpider.Data> getDataList6(Document document) {
         return document.select(".s-卡洛斯 > tbody > tr").stream()
             .skip(1)
-            .map(element -> PARSER.apply(element)
-                .generation(6)
-                .build()
-            )
+            .map(element -> PARSER.apply(element, 6))
             .collect(Collectors.toList());
     }
 
@@ -134,10 +122,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
     private List<AbilityListSpider.Data> getDataList7(Document document) {
         return document.select(".s-阿羅拉 > tbody > tr").stream()
             .skip(1)
-            .map(element -> PARSER.apply(element)
-                .generation(7)
-                .build()
-            )
+            .map(element -> PARSER.apply(element, 7))
             .collect(Collectors.toList());
     }
 
@@ -145,10 +130,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
     private List<AbilityListSpider.Data> getDataList8(Document document) {
         return document.select(".s-伽勒尔 > tbody > tr").stream()
             .skip(1)
-            .map(element -> PARSER.apply(element)
-                .generation(8)
-                .build()
-            )
+            .map(element -> PARSER.apply(element, 8))
             .collect(Collectors.toList());
     }
 }

@@ -60,7 +60,7 @@ public class AbilityServiceImpl implements AbilityService {
         if (page < 0 || size < 1) {
             return Collections.emptyList();
         }
-        List<Ability> abilityList = abilityRepository.find(PageUtil.offset(page, size), PageUtil.size(size));
+        List<Ability> abilityList = abilityRepository.find(PageUtil.offset(page, size), PageUtil.limit(size));
         return abilityList.stream()
             .map(ability -> AbilityBean.ofDomain(ability, null))
             .collect(Collectors.toList());

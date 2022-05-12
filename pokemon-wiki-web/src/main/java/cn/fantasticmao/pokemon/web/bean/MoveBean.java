@@ -4,9 +4,7 @@ import cn.fantasticmao.pokemon.web.domain.Move;
 import cn.fantasticmao.pokemon.web.domain.MoveDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,8 +17,6 @@ import javax.annotation.Nullable;
  */
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 public class MoveBean implements Comparable<MoveBean> {
     /**
      * 招式编号
@@ -90,6 +86,9 @@ public class MoveBean implements Comparable<MoveBean> {
         }
     }
 
+    public MoveBean() {
+    }
+
     private MoveBean(int id, String nameZh, String nameJa, String nameEn, String type, String category, String power,
                      String accuracy, String pp, int generation, Detail detail) {
         this.id = id;
@@ -113,8 +112,6 @@ public class MoveBean implements Comparable<MoveBean> {
 
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class Detail {
         /**
          * 招式描述
@@ -140,6 +137,9 @@ public class MoveBean implements Comparable<MoveBean> {
          * 附加效果
          */
         private String effect;
+
+        public Detail() {
+        }
 
         private Detail(String desc, String imgUrl, String notes, String scope, String effect) {
             this.desc = desc;

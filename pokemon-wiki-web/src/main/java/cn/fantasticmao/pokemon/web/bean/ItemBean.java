@@ -2,9 +2,7 @@ package cn.fantasticmao.pokemon.web.bean;
 
 import cn.fantasticmao.pokemon.web.domain.Item;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 
@@ -16,8 +14,6 @@ import javax.annotation.Nonnull;
  */
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 public class ItemBean implements Comparable<ItemBean> {
     /**
      * 道具编号
@@ -69,6 +65,9 @@ public class ItemBean implements Comparable<ItemBean> {
         } else {
             return 0;
         }
+    }
+
+    public ItemBean() {
     }
 
     private ItemBean(int id, String type, String imgUrl, String nameZh, String nameJa, String nameEn, String desc,

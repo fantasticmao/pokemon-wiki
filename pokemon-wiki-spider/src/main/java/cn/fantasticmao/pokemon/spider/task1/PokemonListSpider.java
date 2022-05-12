@@ -3,9 +3,7 @@ package cn.fantasticmao.pokemon.spider.task1;
 import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 
@@ -77,8 +75,6 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
 
 
     @Getter
-    @ToString
-    @AllArgsConstructor
     static class Data implements AbstractTask1Spider.Data {
         private final int index;
         private final String nameZh;
@@ -87,6 +83,16 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
         private final String type1;
         private final String type2;
         private final int generation;
+
+        public Data(int index, String nameZh, String nameJa, String nameEn, String type1, String type2, int generation) {
+            this.index = index;
+            this.nameZh = nameZh;
+            this.nameJa = nameJa;
+            this.nameEn = nameEn;
+            this.type1 = type1;
+            this.type2 = type2;
+            this.generation = generation;
+        }
     }
 
     // 关都地区

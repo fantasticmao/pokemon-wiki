@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" strict="true"
+               xmlns="http://logging.apache.org/log4j/2.0/config"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://logging.apache.org/log4j/2.0/config
+               https://cdn.jsdelivr.net/gh/apache/logging-log4j2/log4j-core/src/main/resources/Log4j-config.xsd">
+    <Properties>
+        <Property name="format">
+            %date{yyyy-MM-dd HH:mm:ss.SSS} %highlight{[%level]} [%thread] %cyan{%logger{3}} - %msg%n
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${format}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="cn.fantasticmao" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -4,9 +4,7 @@ import cn.fantasticmao.pokemon.web.domain.Ability;
 import cn.fantasticmao.pokemon.web.domain.AbilityDetail;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,8 +17,6 @@ import javax.annotation.Nullable;
  */
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 public class AbilityBean implements Comparable<AbilityBean> {
     /**
      * 特性编号
@@ -85,6 +81,9 @@ public class AbilityBean implements Comparable<AbilityBean> {
         }
     }
 
+    public AbilityBean() {
+    }
+
     private AbilityBean(int id, String nameZh, String nameJa, String nameEn, int generation,
                         String desc, String effect, String pokemons, Detail detail) {
         this.id = id;
@@ -109,8 +108,6 @@ public class AbilityBean implements Comparable<AbilityBean> {
 
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class Detail {
         /**
          * 特性描述，以空格分隔
@@ -126,6 +123,9 @@ public class AbilityBean implements Comparable<AbilityBean> {
          * 拥有此特性的宝可梦，以逗号分隔
          */
         private String pokemons;
+
+        public Detail() {
+        }
 
         private Detail(String desc, String effect, String pokemons) {
             this.desc = desc;

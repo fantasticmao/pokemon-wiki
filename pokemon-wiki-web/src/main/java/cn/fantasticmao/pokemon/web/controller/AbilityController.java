@@ -3,7 +3,6 @@ package cn.fantasticmao.pokemon.web.controller;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.AbilityBean;
 import cn.fantasticmao.pokemon.web.service.AbilityService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +20,6 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/8/29
  */
-@Slf4j
 @RestController
 @RequestMapping("/ability")
 public class AbilityController {
@@ -40,7 +38,7 @@ public class AbilityController {
         }
 
         List<AbilityBean> abilityBeanList = abilityService.listByNameZh(nameZh);
-        return JsonApi.<List<AbilityBean>>success().data(abilityBeanList);
+        return JsonApi.success(abilityBeanList);
     }
 
     /**
@@ -53,6 +51,6 @@ public class AbilityController {
     public JsonApi<List<AbilityBean>> listAbility(@RequestParam(defaultValue = "0") Integer page,
                                                   @RequestParam(defaultValue = "50") Integer size) {
         List<AbilityBean> abilityBeanList = abilityService.list(page, size);
-        return JsonApi.<List<AbilityBean>>success().data(abilityBeanList);
+        return JsonApi.success(abilityBeanList);
     }
 }
