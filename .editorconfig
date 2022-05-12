@@ -10,6 +10,12 @@ indent_size = 4
 [*.java]
 indent_size = 4
 
+[*.sql]
+indent_size = 2
+
+[*.sh]
+indent_size = 2
+
 [*.xml]
 indent_size = 4
 

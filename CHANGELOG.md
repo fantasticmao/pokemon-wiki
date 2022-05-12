@@ -3,6 +3,7 @@
 ## 2022-05-12
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.5`
+- 优化 [server.sh](bin/server.sh)
 - 清理代码
 
 ## 2022-03-03
