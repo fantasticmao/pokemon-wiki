@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
         }
         List<Item> itemList = page < 0
             ? itemRepository.findAll() // FIXME page < 0
-            : itemRepository.find(PageUtil.offset(page, size), PageUtil.size(size));
+            : itemRepository.find(PageUtil.offset(page, size), PageUtil.limit(size));
         return itemList.stream()
             .map(ItemBean::ofDomain)
             .collect(Collectors.toList());

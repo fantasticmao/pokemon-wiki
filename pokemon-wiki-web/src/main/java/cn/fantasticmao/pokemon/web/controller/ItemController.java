@@ -3,7 +3,6 @@ package cn.fantasticmao.pokemon.web.controller;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.ItemBean;
 import cn.fantasticmao.pokemon.web.service.ItemService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +20,6 @@ import java.util.List;
  * @author fantasticmao
  * @since 2019-03-23
  */
-@Slf4j
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -40,7 +38,7 @@ public class ItemController {
         }
 
         List<ItemBean> itemList = itemService.listByNameZh(nameZh);
-        return JsonApi.<List<ItemBean>>success().data(itemList);
+        return JsonApi.success(itemList);
     }
 
     /**
@@ -53,6 +51,6 @@ public class ItemController {
     public JsonApi<List<ItemBean>> listItem(@RequestParam(defaultValue = "-1") Integer page,
                                             @RequestParam(defaultValue = "50") Integer size) {
         List<ItemBean> itemList = itemService.list(page, size);
-        return JsonApi.<List<ItemBean>>success().data(itemList);
+        return JsonApi.success(itemList);
     }
 }

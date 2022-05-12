@@ -3,7 +3,6 @@ package cn.fantasticmao.pokemon.web.controller;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.MoveBean;
 import cn.fantasticmao.pokemon.web.service.MoveService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +20,6 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/8/6
  */
-@Slf4j
 @RestController
 @RequestMapping("/move")
 public class MoveController {
@@ -40,7 +38,7 @@ public class MoveController {
         }
 
         List<MoveBean> moveBeanList = moveService.listByNameZh(nameZh);
-        return JsonApi.<List<MoveBean>>success().data(moveBeanList);
+        return JsonApi.success(moveBeanList);
     }
 
     /**
@@ -53,6 +51,6 @@ public class MoveController {
     public JsonApi<List<MoveBean>> listMove(@RequestParam(defaultValue = "0") Integer page,
                                             @RequestParam(defaultValue = "50") Integer size) {
         List<MoveBean> moveBeanList = moveService.list(page, size);
-        return JsonApi.<List<MoveBean>>success().data(moveBeanList);
+        return JsonApi.success(moveBeanList);
     }
 }

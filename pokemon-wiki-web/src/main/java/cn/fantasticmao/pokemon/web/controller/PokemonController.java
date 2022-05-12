@@ -4,7 +4,6 @@ import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.PokemonBean;
 import cn.fantasticmao.pokemon.web.service.PokemonService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +21,6 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/7/29
  */
-@Slf4j
 @RestController
 @RequestMapping("/pokemon")
 public class PokemonController {
@@ -42,7 +40,7 @@ public class PokemonController {
         }
 
         List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh);
-        return JsonApi.<List<PokemonBean>>success().data(pokemonBeanList);
+        return JsonApi.success(pokemonBeanList);
     }
 
     /**
@@ -59,6 +57,6 @@ public class PokemonController {
                                                   @RequestParam(defaultValue = "-1") Integer page,
                                                   @RequestParam(defaultValue = "50") Integer size) {
         List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(generation, eggGroup, page, size);
-        return JsonApi.<List<PokemonBean>>success().data(pokemonBeanList);
+        return JsonApi.success(pokemonBeanList);
     }
 }

@@ -3,9 +3,7 @@ package cn.fantasticmao.pokemon.web.bean;
 import cn.fantasticmao.pokemon.web.domain.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,8 +19,6 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 public class PokemonBean implements Comparable<PokemonBean> {
     /**
      * 全国图鉴
@@ -101,6 +97,9 @@ public class PokemonBean implements Comparable<PokemonBean> {
         }
     }
 
+    public PokemonBean() {
+    }
+
     public PokemonBean(@Nonnull Pokemon pokemon, @Nonnull PokemonAbility pokemonAbility) {
         this(pokemon, pokemonAbility, null, null,
             Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
@@ -139,8 +138,6 @@ public class PokemonBean implements Comparable<PokemonBean> {
      */
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class BaseStat {
         /**
          * HP
@@ -182,6 +179,9 @@ public class PokemonBean implements Comparable<PokemonBean> {
          */
         private float average;
 
+        public BaseStat() {
+        }
+
         private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
             this.hp = hp;
             this.attack = attack;
@@ -207,8 +207,6 @@ public class PokemonBean implements Comparable<PokemonBean> {
      */
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class Detail {
         /**
          * 预览图片
@@ -265,6 +263,9 @@ public class PokemonBean implements Comparable<PokemonBean> {
          */
         private String effortValue;
 
+        public Detail() {
+        }
+
         private Detail(String imgUrl, String category, String height, String weight, String bodyStyle, String catchRate,
                        String genderRatio, String eggGroup1, String eggGroup2, String hatchTime, String effortValue) {
             this.imgUrl = imgUrl;
@@ -292,8 +293,6 @@ public class PokemonBean implements Comparable<PokemonBean> {
 
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class LearnSetByLevelingUp {
         /**
          * 等级（太阳/月亮）
@@ -335,6 +334,9 @@ public class PokemonBean implements Comparable<PokemonBean> {
          */
         private String pp;
 
+        public LearnSetByLevelingUp() {
+        }
+
         private LearnSetByLevelingUp(String level1, String level2, String move, String type, String category,
                                      String power, String accuracy, String pp) {
             this.level1 = level1;
@@ -358,8 +360,6 @@ public class PokemonBean implements Comparable<PokemonBean> {
 
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class LearnSetByTechnicalMachine {
         /**
          * 招式学习器图片链接
@@ -401,6 +401,9 @@ public class PokemonBean implements Comparable<PokemonBean> {
          */
         private String pp;
 
+        public LearnSetByTechnicalMachine() {
+        }
+
         private LearnSetByTechnicalMachine(String imgUrl, String technicalMachine, String move, String type,
                                            String category, String power, String accuracy, String pp) {
             this.imgUrl = imgUrl;
@@ -424,8 +427,6 @@ public class PokemonBean implements Comparable<PokemonBean> {
 
     @Getter
     @Setter
-    @ToString
-    @NoArgsConstructor
     private static class LearnSetByBreeding {
         /**
          * 亲代
@@ -461,6 +462,9 @@ public class PokemonBean implements Comparable<PokemonBean> {
          * PP
          */
         private String pp;
+
+        public LearnSetByBreeding() {
+        }
 
         private LearnSetByBreeding(String parent, String move, String type, String category, String power,
                                    String accuracy, String pp) {

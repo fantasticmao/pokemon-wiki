@@ -1,5 +1,10 @@
-#!/bin/sh
-
+#!/bin/bash
+# File              : server.sh
+# License           : GNU GENERAL PUBLIC LICENSE v3.0
+# Author            : fantasticmao <maomao8017@gmail.com>
+# Date              : 12.05.2022
+# Last Modified Date: 12.05.2022
+# Last Modified By  : fantasticmao <maomao8017@gmail.com>
 NAME=pokemon-wiki
 APP_WECHAT_TOKEN=$2
 
