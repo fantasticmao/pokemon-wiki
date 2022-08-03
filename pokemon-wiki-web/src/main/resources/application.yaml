@@ -2,6 +2,10 @@ server:
   port: 1234
   tomcat:
     uri-encoding: UTF-8
+    max-connections: 2048
+    threads:
+      min-spare: 5
+      max: 100
     mbeanregistry:
       enabled: true
 
