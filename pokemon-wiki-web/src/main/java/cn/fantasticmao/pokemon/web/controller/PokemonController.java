@@ -5,12 +5,12 @@ import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.PokemonBean;
 import cn.fantasticmao.pokemon.web.service.PokemonService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/7/29
  */
-@RestController
+@Controller
 @RequestMapping("/pokemon")
 public class PokemonController {
     @Resource
@@ -33,14 +33,14 @@ public class PokemonController {
      * @param nameZh 宝可梦的中文名称，支持模糊查询
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<PokemonBean>> listPokemonDetail(@RequestParam(defaultValue = "0") Integer index,
-                                                        @RequestParam(defaultValue = "") String nameZh) {
+    public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemonDetail(@RequestParam(defaultValue = "0") Integer index,
+                                                                        @RequestParam(defaultValue = "") String nameZh) {
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
-            return JsonApi.error(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
 
         List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh);
-        return JsonApi.success(pokemonBeanList);
+        return JsonApi.ok(pokemonBeanList).toResponseEntity();
     }
 
     /**
@@ -52,11 +52,11 @@ public class PokemonController {
      * @param size       页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<PokemonBean>> listPokemon(@RequestParam(defaultValue = "0") Integer generation,
-                                                  @RequestParam(defaultValue = Constant.Strings.EMPTY) String eggGroup,
-                                                  @RequestParam(defaultValue = "-1") Integer page,
-                                                  @RequestParam(defaultValue = "50") Integer size) {
+    public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemon(@RequestParam(defaultValue = "0") Integer generation,
+                                                                  @RequestParam(defaultValue = Constant.Strings.EMPTY) String eggGroup,
+                                                                  @RequestParam(defaultValue = "-1") Integer page,
+                                                                  @RequestParam(defaultValue = "50") Integer size) {
         List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(generation, eggGroup, page, size);
-        return JsonApi.success(pokemonBeanList);
+        return JsonApi.ok(pokemonBeanList).toResponseEntity();
     }
 }

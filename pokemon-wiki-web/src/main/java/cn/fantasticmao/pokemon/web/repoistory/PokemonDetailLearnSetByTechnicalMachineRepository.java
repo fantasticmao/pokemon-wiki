@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
+import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.PokemonDetailLearnSetByTechnicalMachine;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface PokemonDetailLearnSetByTechnicalMachineRepository extends PagingAndSortingRepository<PokemonDetailLearnSetByTechnicalMachine, Integer> {
 
-    @Query(value = "SELECT * FROM pw_pokemon_detail_learn_set_by_technical_machine WHERE `index` IN ?1", nativeQuery = true)
+    @NativeQuery("SELECT * FROM pw_pokemon_detail_learn_set_by_technical_machine WHERE `index` IN ?1")
     List<PokemonDetailLearnSetByTechnicalMachine> findByIndexIn(List<Integer> idList);
 }

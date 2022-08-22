@@ -1,9 +1,10 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
+import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.Nature;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  */
 public interface NatureRepository extends PagingAndSortingRepository<Nature, Integer> {
 
-    @Query(value = "SELECT * FROM pw_nature", nativeQuery = true)
+    @Nonnull
+    @NativeQuery("SELECT * FROM pw_nature")
     List<Nature> findAll();
 }

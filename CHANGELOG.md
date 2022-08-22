@@ -1,5 +1,9 @@
 # Changelog
 
+## 2022-08-23
+
+- 升级 `cn.fantasticmao.mundo:mundo-all:1.0.6`
+
 ## 2022-05-12
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.5`

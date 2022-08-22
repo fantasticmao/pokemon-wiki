@@ -4,12 +4,12 @@ import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.MoveBean;
 import cn.fantasticmao.pokemon.web.service.MoveService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/8/6
  */
-@RestController
+@Controller
 @RequestMapping("/move")
 public class MoveController {
     @Resource
@@ -32,13 +32,13 @@ public class MoveController {
      * @param nameZh 招式中文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<MoveBean>> listMoveDetail(@RequestParam(defaultValue = "") String nameZh) {
+    public ResponseEntity<JsonApi<List<MoveBean>>> listMoveDetail(@RequestParam(defaultValue = "") String nameZh) {
         if (StringUtils.isEmpty(nameZh)) {
-            return JsonApi.error(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
 
         List<MoveBean> moveBeanList = moveService.listByNameZh(nameZh);
-        return JsonApi.success(moveBeanList);
+        return JsonApi.ok(moveBeanList).toResponseEntity();
     }
 
     /**
@@ -48,9 +48,9 @@ public class MoveController {
      * @param size 页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonApi<List<MoveBean>> listMove(@RequestParam(defaultValue = "0") Integer page,
-                                            @RequestParam(defaultValue = "50") Integer size) {
+    public ResponseEntity<JsonApi<List<MoveBean>>> listMove(@RequestParam(defaultValue = "0") Integer page,
+                                                            @RequestParam(defaultValue = "50") Integer size) {
         List<MoveBean> moveBeanList = moveService.list(page, size);
-        return JsonApi.success(moveBeanList);
+        return JsonApi.ok(moveBeanList).toResponseEntity();
     }
 }

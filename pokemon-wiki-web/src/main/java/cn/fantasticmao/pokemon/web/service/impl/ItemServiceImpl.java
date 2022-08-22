@@ -41,8 +41,9 @@ public class ItemServiceImpl implements ItemService {
         if (size < 1) {
             return Collections.emptyList();
         }
+        // FIXME page < 0
         List<Item> itemList = page < 0
-            ? itemRepository.findAll() // FIXME page < 0
+            ? itemRepository.findAll()
             : itemRepository.find(PageUtil.offset(page, size), PageUtil.limit(size));
         return itemList.stream()
             .map(ItemBean::ofDomain)

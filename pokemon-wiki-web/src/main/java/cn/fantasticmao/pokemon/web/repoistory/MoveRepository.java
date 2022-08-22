@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
+import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.Move;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface MoveRepository extends PagingAndSortingRepository<Move, Integer> {
 
-    @Query(value = "SELECT * FROM pw_move WHERE nameZh LIKE '%' || ?1 || '%'", nativeQuery = true)
+    @NativeQuery("SELECT * FROM pw_move WHERE nameZh LIKE '%' || ?1 || '%'")
     List<Move> findByNameZh(String nameZh);
 
-    @Query(value = "SELECT * FROM pw_move LIMIT ?2 OFFSET ?1", nativeQuery = true)
+    @NativeQuery("SELECT * FROM pw_move LIMIT ?2 OFFSET ?1")
     List<Move> find(int offset, int limit);
 }

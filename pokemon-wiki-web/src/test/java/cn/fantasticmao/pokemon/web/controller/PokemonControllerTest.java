@@ -31,17 +31,7 @@ public class PokemonControllerTest extends SpringTest {
     @Test
     public void listPokemonDetail_badRequest() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pokemon/detail"))
-            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-            .andDo(result -> {
-                MockHttpServletResponse response = result.getResponse();
-                String bodyJson = response.getContentAsString(StandardCharsets.UTF_8);
-                JsonApi<List<PokemonBean>> jsonApi = JsonUtil.fromJson(bodyJson, new TypeReference<>() {
-                });
-
-                Assertions.assertFalse(jsonApi.isStatus());
-                Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), jsonApi.getCode());
-                Assertions.assertEquals(HttpStatus.BAD_REQUEST.getReasonPhrase(), jsonApi.getMessage());
-            });
+            .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
     @Test
