@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface PokemonDetailBaseStatRepository extends PagingAndSortingRepository<PokemonDetailBaseStat, Integer> {
 
-    @NativeQuery("SELECT * FROM pw_pokemon_detail_base_stat WHERE `index` IN ?1")
+    @NativeQuery("SELECT * FROM pw_pokemon_detail_base_stat WHERE idx IN ?1")
     List<PokemonDetailBaseStat> findByIndexIn(List<Integer> idList);
 }

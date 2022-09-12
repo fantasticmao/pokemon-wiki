@@ -66,6 +66,11 @@ public class PokemonBean implements Comparable<PokemonBean> {
     private String abilityHide;
 
     /**
+     * 形态
+     */
+    private String form;
+
+    /**
      * 第几世代
      */
     private int generation;
@@ -110,7 +115,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
                        @Nonnull List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUp,
                        @Nonnull List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachine,
                        @Nonnull List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreeding) {
-        this.index = pokemon.getIndex();
+        this.index = pokemon.getIdx();
         this.nameZh = pokemon.getNameZh();
         this.nameJa = pokemon.getNameJa();
         this.nameEn = pokemon.getNameEn();
@@ -119,6 +124,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
         this.ability1 = pokemonAbility.getAbility1();
         this.ability2 = pokemonAbility.getAbility2();
         this.abilityHide = pokemonAbility.getAbilityHide();
+        this.form = pokemon.getForm();
         this.generation = pokemon.getGeneration();
         this.baseStat = BaseStat.ofDomain(pokemonDetailBaseStat);
         this.detail = Detail.ofDomain(pokemonDetail);

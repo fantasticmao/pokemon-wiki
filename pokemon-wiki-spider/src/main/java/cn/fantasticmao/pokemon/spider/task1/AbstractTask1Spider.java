@@ -30,21 +30,21 @@ abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implement
 
     @Override
     public void run() {
-        logger.info("请求数据... {}", site.url);
+        logger.info("request data... {}", site.url);
         final Document document = requestData(site);
 
-        logger.info("解析数据...");
+        logger.info("parse data...");
         final List<T> dataList = parseData(document);
 
-        logger.info("保存数据...");
+        logger.info("save data...");
         final boolean result = saveData(dataList);
-        logger.info("{} {}", this.getClass().getName(), result ? "保存数据成功" : "保存数据失败");
+        logger.info("{} execute {}", this.getClass().getName(), result ? "success" : "failure");
 
         doneSignal.countDown();
     }
 
     /**
-     * <code>org.jsoup.Jsoup#connect(String)</code> 请求数据
+     * 请求数据
      */
     private Document requestData(Config.Site site) {
         for (; ; ) {
@@ -55,21 +55,21 @@ abstract class AbstractTask1Spider<T extends AbstractTask1Spider.Data> implement
                     .get();
             } catch (IOException e) {
                 if (e instanceof SocketTimeoutException) {
-                    logger.info("请求超时，正在重试... {}", site.url);
+                    logger.info("request timeout, retrying... {}", site.url);
                 } else {
-                    logger.info("请求异常，正在重试... {}", site.url);
+                    logger.info("request error, retrying... {}", site.url);
                 }
             }
         }
     }
 
     /**
-     * <code>org.jsoup.nodes.Document#select(String)</code> 解析数据
+     * 解析数据
      */
     protected abstract List<T> parseData(Document document);
 
     /**
-     * 使用 JDBC 批处理模式保存数据
+     * 保存数据
      */
     protected abstract boolean saveData(List<T> dataList);
 

@@ -27,8 +27,13 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     }
 
     @Override
-    protected PokemonDetailSpider.Data parseData(Document document) throws Exception {
-        return _parseData(document);
+    protected PokemonDetailSpider.Data parseData(Document document) {
+        try {
+            return _parseData(document);
+        } catch (RuntimeException e) {
+            logger.error("parse data error by nameZh {}", nameZh, e);
+            throw e;
+        }
     }
 
     @Getter
@@ -74,7 +79,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             this.eggGroup2 = eggGroup2;
             this.hatchTime = hatchTime;
             this.effortValue = effortValue;
-            BaseStat = baseStat;
+            this.BaseStat = baseStat;
             this.learnSetByLevelingUpList = learnSetByLevelingUpList;
             this.learnSetByTechnicalMachineList = learnSetByTechnicalMachineList;
             this.learnSetByBreedingList = learnSetByBreedingList;
@@ -179,8 +184,8 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
 
         final String indexStr = String.format("%03d", index);
 
-        final String imgUrl = table.selectFirst("img[alt^=" + indexStr + "]") != null ?
-            table.selectFirst("img[alt^=" + indexStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki")
+        final String imgUrl = table.selectFirst("img[alt^=" + indexStr + "]") != null
+            ? table.selectFirst("img[alt^=" + indexStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki")
             : Constant.Strings.EMPTY;
 
         final String type = table.selectFirst("[title=属性]").parent().nextElementSibling().select("span[class=type-box-8-inner]").stream()
@@ -198,9 +203,9 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         }
         final String ability = String.join(Constant.Strings.COMMA, abilityList);
 
-        final String height = table.selectFirst("[title=宝可梦列表（按身高排序）]").parent().nextElementSibling().text().trim();
+        final String height = table.select("[title=宝可梦列表（按身高和体重排序）]").get(0).parent().nextElementSibling().text().trim();
 
-        final String weight = table.selectFirst("[title=宝可梦列表（按体重排序）]").parent().nextElementSibling().text().trim();
+        final String weight = table.select("[title=宝可梦列表（按身高和体重排序）]").get(1).parent().nextElementSibling().text().trim();
 
         Element bodyStyleElement = table.selectFirst("[title=宝可梦列表（按体形分类）]").parent().nextElementSibling();
         final String bodyStyle = bodyStyleElement.select("img").size() == 0 ? "无" : bodyStyleElement.
@@ -252,8 +257,8 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式");
         }
         if (learnSetByLevelingUpSpan == null) {
-            // 兼容 https://wiki.52poke.com/wiki/风速狗
-            learnSetByLevelingUpSpan = document.selectFirst("[id$=可学会的招式]");
+            // 兼容 https://wiki.52poke.com/zh-hans/心鳞宝
+            learnSetByLevelingUpSpan = document.selectFirst("#升级招式");
         }
 
         final Element learnSetByLevelingUpTable = learnSetByLevelingUpSpan.parent().nextElementSibling();

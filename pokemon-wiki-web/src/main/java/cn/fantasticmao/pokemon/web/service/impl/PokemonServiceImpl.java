@@ -56,40 +56,40 @@ public class PokemonServiceImpl implements PokemonService {
             return Collections.emptyList();
         }
 
-        final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
+        final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIdx).collect(Collectors.toList());
 
         Map<Integer, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.toMap(PokemonDetail::getIndex, Function.identity(), (ability1, ability2) -> ability1));
+            .collect(Collectors.toMap(PokemonDetail::getIdx, Function.identity(), (ability1, ability2) -> ability1));
 
         Map<Integer, List<PokemonDetailLearnSetByLevelingUp>> pokemonDetailLearnSetByLevelingUpMap
             = pokemonDetailLearnSetByLevelingUpRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.groupingBy(PokemonDetailLearnSetByLevelingUp::getIndex));
+            .collect(Collectors.groupingBy(PokemonDetailLearnSetByLevelingUp::getIdx));
 
         Map<Integer, List<PokemonDetailLearnSetByTechnicalMachine>> pokemonDetailLearnSetByTechnicalMachineMap
             = pokemonDetailLearnSetByTechnicalMachineRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.groupingBy(PokemonDetailLearnSetByTechnicalMachine::getIndex));
+            .collect(Collectors.groupingBy(PokemonDetailLearnSetByTechnicalMachine::getIdx));
 
         Map<Integer, List<PokemonDetailLearnSetByBreeding>> pokemonDetailLearnSetByBreedingMap
             = pokemonDetailLearnSetByBreedingRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.groupingBy(PokemonDetailLearnSetByBreeding::getIndex));
+            .collect(Collectors.groupingBy(PokemonDetailLearnSetByBreeding::getIdx));
 
         Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.toMap(PokemonAbility::getIndex, Function.identity(), (ability1, ability2) -> ability1));
+            .collect(Collectors.toMap(PokemonAbility::getIdx, Function.identity(), (ability1, ability2) -> ability1));
 
         Map<Integer, PokemonDetailBaseStat> pokemonDetailBaseStatMap = pokemonDetailBaseStatRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.toMap(PokemonDetailBaseStat::getIndex, Function.identity(), (baseStat1, baseStat2) -> baseStat1));
+            .collect(Collectors.toMap(PokemonDetailBaseStat::getIdx, Function.identity(), (baseStat1, baseStat2) -> baseStat1));
 
         return pokemonList.stream()
             .map(pokemon -> {
-                PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
-                PokemonDetailBaseStat pokemonBaseStat = pokemonDetailBaseStatMap.get(pokemon.getIndex());
-                PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIndex());
+                PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIdx());
+                PokemonDetailBaseStat pokemonBaseStat = pokemonDetailBaseStatMap.get(pokemon.getIdx());
+                PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIdx());
                 List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUpList
-                    = pokemonDetailLearnSetByLevelingUpMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
+                    = pokemonDetailLearnSetByLevelingUpMap.getOrDefault(pokemon.getIdx(), Collections.emptyList());
                 List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachineList
-                    = pokemonDetailLearnSetByTechnicalMachineMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
+                    = pokemonDetailLearnSetByTechnicalMachineMap.getOrDefault(pokemon.getIdx(), Collections.emptyList());
                 List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreedingList
-                    = pokemonDetailLearnSetByBreedingMap.getOrDefault(pokemon.getIndex(), Collections.emptyList());
+                    = pokemonDetailLearnSetByBreedingMap.getOrDefault(pokemon.getIdx(), Collections.emptyList());
                 return new PokemonBean(pokemon, pokemonAbility, pokemonBaseStat, pokemonDetail,
                     pokemonDetailLearnSetByLevelingUpList, pokemonDetailLearnSetByTechnicalMachineList,
                     pokemonDetailLearnSetByBreedingList);
@@ -101,27 +101,27 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup, int page, int size) {
         // TODO pageable
-        List<Pokemon> pokemonList = generation == 0 ?
-            pokemonRepository.findAll() :
-            pokemonRepository.findByGeneration(generation);
+        List<Pokemon> pokemonList = generation == 0
+            ? pokemonRepository.findAll()
+            : pokemonRepository.findByGeneration(generation);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return Collections.emptyList();
         }
 
         final List<Integer> pokemonIndexList = pokemonList.stream()
-            .map(Pokemon::getIndex)
+            .map(Pokemon::getIdx)
             .collect(Collectors.toList());
 
         Map<Integer, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.toMap(PokemonDetail::getIndex, Function.identity(), (ability1, ability2) -> ability1));
+            .collect(Collectors.toMap(PokemonDetail::getIdx, Function.identity(), (ability1, ability2) -> ability1));
 
         Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.toMap(PokemonAbility::getIndex, Function.identity(), (ability1, ability2) -> ability1));
+            .collect(Collectors.toMap(PokemonAbility::getIdx, Function.identity(), (ability1, ability2) -> ability1));
 
         return pokemonList.stream()
             .filter(pokemon -> {
                 if (StringUtils.isNotEmpty(eggGroup)) {
-                    PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIndex());
+                    PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIdx());
                     return pokemonDetail != null
                         && (eggGroup.equals(pokemonDetail.getEggGroup1()) || eggGroup.equals(pokemonDetail.getEggGroup2()));
                 } else {
@@ -129,7 +129,7 @@ public class PokemonServiceImpl implements PokemonService {
                 }
             })
             .map(pokemon -> {
-                PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
+                PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIdx());
                 return new PokemonBean(pokemon, pokemonAbility);
             })
             .sorted()

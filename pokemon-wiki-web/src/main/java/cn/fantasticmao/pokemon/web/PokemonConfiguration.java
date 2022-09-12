@@ -2,6 +2,7 @@ package cn.fantasticmao.pokemon.web;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.sqlite.SQLiteConfig;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * PokemonConfiguration
@@ -25,6 +29,8 @@ import javax.sql.DataSource;
 public class PokemonConfiguration implements WebMvcConfigurer {
     @Value("${app.dbfile:pokemon_wiki.db}")
     private String databaseFile;
+    @Resource
+    private Map<String, String> hibernateProperties;
 
     @Bean
     public DataSource dataSource() {
@@ -38,22 +44,23 @@ public class PokemonConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public FactoryBean<EntityManagerFactory> entityManagerFactory(DataSource dataSource) {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setShowSql(false);
         vendorAdapter.setGenerateDdl(false);
         vendorAdapter.setDatabase(Database.MYSQL);
 
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(vendorAdapter);
-        factoryBean.setPackagesToScan("cn.fantasticmao");
+        factoryBean.setPackagesToScan("cn.fantasticmao.pokemon.web.domain");
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setJpaPropertyMap(hibernateProperties);
         return factoryBean;
     }
 
     @Bean
-    PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager();
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
 }

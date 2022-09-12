@@ -34,5 +34,5 @@ abstract class AbstractTask2SpiderScheduler<T extends AbstractTask2Spider.Data> 
     /**
      * 启动执行程序
      */
-    protected abstract void start();
+    protected abstract void start() throws InterruptedException;
 }

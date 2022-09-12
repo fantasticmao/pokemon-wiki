@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface PokemonDetailLearnSetByLevelingUpRepository extends PagingAndSortingRepository<PokemonDetailLearnSetByLevelingUp, Integer> {
 
-    @NativeQuery("SELECT * FROM pw_pokemon_detail_learn_set_by_leveling_up WHERE `index` IN ?1")
+    @NativeQuery("SELECT * FROM pw_pokemon_detail_learn_set_by_leveling_up WHERE idx IN ?1")
     List<PokemonDetailLearnSetByLevelingUp> findByIndexIn(List<Integer> idList);
 }

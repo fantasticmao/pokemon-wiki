@@ -20,7 +20,7 @@ public class PokemonAbility extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String nameZh;
     private String type1;
     private String type2;

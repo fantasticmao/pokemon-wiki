@@ -6,6 +6,7 @@ import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -45,7 +47,8 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
     @Override
     public boolean saveData(List<PokemonListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon(`index`, nameZh, nameJa, nameEn, type1, type2, generation) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_pokemon(idx, name_zh, name_ja, name_en, type1, type2, form, generation) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             PokemonListSpider.Data tempData = null;
@@ -58,7 +61,8 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                     prep.setString(4, tempData.getNameEn());
                     prep.setString(5, tempData.getType1());
                     prep.setString(6, ObjectUtils.defaultIfNull(tempData.getType2(), Constant.Strings.EMPTY));
-                    prep.setInt(7, tempData.getGeneration());
+                    prep.setString(7, ObjectUtils.defaultIfNull(tempData.getForm(), Constant.Strings.EMPTY));
+                    prep.setInt(8, tempData.getGeneration());
                     prep.addBatch();
                 }
                 prep.executeBatch();
@@ -68,9 +72,9 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("insert into pw_pokemon error", e);
+            return false;
         }
-        return false;
     }
 
 
@@ -82,78 +86,55 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
         private final String nameEn;
         private final String type1;
         private final String type2;
+        private final String form;
         private final int generation;
 
-        public Data(int index, String nameZh, String nameJa, String nameEn, String type1, String type2, int generation) {
+        public Data(int index, String nameZh, String nameJa, String nameEn,
+                    String type1, String type2, String form, int generation) {
             this.index = index;
             this.nameZh = nameZh;
             this.nameJa = nameJa;
             this.nameEn = nameEn;
             this.type1 = type1;
             this.type2 = type2;
+            this.form = form;
             this.generation = generation;
         }
     }
 
+    private static final BiFunction<Element, Integer, Data> PARSER = (element, generation) -> {
+        int index = Integer.parseInt(element.child(0).text().replace("#", ""));
+        String nameZh = element.child(2).child(0).text();
+        Element smallElement = element.child(2).selectFirst("small");
+        String form = smallElement == null ? null : smallElement.text();
+        String nameJa = element.child(3).text();
+        String nameEn = element.child(4).text();
+        String type1 = element.child(5).text();
+        String type2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+        return new Data(index, nameZh, nameJa, nameEn, type1, type2, form, generation);
+    };
+
     // 关都地区
     private List<PokemonListSpider.Data> getDataList1(Document document) {
-        List<PokemonListSpider.Data> dataList1 = document.select(".s-关都").eq(0).select("tbody > tr").parallelStream()
+        return document.select(".s-关都 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                String nameZh = element.child(3).child(0).text();
-                String nameJa = element.child(4).text();
-                String nameEn = element.child(5).text();
-                String type1 = element.child(6).text();
-                String type2 = element.child(7).hasClass("hide") ? null : element.child(7).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 1);
-            })
+            .map(element -> PARSER.apply(element, 1))
             .collect(Collectors.toList());
-        List<PokemonListSpider.Data> dataList2 = document.select(".s-关都").eq(1).select("tbody > tr").parallelStream()
-            .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                String nameZh = element.child(3).child(0).text();
-                String nameJa = element.child(4).text();
-                String nameEn = element.child(5).text();
-                String type1 = element.child(6).text();
-                String type2 = element.child(7).hasClass("hide") ? null : element.child(7).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 1);
-            })
-            .collect(Collectors.toList());
-        dataList1.addAll(dataList2);
-        return dataList1;
     }
 
     // 城都地区
     private List<PokemonListSpider.Data> getDataList2(Document document) {
         return document.select(".s-城都 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                String nameZh = element.child(4).child(0).text();
-                String nameJa = element.child(5).text();
-                String nameEn = element.child(6).text();
-                String type1 = element.child(7).text();
-                String type2 = element.child(8).hasClass("hide") ? null : element.child(8).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 2);
-            })
+            .map(element -> PARSER.apply(element, 2))
             .collect(Collectors.toList());
     }
 
     // 丰缘地区
     private List<PokemonListSpider.Data> getDataList3(Document document) {
-        return document.select(".s-豐緣 > tbody > tr").parallelStream()
+        return document.select(".s-丰缘 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                String nameZh = element.child(4).child(0).text();
-                String nameJa = element.child(5).text();
-                String nameEn = element.child(6).text();
-                String type1 = element.child(7).text();
-                String type2 = element.child(8).hasClass("hide") ? null : element.child(8).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 3);
-            })
+            .map(element -> PARSER.apply(element, 3))
             .collect(Collectors.toList());
     }
 
@@ -161,15 +142,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
     private List<PokemonListSpider.Data> getDataList4(Document document) {
         return document.select(".s-神奧 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(1).text().replace("#", ""));
-                String nameZh = element.child(3).child(0).text();
-                String nameJa = element.child(4).text();
-                String nameEn = element.child(5).text();
-                String type1 = element.child(6).text();
-                String type2 = element.child(7).hasClass("hide") ? null : element.child(7).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 4);
-            })
+            .map(element -> PARSER.apply(element, 4))
             .collect(Collectors.toList());
     }
 
@@ -177,15 +150,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
     private List<PokemonListSpider.Data> getDataList5(Document document) {
         return document.select(".s-合眾 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                String nameZh = element.child(4).child(0).text();
-                String nameJa = element.child(5).text();
-                String nameEn = element.child(6).text();
-                String type1 = element.child(7).text();
-                String type2 = element.child(8).hasClass("hide") ? null : element.child(8).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 5);
-            })
+            .map(element -> PARSER.apply(element, 5))
             .collect(Collectors.toList());
     }
 
@@ -193,15 +158,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
     private List<PokemonListSpider.Data> getDataList6(Document document) {
         return document.select(".s-卡洛斯 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(3).text().replace("#", ""));
-                String nameZh = element.child(5).child(0).text();
-                String nameJa = element.child(6).text();
-                String nameEn = element.child(7).text();
-                String type1 = element.child(8).text();
-                String type2 = element.child(9).hasClass("hide") ? null : element.child(9).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 6);
-            })
+            .map(element -> PARSER.apply(element, 6))
             .collect(Collectors.toList());
     }
 
@@ -209,31 +166,15 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
     private List<PokemonListSpider.Data> getDataList7(Document document) {
         return document.select(".s-阿羅拉 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(2).text().replace("#", ""));
-                String nameZh = element.child(4).child(0).text();
-                String nameJa = element.child(5).text();
-                String nameEn = element.child(6).text();
-                String type1 = element.child(7).text();
-                String type2 = element.child(8).hasClass("hide") ? null : element.child(8).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 7);
-            })
+            .map(element -> PARSER.apply(element, 7))
             .collect(Collectors.toList());
     }
 
     // 伽勒尔地区
     private List<PokemonListSpider.Data> getDataList8(Document document) {
-        return document.select(".b-伽勒尔 > tbody > tr").parallelStream()
+        return document.select(".s-伽勒尔 > tbody > tr").parallelStream()
             .skip(2)
-            .map(element -> {
-                int index = Integer.parseInt(element.child(3).text().replace("#", ""));
-                String nameZh = element.child(5).child(0).text();
-                String nameJa = element.child(6).text();
-                String nameEn = element.child(7).text();
-                String type1 = element.child(8).text();
-                String type2 = element.child(9).hasClass("hide") ? null : element.child(9).text();
-                return new PokemonListSpider.Data(index, nameZh, nameJa, nameEn, type1, type2, 8);
-            })
+            .map(element -> PARSER.apply(element, 8))
             .collect(Collectors.toList());
     }
 }

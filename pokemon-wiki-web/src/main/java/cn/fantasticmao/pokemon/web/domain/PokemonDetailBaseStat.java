@@ -20,7 +20,7 @@ public class PokemonDetailBaseStat extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private int hp;
     private int attack;
     private int defense;

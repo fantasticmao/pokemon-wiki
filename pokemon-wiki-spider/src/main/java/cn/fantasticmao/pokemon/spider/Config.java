@@ -17,7 +17,7 @@ public interface Config {
         MOVE_LIST("https://wiki.52poke.com/zh-hans/招式列表"),
         ITEM_LIST("https://wiki.52poke.com/zh-hans/道具列表");
 
-        public String url;
+        public final String url;
 
         Site(String url) {
             this.url = url;

@@ -28,16 +28,16 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
     }
 
     @Override
-    public T call() throws Exception {
-        logger.info("请求数据... {}{}", baseUrl, suffix);
+    public T call() {
+        logger.info("request data... {}{}", baseUrl, suffix);
         Document document = requestData(baseUrl, suffix);
 
-        logger.info("解析数据... {}{}", baseUrl, suffix);
+        logger.info("parse data... {}{}", baseUrl, suffix);
         return parseData(document);
     }
 
     /**
-     * <code>org.jsoup.Jsoup#connect(String)</code> 请求数据
+     * 请求数据
      */
     private Document requestData(String baseUrl, String suffix) {
         String url = StringUtils.isNoneBlank(suffix) ? baseUrl + suffix : baseUrl;
@@ -49,26 +49,28 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
                     .get();
             } catch (IOException e) {
                 if (e instanceof HttpStatusException) {
+                    HttpStatusException statusException = (HttpStatusException) e;
                     // 例如请求「https://wiki.52poke.com/zh-hans/究极无敌大冲撞（招式）」的 Status Code 是 404，
                     // 该资源的真实 URL 为「https://wiki.52poke.com/zh-hans/究极无敌大冲撞」
-                    if (((HttpStatusException) e).getStatusCode() == 404) {
+                    if (statusException.getStatusCode() == 404) {
                         url = baseUrl;
                     } else {
-                        logger.error("{} {}", e.getMessage(), url);
+                        logger.error("request error, status code {} from {}",
+                            statusException.getStatusCode(), url, e);
                     }
                 } else if (e instanceof SocketTimeoutException) {
-                    logger.info("请求超时，正在重试... " + url);
+                    logger.info("request timeout, retrying... {}", url);
                 } else {
-                    logger.error("请求异常，正在重试... " + url, e);
+                    logger.error("request error, retrying... {}", url, e);
                 }
             }
         }
     }
 
     /**
-     * <code>org.jsoup.nodes.Document#select(String)</code> 解析数据
+     * 解析数据
      */
-    protected abstract T parseData(Document document) throws Exception;
+    protected abstract T parseData(Document document);
 
     interface Data {
 

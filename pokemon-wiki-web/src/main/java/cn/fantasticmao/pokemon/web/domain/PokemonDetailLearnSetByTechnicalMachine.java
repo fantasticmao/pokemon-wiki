@@ -20,7 +20,7 @@ public class PokemonDetailLearnSetByTechnicalMachine extends AbstractDomain<Inte
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String imgUrl;
     private String technicalMachine;
     private String move;

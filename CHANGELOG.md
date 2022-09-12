@@ -1,5 +1,10 @@
 # Changelog
 
+## 2022-09-13
+
+- 升级 `cn.fantasticmao.mundo:mundo-all:1.0.8`
+- 更新爬虫解析逻辑
+
 ## 2022-08-23
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.6`

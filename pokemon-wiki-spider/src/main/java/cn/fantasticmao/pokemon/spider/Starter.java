@@ -34,7 +34,7 @@ class Starter {
     private static void task1() throws InterruptedException {
         // 1. 初始化线程池
         final int threads = 6;
-        UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(1);
+        SpiderTaskThreadFactory threadFactory = new SpiderTaskThreadFactory("task1");
         ExecutorService executorService = Executors.newFixedThreadPool(threads, threadFactory);
 
         // 2. 添加爬虫任务
@@ -53,7 +53,7 @@ class Starter {
 
     private static void task2() throws InterruptedException {
         // 1. 初始化线程池
-        UncaughtExceptionThreadFactory threadFactory = new UncaughtExceptionThreadFactory(2);
+        SpiderTaskThreadFactory threadFactory = new SpiderTaskThreadFactory("task2");
         ExecutorService executorService = Executors.newFixedThreadPool(Config.TASK2_CONCURRENCY_THRESHOLD, threadFactory);
 
         // 2. 添加爬虫任务
@@ -65,19 +65,22 @@ class Starter {
         executorService.shutdownNow();
     }
 
-    static class UncaughtExceptionThreadFactory implements ThreadFactory {
-        private AtomicInteger atomicInteger;
-        private final int poolNumber;
+    static class SpiderTaskThreadFactory implements ThreadFactory {
+        private final String name;
+        private final AtomicInteger num;
 
-        UncaughtExceptionThreadFactory(int poolNumber) {
-            this.atomicInteger = new AtomicInteger(1);
-            this.poolNumber = poolNumber;
+        SpiderTaskThreadFactory(String name) {
+            this.name = name;
+            this.num = new AtomicInteger(1);
         }
 
         @Override
         public Thread newThread(@Nonnull Runnable runnable) {
-            Thread thread = new Thread(runnable, String.format("Spider-Task-%d-Thread-%d", poolNumber, atomicInteger.getAndIncrement()));
-            thread.setUncaughtExceptionHandler((t, e) -> LOGGER.error(t.getName(), e));
+            Thread thread = new Thread(runnable, String.format("Spider-Thread-%s-%d",
+                name, num.incrementAndGet()));
+            thread.setDaemon(false);
+            thread.setUncaughtExceptionHandler((t, e) ->
+                LOGGER.error("an exception was thrown in thread '{}'", t.getName(), e));
             return thread;
         }
     }

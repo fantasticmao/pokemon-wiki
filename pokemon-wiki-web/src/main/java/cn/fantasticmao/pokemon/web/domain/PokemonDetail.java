@@ -20,7 +20,7 @@ public class PokemonDetail extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String imgUrl;
     private String type;
     private String category;

@@ -20,7 +20,7 @@ public class PokemonDetailLearnSetByLevelingUp extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String level1;
     private String level2;
     private String move;

@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface PokemonDetailLearnSetByTechnicalMachineRepository extends PagingAndSortingRepository<PokemonDetailLearnSetByTechnicalMachine, Integer> {
 
-    @NativeQuery("SELECT * FROM pw_pokemon_detail_learn_set_by_technical_machine WHERE `index` IN ?1")
+    @NativeQuery("SELECT * FROM pw_pokemon_detail_learn_set_by_technical_machine WHERE idx IN ?1")
     List<PokemonDetailLearnSetByTechnicalMachine> findByIndexIn(List<Integer> idList);
 }

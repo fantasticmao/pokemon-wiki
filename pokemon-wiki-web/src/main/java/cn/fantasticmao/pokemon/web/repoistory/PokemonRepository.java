@@ -20,10 +20,10 @@ public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, I
     @NativeQuery("SELECT * FROM pw_pokemon")
     List<Pokemon> findAll();
 
-    @NativeQuery("SELECT * FROM pw_pokemon WHERE nameZh LIKE '%' || ?1 || '%'")
+    @NativeQuery("SELECT * FROM pw_pokemon WHERE name_zh LIKE '%' || ?1 || '%'")
     List<Pokemon> findByNameZh(String nameZh);
 
-    @NativeQuery("SELECT * FROM pw_pokemon WHERE `index` = ?1")
+    @NativeQuery("SELECT * FROM pw_pokemon WHERE idx = ?1")
     Optional<Pokemon> findByIndex(Integer index);
 
     @NativeQuery("SELECT * FROM pw_pokemon WHERE generation = ?1")

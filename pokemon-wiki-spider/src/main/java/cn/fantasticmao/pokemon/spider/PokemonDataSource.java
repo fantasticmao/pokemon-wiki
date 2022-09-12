@@ -100,11 +100,11 @@ public enum PokemonDataSource {
 
                 sql = sql.trim();
                 statement.executeUpdate(sql);
-                logger.info("execute sql: {}", sql);
+                logger.info("execute SQL: {}", sql);
             }
             connection.commit();
         } catch (SQLException e) {
-            logger.error("init database error", e);
+            logger.error("init Database error", e);
             Runtime.getRuntime().exit(1);
         }
     }

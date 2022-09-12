@@ -52,7 +52,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
 
-        <mundo.version>1.0.6</mundo.version>
+        <mundo.version>1.0.8</mundo.version>
         <jsoup.version>1.14.3</jsoup.version>
     </properties>
 
