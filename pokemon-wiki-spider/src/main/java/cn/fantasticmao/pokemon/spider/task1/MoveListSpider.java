@@ -41,6 +41,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         dataList.addAll(getData6(document));
         dataList.addAll(getData7(document));
         dataList.addAll(getData8(document));
+        dataList.addAll(getData9(document));
         return Collections.unmodifiableList(dataList);
     }
 
@@ -180,6 +181,15 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
             .filter(element -> element.child(0).children().size() == 0)
             .skip(1)
             .map(element -> PARSER.apply(element, 8))
+            .collect(Collectors.toList());
+    }
+
+    // 第九世代
+    private List<MoveListSpider.Data> getData9(Document document) {
+        return document.select(".bg-帕底亚 > tbody > tr").stream()
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element, 9))
             .collect(Collectors.toList());
     }
 }

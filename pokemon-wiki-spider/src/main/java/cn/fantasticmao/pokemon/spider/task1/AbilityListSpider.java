@@ -36,6 +36,7 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         dataList.addAll(getDataList6(document));
         dataList.addAll(getDataList7(document));
         dataList.addAll(getDataList8(document));
+        dataList.addAll(getDataList9(document));
         return dataList;
     }
 
@@ -132,6 +133,14 @@ public class AbilityListSpider extends AbstractTask1Spider<AbilityListSpider.Dat
         return document.select(".s-伽勒尔 > tbody > tr").stream()
             .skip(1)
             .map(element -> PARSER.apply(element, 8))
+            .collect(Collectors.toList());
+    }
+
+    // 帕底亚地区
+    private List<AbilityListSpider.Data> getDataList9(Document document) {
+        return document.select(".b-帕底亚 > tbody > tr").stream()
+            .skip(1)
+            .map(element -> PARSER.apply(element, 9))
             .collect(Collectors.toList());
     }
 }

@@ -35,8 +35,8 @@ public enum PokemonDataSource {
 
     PokemonDataSource(String jdbcUrl, String schemaUrl) {
         GenericObjectPoolConfig<PoolableConnection> poolConfig = new GenericObjectPoolConfig<>();
-        poolConfig.setMaxTotal(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
-        poolConfig.setMaxIdle(Config.TASK_POOLING_DATA_SOURCE_MAX_SIZE);
+        poolConfig.setMaxTotal(Config.DATA_SOURCE_POOL_SIZE);
+        poolConfig.setMaxIdle(Config.DATA_SOURCE_POOL_SIZE);
         this.poolingDataSource = setupDataSource(jdbcUrl, poolConfig);
         this.initDatabase(schemaUrl);
     }

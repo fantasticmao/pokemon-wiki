@@ -41,6 +41,7 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         dataList.addAll(getDataList6(document));
         dataList.addAll(getDataList7(document));
         dataList.addAll(getDataList8(document));
+        dataList.addAll(getDataList9(document));
         return Collections.unmodifiableList(dataList);
     }
 
@@ -178,6 +179,14 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-伽勒尔 > tbody > tr").parallelStream()
             .filter(element -> element.hasClass("bgwhite"))
             .map(element -> PARSER.apply(element, 8))
+            .collect(Collectors.toList());
+    }
+
+    // 帕底亚地区
+    private List<PokemonAbilityListSpider.Data> getDataList9(Document document) {
+        return document.select(".bg-帕底亚 > tbody > tr").parallelStream()
+            .filter(element -> element.hasClass("bgwhite"))
+            .map(element -> PARSER.apply(element, 9))
             .collect(Collectors.toList());
     }
 }
