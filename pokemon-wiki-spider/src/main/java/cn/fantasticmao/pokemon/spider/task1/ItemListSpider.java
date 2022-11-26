@@ -222,7 +222,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#野外使用的道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "野外使用的道具", 0))
+                .map(element -> parser(element, "道具 - 野外使用的道具", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -234,7 +234,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#培养宝可梦的道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "培养宝可梦的道具", 0))
+                .map(element -> parser(element, "道具 - 培养宝可梦的道具", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -246,7 +246,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#进化道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "进化道具", 0))
+                .map(element -> parser(element, "道具 - 进化道具", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -258,7 +258,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#可交换道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "可交换道具", 0))
+                .map(element -> parser(element, "道具 - 可交换道具", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -270,7 +270,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#球果").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "可交换道具 - 球果", 0))
+                .map(element -> parser(element, "道具 - 可交换道具 - 球果", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -282,7 +282,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#太晶碎块").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "可交换道具 - 太晶碎块", 0))
+                .map(element -> parser(element, "道具 - 可交换道具 - 太晶碎块", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -294,7 +294,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#携带物品").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "携带物品", 0))
+                .map(element -> parser(element, "道具 - 携带物品", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -311,7 +311,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
                 String nameJa = element.child(1).text();
                 String nameEn = element.child(2).text();
                 String desc = element.child(3).text();
-                return new ItemListSpider.Data("邮件 - 第二世代", imgUrl, nameZh, nameJa, nameEn, desc, 2);
+                return new ItemListSpider.Data("道具 - 邮件 - 第二世代", imgUrl, nameZh, nameJa, nameEn, desc, 2);
             })
             .collect(Collectors.toList());
     }
@@ -321,7 +321,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#第三世代").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "邮件 - 第三世代", 3))
+                .map(element -> parser(element, "道具 - 邮件 - 第三世代", 3))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -333,7 +333,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#第四世代").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "邮件 - 第四世代", 4))
+                .map(element -> parser(element, "道具 - 邮件 - 第四世代", 4))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -345,7 +345,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#第五世代").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "邮件 - 第五世代", 5))
+                .map(element -> parser(element, "道具 - 邮件 - 第五世代", 5))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -357,7 +357,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#糖果").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "糖果", 0))
+                .map(element -> parser(element, "道具 - 糖果", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -369,7 +369,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#护符").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "护符", 0))
+                .map(element -> parser(element, "道具 - 护符", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -381,7 +381,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         try {
             return document.selectFirst("#材料").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "材料", 0))
+                .map(element -> parser(element, "道具 - 材料", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
