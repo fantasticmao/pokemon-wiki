@@ -35,23 +35,19 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         dataList.addAll(getData1_1(document));
         dataList.addAll(getData1_2(document));
         dataList.addAll(getData1_3(document));
-        dataList.addAll(getData1_3_1(document));
-        dataList.addAll(getData1_3_2(document));
+        dataList.addAll(getData1_4(document));
         dataList.addAll(getData1_4_1(document));
         dataList.addAll(getData1_4_2(document));
-        dataList.addAll(getData1_4_3(document));
-        dataList.addAll(getData1_4_4(document));
-        dataList.addAll(getData1_4_5(document));
-        dataList.addAll(getData1_4_6(document));
-        dataList.addAll(getData1_4_7(document));
-        dataList.addAll(getData1_4_8(document));
-        dataList.addAll(getData1_5_1(document));
-        dataList.addAll(getData1_5_2(document));
-        dataList.addAll(getData1_5_3(document));
-        dataList.addAll(getData1_5_4(document));
-        dataList.addAll(getData1_6(document));
+        dataList.addAll(getData1_5(document));
+        dataList.addAll(getData1_6_1(document));
+        dataList.addAll(getData1_6_2(document));
+        dataList.addAll(getData1_6_3(document));
+        dataList.addAll(getData1_6_4(document));
         dataList.addAll(getData1_7(document));
+        dataList.addAll(getData1_8(document));
+        dataList.addAll(getData1_9(document));
         dataList.addAll(getData2(document));
+        dataList.addAll(getData3(document));
         dataList.addAll(getData3_1(document));
         dataList.addAll(getData3_2(document));
         dataList.addAll(getData4(document));
@@ -61,23 +57,10 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         dataList.addAll(getData7_2(document));
         dataList.addAll(getData8(document));
         dataList.addAll(getData9(document));
+        dataList.addAll(getData10(document));
         dataList.addAll(getData10_1(document));
-        dataList.addAll(getData10_2(document));
-        dataList.addAll(getData11_1(document));
-        dataList.addAll(getData11_2(document));
-        dataList.addAll(getData11_3(document));
-        dataList.addAll(getData11_4(document));
-        dataList.addAll(getData11_5(document));
-        dataList.addAll(getData11_6(document));
-        dataList.addAll(getData12_1(document));
-        dataList.addAll(getData12_2(document));
-        dataList.addAll(getData12_4(document));
-        dataList.addAll(getData12_5(document));
-        dataList.addAll(getData12_6(document));
-        dataList.addAll(getData12_7(document));
-        dataList.addAll(getData12_8(document));
-        dataList.addAll(getData12_9(document));
-        dataList.addAll(getData12_10(document));
+        dataList.addAll(getData11(document));
+        dataList.addAll(getData12(document));
         dataList.addAll(getData13(document));
         return Collections.unmodifiableList(dataList);
     }
@@ -234,12 +217,24 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         return new Data(type, imgUrl, nameZh, nameJa, nameEn, desc, generation);
     }
 
-    // 道具 - 野外使用和其它类别道具
+    // 道具 - 野外使用的道具
     private List<ItemListSpider.Data> getData1_1(Document document) {
         try {
-            return document.selectFirst("#野外使用和其它类别道具").parent().nextElementSibling().select("tbody > tr").stream()
+            return document.selectFirst("#野外使用的道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "野外使用和其它类别道具", 0))
+                .map(element -> parser(element, "野外使用的道具", 0))
+                .collect(Collectors.toList());
+        } finally {
+            clearQueue();
+        }
+    }
+
+    // 道具 - 培养宝可梦的道具
+    private List<ItemListSpider.Data> getData1_2(Document document) {
+        try {
+            return document.selectFirst("#培养宝可梦的道具").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> parser(element, "培养宝可梦的道具", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -247,7 +242,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 进化道具
-    private List<ItemListSpider.Data> getData1_2(Document document) {
+    private List<ItemListSpider.Data> getData1_3(Document document) {
         try {
             return document.selectFirst("#进化道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -259,7 +254,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 可交换道具
-    private List<ItemListSpider.Data> getData1_3(Document document) {
+    private List<ItemListSpider.Data> getData1_4(Document document) {
         try {
             return document.selectFirst("#可交换道具").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -271,7 +266,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 可交换道具 - 球果
-    private List<ItemListSpider.Data> getData1_3_1(Document document) {
+    private List<ItemListSpider.Data> getData1_4_1(Document document) {
         try {
             return document.selectFirst("#球果").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -283,7 +278,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 可交换道具 - 太晶碎块
-    private List<ItemListSpider.Data> getData1_3_2(Document document) {
+    private List<ItemListSpider.Data> getData1_4_2(Document document) {
         try {
             return document.selectFirst("#太晶碎块").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -294,96 +289,12 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         }
     }
 
-    // 道具 - 携带物品 - 第二世代起
-    private List<ItemListSpider.Data> getData1_4_1(Document document) {
+    // 道具 - 携带物品
+    private List<ItemListSpider.Data> getData1_5(Document document) {
         try {
-            return document.selectFirst("#第二世代起").parent().nextElementSibling().select("tbody > tr").stream()
+            return document.selectFirst("#携带物品").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "携带物品 - 第二世代起", 2))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第三世代起
-    private List<ItemListSpider.Data> getData1_4_2(Document document) {
-        try {
-            return document.selectFirst("#第三世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第三世代起", 3))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第四世代起
-    private List<ItemListSpider.Data> getData1_4_3(Document document) {
-        try {
-            return document.selectFirst("#第四世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第四世代起", 4))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第五世代起
-    private List<ItemListSpider.Data> getData1_4_4(Document document) {
-        try {
-            return document.selectFirst("#第五世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第五世代起", 5))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第六世代起
-    private List<ItemListSpider.Data> getData1_4_5(Document document) {
-        try {
-            return document.selectFirst("#第六世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第六世代起", 6))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第七世代起
-    private List<ItemListSpider.Data> getData1_4_6(Document document) {
-        try {
-            return document.selectFirst("#第七世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第七世代起", 7))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第八世代起
-    private List<ItemListSpider.Data> getData1_4_7(Document document) {
-        try {
-            return document.selectFirst("#第八世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第八世代起", 8))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 道具 - 携带物品 - 第九世代起
-    private List<ItemListSpider.Data> getData1_4_8(Document document) {
-        try {
-            return document.selectFirst("#第九世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "携带物品 - 第九世代起", 9))
+                .map(element -> parser(element, "携带物品", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -391,7 +302,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 邮件 - 第二世代
-    private List<ItemListSpider.Data> getData1_5_1(Document document) {
+    private List<ItemListSpider.Data> getData1_6_1(Document document) {
         return document.selectFirst("#第二世代").parent().nextElementSibling().select("tbody > tr").stream()
             .skip(1)
             .map(element -> {
@@ -406,7 +317,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 邮件 - 第三世代
-    private List<ItemListSpider.Data> getData1_5_2(Document document) {
+    private List<ItemListSpider.Data> getData1_6_2(Document document) {
         try {
             return document.selectFirst("#第三世代").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -418,7 +329,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 邮件 - 第四世代
-    private List<ItemListSpider.Data> getData1_5_3(Document document) {
+    private List<ItemListSpider.Data> getData1_6_3(Document document) {
         try {
             return document.selectFirst("#第四世代").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -430,7 +341,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 邮件 - 第五世代
-    private List<ItemListSpider.Data> getData1_5_4(Document document) {
+    private List<ItemListSpider.Data> getData1_6_4(Document document) {
         try {
             return document.selectFirst("#第五世代").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -442,7 +353,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
     }
 
     // 道具 - 糖果
-    private List<ItemListSpider.Data> getData1_6(Document document) {
+    private List<ItemListSpider.Data> getData1_7(Document document) {
         try {
             return document.selectFirst("#糖果").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -453,8 +364,20 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         }
     }
 
+    // 道具 - 护符
+    private List<ItemListSpider.Data> getData1_8(Document document) {
+        try {
+            return document.selectFirst("#护符").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> parser(element, "护符", 0))
+                .collect(Collectors.toList());
+        } finally {
+            clearQueue();
+        }
+    }
+
     // 道具 - 材料
-    private List<ItemListSpider.Data> getData1_7(Document document) {
+    private List<ItemListSpider.Data> getData1_9(Document document) {
         try {
             return document.selectFirst("#材料").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
@@ -471,6 +394,18 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
             return document.selectFirst("#精灵球").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
                 .map(element -> parser(element, "精灵球", 0))
+                .collect(Collectors.toList());
+        } finally {
+            clearQueue();
+        }
+    }
+
+    // 宝物
+    private List<ItemListSpider.Data> getData3(Document document) {
+        try {
+            return document.selectFirst("#宝物").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> parser(element, "宝物", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
@@ -578,6 +513,18 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         }
     }
 
+    // 野餐
+    private List<ItemListSpider.Data> getData10(Document document) {
+        try {
+            return document.selectFirst("#野餐").parent().nextElementSibling().select("tbody > tr").stream()
+                .skip(1)
+                .map(element -> parser(element, "野餐", 0))
+                .collect(Collectors.toList());
+        } finally {
+            clearQueue();
+        }
+    }
+
     // 野餐 - 食材
     private List<ItemListSpider.Data> getData10_1(Document document) {
         try {
@@ -590,193 +537,24 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
         }
     }
 
-    // 野餐 - 其他
-    private List<ItemListSpider.Data> getData10_2(Document document) {
+    // 树果
+    private List<ItemListSpider.Data> getData11(Document document) {
         try {
-            return document.selectFirst("#其他").parent().nextElementSibling().select("tbody > tr").stream()
+            return document.selectFirst("#树果").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "野餐 - 其他", 0))
+                .map(element -> parser(element, "树果", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
         }
     }
 
-    // 树果 - 第三世代
-    private List<ItemListSpider.Data> getData11_1(Document document) {
+    // 重要物品
+    private List<ItemListSpider.Data> getData12(Document document) {
         try {
-            return document.selectFirst("#第三世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
+            return document.selectFirst("#重要物品").parent().nextElementSibling().select("tbody > tr").stream()
                 .skip(1)
-                .map(element -> parser(element, "树果 - 第三世代", 3))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // TODO 树果 - 只在《红宝石／蓝宝石》
-    private List<ItemListSpider.Data> getData11_2(Document document) {
-        return Collections.emptyList();
-    }
-
-    // 树果 - 第四世代
-    private List<ItemListSpider.Data> getData11_3(Document document) {
-        return document.selectFirst("#第四世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-            .skip(1)
-            .map(element -> parser(element, "树果 - 第四世代", 4))
-            .collect(Collectors.toList());
-    }
-
-    // 树果 - 第六世代
-    private List<ItemListSpider.Data> getData11_4(Document document) {
-        try {
-            return document.selectFirst("#第六世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "树果 - 第六世代", 6))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 树果 - 第七世代
-    private List<ItemListSpider.Data> getData11_5(Document document) {
-        try {
-            return document.selectFirst("#第七世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "树果 - 第七世代", 7))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 树果 - 第八世代起
-    private List<ItemListSpider.Data> getData11_6(Document document) {
-        try {
-            return document.selectFirst("#第八世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "树果 - 第八世代", 8))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第一世代
-    private List<ItemListSpider.Data> getData12_1(Document document) {
-        try {
-            return document.selectFirst("#第一世代起").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第一世代", 1))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第二世代
-    private List<ItemListSpider.Data> getData12_2(Document document) {
-        try {
-            return document.selectFirst("#第二世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第二世代", 2))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第三世代
-    private List<ItemListSpider.Data> getData12_3(Document document) {
-        try {
-            return document.selectFirst("#第三世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第三世代", 3))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第四世代
-    private List<ItemListSpider.Data> getData12_4(Document document) {
-        try {
-            return document.selectFirst("#第四世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第四世代", 4))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第五世代
-    private List<ItemListSpider.Data> getData12_5(Document document) {
-        try {
-            return document.selectFirst("#第五世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第五世代", 5))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第六世代
-    private List<ItemListSpider.Data> getData12_6(Document document) {
-        try {
-            return document.selectFirst("#第六世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第六世代", 6))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第七世代
-    private List<ItemListSpider.Data> getData12_7(Document document) {
-        try {
-            return document.selectFirst("#第七世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第七世代", 7))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第八世代
-    private List<ItemListSpider.Data> getData12_8(Document document) {
-        try {
-            return document.selectFirst("#第八世代起_3").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第八世代", 8))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 第九世代
-    private List<ItemListSpider.Data> getData12_9(Document document) {
-        try {
-            return document.selectFirst("#第九世代起_2").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 第九世代", 9))
-                .collect(Collectors.toList());
-        } finally {
-            clearQueue();
-        }
-    }
-
-    // 重要物品 - 曾经是重要物品的道具
-    private List<ItemListSpider.Data> getData12_10(Document document) {
-        try {
-            return document.selectFirst("#曾经是重要物品的道具").parent().nextElementSibling().select("tbody > tr").stream()
-                .skip(1)
-                .map(element -> parser(element, "重要物品 - 曾经是重要物品的道具", 0))
+                .map(element -> parser(element, "重要物品", 0))
                 .collect(Collectors.toList());
         } finally {
             clearQueue();
