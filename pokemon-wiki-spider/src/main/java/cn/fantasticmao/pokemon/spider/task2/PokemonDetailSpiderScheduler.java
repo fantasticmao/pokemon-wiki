@@ -169,7 +169,10 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
             List<PokemonDetailSpider.Data> dataList = new LinkedList<>();
             for (int i = 0; i < dataIndex.size(); i++) {
                 Future<PokemonDetailSpider.Data> future = completionService.take();
-                dataList.add(future.get());
+                PokemonDetailSpider.Data data = future.get();
+                if (data != null) {
+                    dataList.add(future.get());
+                }
             }
 
             logger.info("saving data list into pw_move_detail...");

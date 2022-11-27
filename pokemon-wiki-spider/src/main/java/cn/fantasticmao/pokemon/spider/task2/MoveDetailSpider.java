@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import javax.annotation.Nonnull;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -26,7 +27,7 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
     }
 
     @Override
-    protected MoveDetailSpider.Data parseData(Document document) {
+    protected MoveDetailSpider.Data parseData(@Nonnull Document document) {
         try {
             return _parseData(document);
         } catch (RuntimeException e) {
@@ -73,9 +74,9 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
             imgUrl = Constant.Strings.EMPTY;
         }
         // 解析获取注意事项
-        final String notes = trList.get(3).select("b + table > tbody > tr").get(6).select("td > ul").text();
-        // 解析获取作用范围
-        final String scope = trList.get(6).select("b + table > tbody > tr").get(1).text();
+        final String notes = trList.get(3).select("table > tbody > tr").get(7).select("td > ul").text();
+        // FIXME 解析获取作用范围
+        final String scope = trList.get(3).select("table > tbody > tr").get(12).text();
         // 解析获取附加效果
         Elements elements = document.select("#mw-content-text > .mw-parser-output > h2").eq(0);
         final String effect = JsoupUtil.nextUntil(elements, "h2").select("p").text();

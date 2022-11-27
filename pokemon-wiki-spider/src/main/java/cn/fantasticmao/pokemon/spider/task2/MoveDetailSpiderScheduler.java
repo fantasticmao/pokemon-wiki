@@ -91,7 +91,10 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
             List<MoveDetailSpider.Data> dataList = new LinkedList<>();
             for (int i = 0; i < dataIndex.size(); i++) {
                 Future<MoveDetailSpider.Data> future = completionService.take();
-                dataList.add(future.get());
+                MoveDetailSpider.Data data = future.get();
+                if (data != null) {
+                    dataList.add(future.get());
+                }
             }
 
             logger.info("saving data list into pw_move_detail...");

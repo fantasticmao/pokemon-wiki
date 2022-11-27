@@ -150,7 +150,7 @@ public class ItemListSpider extends AbstractTask1Spider<ItemListSpider.Data> {
                 }
                 offset++;
             } else {
-                imgUrl = "";
+                imgUrl = Constant.Strings.EMPTY;
             }
         } else {
             imgUrl = ROW_SPAN_IMGURL_QUEUE.poll();

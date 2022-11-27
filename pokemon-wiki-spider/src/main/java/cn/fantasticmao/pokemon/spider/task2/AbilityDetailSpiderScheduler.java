@@ -83,7 +83,10 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
             List<AbilityDetailSpider.Data> dataList = new LinkedList<>();
             for (int i = 0; i < dataIndex.size(); i++) {
                 Future<AbilityDetailSpider.Data> future = completionService.take();
-                dataList.add(future.get());
+                AbilityDetailSpider.Data data = future.get();
+                if (data != null) {
+                    dataList.add(future.get());
+                }
             }
 
             logger.info("saving data list into pw_ability_detail...");
