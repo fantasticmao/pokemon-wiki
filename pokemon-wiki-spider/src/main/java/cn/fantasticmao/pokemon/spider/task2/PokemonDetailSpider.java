@@ -190,8 +190,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             ? table.selectFirst("img[alt^=" + indexStr + "]").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki")
             : Constant.Strings.EMPTY;
 
-        // FIXME
-        final String type = table.selectFirst("[title=属性]").parent().nextElementSibling().select("span[class=type-box-9]").stream()
+        final String type = table.selectFirst("[title=属性]").parent().nextElementSibling().select("span[class=type-box-9-text]").stream()
             .map(element -> element.text().trim())
             .collect(Collectors.joining(Constant.Strings.COMMA));
 
