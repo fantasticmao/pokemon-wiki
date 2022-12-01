@@ -50,8 +50,8 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailBaseStat = "INSERT INTO pw_pokemon_detail_base_stat(idx, hp, attack, defense, sp_attack, sp_defense, speed, total, average) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        final String sqlPokemonDetailLearnSetByLevelingUp = "INSERT INTO pw_pokemon_detail_learn_set_by_leveling_up(idx, level1, level2, move, type, category, power, accuracy, pp) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sqlPokemonDetailLearnSetByLevelingUp = "INSERT INTO pw_pokemon_detail_learn_set_by_leveling_up(idx, level, move, type, category, power, accuracy, pp) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByTechnicalMachine = "INSERT INTO pw_pokemon_detail_learn_set_by_technical_machine(idx, img_url, technical_machine, move, type, category, power, accuracy, pp) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         final String sqlPokemonDetailLearnSetByBreeding = "INSERT INTO pw_pokemon_detail_learn_set_by_breeding(idx, parent, move, type, category, power, accuracy, pp) " +
@@ -100,14 +100,13 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                     // 升级可学的招式
                     for (PokemonDetailSpider.Data.LearnSetByLevelingUp learnSetByLevelingUp : tempData.getLearnSetByLevelingUpList()) {
                         prepPokemonDetailLearnSetByLevelingUp.setInt(1, tempData.getIndex());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(2, learnSetByLevelingUp.getLevel1());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(3, learnSetByLevelingUp.getLevel2());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(4, learnSetByLevelingUp.getMove());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(5, learnSetByLevelingUp.getType());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(6, learnSetByLevelingUp.getCategory());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(7, learnSetByLevelingUp.getPower());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(8, learnSetByLevelingUp.getAccuracy());
-                        prepPokemonDetailLearnSetByLevelingUp.setString(9, learnSetByLevelingUp.getPp());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(2, learnSetByLevelingUp.getLevel());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(3, learnSetByLevelingUp.getMove());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(4, learnSetByLevelingUp.getType());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(5, learnSetByLevelingUp.getCategory());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(6, learnSetByLevelingUp.getPower());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(7, learnSetByLevelingUp.getAccuracy());
+                        prepPokemonDetailLearnSetByLevelingUp.setString(8, learnSetByLevelingUp.getPp());
                         prepPokemonDetailLearnSetByLevelingUp.addBatch();
                     }
 

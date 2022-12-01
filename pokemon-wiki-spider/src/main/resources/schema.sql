@@ -117,8 +117,7 @@ CREATE TABLE IF NOT EXISTS pw_pokemon_detail_base_stat (
 CREATE TABLE IF NOT EXISTS pw_pokemon_detail_learn_set_by_leveling_up (
   id          INTEGER PRIMARY KEY,
   idx         INT         NOT NULL DEFAULT 0,
-  level1      CHAR(4)     NOT NULL DEFAULT '',
-  level2      CHAR(4)     NOT NULL DEFAULT '',
+  level       CHAR(4)     NOT NULL DEFAULT '',
   move        VARCHAR(32) NOT NULL DEFAULT '',
   type        VARCHAR(32) NOT NULL DEFAULT '',
   category    VARCHAR(32) NOT NULL DEFAULT '',

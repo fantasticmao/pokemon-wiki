@@ -112,8 +112,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
 
         @Getter
         static class LearnSetByLevelingUp {
-            private final String level1; // 太阳/月亮
-            private final String level2; // 究极之日/究极之月
+            private final String level;
             private final String move;
             private final String type;
             private final String category;
@@ -121,10 +120,9 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             private final String accuracy;
             private final String pp;
 
-            public LearnSetByLevelingUp(String level1, String level2, String move, String type, String category,
+            public LearnSetByLevelingUp(String level, String move, String type, String category,
                                         String power, String accuracy, String pp) {
-                this.level1 = level1;
-                this.level2 = level2;
+                this.level = level;
                 this.move = move;
                 this.type = type;
                 this.category = category;
@@ -233,16 +231,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             .map(element -> element.text().trim())
             .collect(Collectors.joining(Constant.Strings.COMMA));
 
-        // 兼容拳拳蛸
-        Element baseStatSpan = document.selectFirst("#种族值_2");
-        if (baseStatSpan == null) {
-            // 正常情况
-            baseStatSpan = document.selectFirst("#种族值");
-        }
-        if (baseStatSpan == null) {
-            // 兼容小磁怪
-            baseStatSpan = document.selectFirst("#種族值");
-        }
+        Element baseStatSpan = document.selectFirst("#种族值");
         final Element baseStatTable = baseStatSpan.parent().nextElementSiblings().select("table").first();
         final int hp = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-HP]").select("div[style*='float:right']").text());
         final int attack = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-攻击]").select("div[style*='float:right']").text());
@@ -267,10 +256,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     }
 
     private List<Data.LearnSetByLevelingUp> parseLearnSetByLevelingUpList(Document document) {
-        Element learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式_2");
-        if (learnSetByLevelingUpSpan == null) {
-            learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式");
-        }
+        Element learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式");
         if (learnSetByLevelingUpSpan == null) {
             // 兼容 https://wiki.52poke.com/zh-hans/心鳞宝
             learnSetByLevelingUpSpan = document.selectFirst("#升级招式");
@@ -288,8 +274,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         return learnSetByLevelingUpTable.select("> tbody > tr").stream()
             .filter(element -> element.hasClass("bgwhite"))
             .map(element -> {
-                Elements tdList = element.select("[style!=display:none]");
-                // FIXME
+                Elements tdList = element.select("td[style!=display: none]");
                 final String _level = tdList.get(0).text();
                 final String _move = tdList.get(1).select("a").text();
                 final String _type = tdList.get(2).select("a").text();
@@ -297,16 +282,13 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
                 final String _power = tdList.get(4).text();
                 final String _accuracy = tdList.get(5).text();
                 final String _pp = tdList.get(6).text();
-                return new Data.LearnSetByLevelingUp(_level, "-", _move, _type, _category, _power, _accuracy, _pp);
+                return new Data.LearnSetByLevelingUp(_level, _move, _type, _category, _power, _accuracy, _pp);
             })
             .collect(Collectors.toList());
     }
 
     private List<Data.LearnSetByTechnicalMachine> parseLearnSetByTechnicalMachineList(Document document) {
-        Element learnSetByTechnicalMachineSpan = document.selectFirst("#能使用的招式学习器_2");
-        if (learnSetByTechnicalMachineSpan == null) {
-            learnSetByTechnicalMachineSpan = document.selectFirst("#能使用的招式学习器");
-        }
+        Element learnSetByTechnicalMachineSpan = document.selectFirst("#能使用的招式学习器");
         if (learnSetByTechnicalMachineSpan == null) {
             // 兼容 https://wiki.52poke.com/wiki/铝钢龙
             learnSetByTechnicalMachineSpan = document.selectFirst("#能使用的招式学习器和招式记录");
