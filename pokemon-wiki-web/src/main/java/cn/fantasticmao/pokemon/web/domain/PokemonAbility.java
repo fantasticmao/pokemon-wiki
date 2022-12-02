@@ -27,5 +27,6 @@ public class PokemonAbility extends AbstractDomain<Integer> {
     private String ability1;
     private String ability2;
     private String abilityHide;
+    private String form;
     private int generation;
 }

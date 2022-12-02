@@ -1,6 +1,5 @@
 package cn.fantasticmao.pokemon.web.controller;
 
-import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.mundo.web.support.JsonApi;
 import cn.fantasticmao.pokemon.web.bean.PokemonBean;
 import cn.fantasticmao.pokemon.web.service.PokemonService;
@@ -53,7 +52,7 @@ public class PokemonController {
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemon(@RequestParam(defaultValue = "0") Integer generation,
-                                                                  @RequestParam(defaultValue = Constant.Strings.EMPTY) String eggGroup,
+                                                                  @RequestParam(required = false) String eggGroup,
                                                                   @RequestParam(defaultValue = "-1") Integer page,
                                                                   @RequestParam(defaultValue = "50") Integer size) {
         List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(generation, eggGroup, page, size);

@@ -8,11 +8,12 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,8 +48,7 @@ public class PokemonServiceImpl implements PokemonService {
 
         final List<Pokemon> pokemonList;
         if (index != null && index > 0) { // 按全国图鉴编号查找
-            Optional<Pokemon> pokemonOptional = pokemonRepository.findByIndex(index);
-            pokemonList = pokemonOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+            pokemonList = pokemonRepository.findByIndex(index);
         } else { // 按中文名称查找
             pokemonList = pokemonRepository.findByNameZh(nameZh);
         }
@@ -99,7 +99,8 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup, int page, int size) {
+    public List<PokemonBean> listByGenerationAndEggGroup(int generation, @Nullable String eggGroup,
+                                                         int page, int size) {
         // TODO pageable
         List<Pokemon> pokemonList = generation == 0
             ? pokemonRepository.findAll()
@@ -123,7 +124,7 @@ public class PokemonServiceImpl implements PokemonService {
                 if (StringUtils.isNotEmpty(eggGroup)) {
                     PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIdx());
                     return pokemonDetail != null
-                        && (eggGroup.equals(pokemonDetail.getEggGroup1()) || eggGroup.equals(pokemonDetail.getEggGroup2()));
+                        && (Objects.equals(eggGroup, pokemonDetail.getEggGroup1()) || Objects.equals(eggGroup, pokemonDetail.getEggGroup2()));
                 } else {
                     return true;
                 }

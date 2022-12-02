@@ -6,7 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * PokemonRepository
@@ -24,7 +23,7 @@ public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, I
     List<Pokemon> findByNameZh(String nameZh);
 
     @NativeQuery("SELECT * FROM pw_pokemon WHERE idx = ?1")
-    Optional<Pokemon> findByIndex(Integer index);
+    List<Pokemon> findByIndex(Integer index);
 
     @NativeQuery("SELECT * FROM pw_pokemon WHERE generation = ?1")
     List<Pokemon> findByGeneration(int generation);
