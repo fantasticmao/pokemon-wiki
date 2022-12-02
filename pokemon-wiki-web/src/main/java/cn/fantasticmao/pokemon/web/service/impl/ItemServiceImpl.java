@@ -5,9 +5,9 @@ import cn.fantasticmao.pokemon.web.bean.ItemBean;
 import cn.fantasticmao.pokemon.web.domain.Item;
 import cn.fantasticmao.pokemon.web.repoistory.ItemRepository;
 import cn.fantasticmao.pokemon.web.service.ItemService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
@@ -25,11 +25,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemRepository itemRepository;
 
     @Override
-    public List<ItemBean> listByNameZh(String nameZh) {
-        if (StringUtils.isEmpty(nameZh)) {
-            return Collections.emptyList();
-        }
-
+    public List<ItemBean> listByNameZh(@Nonnull String nameZh) {
         List<Item> itemList = itemRepository.findByNameZh(nameZh);
         return itemList.stream()
             .map(ItemBean::ofDomain)

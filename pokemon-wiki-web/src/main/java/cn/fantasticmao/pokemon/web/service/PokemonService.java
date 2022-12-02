@@ -2,6 +2,7 @@ package cn.fantasticmao.pokemon.web.service;
 
 import cn.fantasticmao.pokemon.web.bean.PokemonBean;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -12,7 +13,8 @@ import java.util.List;
  */
 public interface PokemonService {
 
-    List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh);
+    List<PokemonBean> listByIndexOrNameZh(@Nullable Integer index, @Nullable String nameZh);
 
-    List<PokemonBean> listByGenerationAndEggGroup(int generation, String eggGroup, int page, int size);
+    List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+                                                  int page, int size);
 }

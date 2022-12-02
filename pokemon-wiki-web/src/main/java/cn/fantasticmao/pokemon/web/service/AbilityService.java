@@ -2,6 +2,7 @@ package cn.fantasticmao.pokemon.web.service;
 
 import cn.fantasticmao.pokemon.web.bean.AbilityBean;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface AbilityService {
 
-    List<AbilityBean> listByNameZh(String nameZh);
+    List<AbilityBean> listByNameZh(@Nonnull String nameZh);
 
     List<AbilityBean> list(int page, int size);
 }

@@ -32,8 +32,8 @@ public class PokemonController {
      * @param nameZh 宝可梦的中文名称，支持模糊查询
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemonDetail(@RequestParam(defaultValue = "0") Integer index,
-                                                                        @RequestParam(defaultValue = "") String nameZh) {
+    public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemonDetail(@RequestParam(required = false) Integer index,
+                                                                        @RequestParam(required = false) String nameZh) {
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return ResponseEntity.badRequest().build();
         }
@@ -45,13 +45,13 @@ public class PokemonController {
     /**
      * 宝可梦列表接口
      *
-     * @param generation 宝可梦的世代，默认 0 为全部
-     * @param eggGroup   蛋组，默认表示g不参与过滤条件
+     * @param generation 宝可梦的世代
+     * @param eggGroup   蛋组
      * @param page       页数，默认 -1，表示获取全量数据
      * @param size       页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemon(@RequestParam(defaultValue = "0") Integer generation,
+    public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemon(@RequestParam(required = false) Integer generation,
                                                                   @RequestParam(required = false) String eggGroup,
                                                                   @RequestParam(defaultValue = "-1") Integer page,
                                                                   @RequestParam(defaultValue = "50") Integer size) {

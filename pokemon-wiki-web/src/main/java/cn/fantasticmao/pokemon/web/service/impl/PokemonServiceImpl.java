@@ -41,7 +41,7 @@ public class PokemonServiceImpl implements PokemonService {
     private PokemonDetailLearnSetByBreedingRepository pokemonDetailLearnSetByBreedingRepository;
 
     @Override
-    public List<PokemonBean> listByIndexOrNameZh(Integer index, String nameZh) {
+    public List<PokemonBean> listByIndexOrNameZh(@Nullable Integer index, @Nullable String nameZh) {
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return Collections.emptyList();
         }
@@ -99,10 +99,10 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public List<PokemonBean> listByGenerationAndEggGroup(int generation, @Nullable String eggGroup,
+    public List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
                                                          int page, int size) {
         // TODO pageable
-        List<Pokemon> pokemonList = generation == 0
+        List<Pokemon> pokemonList = generation == null
             ? pokemonRepository.findAll()
             : pokemonRepository.findByGeneration(generation);
         if (CollectionUtils.isEmpty(pokemonList)) {
@@ -121,13 +121,12 @@ public class PokemonServiceImpl implements PokemonService {
 
         return pokemonList.stream()
             .filter(pokemon -> {
-                if (StringUtils.isNotEmpty(eggGroup)) {
-                    PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIdx());
-                    return pokemonDetail != null
-                        && (Objects.equals(eggGroup, pokemonDetail.getEggGroup1()) || Objects.equals(eggGroup, pokemonDetail.getEggGroup2()));
-                } else {
+                if (StringUtils.isEmpty(eggGroup)) {
                     return true;
                 }
+                PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIdx());
+                return pokemonDetail != null
+                    && (Objects.equals(eggGroup, pokemonDetail.getEggGroup1()) || Objects.equals(eggGroup, pokemonDetail.getEggGroup2()));
             })
             .map(pokemon -> {
                 PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIdx());

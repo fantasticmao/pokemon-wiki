@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,11 @@ public class WechatServiceImpl implements WechatService {
     }
 
     @Override
-    public String searchPokemonInfosByName(String nameZh) {
+    public String searchPokemonInfosByName(@Nullable String nameZh) {
+        if (StringUtils.isEmpty(nameZh)) {
+            return "未找到相关宝可梦";
+        }
+
         final List<Pokemon> pokemonList = pokemonRepository.findByNameZh(nameZh);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return "未找到相关宝可梦";
