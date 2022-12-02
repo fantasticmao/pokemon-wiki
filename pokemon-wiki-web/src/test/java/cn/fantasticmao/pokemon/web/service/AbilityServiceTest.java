@@ -25,14 +25,7 @@ public class AbilityServiceTest extends SpringTest {
         Assertions.assertEquals(1, abilityBeanList.size());
 
         AbilityBean stench = abilityBeanList.get(0);
-        Assertions.assertEquals(1, stench.getId());
-        Assertions.assertEquals("恶臭", stench.getNameZh());
-        Assertions.assertEquals("あくしゅう", stench.getNameJa());
-        Assertions.assertEquals("Stench", stench.getNameEn());
-        Assertions.assertEquals(3, stench.getGeneration());
-        Assertions.assertEquals("通过释放臭臭的气味，在攻击的时候，有时会使对手畏缩。", stench.getDetail().getDesc());
-        Assertions.assertEquals("对战中 使用招式攻击对手造成伤害时，对方有10%几率陷入畏缩状态。 对战外 当该特性的宝可梦配置在同行宝可梦首位时，野生宝可梦出现机率降低50%。", stench.getDetail().getEffect());
-        Assertions.assertEquals("臭臭花,臭泥,臭臭泥,瓦斯弹,双弹瓦斯,臭鼬噗,坦克臭鼬,破破袋,灰尘山", stench.getDetail().getPokemons());
+        super.assertStench(stench);
     }
 
     @Test
