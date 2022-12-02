@@ -24,5 +24,16 @@ public class PokemonBaseStatRepositoryTest extends SpringTest {
         List<PokemonDetailBaseStat> pokemonBaseStatList = pokemonDetailBaseStatRepository.findByIndexIn(Arrays.asList(1, 2));
         Assertions.assertNotNull(pokemonBaseStatList);
         Assertions.assertEquals(2, pokemonBaseStatList.size());
+
+        PokemonDetailBaseStat bulbasaur = pokemonBaseStatList.get(0);
+        Assertions.assertEquals(1, bulbasaur.getIdx());
+        Assertions.assertEquals(45, bulbasaur.getHp());
+        Assertions.assertEquals(49, bulbasaur.getAttack());
+        Assertions.assertEquals(49, bulbasaur.getDefense());
+        Assertions.assertEquals(65, bulbasaur.getSpAttack());
+        Assertions.assertEquals(65, bulbasaur.getSpDefense());
+        Assertions.assertEquals(45, bulbasaur.getSpeed());
+        Assertions.assertEquals(318, bulbasaur.getTotal());
+        Assertions.assertEquals(53F, bulbasaur.getAverage());
     }
 }

@@ -33,6 +33,7 @@ public class ItemRepositoryTest extends SpringTest {
         Assertions.assertEquals(1, itemList.size());
 
         Item repel = itemList.get(0);
+        Assertions.assertEquals(1, repel.getId());
         Assertions.assertEquals("道具 - 野外使用的道具", repel.getType());
         Assertions.assertEquals("https://s1.52poke.wiki/wiki/thumb/e/ef/Bag_%E9%99%A4%E8%99%AB%E5%96%B7%E9%9B%BE_SV_Sprite.png/30px-Bag_%E9%99%A4%E8%99%AB%E5%96%B7%E9%9B%BE_SV_Sprite.png", repel.getImgUrl());
         Assertions.assertEquals("除虫喷雾", repel.getNameZh());

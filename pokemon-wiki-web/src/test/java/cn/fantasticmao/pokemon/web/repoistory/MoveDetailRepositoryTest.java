@@ -26,6 +26,7 @@ public class MoveDetailRepositoryTest extends SpringTest {
         Assertions.assertEquals(2, moveDetailList.size());
 
         MoveDetail pound = moveDetailList.get(0);
+        Assertions.assertEquals(1, pound.getId());
         Assertions.assertEquals("拍击", pound.getNameZh());
         Assertions.assertEquals("使用长长的尾巴或手等拍打对手进行攻击。", pound.getDesc());
         Assertions.assertEquals("https://s1.52poke.wiki/assets/animoves/AniMove001.gif", pound.getImgUrl());

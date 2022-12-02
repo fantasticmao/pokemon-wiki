@@ -25,6 +25,7 @@ public class AbilityRepositoryTest extends SpringTest {
         Assertions.assertEquals(1, abilityList.size());
 
         Ability stench = abilityList.get(0);
+        Assertions.assertEquals(1, stench.getId());
         Assertions.assertEquals("恶臭", stench.getNameZh());
         Assertions.assertEquals("あくしゅう", stench.getNameJa());
         Assertions.assertEquals("Stench", stench.getNameEn());

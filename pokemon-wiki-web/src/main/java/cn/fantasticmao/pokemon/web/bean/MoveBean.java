@@ -112,7 +112,7 @@ public class MoveBean implements Comparable<MoveBean> {
 
     @Getter
     @Setter
-    private static class Detail {
+    public static class Detail {
         /**
          * 招式描述
          */

@@ -33,7 +33,6 @@ public class PokemonDetailRepositoryTest extends SpringTest {
         Assertions.assertEquals("茂盛,叶绿素（隐藏特性）", bulbasaur.getAbility());
         Assertions.assertEquals("0.7m", bulbasaur.getHeight());
         Assertions.assertEquals("6.9kg", bulbasaur.getWeight());
-        Assertions.assertEquals("6.9kg", bulbasaur.getWeight());
         Assertions.assertEquals("https://s1.52poke.wiki/wiki/thumb/c/cc/Body08.png/32px-Body08.png", bulbasaur.getBodyStyle());
         Assertions.assertEquals("5.9%", bulbasaur.getCatchRate());
         Assertions.assertEquals("雄性 87.5%,雌性 12.5%", bulbasaur.getGenderRatio());

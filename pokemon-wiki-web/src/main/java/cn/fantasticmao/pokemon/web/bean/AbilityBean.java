@@ -108,7 +108,7 @@ public class AbilityBean implements Comparable<AbilityBean> {
 
     @Getter
     @Setter
-    private static class Detail {
+    public static class Detail {
         /**
          * 特性描述，以空格分隔
          */

@@ -25,6 +25,7 @@ public class MoveRepositoryTest extends SpringTest {
         Assertions.assertEquals(1, moveList.size());
 
         Move pound = moveList.get(0);
+        Assertions.assertEquals(1, pound.getId());
         Assertions.assertEquals("拍击", pound.getNameZh());
         Assertions.assertEquals("はたく", pound.getNameJa());
         Assertions.assertEquals("Pound", pound.getNameEn());

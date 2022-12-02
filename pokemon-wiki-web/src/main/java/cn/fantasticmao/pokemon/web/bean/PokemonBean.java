@@ -144,7 +144,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
      */
     @Getter
     @Setter
-    private static class BaseStat {
+    public static class BaseStat {
         /**
          * HP
          */
@@ -213,7 +213,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
      */
     @Getter
     @Setter
-    private static class Detail {
+    public static class Detail {
         /**
          * 预览图片
          */
@@ -301,13 +301,20 @@ public class PokemonBean implements Comparable<PokemonBean> {
     @Setter
     private static class LearnSetByLevelingUp {
         /**
+         * 等级
+         */
+        private String level;
+
+        /**
          * 等级（太阳/月亮）
          */
+        @Deprecated
         private String level1;
 
         /**
          * 等级（究极之日/究极之月）
          */
+        @Deprecated
         private String level2;
 
         /**
@@ -343,10 +350,11 @@ public class PokemonBean implements Comparable<PokemonBean> {
         public LearnSetByLevelingUp() {
         }
 
-        private LearnSetByLevelingUp(String level1, String level2, String move, String type, String category,
+        private LearnSetByLevelingUp(String level, String move, String type, String category,
                                      String power, String accuracy, String pp) {
-            this.level1 = level1;
-            this.level2 = level2;
+            this.level = level;
+            this.level1 = level;
+            this.level2 = level;
             this.move = move;
             this.type = type;
             this.category = category;
@@ -359,7 +367,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
             if (domain == null) {
                 return null;
             }
-            return new LearnSetByLevelingUp(domain.getLevel1(), domain.getLevel2(), domain.getMove(), domain.getType(),
+            return new LearnSetByLevelingUp(domain.getLevel(), domain.getMove(), domain.getType(),
                 domain.getCategory(), domain.getPower(), domain.getAccuracy(), domain.getPp());
         }
     }
