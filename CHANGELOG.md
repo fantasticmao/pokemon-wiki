@@ -1,9 +1,11 @@
 # Changelog
 
-## 2022-09-13
+## 2022-12-05
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.8`
-- 更新爬虫解析逻辑
+- 更新 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db)
+- 更新爬虫解析逻辑，**支持第九代图鉴**
+- 更新接口模块，支持「宝可梦详情接口」的 `form` 参数
 
 ## 2022-08-23
 
