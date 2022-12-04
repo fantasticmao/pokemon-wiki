@@ -76,10 +76,10 @@ public class PokemonBean implements Comparable<PokemonBean> {
     private int generation;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private BaseStat baseStat;
+    private Detail detail;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Detail detail;
+    private BaseStat baseStat;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<LearnSetByLevelingUp> learnSetByLevelingUp;
@@ -111,7 +111,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
     }
 
     public PokemonBean(@Nonnull Pokemon pokemon, @Nonnull PokemonAbility pokemonAbility,
-                       @Nullable PokemonDetailBaseStat pokemonDetailBaseStat, @Nullable PokemonDetail pokemonDetail,
+                       @Nullable PokemonDetail pokemonDetail, @Nullable PokemonDetailBaseStat pokemonDetailBaseStat,
                        @Nonnull List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUp,
                        @Nonnull List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachine,
                        @Nonnull List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreeding) {
@@ -126,8 +126,8 @@ public class PokemonBean implements Comparable<PokemonBean> {
         this.abilityHide = pokemonAbility.getAbilityHide();
         this.form = pokemon.getForm();
         this.generation = pokemon.getGeneration();
-        this.baseStat = BaseStat.ofDomain(pokemonDetailBaseStat);
         this.detail = Detail.ofDomain(pokemonDetail);
+        this.baseStat = BaseStat.ofDomain(pokemonDetailBaseStat);
         this.learnSetByLevelingUp = pokemonDetailLearnSetByLevelingUp.stream()
             .map(LearnSetByLevelingUp::ofDomain)
             .collect(Collectors.toList());
@@ -137,75 +137,6 @@ public class PokemonBean implements Comparable<PokemonBean> {
         this.learnSetByBreeding = pokemonDetailLearnSetByBreeding.stream()
             .map(LearnSetByBreeding::ofDomain)
             .collect(Collectors.toList());
-    }
-
-    /**
-     * 种族值
-     */
-    @Getter
-    @Setter
-    public static class BaseStat {
-        /**
-         * HP
-         */
-        private int hp;
-
-        /**
-         * 攻击
-         */
-        private int attack;
-
-        /**
-         * 防御
-         */
-        private int defense;
-
-        /**
-         * 特攻
-         */
-        private int spAttack;
-
-        /**
-         * 特防
-         */
-        private int spDefense;
-
-        /**
-         * 速度
-         */
-        private int speed;
-
-        /**
-         * 总合
-         */
-        private int total;
-
-        /**
-         * 平均值
-         */
-        private float average;
-
-        public BaseStat() {
-        }
-
-        private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
-            this.hp = hp;
-            this.attack = attack;
-            this.defense = defense;
-            this.spAttack = spAttack;
-            this.spDefense = spDefense;
-            this.speed = speed;
-            this.total = total;
-            this.average = average;
-        }
-
-        private static BaseStat ofDomain(@Nullable PokemonDetailBaseStat domain) {
-            if (domain == null) {
-                return null;
-            }
-            return new BaseStat(domain.getHp(), domain.getAttack(), domain.getDefense(), domain.getSpAttack(),
-                domain.getSpDefense(), domain.getSpeed(), domain.getTotal(), domain.getAverage());
-        }
     }
 
     /**
@@ -294,6 +225,75 @@ public class PokemonBean implements Comparable<PokemonBean> {
             return new Detail(domain.getImgUrl(), domain.getCategory(), domain.getHeight(), domain.getWeight(),
                 domain.getBodyStyle(), domain.getCatchRate(), domain.getGenderRatio(),
                 domain.getEggGroup1(), domain.getEggGroup2(), domain.getHatchTime(), domain.getEffortValue());
+        }
+    }
+
+    /**
+     * 种族值
+     */
+    @Getter
+    @Setter
+    public static class BaseStat {
+        /**
+         * HP
+         */
+        private int hp;
+
+        /**
+         * 攻击
+         */
+        private int attack;
+
+        /**
+         * 防御
+         */
+        private int defense;
+
+        /**
+         * 特攻
+         */
+        private int spAttack;
+
+        /**
+         * 特防
+         */
+        private int spDefense;
+
+        /**
+         * 速度
+         */
+        private int speed;
+
+        /**
+         * 总合
+         */
+        private int total;
+
+        /**
+         * 平均值
+         */
+        private float average;
+
+        public BaseStat() {
+        }
+
+        private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
+            this.hp = hp;
+            this.attack = attack;
+            this.defense = defense;
+            this.spAttack = spAttack;
+            this.spDefense = spDefense;
+            this.speed = speed;
+            this.total = total;
+            this.average = average;
+        }
+
+        private static BaseStat ofDomain(@Nullable PokemonDetailBaseStat domain) {
+            if (domain == null) {
+                return null;
+            }
+            return new BaseStat(domain.getHp(), domain.getAttack(), domain.getDefense(), domain.getSpAttack(),
+                domain.getSpDefense(), domain.getSpeed(), domain.getTotal(), domain.getAverage());
         }
     }
 

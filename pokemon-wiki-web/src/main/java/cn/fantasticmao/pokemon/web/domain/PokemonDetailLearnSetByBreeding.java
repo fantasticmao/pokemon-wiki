@@ -28,4 +28,12 @@ public class PokemonDetailLearnSetByBreeding extends AbstractDomain<Integer> {
     private String power;
     private String accuracy;
     private String pp;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailLearnSetByBreeding{" +
+            "idx=" + idx +
+            ", move='" + move + '\'' +
+            "} " + super.toString();
+    }
 }

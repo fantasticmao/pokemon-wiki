@@ -29,4 +29,12 @@ public class PokemonDetailBaseStat extends AbstractDomain<Integer> {
     private int speed;
     private int total;
     private float average;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailBaseStat{" +
+            "idx=" + idx +
+            ", total=" + total +
+            "} " + super.toString();
+    }
 }

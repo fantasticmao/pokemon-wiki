@@ -33,12 +33,13 @@ public class PokemonController {
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemonDetail(@RequestParam(required = false) Integer index,
-                                                                        @RequestParam(required = false) String nameZh) {
+                                                                        @RequestParam(required = false) String nameZh,
+                                                                        @RequestParam(required = false) String form) {
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return ResponseEntity.badRequest().build();
         }
 
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh, form);
         return JsonApi.ok(pokemonBeanList).toResponseEntity();
     }
 

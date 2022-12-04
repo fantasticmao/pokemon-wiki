@@ -20,7 +20,7 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByIndex() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(1, "");
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(1, "", null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(1, pokemonBeanList.size());
         super.assertBulbasaur(pokemonBeanList.get(0));
@@ -28,10 +28,21 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByNameZh() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "妙蛙");
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "妙蛙", null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(3, pokemonBeanList.size());
         super.assertBulbasaur(pokemonBeanList.get(0));
+    }
+
+    @Test
+    public void listByNameZhWithForm() {
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "小拉达", null);
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(2, pokemonBeanList.size());
+
+        pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "小拉达", "阿罗拉的样子");
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(1, pokemonBeanList.size());
     }
 
     @Test

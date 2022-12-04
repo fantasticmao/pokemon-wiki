@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,10 @@ public class MoveServiceImpl implements MoveService {
             return Collections.emptyList();
         }
 
-        List<Integer> moveIdList = moveList.stream().map(Move::getId).collect(Collectors.toList());
-        Map<Integer, MoveDetail> moveDetailMap = moveDetailRepository.findByIdIn(moveIdList).stream()
+        Set<Integer> moveIdSet = moveList.stream()
+            .map(Move::getId)
+            .collect(Collectors.toSet());
+        Map<Integer, MoveDetail> moveDetailMap = moveDetailRepository.findByIdIn(moveIdSet).stream()
             .collect(Collectors.toMap(MoveDetail::getId, Function.identity()));
 
         return moveList.stream()

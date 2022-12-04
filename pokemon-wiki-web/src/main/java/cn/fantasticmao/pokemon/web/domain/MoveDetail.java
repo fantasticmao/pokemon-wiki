@@ -26,4 +26,11 @@ public class MoveDetail extends AbstractDomain<Integer> {
     private String notes;
     private String scope;
     private String effect;
+
+    @Override
+    public String toString() {
+        return "MoveDetail{" +
+            "nameZh='" + nameZh + '\'' +
+            "} " + super.toString();
+    }
 }

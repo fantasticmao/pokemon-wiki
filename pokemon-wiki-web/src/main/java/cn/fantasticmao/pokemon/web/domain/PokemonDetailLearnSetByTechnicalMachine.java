@@ -29,4 +29,13 @@ public class PokemonDetailLearnSetByTechnicalMachine extends AbstractDomain<Inte
     private String power;
     private String accuracy;
     private String pp;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailLearnSetByTechnicalMachine{" +
+            "idx=" + idx +
+            ", technicalMachine='" + technicalMachine + '\'' +
+            ", move='" + move + '\'' +
+            "} " + super.toString();
+    }
 }

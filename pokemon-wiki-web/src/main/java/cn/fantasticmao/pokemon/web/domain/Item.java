@@ -27,4 +27,12 @@ public class Item extends AbstractDomain<Integer> {
     private String nameEn;
     private String desc;
     private int generation;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+            "type='" + type + '\'' +
+            ", nameZh='" + nameZh + '\'' +
+            "} " + super.toString();
+    }
 }

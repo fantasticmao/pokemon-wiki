@@ -28,4 +28,13 @@ public class Pokemon extends AbstractDomain<Integer> {
     private String type2;
     private String form;
     private int generation;
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+            "idx=" + idx +
+            ", nameZh='" + nameZh + '\'' +
+            ", form='" + form + '\'' +
+            "} " + super.toString();
+    }
 }

@@ -25,4 +25,11 @@ public class Ability extends AbstractDomain<Integer> {
     private String nameEn;
     private String effect;
     private int generation;
+
+    @Override
+    public String toString() {
+        return "Ability{" +
+            "nameZh='" + nameZh + '\'' +
+            "} " + super.toString();
+    }
 }

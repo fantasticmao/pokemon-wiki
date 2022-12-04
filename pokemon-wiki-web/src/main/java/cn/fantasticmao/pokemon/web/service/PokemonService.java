@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface PokemonService {
 
-    List<PokemonBean> listByIndexOrNameZh(@Nullable Integer index, @Nullable String nameZh);
+    List<PokemonBean> listByIndexOrNameZh(@Nullable Integer index, @Nullable String nameZh,
+                                          @Nullable String form);
 
     List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
                                                   int page, int size);

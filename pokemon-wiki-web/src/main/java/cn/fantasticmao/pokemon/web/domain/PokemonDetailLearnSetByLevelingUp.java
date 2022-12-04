@@ -28,4 +28,13 @@ public class PokemonDetailLearnSetByLevelingUp extends AbstractDomain<Integer> {
     private String power;
     private String accuracy;
     private String pp;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailLearnSetByLevelingUp{" +
+            "idx=" + idx +
+            ", level='" + level + '\'' +
+            ", move='" + move + '\'' +
+            "} " + super.toString();
+    }
 }

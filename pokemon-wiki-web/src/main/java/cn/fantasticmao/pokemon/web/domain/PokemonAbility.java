@@ -29,4 +29,13 @@ public class PokemonAbility extends AbstractDomain<Integer> {
     private String abilityHide;
     private String form;
     private int generation;
+
+    @Override
+    public String toString() {
+        return "PokemonAbility{" +
+            "idx=" + idx +
+            ", nameZh='" + nameZh + '\'' +
+            ", form='" + form + '\'' +
+            "} " + super.toString();
+    }
 }

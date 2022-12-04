@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,10 @@ public class AbilityServiceImpl implements AbilityService {
             return Collections.emptyList();
         }
 
-        List<Integer> abilityIdList = abilityList.stream().map(Ability::getId).collect(Collectors.toList());
-        Map<Integer, AbilityDetail> abilityDetailMap = abilityDetailRepository.findByIdIn(abilityIdList).stream()
+        Set<Integer> abilityIdSet = abilityList.stream()
+            .map(Ability::getId)
+            .collect(Collectors.toSet());
+        Map<Integer, AbilityDetail> abilityDetailMap = abilityDetailRepository.findByIdIn(abilityIdSet).stream()
             .collect(Collectors.toMap(AbilityDetail::getId, Function.identity()));
 
         return abilityList.stream()

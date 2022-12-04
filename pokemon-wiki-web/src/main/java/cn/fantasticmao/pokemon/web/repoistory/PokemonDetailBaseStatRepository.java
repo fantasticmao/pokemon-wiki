@@ -4,6 +4,7 @@ import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.PokemonDetailBaseStat;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,5 +16,5 @@ import java.util.List;
 public interface PokemonDetailBaseStatRepository extends PagingAndSortingRepository<PokemonDetailBaseStat, Integer> {
 
     @NativeQuery("SELECT * FROM pw_pokemon_detail_base_stat WHERE idx IN ?1")
-    List<PokemonDetailBaseStat> findByIndexIn(List<Integer> idList);
+    List<PokemonDetailBaseStat> findByIndexIn(Collection<Integer> ids);
 }
