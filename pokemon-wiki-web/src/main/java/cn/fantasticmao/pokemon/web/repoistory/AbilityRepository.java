@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface AbilityRepository extends PagingAndSortingRepository<Ability, Integer> {
 
-    @NativeQuery("SELECT * FROM pw_ability WHERE nameZh LIKE '%' || ?1 || '%'")
+    @NativeQuery("SELECT * FROM pw_ability WHERE name_zh LIKE '%' || ?1 || '%'")
     List<Ability> findByNameZh(String nameZh);
 
     @NativeQuery("SELECT * FROM pw_ability LIMIT ?2 OFFSET ?1")

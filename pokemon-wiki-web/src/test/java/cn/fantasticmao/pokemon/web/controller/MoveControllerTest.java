@@ -36,7 +36,7 @@ public class MoveControllerTest extends SpringTest {
 
     @Test
     public void listMoveDetail_ok() throws Exception {
-        final String nameZh = "火焰拳";
+        final String nameZh = "拍击";
         mvc.perform(MockMvcRequestBuilders.get("/move/detail?nameZh=" + nameZh))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
@@ -52,8 +52,8 @@ public class MoveControllerTest extends SpringTest {
                 List<MoveBean> list = jsonApi.getData();
                 Assertions.assertEquals(1, list.size());
 
-                MoveBean move = list.get(0);
-                Assertions.assertEquals(nameZh, move.getNameZh());
+                MoveBean pound = list.get(0);
+                super.assertPound(pound);
             });
     }
 

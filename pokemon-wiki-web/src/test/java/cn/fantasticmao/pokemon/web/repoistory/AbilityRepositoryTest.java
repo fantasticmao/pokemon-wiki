@@ -20,9 +20,17 @@ public class AbilityRepositoryTest extends SpringTest {
 
     @Test
     public void findByNameZh() {
-        List<Ability> abilityList = abilityRepository.findByNameZh("茂盛");
+        List<Ability> abilityList = abilityRepository.findByNameZh("恶臭");
         Assertions.assertNotNull(abilityList);
         Assertions.assertEquals(1, abilityList.size());
+
+        Ability stench = abilityList.get(0);
+        Assertions.assertEquals(1, stench.getId());
+        Assertions.assertEquals("恶臭", stench.getNameZh());
+        Assertions.assertEquals("あくしゅう", stench.getNameJa());
+        Assertions.assertEquals("Stench", stench.getNameEn());
+        Assertions.assertEquals("通过释放臭臭的气味，在攻击的时候，有时会使对手畏缩。", stench.getEffect());
+        Assertions.assertEquals(3, stench.getGeneration());
     }
 
     @Test

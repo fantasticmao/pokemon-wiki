@@ -2,6 +2,8 @@ package cn.fantasticmao.pokemon.web.service;
 
 import cn.fantasticmao.mundo.web.support.wechat.WeChatServerConfig;
 
+import javax.annotation.Nullable;
+
 /**
  * WechatService
  *
@@ -10,5 +12,6 @@ import cn.fantasticmao.mundo.web.support.wechat.WeChatServerConfig;
  */
 public interface WechatService extends WeChatServerConfig.TokenProvider {
 
-    String searchPokemonInfosByName(String nameZh);
+    String searchPokemonInfosByName(@Nullable String nameZh);
+
 }

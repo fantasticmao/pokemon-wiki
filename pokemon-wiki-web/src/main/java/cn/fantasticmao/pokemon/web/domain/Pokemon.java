@@ -20,11 +20,21 @@ public class Pokemon extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String nameZh;
     private String nameJa;
     private String nameEn;
     private String type1;
     private String type2;
+    private String form;
     private int generation;
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+            "idx=" + idx +
+            ", nameZh='" + nameZh + '\'' +
+            ", form='" + form + '\'' +
+            "} " + super.toString();
+    }
 }

@@ -32,7 +32,7 @@ public class MoveController {
      * @param nameZh 招式中文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<MoveBean>>> listMoveDetail(@RequestParam(defaultValue = "") String nameZh) {
+    public ResponseEntity<JsonApi<List<MoveBean>>> listMoveDetail(@RequestParam String nameZh) {
         if (StringUtils.isEmpty(nameZh)) {
             return ResponseEntity.badRequest().build();
         }

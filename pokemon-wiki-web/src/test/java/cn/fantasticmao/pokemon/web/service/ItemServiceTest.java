@@ -19,10 +19,20 @@ public class ItemServiceTest extends SpringTest {
     private ItemService itemService;
 
     @Test
+    public void listByNameZh() {
+        List<ItemBean> itemBeanList = itemService.listByNameZh("除虫喷雾");
+        Assertions.assertNotNull(itemBeanList);
+
+        ItemBean repel = itemBeanList.get(0);
+        super.assertRepel(repel);
+    }
+
+    @Test
     public void listAll() {
         // FIXME page < 0
-        List<ItemBean> itemBeanList = itemService.list(-1, 0);
+        List<ItemBean> itemBeanList = itemService.list(-1, 50);
         Assertions.assertNotNull(itemBeanList);
+        Assertions.assertEquals(1342, itemBeanList.size());
     }
 
     @Test

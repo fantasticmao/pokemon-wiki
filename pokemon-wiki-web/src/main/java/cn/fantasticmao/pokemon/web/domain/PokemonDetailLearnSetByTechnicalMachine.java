@@ -20,7 +20,7 @@ public class PokemonDetailLearnSetByTechnicalMachine extends AbstractDomain<Inte
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String imgUrl;
     private String technicalMachine;
     private String move;
@@ -29,4 +29,13 @@ public class PokemonDetailLearnSetByTechnicalMachine extends AbstractDomain<Inte
     private String power;
     private String accuracy;
     private String pp;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailLearnSetByTechnicalMachine{" +
+            "idx=" + idx +
+            ", technicalMachine='" + technicalMachine + '\'' +
+            ", move='" + move + '\'' +
+            "} " + super.toString();
+    }
 }

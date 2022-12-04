@@ -52,8 +52,8 @@ public class ItemControllerTest extends SpringTest {
                 List<ItemBean> list = jsonApi.getData();
                 Assertions.assertEquals(1, list.size());
 
-                ItemBean item = list.get(0);
-                Assertions.assertEquals(nameZh, item.getNameZh());
+                ItemBean repel = list.get(0);
+                super.assertRepel(repel);
             });
     }
 

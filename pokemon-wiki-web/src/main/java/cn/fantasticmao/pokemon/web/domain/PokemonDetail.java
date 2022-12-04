@@ -20,7 +20,7 @@ public class PokemonDetail extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String imgUrl;
     private String type;
     private String category;
@@ -34,4 +34,13 @@ public class PokemonDetail extends AbstractDomain<Integer> {
     private String eggGroup2;
     private String hatchTime;
     private String effortValue;
+
+    @Override
+    public String toString() {
+        return "PokemonDetail{" +
+            "idx=" + idx +
+            ", eggGroup1='" + eggGroup1 + '\'' +
+            ", eggGroup2='" + eggGroup2 + '\'' +
+            "} " + super.toString();
+    }
 }

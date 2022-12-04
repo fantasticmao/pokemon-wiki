@@ -20,13 +20,21 @@ public class PokemonDetailLearnSetByLevelingUp extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
-    private String level1;
-    private String level2;
+    private int idx;
+    private String level;
     private String move;
     private String type;
     private String category;
     private String power;
     private String accuracy;
     private String pp;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailLearnSetByLevelingUp{" +
+            "idx=" + idx +
+            ", level='" + level + '\'' +
+            ", move='" + move + '\'' +
+            "} " + super.toString();
+    }
 }

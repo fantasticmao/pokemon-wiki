@@ -24,5 +24,16 @@ public class PokemonAbilityRepositoryTest extends SpringTest {
         List<PokemonAbility> pokemonAbilityList = pokemonAbilityRepository.findByIndexIn(Arrays.asList(1, 2));
         Assertions.assertNotNull(pokemonAbilityList);
         Assertions.assertEquals(2, pokemonAbilityList.size());
+
+        PokemonAbility bulbasaur = pokemonAbilityList.get(0);
+        Assertions.assertEquals(1, bulbasaur.getIdx());
+        Assertions.assertEquals("妙蛙种子", bulbasaur.getNameZh());
+        Assertions.assertEquals("草", bulbasaur.getType1());
+        Assertions.assertEquals("毒", bulbasaur.getType2());
+        Assertions.assertEquals("茂盛", bulbasaur.getAbility1());
+        Assertions.assertEquals("", bulbasaur.getAbility2());
+        Assertions.assertEquals("叶绿素", bulbasaur.getAbilityHide());
+        Assertions.assertEquals("", bulbasaur.getForm());
+        Assertions.assertEquals(1, bulbasaur.getGeneration());
     }
 }

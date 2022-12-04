@@ -32,7 +32,7 @@ public class AbilityController {
      * @param nameZh 特性中文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<AbilityBean>>> listAbilityDetail(@RequestParam(defaultValue = "") String nameZh) {
+    public ResponseEntity<JsonApi<List<AbilityBean>>> listAbilityDetail(@RequestParam String nameZh) {
         if (StringUtils.isEmpty(nameZh)) {
             return ResponseEntity.badRequest().build();
         }

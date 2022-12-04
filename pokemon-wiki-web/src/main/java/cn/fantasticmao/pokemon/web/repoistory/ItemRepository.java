@@ -19,7 +19,7 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Integer
     @NativeQuery("SELECT * FROM pw_item")
     List<Item> findAll();
 
-    @NativeQuery("SELECT * FROM pw_item WHERE nameZh LIKE '%' || ?1 || '%'")
+    @NativeQuery("SELECT * FROM pw_item WHERE name_zh LIKE '%' || ?1 || '%'")
     List<Item> findByNameZh(String nameZh);
 
     @NativeQuery("SELECT * FROM pw_item LIMIT ?2 OFFSET ?1")

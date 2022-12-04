@@ -8,13 +8,14 @@ import cn.fantasticmao.pokemon.web.repoistory.AbilityDetailRepository;
 import cn.fantasticmao.pokemon.web.repoistory.AbilityRepository;
 import cn.fantasticmao.pokemon.web.service.AbilityService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,18 +33,16 @@ public class AbilityServiceImpl implements AbilityService {
     private AbilityDetailRepository abilityDetailRepository;
 
     @Override
-    public List<AbilityBean> listByNameZh(String nameZh) {
-        if (StringUtils.isEmpty(nameZh)) {
-            return Collections.emptyList();
-        }
-
+    public List<AbilityBean> listByNameZh(@Nonnull String nameZh) {
         List<Ability> abilityList = abilityRepository.findByNameZh(nameZh);
         if (CollectionUtils.isEmpty(abilityList)) {
             return Collections.emptyList();
         }
 
-        List<Integer> abilityIdList = abilityList.stream().map(Ability::getId).collect(Collectors.toList());
-        Map<Integer, AbilityDetail> abilityDetailMap = abilityDetailRepository.findByIdIn(abilityIdList).stream()
+        Set<Integer> abilityIdSet = abilityList.stream()
+            .map(Ability::getId)
+            .collect(Collectors.toSet());
+        Map<Integer, AbilityDetail> abilityDetailMap = abilityDetailRepository.findByIdIn(abilityIdSet).stream()
             .collect(Collectors.toMap(AbilityDetail::getId, Function.identity()));
 
         return abilityList.stream()

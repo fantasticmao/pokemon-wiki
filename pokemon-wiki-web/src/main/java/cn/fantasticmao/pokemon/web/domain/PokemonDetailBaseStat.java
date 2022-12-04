@@ -20,7 +20,7 @@ public class PokemonDetailBaseStat extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private int hp;
     private int attack;
     private int defense;
@@ -29,4 +29,12 @@ public class PokemonDetailBaseStat extends AbstractDomain<Integer> {
     private int speed;
     private int total;
     private float average;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailBaseStat{" +
+            "idx=" + idx +
+            ", total=" + total +
+            "} " + super.toString();
+    }
 }

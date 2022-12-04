@@ -32,7 +32,7 @@ public class ItemController {
      * @param nameZh 道具中文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<ItemBean>>> listItemDetail(@RequestParam(defaultValue = "") String nameZh) {
+    public ResponseEntity<JsonApi<List<ItemBean>>> listItemDetail(@RequestParam String nameZh) {
         if (StringUtils.isEmpty(nameZh)) {
             return ResponseEntity.badRequest().build();
         }

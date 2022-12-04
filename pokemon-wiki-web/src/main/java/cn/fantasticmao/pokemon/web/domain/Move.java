@@ -29,4 +29,11 @@ public class Move extends AbstractDomain<Integer> {
     private String accuracy;
     private String pp;
     private int generation;
+
+    @Override
+    public String toString() {
+        return "Move{" +
+            "nameZh='" + nameZh + '\'' +
+            "} " + super.toString();
+    }
 }

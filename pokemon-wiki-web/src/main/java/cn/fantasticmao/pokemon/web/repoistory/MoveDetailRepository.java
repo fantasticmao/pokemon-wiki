@@ -4,6 +4,7 @@ import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.MoveDetail;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,5 +16,5 @@ import java.util.List;
 public interface MoveDetailRepository extends PagingAndSortingRepository<MoveDetail, Integer> {
 
     @NativeQuery("SELECT * FROM pw_move_detail WHERE id IN ?1")
-    List<MoveDetail> findByIdIn(List<Integer> idList);
+    List<MoveDetail> findByIdIn(Collection<Integer> ids);
 }

@@ -27,4 +27,11 @@ public class Nature extends AbstractDomain<Integer> {
     private String decreasedStat;
     private String favoriteFlavor;
     private String dislikedFlavor;
+
+    @Override
+    public String toString() {
+        return "Nature{" +
+            "nameZh='" + nameZh + '\'' +
+            "} " + super.toString();
+    }
 }

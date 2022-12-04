@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -39,18 +40,22 @@ public class WechatServiceImpl implements WechatService {
     }
 
     @Override
-    public String searchPokemonInfosByName(String nameZh) {
+    public String searchPokemonInfosByName(@Nullable String nameZh) {
+        if (StringUtils.isEmpty(nameZh)) {
+            return "未找到相关宝可梦";
+        }
+
         final List<Pokemon> pokemonList = pokemonRepository.findByNameZh(nameZh);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return "未找到相关宝可梦";
         }
 
-        final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIndex).collect(Collectors.toList());
+        final List<Integer> pokemonIndexList = pokemonList.stream().map(Pokemon::getIdx).collect(Collectors.toList());
         Map<Integer, PokemonAbility> pokemonAbilityMap = pokemonAbilityRepository.findByIndexIn(pokemonIndexList).stream()
-            .collect(Collectors.toMap(PokemonAbility::getIndex, Function.identity(), (ability1, ability2) -> ability1));
+            .collect(Collectors.toMap(PokemonAbility::getIdx, Function.identity(), (ability1, ability2) -> ability1));
         final String replyContent = pokemonList.stream()
             .map(pokemon -> {
-                final PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIndex());
+                final PokemonAbility pokemonAbility = pokemonAbilityMap.get(pokemon.getIdx());
                 final String typeJoin, abilityJoin, abilityHide;
                 if (Objects.isNull(pokemonAbility)) {
                     typeJoin = "未知";
@@ -66,7 +71,7 @@ public class WechatServiceImpl implements WechatService {
                     abilityHide = pokemonAbility.getAbilityHide();
                 }
                 return String.format("No.%d %s，第 %d 世代宝可梦，英文名称：%s，日文名称：%s，属性：%s，特性：%s，隐藏特性：%s。",
-                    pokemon.getIndex(), pokemon.getNameZh(), pokemon.getGeneration(), pokemon.getNameEn(), pokemon.getNameJa(),
+                    pokemon.getIdx(), pokemon.getNameZh(), pokemon.getGeneration(), pokemon.getNameEn(), pokemon.getNameJa(),
                     typeJoin, abilityJoin, abilityHide);
             })
             .collect(Collectors.joining(System.lineSeparator()));

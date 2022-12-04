@@ -36,7 +36,7 @@ public class AbilityControllerTest extends SpringTest {
 
     @Test
     public void listAbilityDetail_ok() throws Exception {
-        final String nameZh = "引火";
+        final String nameZh = "恶臭";
         mvc.perform(MockMvcRequestBuilders.get("/ability/detail?nameZh=" + nameZh))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
@@ -52,8 +52,8 @@ public class AbilityControllerTest extends SpringTest {
                 List<AbilityBean> list = jsonApi.getData();
                 Assertions.assertEquals(1, list.size());
 
-                AbilityBean ability = list.get(0);
-                Assertions.assertEquals(nameZh, ability.getNameZh());
+                AbilityBean stench = list.get(0);
+                super.assertStench(stench);
             });
     }
 

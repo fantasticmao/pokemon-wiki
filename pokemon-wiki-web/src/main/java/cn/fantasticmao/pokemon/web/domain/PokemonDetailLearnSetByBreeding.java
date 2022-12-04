@@ -20,7 +20,7 @@ public class PokemonDetailLearnSetByBreeding extends AbstractDomain<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private int index;
+    private int idx;
     private String parent;
     private String move;
     private String type;
@@ -28,4 +28,12 @@ public class PokemonDetailLearnSetByBreeding extends AbstractDomain<Integer> {
     private String power;
     private String accuracy;
     private String pp;
+
+    @Override
+    public String toString() {
+        return "PokemonDetailLearnSetByBreeding{" +
+            "idx=" + idx +
+            ", move='" + move + '\'' +
+            "} " + super.toString();
+    }
 }

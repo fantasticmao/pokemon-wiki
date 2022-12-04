@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface MoveRepository extends PagingAndSortingRepository<Move, Integer> {
 
-    @NativeQuery("SELECT * FROM pw_move WHERE nameZh LIKE '%' || ?1 || '%'")
+    @NativeQuery("SELECT * FROM pw_move WHERE name_zh LIKE '%' || ?1 || '%'")
     List<Move> findByNameZh(String nameZh);
 
     @NativeQuery("SELECT * FROM pw_move LIMIT ?2 OFFSET ?1")

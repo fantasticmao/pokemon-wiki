@@ -4,7 +4,6 @@ import cn.fantasticmao.mundo.core.support.Constant;
 import cn.fantasticmao.pokemon.spider.Config;
 import cn.fantasticmao.pokemon.spider.PokemonDataSource;
 import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.lang3.ObjectUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,13 +41,15 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         dataList.addAll(getData6(document));
         dataList.addAll(getData7(document));
         dataList.addAll(getData8(document));
+        dataList.addAll(getData9(document));
         return Collections.unmodifiableList(dataList);
     }
 
     @Override
     public boolean saveData(List<MoveListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_move(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, generation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_move(name_zh, name_ja, name_en, type, category, power, accuracy, pp, generation) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             MoveListSpider.Data tempData = null;
@@ -73,9 +74,9 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("insert into pw_move error", e);
+            return false;
         }
-        return false;
     }
 
     @Getter
@@ -180,6 +181,15 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
             .filter(element -> element.child(0).children().size() == 0)
             .skip(1)
             .map(element -> PARSER.apply(element, 8))
+            .collect(Collectors.toList());
+    }
+
+    // 第九世代
+    private List<MoveListSpider.Data> getData9(Document document) {
+        return document.select(".bg-帕底亚 > tbody > tr").stream()
+            .filter(element -> element.child(0).children().size() == 0)
+            .skip(1)
+            .map(element -> PARSER.apply(element, 9))
             .collect(Collectors.toList());
     }
 }

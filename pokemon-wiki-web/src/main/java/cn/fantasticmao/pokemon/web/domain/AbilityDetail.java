@@ -24,4 +24,11 @@ public class AbilityDetail extends AbstractDomain<Integer> {
     private String desc;
     private String effect;
     private String pokemons;
+
+    @Override
+    public String toString() {
+        return "AbilityDetail{" +
+            "nameZh='" + nameZh + '\'' +
+            "} " + super.toString();
+    }
 }

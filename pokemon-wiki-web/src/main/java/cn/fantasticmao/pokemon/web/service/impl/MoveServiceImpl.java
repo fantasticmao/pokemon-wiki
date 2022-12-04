@@ -8,13 +8,14 @@ import cn.fantasticmao.pokemon.web.repoistory.MoveDetailRepository;
 import cn.fantasticmao.pokemon.web.repoistory.MoveRepository;
 import cn.fantasticmao.pokemon.web.service.MoveService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,18 +33,16 @@ public class MoveServiceImpl implements MoveService {
     private MoveDetailRepository moveDetailRepository;
 
     @Override
-    public List<MoveBean> listByNameZh(String nameZh) {
-        if (StringUtils.isEmpty(nameZh)) {
-            return Collections.emptyList();
-        }
-
+    public List<MoveBean> listByNameZh(@Nonnull String nameZh) {
         List<Move> moveList = moveRepository.findByNameZh(nameZh);
         if (CollectionUtils.isEmpty(moveList)) {
             return Collections.emptyList();
         }
 
-        List<Integer> moveIdList = moveList.stream().map(Move::getId).collect(Collectors.toList());
-        Map<Integer, MoveDetail> moveDetailMap = moveDetailRepository.findByIdIn(moveIdList).stream()
+        Set<Integer> moveIdSet = moveList.stream()
+            .map(Move::getId)
+            .collect(Collectors.toSet());
+        Map<Integer, MoveDetail> moveDetailMap = moveDetailRepository.findByIdIn(moveIdSet).stream()
             .collect(Collectors.toMap(MoveDetail::getId, Function.identity()));
 
         return moveList.stream()

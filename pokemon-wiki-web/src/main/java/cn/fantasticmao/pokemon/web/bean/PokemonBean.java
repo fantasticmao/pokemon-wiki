@@ -66,15 +66,20 @@ public class PokemonBean implements Comparable<PokemonBean> {
     private String abilityHide;
 
     /**
+     * 形态
+     */
+    private String form;
+
+    /**
      * 第几世代
      */
     private int generation;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private BaseStat baseStat;
+    private Detail detail;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Detail detail;
+    private BaseStat baseStat;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<LearnSetByLevelingUp> learnSetByLevelingUp;
@@ -106,11 +111,11 @@ public class PokemonBean implements Comparable<PokemonBean> {
     }
 
     public PokemonBean(@Nonnull Pokemon pokemon, @Nonnull PokemonAbility pokemonAbility,
-                       @Nullable PokemonDetailBaseStat pokemonDetailBaseStat, @Nullable PokemonDetail pokemonDetail,
+                       @Nullable PokemonDetail pokemonDetail, @Nullable PokemonDetailBaseStat pokemonDetailBaseStat,
                        @Nonnull List<PokemonDetailLearnSetByLevelingUp> pokemonDetailLearnSetByLevelingUp,
                        @Nonnull List<PokemonDetailLearnSetByTechnicalMachine> pokemonDetailLearnSetByTechnicalMachine,
                        @Nonnull List<PokemonDetailLearnSetByBreeding> pokemonDetailLearnSetByBreeding) {
-        this.index = pokemon.getIndex();
+        this.index = pokemon.getIdx();
         this.nameZh = pokemon.getNameZh();
         this.nameJa = pokemon.getNameJa();
         this.nameEn = pokemon.getNameEn();
@@ -119,9 +124,10 @@ public class PokemonBean implements Comparable<PokemonBean> {
         this.ability1 = pokemonAbility.getAbility1();
         this.ability2 = pokemonAbility.getAbility2();
         this.abilityHide = pokemonAbility.getAbilityHide();
+        this.form = pokemon.getForm();
         this.generation = pokemon.getGeneration();
-        this.baseStat = BaseStat.ofDomain(pokemonDetailBaseStat);
         this.detail = Detail.ofDomain(pokemonDetail);
+        this.baseStat = BaseStat.ofDomain(pokemonDetailBaseStat);
         this.learnSetByLevelingUp = pokemonDetailLearnSetByLevelingUp.stream()
             .map(LearnSetByLevelingUp::ofDomain)
             .collect(Collectors.toList());
@@ -134,80 +140,11 @@ public class PokemonBean implements Comparable<PokemonBean> {
     }
 
     /**
-     * 种族值
-     */
-    @Getter
-    @Setter
-    private static class BaseStat {
-        /**
-         * HP
-         */
-        private int hp;
-
-        /**
-         * 攻击
-         */
-        private int attack;
-
-        /**
-         * 防御
-         */
-        private int defense;
-
-        /**
-         * 特攻
-         */
-        private int spAttack;
-
-        /**
-         * 特防
-         */
-        private int spDefense;
-
-        /**
-         * 速度
-         */
-        private int speed;
-
-        /**
-         * 总合
-         */
-        private int total;
-
-        /**
-         * 平均值
-         */
-        private float average;
-
-        public BaseStat() {
-        }
-
-        private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
-            this.hp = hp;
-            this.attack = attack;
-            this.defense = defense;
-            this.spAttack = spAttack;
-            this.spDefense = spDefense;
-            this.speed = speed;
-            this.total = total;
-            this.average = average;
-        }
-
-        private static BaseStat ofDomain(@Nullable PokemonDetailBaseStat domain) {
-            if (domain == null) {
-                return null;
-            }
-            return new BaseStat(domain.getHp(), domain.getAttack(), domain.getDefense(), domain.getSpAttack(),
-                domain.getSpDefense(), domain.getSpeed(), domain.getTotal(), domain.getAverage());
-        }
-    }
-
-    /**
      * 详细信息
      */
     @Getter
     @Setter
-    private static class Detail {
+    public static class Detail {
         /**
          * 预览图片
          */
@@ -291,17 +228,93 @@ public class PokemonBean implements Comparable<PokemonBean> {
         }
     }
 
+    /**
+     * 种族值
+     */
+    @Getter
+    @Setter
+    public static class BaseStat {
+        /**
+         * HP
+         */
+        private int hp;
+
+        /**
+         * 攻击
+         */
+        private int attack;
+
+        /**
+         * 防御
+         */
+        private int defense;
+
+        /**
+         * 特攻
+         */
+        private int spAttack;
+
+        /**
+         * 特防
+         */
+        private int spDefense;
+
+        /**
+         * 速度
+         */
+        private int speed;
+
+        /**
+         * 总合
+         */
+        private int total;
+
+        /**
+         * 平均值
+         */
+        private float average;
+
+        public BaseStat() {
+        }
+
+        private BaseStat(int hp, int attack, int defense, int spAttack, int spDefense, int speed, int total, float average) {
+            this.hp = hp;
+            this.attack = attack;
+            this.defense = defense;
+            this.spAttack = spAttack;
+            this.spDefense = spDefense;
+            this.speed = speed;
+            this.total = total;
+            this.average = average;
+        }
+
+        private static BaseStat ofDomain(@Nullable PokemonDetailBaseStat domain) {
+            if (domain == null) {
+                return null;
+            }
+            return new BaseStat(domain.getHp(), domain.getAttack(), domain.getDefense(), domain.getSpAttack(),
+                domain.getSpDefense(), domain.getSpeed(), domain.getTotal(), domain.getAverage());
+        }
+    }
+
     @Getter
     @Setter
     private static class LearnSetByLevelingUp {
         /**
+         * 等级
+         */
+        private String level;
+
+        /**
          * 等级（太阳/月亮）
          */
+        @Deprecated
         private String level1;
 
         /**
          * 等级（究极之日/究极之月）
          */
+        @Deprecated
         private String level2;
 
         /**
@@ -337,10 +350,11 @@ public class PokemonBean implements Comparable<PokemonBean> {
         public LearnSetByLevelingUp() {
         }
 
-        private LearnSetByLevelingUp(String level1, String level2, String move, String type, String category,
+        private LearnSetByLevelingUp(String level, String move, String type, String category,
                                      String power, String accuracy, String pp) {
-            this.level1 = level1;
-            this.level2 = level2;
+            this.level = level;
+            this.level1 = level;
+            this.level2 = level;
             this.move = move;
             this.type = type;
             this.category = category;
@@ -353,7 +367,7 @@ public class PokemonBean implements Comparable<PokemonBean> {
             if (domain == null) {
                 return null;
             }
-            return new LearnSetByLevelingUp(domain.getLevel1(), domain.getLevel2(), domain.getMove(), domain.getType(),
+            return new LearnSetByLevelingUp(domain.getLevel(), domain.getMove(), domain.getType(),
                 domain.getCategory(), domain.getPower(), domain.getAccuracy(), domain.getPp());
         }
     }

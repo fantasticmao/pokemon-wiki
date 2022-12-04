@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,13 +41,15 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         dataList.addAll(getDataList6(document));
         dataList.addAll(getDataList7(document));
         dataList.addAll(getDataList8(document));
+        dataList.addAll(getDataList9(document));
         return Collections.unmodifiableList(dataList);
     }
 
     @Override
     public boolean saveData(List<PokemonAbilityListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_pokemon_ability(`index`, nameZh, type1, type2, ability1, ability2, abilityHide, generation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO pw_pokemon_ability(idx, name_zh, type1, type2, ability1, ability2, ability_hide, form, generation) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             PokemonAbilityListSpider.Data tempData = null;
@@ -60,7 +63,8 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
                     prep.setString(5, tempData.getAbility1());
                     prep.setString(6, ObjectUtils.defaultIfNull(tempData.getAbility2(), Constant.Strings.EMPTY));
                     prep.setString(7, ObjectUtils.defaultIfNull(tempData.getAbilityHide(), Constant.Strings.EMPTY));
-                    prep.setInt(8, tempData.getGeneration());
+                    prep.setString(8, ObjectUtils.defaultIfNull(tempData.getForm(), Constant.Strings.EMPTY));
+                    prep.setInt(9, tempData.getGeneration());
                     prep.addBatch();
                 }
                 prep.executeBatch();
@@ -69,10 +73,10 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
                     return true;
                 }
             }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+        } catch (SQLException e) {
+            logger.error("insert into pw_pokemon_ability error", e);
+            return false;
         }
-        return false;
     }
 
     @Getter
@@ -84,10 +88,11 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         private final String ability1;
         private final String ability2;
         private final String abilityHide;
+        private final String form;
         private final int generation;
 
         public Data(int index, String nameZh, String type1, String type2, String ability1, String ability2,
-                    String abilityHide, int generation) {
+                    String abilityHide, String form, int generation) {
             this.index = index;
             this.nameZh = nameZh;
             this.type1 = type1;
@@ -95,19 +100,22 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
             this.ability1 = ability1;
             this.ability2 = ability2;
             this.abilityHide = abilityHide;
+            this.form = form;
             this.generation = generation;
         }
     }
 
     private static final BiFunction<Element, Integer, Data> PARSER = (element, generation) -> {
         int index = Integer.parseInt(element.child(0).text());
-        String nameZh = element.child(2).text();
+        String nameZh = element.child(2).child(0).text();
+        Element smallElement = element.child(2).selectFirst("small");
+        String form = smallElement == null ? null : smallElement.text();
         String type1 = element.child(3).text();
         String type2 = element.child(4).hasClass("hide") ? null : element.child(4).text();
         String ability1 = element.child(5).text();
         String ability2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
         String abilityHide = element.child(7).children().size() == 0 ? null : element.child(7).text();
-        return new Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, generation);
+        return new Data(index, nameZh, type1, type2, ability1, ability2, abilityHide, form, generation);
     };
 
     // 关都地区
@@ -171,6 +179,14 @@ public class PokemonAbilityListSpider extends AbstractTask1Spider<PokemonAbility
         return document.select(".bg-伽勒尔 > tbody > tr").parallelStream()
             .filter(element -> element.hasClass("bgwhite"))
             .map(element -> PARSER.apply(element, 8))
+            .collect(Collectors.toList());
+    }
+
+    // 帕底亚地区
+    private List<PokemonAbilityListSpider.Data> getDataList9(Document document) {
+        return document.select(".bg-帕底亚 > tbody > tr").parallelStream()
+            .filter(element -> element.hasClass("bgwhite"))
+            .map(element -> PARSER.apply(element, 9))
             .collect(Collectors.toList());
     }
 }
