@@ -55,7 +55,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         private final String eggGroup2; // 第二生蛋分组
         private final String hatchTime; // 孵化时间
         private final String effortValue; // 基础点数
-        private final BaseStat BaseStat;
+        private final BaseStat baseStat;
         private final List<LearnSetByLevelingUp> learnSetByLevelingUpList; // 可学会的招式
         private final List<LearnSetByTechnicalMachine> learnSetByTechnicalMachineList; // 能使用的招式学习器
         private final List<LearnSetByBreeding> learnSetByBreedingList; // 蛋招式
@@ -81,7 +81,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             this.eggGroup2 = eggGroup2;
             this.hatchTime = hatchTime;
             this.effortValue = effortValue;
-            this.BaseStat = baseStat;
+            this.baseStat = baseStat;
             this.learnSetByLevelingUpList = learnSetByLevelingUpList;
             this.learnSetByTechnicalMachineList = learnSetByTechnicalMachineList;
             this.learnSetByBreedingList = learnSetByBreedingList;
