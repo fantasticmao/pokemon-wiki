@@ -1,8 +1,9 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
-import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.Item;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.List;
 public interface ItemRepository extends PagingAndSortingRepository<Item, Integer> {
 
     @Nonnull
-    @NativeQuery("SELECT * FROM pw_item")
+    @Query("SELECT * FROM t_item")
     List<Item> findAll();
 
-    @NativeQuery("SELECT * FROM pw_item WHERE name_zh LIKE '%' || ?1 || '%'")
-    List<Item> findByNameZh(String nameZh);
+    @Query("SELECT * FROM t_item WHERE name_zh LIKE '%' || :nameZh || '%'")
+    List<Item> findByNameZh(@Param("nameZh") String nameZh);
 
-    @NativeQuery("SELECT * FROM pw_item LIMIT ?2 OFFSET ?1")
-    List<Item> find(int offset, int limit);
+    @Query("SELECT * FROM t_item LIMIT :limit OFFSET :offset")
+    List<Item> find(@Param("offset") int offset, @Param("limit") int limit);
 }

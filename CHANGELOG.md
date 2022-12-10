@@ -1,5 +1,10 @@
 # Changelog
 
+## 2022-12-10
+
+- 升级 `cn.fantasticmao.mundo:mundo-all:1.0.9`
+- 替换 Spring Data JPA 为 Spring Data JDBC
+
 ## 2022-12-05
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.8`

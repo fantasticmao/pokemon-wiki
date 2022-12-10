@@ -3,8 +3,8 @@ package cn.fantasticmao.pokemon.web.domain;
 import cn.fantasticmao.mundo.data.jdbc.AbstractDomain;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 /**
  * PokemonDetailBaseStat
@@ -14,11 +14,9 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@Entity
-@Table(name = "pw_pokemon_detail_base_stat")
+@Table("t_pokemon_detail_base_stat")
 public class PokemonDetailBaseStat extends AbstractDomain<Integer> {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private int idx;
     private int hp;

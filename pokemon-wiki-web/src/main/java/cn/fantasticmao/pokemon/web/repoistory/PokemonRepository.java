@@ -1,8 +1,9 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
-import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.Pokemon;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -16,15 +17,15 @@ import java.util.List;
 public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, Integer> {
 
     @Nonnull
-    @NativeQuery("SELECT * FROM pw_pokemon")
+    @Query("SELECT * FROM t_pokemon")
     List<Pokemon> findAll();
 
-    @NativeQuery("SELECT * FROM pw_pokemon WHERE name_zh LIKE '%' || ?1 || '%'")
-    List<Pokemon> findByNameZh(String nameZh);
+    @Query("SELECT * FROM t_pokemon WHERE name_zh LIKE '%' || :nameZh || '%'")
+    List<Pokemon> findByNameZh(@Param("nameZh") String nameZh);
 
-    @NativeQuery("SELECT * FROM pw_pokemon WHERE idx = ?1")
-    List<Pokemon> findByIndex(Integer index);
+    @Query("SELECT * FROM t_pokemon WHERE idx = :index")
+    List<Pokemon> findByIndex(@Param("index") Integer index);
 
-    @NativeQuery("SELECT * FROM pw_pokemon WHERE generation = ?1")
-    List<Pokemon> findByGeneration(int generation);
+    @Query("SELECT * FROM t_pokemon WHERE generation = :generation")
+    List<Pokemon> findByGeneration(@Param("generation") int generation);
 }
