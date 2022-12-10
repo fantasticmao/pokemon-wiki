@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * PokemonDataSource
@@ -85,7 +86,9 @@ public enum PokemonDataSource {
         try {
             Path schemaPath = Paths.get(schemaResource.toURI());
             List<String> lines = Files.readAllLines(schemaPath);
-            initSql = String.join(Constant.Strings.EMPTY, lines);
+            initSql = lines.stream()
+                .map(line -> line + System.lineSeparator())
+                .collect(Collectors.joining(Constant.Strings.EMPTY));
         } catch (URISyntaxException | IOException e) {
             throw new IllegalArgumentException("read schema file error", e);
         }

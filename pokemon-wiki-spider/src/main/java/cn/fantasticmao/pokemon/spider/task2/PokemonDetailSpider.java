@@ -231,18 +231,8 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             .map(element -> element.text().trim())
             .collect(Collectors.joining(Constant.Strings.COMMA));
 
-        Element baseStatSpan = document.selectFirst("#种族值");
-        final Element baseStatTable = baseStatSpan.parent().nextElementSiblings().select("table").first();
-        final int hp = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-HP]").select("div[style*='float:right']").text());
-        final int attack = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-攻击]").select("div[style*='float:right']").text());
-        final int defense = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-防御]").select("div[style*='float:right']").text());
-        final int spAttack = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-特攻]").select("div[style*='float:right']").text());
-        final int spDefense = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-特防]").select("div[style*='float:right']").text());
-        final int speed = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-速度]").select("div[style*='float:right']").text());
-        final int total = hp + attack + defense + spAttack + spDefense + speed;
-        final float average = total / 6.0F;
-        final Data.BaseStat baseStat = new Data.BaseStat(hp, attack, defense, spAttack, spDefense, speed, total, average);
-
+        // 种族值
+        final Data.BaseStat baseStat = parseBaseStat(document);
         // 可学会的招式
         List<Data.LearnSetByLevelingUp> learnSetByLevelingUpList = parseLearnSetByLevelingUpList(document);
         // 能使用的招式学习器
@@ -253,6 +243,24 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         return new PokemonDetailSpider.Data(index, nameZh, imgUrl, type, category, ability,
             height, weight, bodyStyle, catchRate, genderRatio, eggGroup1, eggGroup2, hatchTime, effortValue,
             baseStat, learnSetByLevelingUpList, learnSetByTechnicalMachineList, learnSetByBreedingList);
+    }
+
+    private Data.BaseStat parseBaseStat(Document document) {
+        Element baseStatSpan = document.selectFirst("#种族值");
+        Element baseStatTable = baseStatSpan.parent().nextElementSiblings().select("table").stream()
+            .filter(element -> element.hasClass("roundy"))
+            .findFirst()
+            .orElseThrow();
+
+        final int hp = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-HP]").select("div[style*='float:right']").text());
+        final int attack = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-攻击]").select("div[style*='float:right']").text());
+        final int defense = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-防御]").select("div[style*='float:right']").text());
+        final int spAttack = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-特攻]").select("div[style*='float:right']").text());
+        final int spDefense = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-特防]").select("div[style*='float:right']").text());
+        final int speed = Integer.parseInt(baseStatTable.selectFirst("tr[class=bgl-速度]").select("div[style*='float:right']").text());
+        final int total = hp + attack + defense + spAttack + spDefense + speed;
+        final float average = total / 6.0F;
+        return new Data.BaseStat(hp, attack, defense, spAttack, spDefense, speed, total, average);
     }
 
     private List<Data.LearnSetByLevelingUp> parseLearnSetByLevelingUpList(Document document) {

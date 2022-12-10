@@ -47,7 +47,7 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
 
     @Override
     public boolean saveData(List<NatureListSpider.Data> dataList) {
-        String sql = "INSERT INTO pw_nature(name_zh, name_ja, name_en, increased_stat, decreased_stat, favorite_flavor, disliked_flavor) " +
+        String sql = "INSERT INTO t_nature(name_zh, name_ja, name_en, increased_stat, decreased_stat, favorite_flavor, disliked_flavor) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
@@ -65,7 +65,7 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
             connection.commit();
             return true;
         } catch (SQLException e) {
-            logger.error("insert into pw_nature error", e);
+            logger.error("insert into t_nature error", e);
             return false;
         }
     }
