@@ -26,6 +26,4 @@ public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, I
     @Query("SELECT * FROM t_pokemon WHERE idx = :index")
     List<Pokemon> findByIndex(@Param("index") Integer index);
 
-    @Query("SELECT * FROM t_pokemon WHERE generation = :generation")
-    List<Pokemon> findByGeneration(@Param("generation") int generation);
 }

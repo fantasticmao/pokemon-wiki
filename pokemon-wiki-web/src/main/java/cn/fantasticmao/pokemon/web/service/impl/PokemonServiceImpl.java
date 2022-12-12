@@ -6,6 +6,7 @@ import cn.fantasticmao.pokemon.web.repoistory.*;
 import cn.fantasticmao.pokemon.web.service.PokemonService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
@@ -24,6 +25,8 @@ import java.util.stream.Collectors;
 public class PokemonServiceImpl implements PokemonService {
     @Resource
     private PokemonRepository pokemonRepository;
+    @Resource
+    private PokemonComplexRepository pokemonComplexRepository;
     @Resource
     private PokemonAbilityRepository pokemonAbilityRepository;
     @Resource
@@ -122,10 +125,10 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
                                                          int page, int size) {
-        // TODO pageable
-        List<Pokemon> pokemonList = generation == null
-            ? pokemonRepository.findAll()
-            : pokemonRepository.findByGeneration(generation);
+        Pageable pageable = page < 0
+            ? Pageable.unpaged()
+            : Pageable.ofSize(size).withPage(page);
+        List<Pokemon> pokemonList = pokemonComplexRepository.findByGeneration(generation, pageable);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return Collections.emptyList();
         }
