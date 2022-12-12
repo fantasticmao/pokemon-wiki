@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon (
   type2       TEXT    NOT NULL DEFAULT '',
   form        TEXT    NOT NULL DEFAULT '',
   generation  INTEGER NOT NULL DEFAULT 0,
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_pokemon_ability (
@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_ability (
   ability_hide TEXT    NOT NULL DEFAULT '',
   form         TEXT    NOT NULL DEFAULT '',
   generation   INTEGER NOT NULL DEFAULT 0,
-  create_time  TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time  TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_ability (
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS t_ability (
   name_en     TEXT    NOT NULL DEFAULT '',
   effect      TEXT    NOT NULL DEFAULT '',
   generation  INTEGER NOT NULL DEFAULT 0,
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_nature (
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS t_nature (
   decreased_stat  TEXT NOT NULL DEFAULT '',
   favorite_flavor TEXT NOT NULL DEFAULT '',
   disliked_flavor TEXT NOT NULL DEFAULT '',
-  create_time     TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time     TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time     TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time     TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_move (
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS t_move (
   accuracy    TEXT    NOT NULL DEFAULT '',
   pp          TEXT    NOT NULL DEFAULT '',
   generation  INTEGER NOT NULL DEFAULT 0,
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_item (
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS t_item (
   name_en     TEXT    NOT NULL DEFAULT '',
   desc        TEXT    NOT NULL DEFAULT '',
   generation  INTEGER NOT NULL DEFAULT 0,
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_pokemon_detail (
@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail (
   egg_group2   TEXT    NOT NULL DEFAULT '',
   hatch_time   TEXT    NOT NULL DEFAULT '',
   effort_value TEXT    NOT NULL DEFAULT '',
-  create_time  TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time  TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_base_stat (
@@ -110,8 +110,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_base_stat (
   speed       INTEGER NOT NULL DEFAULT 0,
   total       INTEGER NOT NULL DEFAULT 0,
   average     REAL    NOT NULL DEFAULT 0,
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_leveling_up (
@@ -124,8 +124,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_leveling_up (
   power       TEXT    NOT NULL DEFAULT '',
   accuracy    TEXT    NOT NULL DEFAULT '',
   pp          TEXT    NOT NULL DEFAULT '',
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_technical_machine (
@@ -139,8 +139,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_technical_machine (
   power             TEXT    NOT NULL DEFAULT '',
   accuracy          TEXT    NOT NULL DEFAULT '',
   pp                TEXT    NOT NULL DEFAULT '',
-  create_time       TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time       TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time       TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time       TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_breeding (
@@ -153,8 +153,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_breeding (
   power       TEXT    NOT NULL DEFAULT '',
   accuracy    TEXT    NOT NULL DEFAULT '',
   pp          TEXT    NOT NULL DEFAULT '',
-  create_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT    NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_ability_detail (
@@ -163,8 +163,8 @@ CREATE TABLE IF NOT EXISTS t_ability_detail (
   desc        TEXT NOT NULL DEFAULT '',
   effect      TEXT NOT NULL DEFAULT '',
   pokemons    TEXT NOT NULL DEFAULT '',
-  create_time TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS t_move_detail (
@@ -175,6 +175,6 @@ CREATE TABLE IF NOT EXISTS t_move_detail (
   notes       TEXT NOT NULL DEFAULT '',
   scope       TEXT NOT NULL DEFAULT '',
   effect      TEXT NOT NULL DEFAULT '',
-  create_time TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now')),
-  update_time TEXT NOT NULL DEFAULT (STRFTIME('%Y-%m-%dT%H:%M:%S', 'now'))
+  create_time TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_time TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
