@@ -17,5 +17,5 @@ public interface PokemonService {
                                           @Nullable String form);
 
     List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
-                                                  int page, int size);
+                                                  @Nullable Integer page, int size);
 }

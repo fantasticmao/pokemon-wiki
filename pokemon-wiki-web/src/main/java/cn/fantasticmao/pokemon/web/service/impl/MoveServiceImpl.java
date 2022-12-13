@@ -59,7 +59,7 @@ public class MoveServiceImpl implements MoveService {
         if (page < 0 || size < 1) {
             return Collections.emptyList();
         }
-        List<Move> moveList = moveRepository.find(PageUtil.offset(page, size), PageUtil.limit(size));
+        List<Move> moveList = moveRepository.find(PageUtil.limit(size), PageUtil.offset(page, size));
         return moveList.stream()
             .map(move -> MoveBean.ofDomain(move, null))
             .collect(Collectors.toList());

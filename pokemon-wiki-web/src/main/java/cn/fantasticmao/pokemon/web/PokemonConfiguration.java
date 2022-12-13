@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.relational.core.dialect.Dialect;
-import org.springframework.data.relational.core.dialect.RenderContextFactory;
-import org.springframework.data.relational.core.sql.render.SqlRenderer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
@@ -27,12 +24,6 @@ public class PokemonConfiguration implements WebMvcConfigurer {
         return DataSourceBuilder.create()
             .url("jdbc:sqlite:" + databaseFile)
             .build();
-    }
-
-    @Bean
-    public SqlRenderer sqlRenderer(Dialect dialect) {
-        RenderContextFactory factory = new RenderContextFactory(dialect);
-        return SqlRenderer.create(factory.createRenderContext());
     }
 
 }

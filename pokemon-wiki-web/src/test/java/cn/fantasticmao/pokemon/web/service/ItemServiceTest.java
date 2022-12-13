@@ -30,7 +30,7 @@ public class ItemServiceTest extends SpringTest {
     @Test
     public void listAll() {
         // FIXME page < 0
-        List<ItemBean> itemBeanList = itemService.list(-1, 50);
+        List<ItemBean> itemBeanList = itemService.list(null, 50);
         Assertions.assertNotNull(itemBeanList);
         Assertions.assertEquals(1342, itemBeanList.size());
     }

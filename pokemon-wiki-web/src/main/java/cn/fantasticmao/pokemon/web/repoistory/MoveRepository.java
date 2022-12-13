@@ -19,5 +19,5 @@ public interface MoveRepository extends PagingAndSortingRepository<Move, Integer
     List<Move> findByNameZh(@Param("nameZh") String nameZh);
 
     @Query("SELECT * FROM t_move LIMIT :limit OFFSET :offset")
-    List<Move> find(@Param("offset") int offset, @Param("limit") int limit);
+    List<Move> find(@Param("limit") int limit, @Param("offset") int offset);
 }

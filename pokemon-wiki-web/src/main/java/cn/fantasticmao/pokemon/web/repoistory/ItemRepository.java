@@ -24,6 +24,6 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Integer
     List<Item> findByNameZh(@Param("nameZh") String nameZh);
 
     @Query("SELECT * FROM t_item LIMIT :limit OFFSET :offset")
-    List<Item> find(@Param("offset") int offset, @Param("limit") int limit);
+    List<Item> find(@Param("limit") int limit, @Param("offset") int offset);
 
 }

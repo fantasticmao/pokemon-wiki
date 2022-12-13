@@ -3,6 +3,7 @@ package cn.fantasticmao.pokemon.web.service;
 import cn.fantasticmao.pokemon.web.bean.ItemBean;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -15,5 +16,5 @@ public interface ItemService {
 
     List<ItemBean> listByNameZh(@Nonnull String nameZh);
 
-    List<ItemBean> list(int page, int size);
+    List<ItemBean> list(@Nullable Integer page, int size);
 }

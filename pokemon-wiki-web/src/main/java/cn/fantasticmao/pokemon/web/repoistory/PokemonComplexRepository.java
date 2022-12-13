@@ -1,9 +1,7 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
 import cn.fantasticmao.pokemon.web.domain.Pokemon;
-import org.springframework.data.domain.Pageable;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -15,6 +13,7 @@ import java.util.List;
  */
 public interface PokemonComplexRepository {
 
-    List<Pokemon> findByGeneration(@Nullable Integer generation, @Nonnull Pageable pageable);
+    List<Pokemon> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+                                              @Nullable Integer page, int size);
 
 }

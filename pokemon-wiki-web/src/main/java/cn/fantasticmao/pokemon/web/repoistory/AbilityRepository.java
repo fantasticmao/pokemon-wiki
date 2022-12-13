@@ -19,5 +19,5 @@ public interface AbilityRepository extends PagingAndSortingRepository<Ability, I
     List<Ability> findByNameZh(@Param("nameZh") String nameZh);
 
     @Query("SELECT * FROM t_ability LIMIT :limit OFFSET :offset")
-    List<Ability> find(@Param("offset") int offset, @Param("limit") int limit);
+    List<Ability> find(@Param("limit") int limit, @Param("offset") int offset);
 }
