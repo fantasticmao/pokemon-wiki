@@ -12,6 +12,10 @@ CREATE TABLE IF NOT EXISTS t_pokemon (
   update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE INDEX idx_pokemon_index ON t_pokemon (idx);
+
+CREATE INDEX idx_pokemon_generation ON t_pokemon (generation);
+
 CREATE TABLE IF NOT EXISTS t_pokemon_ability (
   id           INTEGER PRIMARY KEY,
   idx          INTEGER NOT NULL DEFAULT 0,
@@ -26,6 +30,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_ability (
   create_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_pokemon_ability_index ON t_pokemon_ability (idx);
 
 CREATE TABLE IF NOT EXISTS t_ability (
   id          INTEGER PRIMARY KEY,
@@ -99,6 +105,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail (
   update_time  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE INDEX idx_pokemon_detail_index ON t_pokemon_detail (idx);
+
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_base_stat (
   id          INTEGER PRIMARY KEY,
   idx         INTEGER NOT NULL DEFAULT 0,
@@ -114,6 +122,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_base_stat (
   update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE INDEX idx_pokemon_detail_base_stat_index ON t_pokemon_detail_base_stat (idx);
+
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_leveling_up (
   id          INTEGER PRIMARY KEY,
   idx         INTEGER NOT NULL DEFAULT 0,
@@ -127,6 +137,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_leveling_up (
   create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_pokemon_detail_learn_set_by_leveling_up_index ON t_pokemon_detail_learn_set_by_leveling_up (idx);
 
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_technical_machine (
   id                INTEGER PRIMARY KEY,
@@ -143,6 +155,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_technical_machine (
   update_time       TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE INDEX idx_pokemon_detail_learn_set_by_technical_machine_index ON t_pokemon_detail_learn_set_by_technical_machine (idx);
+
 CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_breeding (
   id          INTEGER PRIMARY KEY,
   idx         INTEGER NOT NULL DEFAULT 0,
@@ -156,6 +170,8 @@ CREATE TABLE IF NOT EXISTS t_pokemon_detail_learn_set_by_breeding (
   create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_pokemon_detail_learn_set_by_breeding_index ON t_pokemon_detail_learn_set_by_breeding (idx);
 
 CREATE TABLE IF NOT EXISTS t_ability_detail (
   id          INTEGER PRIMARY KEY,
