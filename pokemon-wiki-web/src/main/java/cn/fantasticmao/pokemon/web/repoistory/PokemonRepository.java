@@ -5,7 +5,6 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -14,11 +13,8 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/7/29
  */
-public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, Integer> {
-
-    @Nonnull
-    @Query("SELECT * FROM t_pokemon")
-    List<Pokemon> findAll();
+public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, Integer>,
+    PokemonDynamicQueryRepository {
 
     @Query("SELECT * FROM t_pokemon WHERE name_zh LIKE '%' || :nameZh || '%'")
     List<Pokemon> findByNameZh(@Param("nameZh") String nameZh);

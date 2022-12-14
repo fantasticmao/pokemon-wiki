@@ -25,8 +25,6 @@ public class PokemonServiceImpl implements PokemonService {
     @Resource
     private PokemonRepository pokemonRepository;
     @Resource
-    private PokemonComplexRepository pokemonComplexRepository;
-    @Resource
     private PokemonAbilityRepository pokemonAbilityRepository;
     @Resource
     private PokemonDetailBaseStatRepository pokemonDetailBaseStatRepository;
@@ -124,7 +122,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
                                                          @Nullable Integer page, int size) {
-        List<Pokemon> pokemonList = pokemonComplexRepository.listByGenerationAndEggGroup(generation, eggGroup, page, size);
+        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(generation, eggGroup, page, size);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return Collections.emptyList();
         }
