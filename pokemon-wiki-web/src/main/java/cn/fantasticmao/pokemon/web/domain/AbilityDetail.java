@@ -3,8 +3,8 @@ package cn.fantasticmao.pokemon.web.domain;
 import cn.fantasticmao.mundo.data.jdbc.AbstractDomain;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 /**
  * AbilityDetail
@@ -14,11 +14,9 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@Entity
-@Table(name = "pw_ability_detail")
+@Table("t_ability_detail")
 public class AbilityDetail extends AbstractDomain<Integer> {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nameZh;
     private String desc;

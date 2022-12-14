@@ -48,13 +48,13 @@ public class PokemonController {
      *
      * @param generation 宝可梦的世代
      * @param eggGroup   蛋组
-     * @param page       页数，默认 -1，表示获取全量数据
+     * @param page       页数
      * @param size       页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemon(@RequestParam(required = false) Integer generation,
                                                                   @RequestParam(required = false) String eggGroup,
-                                                                  @RequestParam(defaultValue = "-1") Integer page,
+                                                                  @RequestParam(required = false) Integer page,
                                                                   @RequestParam(defaultValue = "50") Integer size) {
         List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(generation, eggGroup, page, size);
         return JsonApi.ok(pokemonBeanList).toResponseEntity();

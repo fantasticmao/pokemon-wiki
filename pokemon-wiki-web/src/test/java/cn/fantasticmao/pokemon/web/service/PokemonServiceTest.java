@@ -20,7 +20,7 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByIndex() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(1, "", null);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(1, null, null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(1, pokemonBeanList.size());
         super.assertBulbasaur(pokemonBeanList.get(0));
@@ -28,7 +28,7 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByNameZh() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "妙蛙", null);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(null, "妙蛙", null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(3, pokemonBeanList.size());
         super.assertBulbasaur(pokemonBeanList.get(0));
@@ -36,18 +36,18 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByNameZhWithForm() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "小拉达", null);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(null, "小拉达", null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(2, pokemonBeanList.size());
 
-        pokemonBeanList = pokemonService.listByIndexOrNameZh(0, "小拉达", "阿罗拉的样子");
+        pokemonBeanList = pokemonService.listByIndexOrNameZh(null, "小拉达", "阿罗拉的样子");
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(1, pokemonBeanList.size());
     }
 
     @Test
     public void listByGeneration() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "", 0, 20);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, null, null, 50);
         Assertions.assertNotNull(pokemonBeanList);
 
         Integer maxIndex = pokemonBeanList.stream()
@@ -58,7 +58,21 @@ public class PokemonServiceTest extends SpringTest {
     }
 
     @Test
+    public void findByEggGroup() {
+        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(null, "百变怪", null, 50);
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(1, pokemonBeanList.size());
+    }
+
+    @Test
     public void listByGenerationAndEggGroup() {
+        List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "龙", null, 50);
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(12, pokemonBeanList.size());
+    }
+
+    @Test
+    public void listByGenerationAndEggGroupWithPage() {
         List<PokemonBean> pokemonBeanList = pokemonService.listByGenerationAndEggGroup(1, "龙", 0, 20);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(12, pokemonBeanList.size());

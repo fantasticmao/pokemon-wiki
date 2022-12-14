@@ -44,11 +44,11 @@ public class ItemController {
     /**
      * 道具列表接口
      *
-     * @param page 页数，默认 -1，表示获取全量数据
+     * @param page 页数
      * @param size 页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<ItemBean>>> listItem(@RequestParam(defaultValue = "-1") Integer page,
+    public ResponseEntity<JsonApi<List<ItemBean>>> listItem(@RequestParam(required = false) Integer page,
                                                             @RequestParam(defaultValue = "50") Integer size) {
         List<ItemBean> itemList = itemService.list(page, size);
         return JsonApi.ok(itemList).toResponseEntity();

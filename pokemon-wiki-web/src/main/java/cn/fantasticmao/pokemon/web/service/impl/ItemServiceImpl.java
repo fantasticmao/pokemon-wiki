@@ -8,6 +8,7 @@ import cn.fantasticmao.pokemon.web.service.ItemService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
@@ -33,14 +34,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemBean> list(int page, int size) {
+    public List<ItemBean> list(@Nullable Integer page, int size) {
         if (size < 1) {
             return Collections.emptyList();
         }
         // FIXME page < 0
-        List<Item> itemList = page < 0
+        List<Item> itemList = page == null || page < 0
             ? itemRepository.findAll()
-            : itemRepository.find(PageUtil.offset(page, size), PageUtil.limit(size));
+            : itemRepository.find(PageUtil.limit(size), PageUtil.offset(page, size));
         return itemList.stream()
             .map(ItemBean::ofDomain)
             .collect(Collectors.toList());

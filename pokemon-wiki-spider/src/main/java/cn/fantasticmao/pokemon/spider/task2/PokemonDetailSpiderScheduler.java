@@ -24,7 +24,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
     @Override
     protected Map<Integer/* 宝可梦全国图鉴编号 */, String/* 宝可梦中文名称 */> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
-        final String sql = "SELECT idx, name_zh FROM pw_pokemon";
+        final String sql = "SELECT idx, name_zh FROM t_pokemon";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql);
              ResultSet resultSet = prep.executeQuery()) {
@@ -34,7 +34,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                 dataMap.put(index, name);
             }
         } catch (SQLException e) {
-            logger.error("select from pw_pokemon error", e);
+            logger.error("select from t_pokemon error", e);
         }
         return Collections.unmodifiableMap(dataMap);
     }
@@ -46,15 +46,15 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
 
         final int batchSize = 100;
         // 2. 批量保存
-        final String sqlPokemonDetail = "INSERT INTO pw_pokemon_detail(idx, img_url, type, category, ability, height, weight, body_style, catch_rate, gender_ratio, egg_group1, egg_group2, hatch_time, effort_value) " +
+        final String sqlPokemonDetail = "INSERT INTO t_pokemon_detail(idx, img_url, type, category, ability, height, weight, body_style, catch_rate, gender_ratio, egg_group1, egg_group2, hatch_time, effort_value) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        final String sqlPokemonDetailBaseStat = "INSERT INTO pw_pokemon_detail_base_stat(idx, hp, attack, defense, sp_attack, sp_defense, speed, total, average) " +
+        final String sqlPokemonDetailBaseStat = "INSERT INTO t_pokemon_detail_base_stat(idx, hp, attack, defense, sp_attack, sp_defense, speed, total, average) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        final String sqlPokemonDetailLearnSetByLevelingUp = "INSERT INTO pw_pokemon_detail_learn_set_by_leveling_up(idx, level, move, type, category, power, accuracy, pp) " +
+        final String sqlPokemonDetailLearnSetByLevelingUp = "INSERT INTO t_pokemon_detail_learn_set_by_leveling_up(idx, level, move, type, category, power, accuracy, pp) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        final String sqlPokemonDetailLearnSetByTechnicalMachine = "INSERT INTO pw_pokemon_detail_learn_set_by_technical_machine(idx, img_url, technical_machine, move, type, category, power, accuracy, pp) " +
+        final String sqlPokemonDetailLearnSetByTechnicalMachine = "INSERT INTO t_pokemon_detail_learn_set_by_technical_machine(idx, img_url, technical_machine, move, type, category, power, accuracy, pp) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        final String sqlPokemonDetailLearnSetByBreeding = "INSERT INTO pw_pokemon_detail_learn_set_by_breeding(idx, parent, move, type, category, power, accuracy, pp) " +
+        final String sqlPokemonDetailLearnSetByBreeding = "INSERT INTO t_pokemon_detail_learn_set_by_breeding(idx, parent, move, type, category, power, accuracy, pp) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prepPokemonDetail = connection.prepareStatement(sqlPokemonDetail);
@@ -148,7 +148,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                 }
             }
         } catch (SQLException e) {
-            logger.error("insert into pw_pokemon_detail error", e);
+            logger.error("insert into t_pokemon_detail error", e);
             return false;
         }
     }
@@ -156,7 +156,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
     @Override
     public void start() throws InterruptedException {
         try {
-            logger.info("loading data index from pw_pokemon...");
+            logger.info("loading data index from t_pokemon...");
             final Map<Integer/* 宝可梦全国图鉴编号 */, String/* 宝可梦中文名称 */> dataIndex = this.getDataIndex();
 
             CompletionService<PokemonDetailSpider.Data> completionService = new ExecutorCompletionService<>(super.executorService);
@@ -174,7 +174,7 @@ public class PokemonDetailSpiderScheduler extends AbstractTask2SpiderScheduler<P
                 }
             }
 
-            logger.info("saving data list into pw_move_detail...");
+            logger.info("saving data list into t_move_detail...");
             final boolean result = this.saveDataList(dataList);
             logger.info("{} execute {}", this.getClass().getName(), result ? "success" : "failure");
         } catch (ExecutionException e) {

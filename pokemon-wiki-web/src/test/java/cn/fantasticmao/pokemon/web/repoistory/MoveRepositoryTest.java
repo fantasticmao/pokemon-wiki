@@ -39,7 +39,7 @@ public class MoveRepositoryTest extends SpringTest {
 
     @Test
     public void find() {
-        List<Move> moveList = moveRepository.find(0, 20);
+        List<Move> moveList = moveRepository.find(20, 0);
         Assertions.assertNotNull(moveList);
         Assertions.assertEquals(20, moveList.size());
     }

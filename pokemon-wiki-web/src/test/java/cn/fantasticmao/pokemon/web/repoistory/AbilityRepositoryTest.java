@@ -35,7 +35,7 @@ public class AbilityRepositoryTest extends SpringTest {
 
     @Test
     public void find() {
-        List<Ability> abilityList = abilityRepository.find(0, 20);
+        List<Ability> abilityList = abilityRepository.find(20, 0);
         Assertions.assertNotNull(abilityList);
         Assertions.assertEquals(20, abilityList.size());
     }

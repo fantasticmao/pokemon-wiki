@@ -25,7 +25,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
     @Override
     protected Map<Integer, String> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
-        final String sql = "SELECT id, name_zh FROM pw_ability";
+        final String sql = "SELECT id, name_zh FROM t_ability";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql);
              ResultSet resultSet = prep.executeQuery()) {
@@ -35,7 +35,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
                 dataMap.put(id, name);
             }
         } catch (SQLException e) {
-            logger.error("select from pw_ability error", e);
+            logger.error("select from t_ability error", e);
         }
         return Collections.unmodifiableMap(dataMap);
     }
@@ -46,7 +46,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
         dataList.sort(Comparator.comparingInt(AbilityDetailSpider.Data::getId));
 
         // 2. 保存数据
-        final String sql = "INSERT INTO pw_ability_detail(name_zh, desc, effect, pokemons) " +
+        final String sql = "INSERT INTO t_ability_detail(name_zh, desc, effect, pokemons) " +
             "VALUES (?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
@@ -61,7 +61,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
             connection.commit();
             return true;
         } catch (SQLException e) {
-            logger.error("insert into pw_ability_detail error", e);
+            logger.error("insert into t_ability_detail error", e);
             return false;
         }
     }
@@ -69,7 +69,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
     @Override
     public void start() throws InterruptedException {
         try {
-            logger.info("loading data index from pw_ability...");
+            logger.info("loading data index from t_ability...");
             final Map<Integer, String> dataIndex = this.getDataIndex();
 
             // 1. 提交爬虫任任务
@@ -89,7 +89,7 @@ public class AbilityDetailSpiderScheduler extends AbstractTask2SpiderScheduler<A
                 }
             }
 
-            logger.info("saving data list into pw_ability_detail...");
+            logger.info("saving data list into t_ability_detail...");
             final boolean result = this.saveDataList(dataList);
             logger.info("{} execute {}", this.getClass().getName(), result ? "success" : "failure");
         } catch (ExecutionException e) {

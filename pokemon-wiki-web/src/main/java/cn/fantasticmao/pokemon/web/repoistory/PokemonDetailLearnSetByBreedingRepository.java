@@ -1,8 +1,9 @@
 package cn.fantasticmao.pokemon.web.repoistory;
 
-import cn.fantasticmao.mundo.data.jdbc.NativeQuery;
 import cn.fantasticmao.pokemon.web.domain.PokemonDetailLearnSetByBreeding;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,6 +16,6 @@ import java.util.List;
  */
 public interface PokemonDetailLearnSetByBreedingRepository extends PagingAndSortingRepository<PokemonDetailLearnSetByBreeding, Integer> {
 
-    @NativeQuery("SELECT * FROM pw_pokemon_detail_learn_set_by_breeding WHERE idx IN ?1")
-    List<PokemonDetailLearnSetByBreeding> findByIndexIn(Collection<Integer> ids);
+    @Query("SELECT * FROM t_pokemon_detail_learn_set_by_breeding WHERE idx IN (:ids)")
+    List<PokemonDetailLearnSetByBreeding> findByIndexIn(@Param("ids") Collection<Integer> ids);
 }

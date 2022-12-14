@@ -1,5 +1,12 @@
 # Changelog
 
+## 2022-12-14
+
+- 升级 `cn.fantasticmao.mundo:mundo-all:1.0.10`
+- 替换 `Spring Data JPA` 为 `Spring Data JDBC`
+- 更新 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db)
+- 更新接口模块，支持「宝可梦列表接口」的 `page` 和 `size` 参数
+
 ## 2022-12-05
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.8`

@@ -24,7 +24,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
     @Override
     protected Map<Integer, String> getDataIndex() {
         final TreeMap<Integer, String> dataMap = new TreeMap<>();
-        final String sql = "SELECT id, name_zh FROM pw_move";
+        final String sql = "SELECT id, name_zh FROM t_move";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql);
              ResultSet resultSet = prep.executeQuery()) {
@@ -34,7 +34,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
                 dataMap.put(id, name);
             }
         } catch (SQLException e) {
-            logger.error("select from pw_move error", e);
+            logger.error("select from t_move error", e);
         }
         return Collections.unmodifiableMap(dataMap);
     }
@@ -46,7 +46,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
 
         // 2. 批量保存
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_move_detail(name_zh, desc, img_url, notes, scope, effect) " +
+        final String sql = "INSERT INTO t_move_detail(name_zh, desc, img_url, notes, scope, effect) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
@@ -69,7 +69,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
                 }
             }
         } catch (SQLException e) {
-            logger.error("insert into pw_move_detail", e);
+            logger.error("insert into t_move_detail", e);
             return false;
         }
     }
@@ -77,7 +77,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
     @Override
     public void start() throws InterruptedException {
         try {
-            logger.info("loading data index from pw_move...");
+            logger.info("loading data index from t_move...");
             final Map<Integer, String> dataIndex = this.getDataIndex();
 
             // 1. 提交爬虫任任务
@@ -97,7 +97,7 @@ public class MoveDetailSpiderScheduler extends AbstractTask2SpiderScheduler<Move
                 }
             }
 
-            logger.info("saving data list into pw_move_detail...");
+            logger.info("saving data list into t_move_detail...");
             final boolean result = this.saveDataList(dataList);
             logger.info("{} execute {}", this.getClass().getName(), result ? "success" : "failure");
         } catch (ExecutionException e) {

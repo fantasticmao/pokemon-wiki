@@ -48,7 +48,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
     @Override
     public boolean saveData(List<MoveListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO pw_move(name_zh, name_ja, name_en, type, category, power, accuracy, pp, generation) " +
+        final String sql = "INSERT INTO t_move(name_zh, name_ja, name_en, type, category, power, accuracy, pp, generation) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
@@ -74,7 +74,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                 }
             }
         } catch (SQLException e) {
-            logger.error("insert into pw_move error", e);
+            logger.error("insert into t_move error", e);
             return false;
         }
     }

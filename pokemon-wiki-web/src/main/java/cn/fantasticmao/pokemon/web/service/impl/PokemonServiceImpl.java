@@ -25,6 +25,8 @@ public class PokemonServiceImpl implements PokemonService {
     @Resource
     private PokemonRepository pokemonRepository;
     @Resource
+    private PokemonComplexRepository pokemonComplexRepository;
+    @Resource
     private PokemonAbilityRepository pokemonAbilityRepository;
     @Resource
     private PokemonDetailBaseStatRepository pokemonDetailBaseStatRepository;
@@ -121,11 +123,8 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
-                                                         int page, int size) {
-        // TODO pageable
-        List<Pokemon> pokemonList = generation == null
-            ? pokemonRepository.findAll()
-            : pokemonRepository.findByGeneration(generation);
+                                                         @Nullable Integer page, int size) {
+        List<Pokemon> pokemonList = pokemonComplexRepository.listByGenerationAndEggGroup(generation, eggGroup, page, size);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return Collections.emptyList();
         }
@@ -141,23 +140,7 @@ public class PokemonServiceImpl implements PokemonService {
                 (ability1, ability2) -> ability1)
             );
 
-        Map<Integer, PokemonDetail> pokemonDetailMap = pokemonDetailRepository.findByIndexIn(pokemonIndexSet).stream()
-            .collect(Collectors.toMap(
-                PokemonDetail::getIdx,
-                Function.identity(),
-                (ability1, ability2) -> ability1)
-            );
-
         return pokemonList.stream()
-            .filter(pokemon -> {
-                PokemonDetail pokemonDetail = pokemonDetailMap.get(pokemon.getIdx());
-                if (pokemonDetail == null) {
-                    return false;
-                }
-                return StringUtils.isEmpty(eggGroup)
-                    || Objects.equals(eggGroup, pokemonDetail.getEggGroup1())
-                    || Objects.equals(eggGroup, pokemonDetail.getEggGroup2());
-            })
             .filter(pokemon ->
                 pokemonAbilityMap.containsKey(pokemon.getIdx() + pokemon.getForm())
             )
