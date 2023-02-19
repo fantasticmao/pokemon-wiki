@@ -20,7 +20,16 @@ public class ItemServiceTest extends SpringTest {
 
     @Test
     public void listByNameZh() {
-        List<ItemBean> itemBeanList = itemService.listByNameZh("除虫喷雾");
+        List<ItemBean> itemBeanList = itemService.listByName("除虫喷雾", null);
+        Assertions.assertNotNull(itemBeanList);
+
+        ItemBean repel = itemBeanList.get(0);
+        super.assertRepel(repel);
+    }
+
+    @Test
+    public void listByNameEn() {
+        List<ItemBean> itemBeanList = itemService.listByName(null, "Repel");
         Assertions.assertNotNull(itemBeanList);
 
         ItemBean repel = itemBeanList.get(0);

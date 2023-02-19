@@ -20,7 +20,17 @@ public class AbilityServiceTest extends SpringTest {
 
     @Test
     public void listByNameZh() {
-        List<AbilityBean> abilityBeanList = abilityService.listByNameZh("恶臭");
+        List<AbilityBean> abilityBeanList = abilityService.listByName("恶臭", null);
+        Assertions.assertNotNull(abilityBeanList);
+        Assertions.assertEquals(1, abilityBeanList.size());
+
+        AbilityBean stench = abilityBeanList.get(0);
+        super.assertStench(stench);
+    }
+
+    @Test
+    public void listByNameEn() {
+        List<AbilityBean> abilityBeanList = abilityService.listByName(null, "Stench");
         Assertions.assertNotNull(abilityBeanList);
         Assertions.assertEquals(1, abilityBeanList.size());
 

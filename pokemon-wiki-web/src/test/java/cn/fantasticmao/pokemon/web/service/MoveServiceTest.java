@@ -20,7 +20,17 @@ public class MoveServiceTest extends SpringTest {
 
     @Test
     public void listByNameZh() {
-        List<MoveBean> moveBeanList = moveService.listByNameZh("拍击");
+        List<MoveBean> moveBeanList = moveService.listByName("拍击", null);
+        Assertions.assertNotNull(moveBeanList);
+        Assertions.assertEquals(1, moveBeanList.size());
+
+        MoveBean pound = moveBeanList.get(0);
+        super.assertPound(pound);
+    }
+
+    @Test
+    public void listByNameEn() {
+        List<MoveBean> moveBeanList = moveService.listByName(null, "Pound");
         Assertions.assertNotNull(moveBeanList);
         Assertions.assertEquals(1, moveBeanList.size());
 

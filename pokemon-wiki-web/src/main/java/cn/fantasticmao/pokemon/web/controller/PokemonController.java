@@ -29,17 +29,21 @@ public class PokemonController {
     /**
      * 宝可梦详情接口
      *
+     * @param index  全国图鉴编号
      * @param nameZh 宝可梦的中文名称，支持模糊查询
+     * @param nameEn 宝可梦的英文名称，支持模糊查询
+     * @param form   形态
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JsonApi<List<PokemonBean>>> listPokemonDetail(@RequestParam(required = false) Integer index,
                                                                         @RequestParam(required = false) String nameZh,
+                                                                        @RequestParam(required = false) String nameEn,
                                                                         @RequestParam(required = false) String form) {
-        if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
+        if ((index == null || index <= 0) && StringUtils.isAllEmpty(nameZh, nameEn)) {
             return ResponseEntity.badRequest().build();
         }
 
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(index, nameZh, form);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrName(index, nameZh, nameEn, form);
         return JsonApi.ok(pokemonBeanList).toResponseEntity();
     }
 

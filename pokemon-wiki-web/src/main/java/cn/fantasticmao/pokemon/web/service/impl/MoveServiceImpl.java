@@ -8,9 +8,10 @@ import cn.fantasticmao.pokemon.web.repoistory.MoveDetailRepository;
 import cn.fantasticmao.pokemon.web.repoistory.MoveRepository;
 import cn.fantasticmao.pokemon.web.service.MoveService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
@@ -33,8 +34,12 @@ public class MoveServiceImpl implements MoveService {
     private MoveDetailRepository moveDetailRepository;
 
     @Override
-    public List<MoveBean> listByNameZh(@Nonnull String nameZh) {
-        List<Move> moveList = moveRepository.findByNameZh(nameZh);
+    public List<MoveBean> listByName(@Nullable String nameZh, @Nullable String nameEn) {
+        if (StringUtils.isAllEmpty(nameZh, nameEn)) {
+            return Collections.emptyList();
+        }
+
+        List<Move> moveList = moveRepository.findByName(nameZh, nameEn);
         if (CollectionUtils.isEmpty(moveList)) {
             return Collections.emptyList();
         }

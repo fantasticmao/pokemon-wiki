@@ -8,9 +8,10 @@ import cn.fantasticmao.pokemon.web.repoistory.AbilityDetailRepository;
 import cn.fantasticmao.pokemon.web.repoistory.AbilityRepository;
 import cn.fantasticmao.pokemon.web.service.AbilityService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
@@ -33,8 +34,12 @@ public class AbilityServiceImpl implements AbilityService {
     private AbilityDetailRepository abilityDetailRepository;
 
     @Override
-    public List<AbilityBean> listByNameZh(@Nonnull String nameZh) {
-        List<Ability> abilityList = abilityRepository.findByNameZh(nameZh);
+    public List<AbilityBean> listByName(@Nullable String nameZh, @Nullable String nameEn) {
+        if (StringUtils.isAllEmpty(nameZh, nameEn)) {
+            return Collections.emptyList();
+        }
+
+        List<Ability> abilityList = abilityRepository.findByName(nameZh, nameEn);
         if (CollectionUtils.isEmpty(abilityList)) {
             return Collections.emptyList();
         }

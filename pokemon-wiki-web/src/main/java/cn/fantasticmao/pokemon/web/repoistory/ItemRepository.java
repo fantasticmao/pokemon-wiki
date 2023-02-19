@@ -14,14 +14,12 @@ import java.util.List;
  * @author fantasticmao
  * @since 2019-03-23
  */
-public interface ItemRepository extends PagingAndSortingRepository<Item, Integer> {
+public interface ItemRepository extends PagingAndSortingRepository<Item, Integer>,
+    ItemDynamicRepository {
 
     @Nonnull
     @Query("SELECT * FROM t_item")
     List<Item> findAll();
-
-    @Query("SELECT * FROM t_item WHERE name_zh LIKE '%' || :nameZh || '%'")
-    List<Item> findByNameZh(@Param("nameZh") String nameZh);
 
     @Query("SELECT * FROM t_item LIMIT :limit OFFSET :offset")
     List<Item> find(@Param("limit") int limit, @Param("offset") int offset);

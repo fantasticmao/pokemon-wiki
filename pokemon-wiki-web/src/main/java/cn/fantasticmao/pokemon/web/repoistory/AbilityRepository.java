@@ -13,10 +13,8 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/8/29
  */
-public interface AbilityRepository extends PagingAndSortingRepository<Ability, Integer> {
-
-    @Query("SELECT * FROM t_ability WHERE name_zh LIKE '%' || :nameZh || '%'")
-    List<Ability> findByNameZh(@Param("nameZh") String nameZh);
+public interface AbilityRepository extends PagingAndSortingRepository<Ability, Integer>,
+    AbilityDynamicRepository {
 
     @Query("SELECT * FROM t_ability LIMIT :limit OFFSET :offset")
     List<Ability> find(@Param("limit") int limit, @Param("offset") int offset);

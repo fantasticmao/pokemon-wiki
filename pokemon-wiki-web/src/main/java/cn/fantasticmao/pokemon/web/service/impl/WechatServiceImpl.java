@@ -45,7 +45,7 @@ public class WechatServiceImpl implements WechatService {
             return "未找到相关宝可梦";
         }
 
-        final List<Pokemon> pokemonList = pokemonRepository.findByNameZh(nameZh);
+        final List<Pokemon> pokemonList = pokemonRepository.findByNameAndForm(nameZh, null, null);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return "未找到相关宝可梦";
         }
@@ -62,10 +62,10 @@ public class WechatServiceImpl implements WechatService {
                     abilityJoin = "未知";
                     abilityHide = "未知";
                 } else {
-                    typeJoin = StringUtils.isNotBlank(pokemonAbility.getType2())
+                    typeJoin = StringUtils.isNotEmpty(pokemonAbility.getType2())
                         ? pokemonAbility.getType1() + "、" + pokemonAbility.getType2()
                         : pokemonAbility.getType1();
-                    abilityJoin = StringUtils.isNotBlank(pokemonAbility.getAbility2())
+                    abilityJoin = StringUtils.isNotEmpty(pokemonAbility.getAbility2())
                         ? pokemonAbility.getAbility1() + "、" + pokemonAbility.getAbility2()
                         : pokemonAbility.getAbility1();
                     abilityHide = pokemonAbility.getAbilityHide();

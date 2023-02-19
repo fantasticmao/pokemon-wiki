@@ -13,10 +13,8 @@ import java.util.List;
  * @author fantasticmao
  * @since 2018/8/5
  */
-public interface MoveRepository extends PagingAndSortingRepository<Move, Integer> {
-
-    @Query("SELECT * FROM t_move WHERE name_zh LIKE '%' || :nameZh || '%'")
-    List<Move> findByNameZh(@Param("nameZh") String nameZh);
+public interface MoveRepository extends PagingAndSortingRepository<Move, Integer>,
+    MoveDynamicRepository {
 
     @Query("SELECT * FROM t_move LIMIT :limit OFFSET :offset")
     List<Move> find(@Param("limit") int limit, @Param("offset") int offset);

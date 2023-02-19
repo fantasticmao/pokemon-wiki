@@ -37,7 +37,8 @@ public class MoveControllerTest extends SpringTest {
     @Test
     public void listMoveDetail_ok() throws Exception {
         final String nameZh = "拍击";
-        mvc.perform(MockMvcRequestBuilders.get("/move/detail?nameZh=" + nameZh))
+        final String nameEn = "Pound";
+        mvc.perform(MockMvcRequestBuilders.get("/move/detail?nameZh={nameZh}&nameEn={nameEn}", nameZh, nameEn))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
                 MockHttpServletResponse response = result.getResponse();

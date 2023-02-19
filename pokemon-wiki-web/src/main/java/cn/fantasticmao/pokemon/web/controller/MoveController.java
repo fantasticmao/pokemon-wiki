@@ -30,14 +30,16 @@ public class MoveController {
      * 招式详情接口
      *
      * @param nameZh 招式中文名称
+     * @param nameEn 招式英文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<MoveBean>>> listMoveDetail(@RequestParam String nameZh) {
-        if (StringUtils.isEmpty(nameZh)) {
+    public ResponseEntity<JsonApi<List<MoveBean>>> listMoveDetail(@RequestParam(required = false) String nameZh,
+                                                                  @RequestParam(required = false) String nameEn) {
+        if (StringUtils.isAllEmpty(nameZh, nameEn)) {
             return ResponseEntity.badRequest().build();
         }
 
-        List<MoveBean> moveBeanList = moveService.listByNameZh(nameZh);
+        List<MoveBean> moveBeanList = moveService.listByName(nameZh, nameEn);
         return JsonApi.ok(moveBeanList).toResponseEntity();
     }
 

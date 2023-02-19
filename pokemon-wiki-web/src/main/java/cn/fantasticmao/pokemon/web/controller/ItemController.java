@@ -30,14 +30,16 @@ public class ItemController {
      * 道具详情接口
      *
      * @param nameZh 道具中文名称
+     * @param nameEn 道具英文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<ItemBean>>> listItemDetail(@RequestParam String nameZh) {
-        if (StringUtils.isEmpty(nameZh)) {
+    public ResponseEntity<JsonApi<List<ItemBean>>> listItemDetail(@RequestParam(required = false) String nameZh,
+                                                                  @RequestParam(required = false) String nameEn) {
+        if (StringUtils.isAllEmpty(nameZh, nameEn)) {
             return ResponseEntity.badRequest().build();
         }
 
-        List<ItemBean> itemList = itemService.listByNameZh(nameZh);
+        List<ItemBean> itemList = itemService.listByName(nameZh, nameEn);
         return JsonApi.ok(itemList).toResponseEntity();
     }
 
