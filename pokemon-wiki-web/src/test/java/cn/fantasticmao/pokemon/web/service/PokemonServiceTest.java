@@ -20,7 +20,7 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByIndex() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(1, null, null);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrName(1, null, null, null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(1, pokemonBeanList.size());
         super.assertBulbasaur(pokemonBeanList.get(0));
@@ -28,7 +28,7 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByNameZh() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(null, "妙蛙", null);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrName(null, "妙蛙", null, null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(3, pokemonBeanList.size());
         super.assertBulbasaur(pokemonBeanList.get(0));
@@ -36,11 +36,30 @@ public class PokemonServiceTest extends SpringTest {
 
     @Test
     public void listByNameZhWithForm() {
-        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrNameZh(null, "小拉达", null);
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrName(null, "小拉达", null, null);
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(2, pokemonBeanList.size());
 
-        pokemonBeanList = pokemonService.listByIndexOrNameZh(null, "小拉达", "阿罗拉的样子");
+        pokemonBeanList = pokemonService.listByIndexOrName(null, "小拉达", null, "阿罗拉的样子");
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(1, pokemonBeanList.size());
+    }
+
+    @Test
+    public void listByNameEn() {
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrName(null, "妙蛙", "Bulba", null);
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(1, pokemonBeanList.size());
+        super.assertBulbasaur(pokemonBeanList.get(0));
+    }
+
+    @Test
+    public void listByNameEnWithForm() {
+        List<PokemonBean> pokemonBeanList = pokemonService.listByIndexOrName(null, "小拉达", "Rattata", null);
+        Assertions.assertNotNull(pokemonBeanList);
+        Assertions.assertEquals(2, pokemonBeanList.size());
+
+        pokemonBeanList = pokemonService.listByIndexOrName(null, "小拉达", "Rattata", "阿罗拉的样子");
         Assertions.assertNotNull(pokemonBeanList);
         Assertions.assertEquals(1, pokemonBeanList.size());
     }

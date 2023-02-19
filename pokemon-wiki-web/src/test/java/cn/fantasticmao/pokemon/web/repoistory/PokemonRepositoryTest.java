@@ -19,15 +19,8 @@ public class PokemonRepositoryTest extends SpringTest {
     private PokemonRepository pokemonRepository;
 
     @Test
-    public void findByNameZh() {
-        List<Pokemon> pokemonList = pokemonRepository.findByNameZh("妙蛙");
-        Assertions.assertNotNull(pokemonList);
-        Assertions.assertEquals(3, pokemonList.size());
-    }
-
-    @Test
     public void findByIndex() {
-        List<Pokemon> pokemonList = pokemonRepository.findByIndex(1);
+        List<Pokemon> pokemonList = pokemonRepository.findByIndexAndForm(1, null);
         Assertions.assertNotNull(pokemonList);
         Assertions.assertEquals(1, pokemonList.size());
 
@@ -43,8 +36,29 @@ public class PokemonRepositoryTest extends SpringTest {
     }
 
     @Test
+    public void findByNameZh() {
+        List<Pokemon> pokemonList = pokemonRepository.findByNameAndForm("妙蛙", null, null);
+        Assertions.assertNotNull(pokemonList);
+        Assertions.assertEquals(3, pokemonList.size());
+    }
+
+    @Test
+    public void findByNameEn() {
+        List<Pokemon> pokemonList = pokemonRepository.findByNameAndForm(null, "Bulba", null);
+        Assertions.assertNotNull(pokemonList);
+        Assertions.assertEquals(1, pokemonList.size());
+    }
+
+    @Test
+    public void findByName() {
+        List<Pokemon> pokemonList = pokemonRepository.findByNameAndForm("妙蛙", "Bulba", null);
+        Assertions.assertNotNull(pokemonList);
+        Assertions.assertEquals(1, pokemonList.size());
+    }
+
+    @Test
     public void findByGeneration() {
-        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(1, null, null, 50);
+        List<Pokemon> pokemonList = pokemonRepository.findByGenerationAndEggGroup(1, null, null, 50);
         Assertions.assertNotNull(pokemonList);
 
         Integer maxIndex = pokemonList.stream()
@@ -66,14 +80,14 @@ public class PokemonRepositoryTest extends SpringTest {
 
     @Test
     public void findByEggGroup() {
-        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(null, "百变怪", null, 50);
+        List<Pokemon> pokemonList = pokemonRepository.findByGenerationAndEggGroup(null, "百变怪", null, 50);
         Assertions.assertNotNull(pokemonList);
         Assertions.assertEquals(1, pokemonList.size());
     }
 
     @Test
     public void findAll() {
-        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(null, null, null, 50);
+        List<Pokemon> pokemonList = pokemonRepository.findByGenerationAndEggGroup(null, null, null, 50);
         Assertions.assertNotNull(pokemonList);
 
         Integer maxIndex = pokemonList.stream()
@@ -85,7 +99,7 @@ public class PokemonRepositoryTest extends SpringTest {
 
     @Test
     public void findByGenerationAndEggGroup() {
-        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(1, "龙", null, 50);
+        List<Pokemon> pokemonList = pokemonRepository.findByGenerationAndEggGroup(1, "龙", null, 50);
         Assertions.assertNotNull(pokemonList);
         Assertions.assertEquals(12, pokemonList.size());
     }
@@ -93,7 +107,7 @@ public class PokemonRepositoryTest extends SpringTest {
 
     @Test
     public void findByGenerationAndEggGroupWithPage() {
-        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(1, "龙", 0, 20);
+        List<Pokemon> pokemonList = pokemonRepository.findByGenerationAndEggGroup(1, "龙", 0, 20);
         Assertions.assertNotNull(pokemonList);
         Assertions.assertEquals(12, pokemonList.size());
     }

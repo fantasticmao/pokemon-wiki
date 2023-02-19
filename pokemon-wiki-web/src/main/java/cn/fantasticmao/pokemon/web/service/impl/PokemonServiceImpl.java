@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,18 +41,15 @@ public class PokemonServiceImpl implements PokemonService {
     private PokemonDetailLearnSetByBreedingRepository pokemonDetailLearnSetByBreedingRepository;
 
     @Override
-    public List<PokemonBean> listByIndexOrNameZh(@Nullable Integer index, @Nullable String nameZh,
-                                                 @Nullable String form) {
+    public List<PokemonBean> listByIndexOrName(@Nullable Integer index, @Nullable String nameZh,
+                                               @Nullable String nameEn, @Nullable String form) {
         if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
             return Collections.emptyList();
         }
 
-        final List<Pokemon> pokemonList = (index != null && index > 0
-            ? pokemonRepository.findByIndex(index) // 按全国图鉴编号查找
-            : pokemonRepository.findByNameZh(nameZh)) // 按中文名称查找
-            .stream()
-            .filter(pokemon -> StringUtils.isEmpty(form) || Objects.equals(form, pokemon.getForm()))
-            .collect(Collectors.toList());
+        final List<Pokemon> pokemonList = (index != null && index > 0)
+            ? pokemonRepository.findByIndexAndForm(index, form) // 按全国图鉴编号查找
+            : pokemonRepository.findByNameAndForm(nameZh, nameEn, form); // 按名称查找
 
         if (CollectionUtils.isEmpty(pokemonList)) {
             return Collections.emptyList();
@@ -122,7 +122,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
                                                          @Nullable Integer page, int size) {
-        List<Pokemon> pokemonList = pokemonRepository.listByGenerationAndEggGroup(generation, eggGroup, page, size);
+        List<Pokemon> pokemonList = pokemonRepository.findByGenerationAndEggGroup(generation, eggGroup, page, size);
         if (CollectionUtils.isEmpty(pokemonList)) {
             return Collections.emptyList();
         }
