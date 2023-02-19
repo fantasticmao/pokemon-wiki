@@ -2,7 +2,7 @@ package cn.fantasticmao.pokemon.web.repoistory.impl;
 
 import cn.fantasticmao.mundo.core.util.PageUtil;
 import cn.fantasticmao.pokemon.web.domain.Pokemon;
-import cn.fantasticmao.pokemon.web.repoistory.PokemonDynamicQueryRepository;
+import cn.fantasticmao.pokemon.web.repoistory.PokemonDynamicRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,12 +16,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * PokemonDynamicQueryRepositoryImpl
+ * PokemonDynamicRepositoryImpl
  *
  * @author fantasticmao
  * @since 2022-12-12
  */
-public class PokemonDynamicQueryRepositoryImpl implements PokemonDynamicQueryRepository {
+public class PokemonDynamicRepositoryImpl implements PokemonDynamicRepository {
     @Resource
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

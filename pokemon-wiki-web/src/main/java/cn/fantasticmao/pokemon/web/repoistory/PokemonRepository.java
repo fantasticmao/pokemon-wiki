@@ -10,6 +10,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @since 2018/7/29
  */
 public interface PokemonRepository extends PagingAndSortingRepository<Pokemon, Integer>,
-    PokemonDynamicQueryRepository {
+    PokemonDynamicRepository {
 
 }

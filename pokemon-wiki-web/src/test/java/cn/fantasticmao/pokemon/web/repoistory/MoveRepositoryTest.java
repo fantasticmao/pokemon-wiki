@@ -20,7 +20,26 @@ public class MoveRepositoryTest extends SpringTest {
 
     @Test
     public void findByNameZh() {
-        List<Move> moveList = moveRepository.findByNameZh("拍击");
+        List<Move> moveList = moveRepository.findByName("拍击", null);
+        Assertions.assertNotNull(moveList);
+        Assertions.assertEquals(1, moveList.size());
+
+        Move pound = moveList.get(0);
+        Assertions.assertEquals(1, pound.getId());
+        Assertions.assertEquals("拍击", pound.getNameZh());
+        Assertions.assertEquals("はたく", pound.getNameJa());
+        Assertions.assertEquals("Pound", pound.getNameEn());
+        Assertions.assertEquals("一般", pound.getType());
+        Assertions.assertEquals("物理", pound.getCategory());
+        Assertions.assertEquals("40", pound.getPower());
+        Assertions.assertEquals("100", pound.getAccuracy());
+        Assertions.assertEquals("35", pound.getPp());
+        Assertions.assertEquals(1, pound.getGeneration());
+    }
+
+    @Test
+    public void findByNameEn() {
+        List<Move> moveList = moveRepository.findByName(null, "Pound");
         Assertions.assertNotNull(moveList);
         Assertions.assertEquals(1, moveList.size());
 

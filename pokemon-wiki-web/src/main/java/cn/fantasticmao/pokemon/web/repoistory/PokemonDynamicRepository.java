@@ -7,12 +7,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * PokemonDynamicQueryRepository
+ * PokemonDynamicRepository
  *
  * @author fantasticmao
  * @since 2022-12-12
  */
-public interface PokemonDynamicQueryRepository {
+public interface PokemonDynamicRepository {
 
     List<Pokemon> findByIndexAndForm(@Nonnull Integer index, @Nullable String form);
 

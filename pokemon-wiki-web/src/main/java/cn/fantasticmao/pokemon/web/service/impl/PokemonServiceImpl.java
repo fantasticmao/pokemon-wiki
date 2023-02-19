@@ -43,7 +43,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<PokemonBean> listByIndexOrName(@Nullable Integer index, @Nullable String nameZh,
                                                @Nullable String nameEn, @Nullable String form) {
-        if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
+        if ((index == null || index <= 0) && StringUtils.isAllEmpty(nameZh, nameEn)) {
             return Collections.emptyList();
         }
 

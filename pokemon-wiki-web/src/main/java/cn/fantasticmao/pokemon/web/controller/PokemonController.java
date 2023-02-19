@@ -39,7 +39,7 @@ public class PokemonController {
                                                                         @RequestParam(required = false) String nameZh,
                                                                         @RequestParam(required = false) String nameEn,
                                                                         @RequestParam(required = false) String form) {
-        if ((index == null || index <= 0) && StringUtils.isEmpty(nameZh)) {
+        if ((index == null || index <= 0) && StringUtils.isAllEmpty(nameZh, nameEn)) {
             return ResponseEntity.badRequest().build();
         }
 
