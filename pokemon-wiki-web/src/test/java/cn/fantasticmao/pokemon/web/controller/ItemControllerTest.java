@@ -37,7 +37,8 @@ public class ItemControllerTest extends SpringTest {
     @Test
     public void listItemDetail_ok() throws Exception {
         final String nameZh = "除虫喷雾";
-        mvc.perform(MockMvcRequestBuilders.get("/item/detail?nameZh=" + nameZh))
+        final String nameEn = "Repel";
+        mvc.perform(MockMvcRequestBuilders.get("/item/detail?nameZh={nameZh}&nameEn={nameEn}", nameZh, nameEn))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
                 MockHttpServletResponse response = result.getResponse();
