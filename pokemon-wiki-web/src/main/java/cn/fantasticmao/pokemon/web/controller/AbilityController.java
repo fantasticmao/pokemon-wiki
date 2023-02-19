@@ -30,14 +30,16 @@ public class AbilityController {
      * 特性详情接口
      *
      * @param nameZh 特性中文名称
+     * @param nameEn 特性英文名称
      */
     @GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JsonApi<List<AbilityBean>>> listAbilityDetail(@RequestParam String nameZh) {
-        if (StringUtils.isEmpty(nameZh)) {
+    public ResponseEntity<JsonApi<List<AbilityBean>>> listAbilityDetail(@RequestParam(required = false) String nameZh,
+                                                                        @RequestParam(required = false) String nameEn) {
+        if (StringUtils.isAllEmpty(nameZh, nameEn)) {
             return ResponseEntity.badRequest().build();
         }
 
-        List<AbilityBean> abilityBeanList = abilityService.listByNameZh(nameZh);
+        List<AbilityBean> abilityBeanList = abilityService.listByName(nameZh, nameEn);
         return JsonApi.ok(abilityBeanList).toResponseEntity();
     }
 

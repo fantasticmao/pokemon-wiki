@@ -37,7 +37,8 @@ public class AbilityControllerTest extends SpringTest {
     @Test
     public void listAbilityDetail_ok() throws Exception {
         final String nameZh = "恶臭";
-        mvc.perform(MockMvcRequestBuilders.get("/ability/detail?nameZh=" + nameZh))
+        final String nameEn = "Stench";
+        mvc.perform(MockMvcRequestBuilders.get("/ability/detail?nameZh={nameZh}&nameEn={nameEn}", nameZh, nameEn))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
             .andDo(result -> {
                 MockHttpServletResponse response = result.getResponse();
