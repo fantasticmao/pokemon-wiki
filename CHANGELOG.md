@@ -1,5 +1,9 @@
 # Changelog
 
+## 2023-02-20
+
+- 更新接口模块，支持按英文名称搜索
+
 ## 2022-12-14
 
 - 升级 `cn.fantasticmao.mundo:mundo-all:1.0.10`
