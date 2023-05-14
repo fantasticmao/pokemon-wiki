@@ -48,8 +48,8 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
     @Override
     public boolean saveData(List<MoveListSpider.Data> dataList) {
         final int batchSize = 100;
-        final String sql = "INSERT INTO t_move(name_zh, name_ja, name_en, type, category, power, accuracy, pp, generation) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO t_move(name_zh, name_ja, name_en, type, category, power, accuracy, pp, desc, generation) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = PokemonDataSource.INSTANCE.getConnection();
              PreparedStatement prep = connection.prepareStatement(sql)) {
             MoveListSpider.Data tempData = null;
@@ -64,7 +64,8 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
                     prep.setString(6, ObjectUtils.defaultIfNull(tempData.getPower(), Constant.Strings.EMPTY));
                     prep.setString(7, ObjectUtils.defaultIfNull(tempData.getAccuracy(), Constant.Strings.EMPTY));
                     prep.setString(8, tempData.getPp());
-                    prep.setInt(9, tempData.getGeneration());
+                    prep.setString(9, tempData.getDesc());
+                    prep.setInt(10, tempData.getGeneration());
                     prep.addBatch();
                 }
                 prep.executeBatch();
@@ -89,10 +90,11 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         private final String power;
         private final String accuracy;
         private final String pp;
+        private final String desc;
         private final int generation;
 
         public Data(String nameZh, String nameJa, String nameEn, String type, String category, String power,
-                    String accuracy, String pp, int generation) {
+                    String accuracy, String pp, String desc, int generation) {
             this.nameZh = nameZh;
             this.nameJa = nameJa;
             this.nameEn = nameEn;
@@ -101,6 +103,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
             this.power = power;
             this.accuracy = accuracy;
             this.pp = pp;
+            this.desc = desc;
             this.generation = generation;
         }
     }
@@ -114,7 +117,8 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         String power = "—".equals(element.child(6).text()) ? null : element.child(6).text();
         String accuracy = "—".equals(element.child(7).text()) ? null : element.child(7).text();
         String pp = element.child(8).text();
-        return new Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, generation);
+        String desc = element.child(9).text();
+        return new Data(nameZh, nameJa, nameEn, type, category, power, accuracy, pp, desc, generation);
     };
 
     // 第一世代
@@ -162,6 +166,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-卡洛斯 > tbody > tr").stream()
             .filter(element -> element.child(0).children().size() == 0)
             .skip(1)
+            .filter(element -> element.hasAttr("data-type"))
             .map(element -> PARSER.apply(element, 6))
             .collect(Collectors.toList());
     }
@@ -171,6 +176,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-阿罗拉 > tbody > tr").stream()
             .filter(element -> element.child(0).children().size() == 0)
             .skip(1)
+            .filter(element -> element.hasAttr("data-type"))
             .map(element -> PARSER.apply(element, 7))
             .collect(Collectors.toList());
     }
@@ -180,6 +186,7 @@ public class MoveListSpider extends AbstractTask1Spider<MoveListSpider.Data> {
         return document.select(".bg-伽勒尔 > tbody > tr").stream()
             .filter(element -> element.child(0).children().size() == 0)
             .skip(1)
+            .filter(element -> element.hasAttr("data-type"))
             .map(element -> PARSER.apply(element, 8))
             .collect(Collectors.toList());
     }

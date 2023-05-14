@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS t_move (
   power       TEXT    NOT NULL DEFAULT '',
   accuracy    TEXT    NOT NULL DEFAULT '',
   pp          TEXT    NOT NULL DEFAULT '',
+  desc        TEXT    NOT NULL DEFAULT '',
   generation  INTEGER NOT NULL DEFAULT 0,
   create_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_time TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
