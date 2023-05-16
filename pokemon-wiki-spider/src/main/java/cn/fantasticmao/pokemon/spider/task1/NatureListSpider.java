@@ -10,7 +10,6 @@ import org.jsoup.nodes.Document;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
 
     @Override
     public List<NatureListSpider.Data> parseData(Document document) {
-        List<NatureListSpider.Data> dataList = document.selectFirst("#mw-content-text table").select("tbody > tr").stream()
+        return document.selectFirst("#mw-content-text table").select("tbody > tr").stream()
             .skip(1)
             .map(element -> {
                 String nameZh = element.child(0).text();
@@ -41,8 +40,7 @@ public class NatureListSpider extends AbstractTask1Spider<NatureListSpider.Data>
                 String dislikedFlavor = "—".equals(element.child(6).text()) ? null : element.child(6).text();
                 return new NatureListSpider.Data(nameZh, nameJa, nameEn, increasedStat, decreasedStat, favoriteFlavor, dislikedFlavor);
             })
-            .collect(Collectors.toList());
-        return Collections.unmodifiableList(dataList);
+            .collect(Collectors.toUnmodifiableList());
     }
 
     @Override

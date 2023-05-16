@@ -8,8 +8,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -266,10 +268,6 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     private List<Data.LearnSetByLevelingUp> parseLearnSetByLevelingUpList(Document document) {
         Element learnSetByLevelingUpSpan = document.selectFirst("#可学会的招式");
         if (learnSetByLevelingUpSpan == null) {
-            // 兼容 https://wiki.52poke.com/zh-hans/心鳞宝
-            learnSetByLevelingUpSpan = document.selectFirst("#升级招式");
-        }
-        if (learnSetByLevelingUpSpan == null) {
             return Collections.emptyList();
         }
 
@@ -298,7 +296,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
     private List<Data.LearnSetByTechnicalMachine> parseLearnSetByTechnicalMachineList(Document document) {
         Element learnSetByTechnicalMachineSpan = document.selectFirst("#能使用的招式学习器");
         if (learnSetByTechnicalMachineSpan == null) {
-            // 兼容 https://wiki.52poke.com/wiki/铝钢龙
+            // 兼容 https://wiki.52poke.com/zh-hans/铝钢龙
             learnSetByTechnicalMachineSpan = document.selectFirst("#能使用的招式学习器和招式记录");
         }
         if (learnSetByTechnicalMachineSpan == null) {
@@ -315,7 +313,7 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
             .map(element -> {
                 final String _imgUrl = element.selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
                 final String _technicalMachine = element.child(1).text();
-                final String _move = element.child(2).child(0).text();
+                final String _move = element.child(2).select("a").text();
                 final String _type = element.child(3).text();
                 final String _category = element.child(4).text();
                 final String _power = element.child(5).text();
@@ -334,11 +332,40 @@ class PokemonDetailSpider extends AbstractTask2Spider<PokemonDetailSpider.Data> 
         return learnSetByBreedingSpan.parent().nextElementSibling().select("> tbody > tr").stream()
             .filter(element -> element.hasClass("bgwhite"))
             .map(element -> {
-                // TODO 更新 S9 数据
-                final String _parent = element.child(0).select("a").stream()
-                    .map(e -> e.child(0).attr("title"))
+                final String _parent = element.child(0).select("> span, a").stream()
+                    .map(e -> {
+                        switch (e.tagName().toLowerCase()) {
+                            case "a": {
+                                if (e.hasClass("selflink")) {
+                                    // 自身
+                                    return nameZh;
+                                } else {
+                                    // 抛弃「模仿香草」，选择「模仿香草（道具）」
+                                    String title = e.attr("title");
+                                    return "模仿香草".equals(title) ? null : title;
+                                }
+                            }
+                            case "span": {
+                                if (e.hasAttr("data-msp")) {
+                                    // 解析「130\暴鲤龙,246\幼基拉斯,247\沙基拉斯」格式的数据
+                                    String msp = e.attr("data-msp");
+                                    return Arrays.stream(msp.split(Constant.Strings.COMMA))
+                                        .filter(s -> s.contains("\\"))
+                                        .map(s -> s.substring(s.indexOf("\\") + 1))
+                                        .collect(Collectors.joining(Constant.Strings.COMMA));
+                                } else {
+                                    logger.warn("parseLearnSetByBreedingList for {}, does not contains attr: \"data-msp\" in <span>", nameZh);
+                                    return null;
+                                }
+                            }
+                            default:
+                                logger.warn("parseLearnSetByBreedingList for {}, meets an unknown element: <{}>", nameZh, e.tagName());
+                                return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
                     .collect(Collectors.joining(Constant.Strings.COMMA));
-                final String _move = element.child(1).child(0).text();
+                final String _move = element.child(1).select("a").text();
                 final String _type = element.child(2).text();
                 final String _category = element.child(3).text();
                 final String _power = element.child(4).text();

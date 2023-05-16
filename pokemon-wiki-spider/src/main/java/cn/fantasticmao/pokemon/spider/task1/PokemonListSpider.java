@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -104,14 +105,19 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
     }
 
     private static final BiFunction<Element, Integer, Data> PARSER = (element, generation) -> {
-        int index = Integer.parseInt(element.child(0).text().replace("#", ""));
-        String nameZh = element.child(2).child(0).text();
-        Element smallElement = element.child(2).selectFirst("small");
+        int index;
+        try {
+            index = Integer.parseInt(element.child(0).text().replace("#", ""));
+        } catch (NumberFormatException ignored) {
+            return null;
+        }
+        String nameZh = element.child(3).child(0).text();
+        Element smallElement = element.child(3).selectFirst("small");
         String form = smallElement == null ? null : smallElement.text();
-        String nameJa = element.child(3).text();
-        String nameEn = element.child(4).text();
-        String type1 = element.child(5).text();
-        String type2 = element.child(6).hasClass("hide") ? null : element.child(6).text();
+        String nameJa = element.child(4).text();
+        String nameEn = element.child(5).text();
+        String type1 = element.child(6).text();
+        String type2 = element.child(7).hasClass("hide") ? null : element.child(7).text();
         return new Data(index, nameZh, nameJa, nameEn, type1, type2, form, generation);
     };
 
@@ -184,6 +190,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
         return document.select(".s-帕底亚 > tbody > tr").parallelStream()
             .skip(2)
             .map(element -> PARSER.apply(element, 9))
+            .filter(Objects::nonNull)
             .collect(Collectors.toList());
     }
 }
