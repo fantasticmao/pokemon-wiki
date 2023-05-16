@@ -117,7 +117,7 @@ public class PokemonListSpider extends AbstractTask1Spider<PokemonListSpider.Dat
         String nameJa = element.child(4).text();
         String nameEn = element.child(5).text();
         String type1 = element.child(6).text();
-        String type2 = element.child(7).hasClass("hide") ? null : element.child(6).text();
+        String type2 = element.child(7).hasClass("hide") ? null : element.child(7).text();
         return new Data(index, nameZh, nameJa, nameEn, type1, type2, form, generation);
     };
 

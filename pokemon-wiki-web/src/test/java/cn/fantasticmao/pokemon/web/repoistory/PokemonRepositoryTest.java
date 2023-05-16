@@ -94,7 +94,7 @@ public class PokemonRepositoryTest extends SpringTest {
             .map(Pokemon::getIdx)
             .max(Integer::compareTo)
             .orElse(0);
-        Assertions.assertEquals(1008, maxIndex);
+        Assertions.assertEquals(1010, maxIndex);
     }
 
     @Test
