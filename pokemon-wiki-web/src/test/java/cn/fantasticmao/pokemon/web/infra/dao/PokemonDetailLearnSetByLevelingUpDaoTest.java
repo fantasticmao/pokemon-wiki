@@ -1,7 +1,6 @@
-package cn.fantasticmao.pokemon.web.infra.repository;
+package cn.fantasticmao.pokemon.web.infra.dao;
 
 import cn.fantasticmao.pokemon.web.SpringTest;
-import cn.fantasticmao.pokemon.web.infra.dao.PokemonDetailLearnSetByLevelingUpDao;
 import cn.fantasticmao.pokemon.web.infra.model.PokemonDetailLearnSetByLevelingUpPo;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Assertions;

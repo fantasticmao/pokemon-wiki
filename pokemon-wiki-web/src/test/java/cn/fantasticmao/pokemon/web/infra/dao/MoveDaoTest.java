@@ -1,8 +1,7 @@
-package cn.fantasticmao.pokemon.web.infra.repository;
+package cn.fantasticmao.pokemon.web.infra.dao;
 
 import cn.fantasticmao.pokemon.web.SpringTest;
 import cn.fantasticmao.pokemon.web.infra.model.MovePo;
-import cn.fantasticmao.pokemon.web.infra.dao.MoveDao;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

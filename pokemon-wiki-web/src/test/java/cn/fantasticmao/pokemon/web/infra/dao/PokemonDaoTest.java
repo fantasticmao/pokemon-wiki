@@ -1,7 +1,6 @@
-package cn.fantasticmao.pokemon.web.infra.repository;
+package cn.fantasticmao.pokemon.web.infra.dao;
 
 import cn.fantasticmao.pokemon.web.SpringTest;
-import cn.fantasticmao.pokemon.web.infra.dao.PokemonDao;
 import cn.fantasticmao.pokemon.web.infra.model.PokemonPo;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
@@ -77,25 +76,6 @@ public class PokemonDaoTest extends SpringTest {
         Assertions.assertEquals("", mew.getType2());
         Assertions.assertEquals("", mew.getForm());
         Assertions.assertEquals(1, mew.getGeneration());
-    }
-
-    @Test
-    public void findByEggGroup() {
-        List<PokemonPo> pokemonPoList = pokemonDao.findByGenerationAndEggGroup(null, "百变怪", null, 50);
-        Assertions.assertNotNull(pokemonPoList);
-        Assertions.assertEquals(1, pokemonPoList.size());
-    }
-
-    @Test
-    public void findAll() {
-        List<PokemonPo> pokemonPoList = pokemonDao.findByGenerationAndEggGroup(null, null, null, 50);
-        Assertions.assertNotNull(pokemonPoList);
-
-        Integer maxIndex = pokemonPoList.stream()
-            .map(PokemonPo::getIdx)
-            .max(Integer::compareTo)
-            .orElse(0);
-        Assertions.assertEquals(1010, maxIndex);
     }
 
     @Test

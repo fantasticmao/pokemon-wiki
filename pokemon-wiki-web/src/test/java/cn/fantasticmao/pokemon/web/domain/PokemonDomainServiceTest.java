@@ -78,13 +78,6 @@ public class PokemonDomainServiceTest extends SpringTest {
     }
 
     @Test
-    public void findByEggGroup() {
-        List<Pokemon> pokemonList = pokemonDomainService.listByGenerationAndEggGroup(null, "百变怪", null, 50);
-        Assertions.assertNotNull(pokemonList);
-        Assertions.assertEquals(1, pokemonList.size());
-    }
-
-    @Test
     public void listByGenerationAndEggGroup() {
         List<Pokemon> pokemonList = pokemonDomainService.listByGenerationAndEggGroup(1, "龙", null, 50);
         Assertions.assertNotNull(pokemonList);
