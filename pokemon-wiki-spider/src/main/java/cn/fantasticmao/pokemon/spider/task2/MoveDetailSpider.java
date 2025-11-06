@@ -6,7 +6,6 @@ import lombok.Getter;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import javax.annotation.Nonnull;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -27,7 +26,7 @@ class MoveDetailSpider extends AbstractTask2Spider<MoveDetailSpider.Data> {
     }
 
     @Override
-    protected MoveDetailSpider.Data parseData(@Nonnull Document document) {
+    protected MoveDetailSpider.Data parseData(Document document) {
         try {
             return _parseData(document);
         } catch (RuntimeException e) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="OFF" strict="true"
-               xmlns="http://logging.apache.org/log4j/2.0/config"
+<Configuration xmlns="https://logging.apache.org/xml/ns"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="http://logging.apache.org/log4j/2.0/config
-               https://cdn.jsdelivr.net/gh/apache/logging-log4j2/log4j-core/src/main/resources/Log4j-config.xsd">
+               xsi:schemaLocation="
+                   https://logging.apache.org/xml/ns
+                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
     <Properties>
         <Property name="format">
             %date{yyyy-MM-dd HH:mm:ss.SSS} %highlight{[%level]} [%thread] %cyan{%logger{3}} - %msg%n

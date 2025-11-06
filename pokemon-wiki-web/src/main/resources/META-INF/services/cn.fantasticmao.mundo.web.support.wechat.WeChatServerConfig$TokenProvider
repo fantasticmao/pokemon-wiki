@@ -1,1 +1,1 @@
-cn.fantasticmao.pokemon.web.service.impl.WechatServiceImpl
+cn.fantasticmao.pokemon.web.domain.common.service.impl.WechatDomainServiceImpl

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>cn.fantasticmao.pokemon</groupId>
@@ -8,10 +9,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>pokemon-wiki-web</artifactId>
+    <artifactId>pokemonPo-wiki-web</artifactId>
     <packaging>jar</packaging>
 
-    <name>pokemon-wiki-web</name>
+    <name>pokemonPo-wiki-web</name>
     <description>Pokemon Wiki Web</description>
 
     <build>
@@ -22,8 +23,8 @@
             </plugin>
 
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
                 <configuration>
                     <offline>true</offline>
                     <useNativeGit>true</useNativeGit>
@@ -73,6 +74,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
