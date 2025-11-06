@@ -1,7 +1,7 @@
 package cn.fantasticmao.pokemon.web.infra.dao.impl;
 
-import cn.fantasticmao.pokemon.web.infra.model.MovePo;
 import cn.fantasticmao.pokemon.web.infra.dao.MoveDynamicDao;
+import cn.fantasticmao.pokemon.web.infra.model.MovePo;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -30,15 +30,16 @@ public class MoveDynamicDaoImpl implements MoveDynamicDao {
         }
 
         Map<String, Object> paramMap = new HashMap<>();
-        String sql = "SELECT * FROM t_move " +
-            "WHERE 1 = 1 ";
+        String sql = """
+            SELECT * FROM t_move
+            WHERE 1 = 1""";
         if (StringUtils.isNotEmpty(nameZh)) {
-            sql += "AND name_zh LIKE '%' || :nameZh || '%' ";
-            paramMap.put("nameZh", nameZh);
+            sql += " AND name_zh LIKE :nameZh";
+            paramMap.put("nameZh", "%" + nameZh + "%");
         }
         if (StringUtils.isNotEmpty(nameEn)) {
-            sql += "AND name_en LIKE '%' || :nameEn || '%' ";
-            paramMap.put("nameEn", nameEn);
+            sql += " AND name_en LIKE :nameEn";
+            paramMap.put("nameEn", "%" + nameEn + "%");
         }
         return namedParameterJdbcTemplate.query(sql, paramMap,
             new BeanPropertyRowMapper<>(MovePo.class));

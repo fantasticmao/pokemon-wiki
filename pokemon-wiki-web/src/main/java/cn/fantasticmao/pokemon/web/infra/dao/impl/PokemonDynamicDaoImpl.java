@@ -27,11 +27,12 @@ public class PokemonDynamicDaoImpl implements PokemonDynamicDao {
     @Override
     public List<PokemonPo> findByIndexAndForm(Integer index, @Nullable String form) {
         Map<String, Object> paramMap = new HashMap<>();
-        String sql = "SELECT * FROM t_pokemon " +
-            "WHERE idx = :index ";
+        String sql = """
+            SELECT * FROM t_pokemon
+            WHERE idx = :index""";
         paramMap.put("index", index);
         if (StringUtils.isNotEmpty(form)) {
-            sql += "AND form = :form";
+            sql += " AND form = :form";
             paramMap.put("form", form);
         }
         return namedParameterJdbcTemplate.query(sql, paramMap,
@@ -45,18 +46,19 @@ public class PokemonDynamicDaoImpl implements PokemonDynamicDao {
         }
 
         Map<String, Object> paramMap = new HashMap<>();
-        String sql = "SELECT * FROM t_pokemon " +
-            "WHERE 1 = 1 ";
+        String sql = """
+            SELECT * FROM t_pokemon
+            WHERE 1 = 1""";
         if (StringUtils.isNotEmpty(nameZh)) {
-            sql += "AND name_zh LIKE '%' || :nameZh || '%' ";
-            paramMap.put("nameZh", nameZh);
+            sql += " AND name_zh LIKE :nameZh";
+            paramMap.put("nameZh", "%" + nameZh + "%");
         }
         if (StringUtils.isNotEmpty(nameEn)) {
-            sql += "AND name_en LIKE '%' || :nameEn || '%' ";
-            paramMap.put("nameEn", nameEn);
+            sql += " AND name_en LIKE :nameEn";
+            paramMap.put("nameEn", "%" + nameEn + "%");
         }
         if (StringUtils.isNotEmpty(form)) {
-            sql += "AND form = :form";
+            sql += " AND form = :form";
             paramMap.put("form", form);
         }
         return namedParameterJdbcTemplate.query(sql, paramMap,
@@ -67,18 +69,19 @@ public class PokemonDynamicDaoImpl implements PokemonDynamicDao {
     public List<PokemonPo> findByGenerationAndEggGroup(Integer generation, @Nullable String eggGroup,
                                                        @Nullable Integer page, int size) {
         Map<String, Object> paramMap = new HashMap<>();
-        String sql = "SELECT t_pokemon.* " +
-            "FROM t_pokemon " +
-            "LEFT JOIN t_pokemon_detail " +
-            "ON t_pokemon.idx = t_pokemon_detail.idx " +
-            "WHERE t_pokemon.generation = :generation ";
+        String sql = """
+            SELECT t_pokemon.*
+            FROM t_pokemon
+            LEFT JOIN t_pokemon_detail
+            ON t_pokemon.idx = t_pokemon_detail.idx
+            WHERE t_pokemon.generation = :generation""";
         paramMap.put("generation", generation);
         if (StringUtils.isNotEmpty(eggGroup)) {
-            sql += "AND (t_pokemon_detail.egg_group1 = :eggGroup OR t_pokemon_detail.egg_group2 = :eggGroup) ";
+            sql += " AND (t_pokemon_detail.egg_group1 = :eggGroup OR t_pokemon_detail.egg_group2 = :eggGroup)";
             paramMap.put("eggGroup", eggGroup);
         }
         if (page != null && page >= 0) {
-            sql += "LIMIT :limit OFFSET :offset";
+            sql += " LIMIT :limit OFFSET :offset";
             paramMap.put("limit", PageUtil.limit(size));
             paramMap.put("offset", PageUtil.offset(page, size));
         }
