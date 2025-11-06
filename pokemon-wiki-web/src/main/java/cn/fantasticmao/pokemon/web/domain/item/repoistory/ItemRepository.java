@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * ItemRepository
  *
- * @author maodaohe
+ * @author fantasticmao
  * @since 2025-11-06
  */
 public interface ItemRepository {

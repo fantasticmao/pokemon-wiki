@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 /**
  * PokemonRepositoryImpl
  *
- * @author maodaohe
+ * @author fantasticmao
  * @since 2025-11-05
  */
 @Repository

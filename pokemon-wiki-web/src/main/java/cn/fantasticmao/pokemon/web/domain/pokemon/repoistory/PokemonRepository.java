@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * PokemonDao
  *
- * @author maodaohe
+ * @author fantasticmao
  * @since 2025-11-05
  */
 public interface PokemonRepository {

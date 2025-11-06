@@ -10,7 +10,7 @@ import org.mapstruct.MappingConstants;
 /**
  * AbilityConverter
  *
- * @author maodaohe
+ * @author fantasticmao
  * @since 2025-11-06
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)

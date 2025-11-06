@@ -9,10 +9,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>pokemonPo-wiki-web</artifactId>
+    <artifactId>pokemon-wiki-web</artifactId>
     <packaging>jar</packaging>
 
-    <name>pokemonPo-wiki-web</name>
+    <name>pokemon-wiki-web</name>
     <description>Pokemon Wiki Web</description>
 
     <build>

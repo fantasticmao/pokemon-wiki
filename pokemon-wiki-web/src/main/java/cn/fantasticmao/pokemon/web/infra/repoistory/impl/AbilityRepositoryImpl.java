@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * AbilityRepositoryImpl
  *
- * @author maodaohe
+ * @author fantasticmao
  * @since 2025-11-06
  */
 @Repository
