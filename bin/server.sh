@@ -13,9 +13,9 @@ if [ -z "${APP_WECHAT_TOKEN}" ]; then
   APP_WECHAT_TOKEN='I_Love_Pokemon'
 fi
 
+APP_OPTS="-Dserver.port=${SERVER_PORT} -Dapp.wechat.token=${APP_WECHAT_TOKEN} -Dapp.dbfile=${DEPLOY_HOME}/pokemon_wiki.db"
 JVM_OPTS="-XX:+UseG1GC -Xms500m -Xmx500m -XX:MaxGCPauseMillis=50 -XX:+HeapDumpOnOutOfMemoryError"
 JVM_OPTS="${JVM_OPTS} -Xlog:gc*:file=${LOG_HOME}/gc_%p.log::filecount=5,filesize=10M"
-APP_OPTS="-Dserver.port=${SERVER_PORT} -Dapp.wechat.token=${APP_WECHAT_TOKEN} -Dapp.dbfile=${DEPLOY_HOME}/pokemon_wiki.db"
 
 wait_started() {
   PID=$1
@@ -59,7 +59,7 @@ case "$1" in
   test -f ${APP_LOG} && rm ${APP_LOG}
 
   # start up
-  nohup java ${JVM_OPTS} ${APP_OPTS} -jar ${DEPLOY_HOME}/pokemon-wiki-web.jar >>${APP_LOG} &
+  nohup java ${APP_OPTS} ${JVM_OPTS} -jar ${DEPLOY_HOME}/pokemon-wiki-web.jar >>${APP_LOG} &
 
   PID=$!
   echo ${PID} >${APP_PID}
