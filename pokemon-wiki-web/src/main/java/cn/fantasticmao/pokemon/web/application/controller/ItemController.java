@@ -53,7 +53,7 @@ public class ItemController {
      * @param size 页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ItemResponse>> listItem(@RequestParam(required = false) Integer page,
+    public ResponseEntity<List<ItemResponse>> listItem(@RequestParam(defaultValue = "0") Integer page,
                                                        @RequestParam(defaultValue = "50") Integer size) {
         if (page < 0 || size < 1) {
             return ResponseEntity.badRequest().build();

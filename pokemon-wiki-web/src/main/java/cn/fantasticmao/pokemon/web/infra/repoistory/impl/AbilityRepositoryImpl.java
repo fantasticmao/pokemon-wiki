@@ -31,11 +31,11 @@ import java.util.stream.Collectors;
 @Repository
 public class AbilityRepositoryImpl implements AbilityRepository {
     @Resource
-    private AbilityDao dao;
+    private AbilityDao abilityDao;
     @Resource
-    private AbilityDetailDao detailDao;
+    private AbilityDetailDao abilityDetailDao;
     @Resource
-    private AbilityConverter converter;
+    private AbilityConverter abilityConverter;
 
     @Override
     public List<Ability> listByName(@Nullable String nameZh, @Nullable String nameEn) {
@@ -43,7 +43,7 @@ public class AbilityRepositoryImpl implements AbilityRepository {
             return Collections.emptyList();
         }
 
-        List<AbilityPo> abilityPoList = dao.findByName(nameZh, nameEn);
+        List<AbilityPo> abilityPoList = abilityDao.findByName(nameZh, nameEn);
         if (CollectionUtils.isEmpty(abilityPoList)) {
             return Collections.emptyList();
         }
@@ -51,14 +51,14 @@ public class AbilityRepositoryImpl implements AbilityRepository {
         Set<Integer> abilityIdSet = abilityPoList.stream()
             .map(AbilityPo::getId)
             .collect(Collectors.toSet());
-        Map<Integer, AbilityDetailPo> detailPoMap = detailDao.findByIdIn(abilityIdSet).stream()
+        Map<Integer, AbilityDetailPo> detailPoMap = abilityDetailDao.findByIdIn(abilityIdSet).stream()
             .collect(Collectors.toMap(AbilityDetailPo::getId, Function.identity()));
 
         return abilityPoList.stream()
             .map(abilityPo -> {
-                Ability ability = converter.toAbility(abilityPo);
+                Ability ability = abilityConverter.toAbility(abilityPo);
 
-                AbilityDetail detail = converter.toAbilityDetail(
+                AbilityDetail detail = abilityConverter.toAbilityDetail(
                     detailPoMap.get(ability.getId())
                 );
                 ability.setDetail(detail);
@@ -73,9 +73,9 @@ public class AbilityRepositoryImpl implements AbilityRepository {
         if (page < 0 || size < 1) {
             return Collections.emptyList();
         }
-        List<AbilityPo> abilityPoList = dao.find(PageUtil.limit(size), PageUtil.offset(page, size));
+        List<AbilityPo> abilityPoList = abilityDao.find(PageUtil.limit(size), PageUtil.offset(page, size));
         return abilityPoList.stream()
-            .map(converter::toAbility)
+            .map(abilityConverter::toAbility)
             .collect(Collectors.toList());
     }
 

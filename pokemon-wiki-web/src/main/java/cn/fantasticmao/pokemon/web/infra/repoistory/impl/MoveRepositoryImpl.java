@@ -31,11 +31,11 @@ import java.util.stream.Collectors;
 @Repository
 public class MoveRepositoryImpl implements MoveRepository {
     @Resource
-    private MoveDao dao;
+    private MoveDao moveDao;
     @Resource
-    private MoveDetailDao detailDao;
+    private MoveDetailDao moveDetailDao;
     @Resource
-    private MoveConverter converter;
+    private MoveConverter moveConverter;
 
     @Override
     public List<Move> listByName(@Nullable String nameZh, @Nullable String nameEn) {
@@ -43,7 +43,7 @@ public class MoveRepositoryImpl implements MoveRepository {
             return Collections.emptyList();
         }
 
-        List<MovePo> movePoList = dao.findByName(nameZh, nameEn);
+        List<MovePo> movePoList = moveDao.findByName(nameZh, nameEn);
         if (CollectionUtils.isEmpty(movePoList)) {
             return Collections.emptyList();
         }
@@ -51,14 +51,14 @@ public class MoveRepositoryImpl implements MoveRepository {
         Set<Integer> moveIdSet = movePoList.stream()
             .map(MovePo::getId)
             .collect(Collectors.toSet());
-        Map<Integer, MoveDetailPo> detailPoMap = detailDao.findByIdIn(moveIdSet).stream()
+        Map<Integer, MoveDetailPo> detailPoMap = moveDetailDao.findByIdIn(moveIdSet).stream()
             .collect(Collectors.toMap(MoveDetailPo::getId, Function.identity()));
 
         return movePoList.stream()
             .map(movePo -> {
-                Move move = converter.toMove(movePo);
+                Move move = moveConverter.toMove(movePo);
 
-                MoveDetail detail = converter.toMoveDetail(
+                MoveDetail detail = moveConverter.toMoveDetail(
                     detailPoMap.get(move.getId())
                 );
                 move.setDetail(detail);
@@ -74,9 +74,9 @@ public class MoveRepositoryImpl implements MoveRepository {
         if (page < 0 || size < 1) {
             return Collections.emptyList();
         }
-        List<MovePo> movePoList = dao.find(PageUtil.limit(size), PageUtil.offset(page, size));
+        List<MovePo> movePoList = moveDao.find(PageUtil.limit(size), PageUtil.offset(page, size));
         return movePoList.stream()
-            .map(converter::toMove)
+            .map(moveConverter::toMove)
             .sorted()
             .collect(Collectors.toList());
     }

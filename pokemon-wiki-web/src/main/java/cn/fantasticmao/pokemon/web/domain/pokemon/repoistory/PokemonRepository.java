@@ -18,7 +18,7 @@ public interface PokemonRepository {
     List<Pokemon> findByNameAndForm(@Nullable String nameZh, @Nullable String nameEn,
                                     @Nullable String form);
 
-    List<Pokemon> findByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+    List<Pokemon> findByGenerationAndEggGroup(Integer generation, @Nullable String eggGroup,
                                               @Nullable Integer page, int size);
 
 }

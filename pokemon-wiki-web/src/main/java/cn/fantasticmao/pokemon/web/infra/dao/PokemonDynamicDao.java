@@ -18,7 +18,7 @@ public interface PokemonDynamicDao {
     List<PokemonPo> findByNameAndForm(@Nullable String nameZh, @Nullable String nameEn,
                                       @Nullable String form);
 
-    List<PokemonPo> findByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+    List<PokemonPo> findByGenerationAndEggGroup(Integer generation, @Nullable String eggGroup,
                                                 @Nullable Integer page, int size);
 
 }

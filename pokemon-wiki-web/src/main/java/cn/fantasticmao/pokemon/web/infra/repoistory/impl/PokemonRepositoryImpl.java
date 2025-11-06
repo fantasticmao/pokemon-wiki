@@ -36,25 +36,25 @@ import java.util.stream.Collectors;
 @Repository
 public class PokemonRepositoryImpl implements PokemonRepository {
     @Resource
-    private PokemonDao dao;
+    private PokemonDao pokemonDao;
     @Resource
-    private PokemonAbilityDao abilityDao;
+    private PokemonAbilityDao pokemonAbilityDao;
     @Resource
-    private PokemonDetailBaseStatDao detailBaseStatDao;
+    private PokemonDetailDao pokemonDetailDao;
     @Resource
-    private PokemonDetailDao detailDao;
+    private PokemonDetailBaseStatDao pokemonDetailBaseStatDao;
     @Resource
-    private PokemonDetailLearnSetByLevelingUpDao detailLearnSetByLevelingUpDao;
+    private PokemonDetailLearnSetByLevelingUpDao pokemonDetailLearnSetByLevelingUpDao;
     @Resource
-    private PokemonDetailLearnSetByTechnicalMachineDao detailLearnSetByTechnicalMachineDao;
+    private PokemonDetailLearnSetByTechnicalMachineDao pokemonDetailLearnSetByTechnicalMachineDao;
     @Resource
-    private PokemonDetailLearnSetByBreedingDao detailLearnSetByBreedingDao;
+    private PokemonDetailLearnSetByBreedingDao pokemonDetailLearnSetByBreedingDao;
     @Resource
-    private PokemonConverter converter;
+    private PokemonConverter pokemonConverter;
 
     @Override
     public List<Pokemon> findByIndexAndForm(Integer index, @Nullable String form) {
-        List<PokemonPo> pokemonPoList = dao.findByIndexAndForm(index, form);
+        List<PokemonPo> pokemonPoList = pokemonDao.findByIndexAndForm(index, form);
         if (CollectionUtils.isEmpty(pokemonPoList)) {
             return Collections.emptyList();
         }
@@ -64,7 +64,7 @@ public class PokemonRepositoryImpl implements PokemonRepository {
     @Override
     public List<Pokemon> findByNameAndForm(@Nullable String nameZh, @Nullable String nameEn,
                                            @Nullable String form) {
-        List<PokemonPo> pokemonPoList = dao.findByNameAndForm(nameZh, nameEn, form);
+        List<PokemonPo> pokemonPoList = pokemonDao.findByNameAndForm(nameZh, nameEn, form);
         if (CollectionUtils.isEmpty(pokemonPoList)) {
             return Collections.emptyList();
         }
@@ -72,9 +72,9 @@ public class PokemonRepositoryImpl implements PokemonRepository {
     }
 
     @Override
-    public List<Pokemon> findByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+    public List<Pokemon> findByGenerationAndEggGroup(Integer generation, @Nullable String eggGroup,
                                                      @Nullable Integer page, int size) {
-        List<PokemonPo> pokemonPoList = dao.findByGenerationAndEggGroup(generation, eggGroup, page, size);
+        List<PokemonPo> pokemonPoList = pokemonDao.findByGenerationAndEggGroup(generation, eggGroup, page, size);
         if (CollectionUtils.isEmpty(pokemonPoList)) {
             return Collections.emptyList();
         }
@@ -86,7 +86,7 @@ public class PokemonRepositoryImpl implements PokemonRepository {
             .map(PokemonPo::getIdx)
             .collect(Collectors.toSet());
 
-        var abilityPoMap = abilityDao.findByIndexIn(pokemonIndexSet).stream()
+        var abilityPoMap = pokemonAbilityDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.toMap(
                 ability -> ability.getIdx() + ability.getForm(),
                 Function.identity(),
@@ -96,9 +96,9 @@ public class PokemonRepositoryImpl implements PokemonRepository {
         return pokemonPoList.stream()
             .filter(pokemonPo -> abilityPoMap.containsKey(pokemonPo.getIdx() + pokemonPo.getForm()))
             .map(pokemonPo -> {
-                Pokemon pokemon = converter.toPokemon(pokemonPo);
+                Pokemon pokemon = pokemonConverter.toPokemon(pokemonPo);
 
-                var ability = converter.toPokemonAbility(
+                var ability = pokemonConverter.toPokemonAbility(
                     abilityPoMap.get(pokemonPo.getIdx() + pokemonPo.getForm())
                 );
                 pokemon.setAbility(ability);
@@ -113,34 +113,34 @@ public class PokemonRepositoryImpl implements PokemonRepository {
             .map(PokemonPo::getIdx)
             .collect(Collectors.toSet());
 
-        var abilityPoMap = abilityDao.findByIndexIn(pokemonIndexSet).stream()
+        var abilityPoMap = pokemonAbilityDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.toMap(
                 ability -> ability.getIdx() + ability.getForm(),
                 Function.identity(),
                 (ability1, ability2) -> ability1)
             );
 
-        var detailPoMap = detailDao.findByIndexIn(pokemonIndexSet).stream()
+        var detailPoMap = pokemonDetailDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.toMap(
                 PokemonDetailPo::getIdx,
                 Function.identity(),
                 (ability1, ability2) -> ability1)
             );
 
-        var detailBaseStatPoMap = detailBaseStatDao.findByIndexIn(pokemonIndexSet).stream()
+        var detailBaseStatPoMap = pokemonDetailBaseStatDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.toMap(
                 PokemonDetailBaseStatPo::getIdx,
                 Function.identity(),
                 (baseStat1, baseStat2) -> baseStat1)
             );
 
-        var detailLearnSetByLevelingUpPoMap = detailLearnSetByLevelingUpDao.findByIndexIn(pokemonIndexSet).stream()
+        var detailLearnSetByLevelingUpPoMap = pokemonDetailLearnSetByLevelingUpDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.groupingBy(PokemonDetailLearnSetByLevelingUpPo::getIdx));
 
-        var detailLearnSetByTechnicalMachinePoMap = detailLearnSetByTechnicalMachineDao.findByIndexIn(pokemonIndexSet).stream()
+        var detailLearnSetByTechnicalMachinePoMap = pokemonDetailLearnSetByTechnicalMachineDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.groupingBy(PokemonDetailLearnSetByTechnicalMachinePo::getIdx));
 
-        var detailLearnSetByBreedingPoMap = detailLearnSetByBreedingDao.findByIndexIn(pokemonIndexSet).stream()
+        var detailLearnSetByBreedingPoMap = pokemonDetailLearnSetByBreedingDao.findByIndexIn(pokemonIndexSet).stream()
             .collect(Collectors.groupingBy(PokemonDetailLearnSetByBreedingPo::getIdx));
 
         return pokemonPoList.stream()
@@ -148,34 +148,34 @@ public class PokemonRepositoryImpl implements PokemonRepository {
                 && detailPoMap.containsKey(pokemonPo.getIdx())
                 && detailBaseStatPoMap.containsKey(pokemonPo.getIdx()))
             .map(pokemonPo -> {
-                Pokemon pokemon = converter.toPokemon(pokemonPo);
+                Pokemon pokemon = pokemonConverter.toPokemon(pokemonPo);
 
-                var ability = converter.toPokemonAbility(
+                var ability = pokemonConverter.toPokemonAbility(
                     abilityPoMap.get(pokemonPo.getIdx() + pokemonPo.getForm())
                 );
                 pokemon.setAbility(ability);
 
-                var detail = converter.toPokemonDetail(
+                var detail = pokemonConverter.toPokemonDetail(
                     detailPoMap.get(pokemonPo.getIdx())
                 );
                 pokemon.setDetail(detail);
 
-                var baseStat = converter.toPokemonDetailBaseStat(
+                var baseStat = pokemonConverter.toPokemonDetailBaseStat(
                     detailBaseStatPoMap.get(pokemonPo.getIdx())
                 );
                 pokemon.setBaseStat(baseStat);
 
-                var learnSetByLevelingUp = converter.toPokemonDetailLearnSetByLevelingUp(
+                var learnSetByLevelingUp = pokemonConverter.toPokemonDetailLearnSetByLevelingUp(
                     detailLearnSetByLevelingUpPoMap.getOrDefault(pokemonPo.getIdx(), Collections.emptyList())
                 );
                 pokemon.setLearnSetByLevelingUp(learnSetByLevelingUp);
 
-                var learnSetByTechnicalMachine = converter.toPokemonDetailLearnSetByTechnicalMachine(
+                var learnSetByTechnicalMachine = pokemonConverter.toPokemonDetailLearnSetByTechnicalMachine(
                     detailLearnSetByTechnicalMachinePoMap.getOrDefault(pokemonPo.getIdx(), Collections.emptyList())
                 );
                 pokemon.setLearnSetByTechnicalMachine(learnSetByTechnicalMachine);
 
-                var learnSetByBreeding = converter.toPokemonDetailLearnSetByBreeding(
+                var learnSetByBreeding = pokemonConverter.toPokemonDetailLearnSetByBreeding(
                     detailLearnSetByBreedingPoMap.getOrDefault(pokemonPo.getIdx(), Collections.emptyList())
                 );
                 pokemon.setLearnSetByBreeding(learnSetByBreeding);

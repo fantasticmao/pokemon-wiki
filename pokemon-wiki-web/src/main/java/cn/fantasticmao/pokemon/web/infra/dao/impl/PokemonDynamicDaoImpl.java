@@ -64,18 +64,15 @@ public class PokemonDynamicDaoImpl implements PokemonDynamicDao {
     }
 
     @Override
-    public List<PokemonPo> findByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+    public List<PokemonPo> findByGenerationAndEggGroup(Integer generation, @Nullable String eggGroup,
                                                        @Nullable Integer page, int size) {
         Map<String, Object> paramMap = new HashMap<>();
         String sql = "SELECT t_pokemon.* " +
             "FROM t_pokemon " +
             "LEFT JOIN t_pokemon_detail " +
             "ON t_pokemon.idx = t_pokemon_detail.idx " +
-            "WHERE 1 = 1 ";
-        if (generation != null && generation > 0) {
-            sql += "AND t_pokemon.generation = :generation ";
-            paramMap.put("generation", generation);
-        }
+            "WHERE t_pokemon.generation = :generation ";
+        paramMap.put("generation", generation);
         if (StringUtils.isNotEmpty(eggGroup)) {
             sql += "AND (t_pokemon_detail.egg_group1 = :eggGroup OR t_pokemon_detail.egg_group2 = :eggGroup) ";
             paramMap.put("eggGroup", eggGroup);

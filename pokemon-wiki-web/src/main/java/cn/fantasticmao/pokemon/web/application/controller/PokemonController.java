@@ -59,7 +59,7 @@ public class PokemonController {
      * @param size       页长，默认 50
      */
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PokemonResponse>> listPokemon(@RequestParam(required = false) Integer generation,
+    public ResponseEntity<List<PokemonResponse>> listPokemon(@RequestParam Integer generation,
                                                              @RequestParam(required = false) String eggGroup,
                                                              @RequestParam(required = false) Integer page,
                                                              @RequestParam(defaultValue = "50") Integer size) {

@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 @Repository
 public class ItemRepositoryImpl implements ItemRepository {
     @Resource
-    private ItemDao dao;
+    private ItemDao itemDao;
     @Resource
-    private ItemConverter converter;
+    private ItemConverter itemConverter;
 
     @Override
     public List<Item> listByName(@Nullable String nameZh, @Nullable String nameEn) {
@@ -34,9 +34,9 @@ public class ItemRepositoryImpl implements ItemRepository {
             return Collections.emptyList();
         }
 
-        List<ItemPo> itemPoList = dao.findByName(nameZh, nameEn);
+        List<ItemPo> itemPoList = itemDao.findByName(nameZh, nameEn);
         return itemPoList.stream()
-            .map(converter::toItem)
+            .map(itemConverter::toItem)
             .collect(Collectors.toList());
     }
 
@@ -46,9 +46,9 @@ public class ItemRepositoryImpl implements ItemRepository {
             return Collections.emptyList();
         }
 
-        List<ItemPo> itemPoList = dao.find(PageUtil.limit(size), PageUtil.offset(page, size));
+        List<ItemPo> itemPoList = itemDao.find(PageUtil.limit(size), PageUtil.offset(page, size));
         return itemPoList.stream()
-            .map(converter::toItem)
+            .map(itemConverter::toItem)
             .collect(Collectors.toList());
     }
 

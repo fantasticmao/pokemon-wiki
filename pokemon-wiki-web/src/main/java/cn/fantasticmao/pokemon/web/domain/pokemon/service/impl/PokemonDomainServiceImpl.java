@@ -35,7 +35,7 @@ public class PokemonDomainServiceImpl implements PokemonDomainService {
     }
 
     @Override
-    public List<Pokemon> listByGenerationAndEggGroup(@Nullable Integer generation, @Nullable String eggGroup,
+    public List<Pokemon> listByGenerationAndEggGroup(Integer generation, @Nullable String eggGroup,
                                                      @Nullable Integer page, int size) {
         return pokemonRepository.findByGenerationAndEggGroup(generation, eggGroup, page, size);
     }
