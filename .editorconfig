@@ -12,16 +12,30 @@ trim_trailing_whitespace = true
 [*.java]
 indent_size = 4
 
-[*.sql]
+[*.go]
+indent_style = tab
+indent_size = 1
+tab_width = 4
+
+[{*.js,*.json,*.css}]
 indent_size = 2
 
 [*.sh]
 indent_size = 2
 
+[{*.cql,*.ddl,*.sql}]
+indent_size = 2
+
 [*.xml]
 indent_size = 4
 
-[{*.yaml, *.yml}]
+[{*.yaml,*.yml}]
+indent_size = 2
+
+[*.init]
+indent_size = 4
+
+[*.http]
 indent_size = 2
 
 [*.md]

@@ -7,7 +7,6 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -80,7 +79,7 @@ abstract class AbstractTask2Spider<T extends AbstractTask2Spider.Data> implement
     /**
      * 解析数据
      */
-    protected abstract T parseData(@Nonnull Document document);
+    protected abstract T parseData(Document document);
 
     interface Data {
 

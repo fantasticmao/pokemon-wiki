@@ -5,7 +5,6 @@ import lombok.Getter;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +25,7 @@ class AbilityDetailSpider extends AbstractTask2Spider<AbilityDetailSpider.Data> 
     }
 
     @Override
-    protected AbilityDetailSpider.Data parseData(@Nonnull Document document) {
+    protected AbilityDetailSpider.Data parseData(Document document) {
         final String desc = document.select("#mw-content-text > .mw-parser-output > .at-c > tbody").eq(0).select("tr").eq(4).text();
         Elements elements = document.select("#mw-content-text > .mw-parser-output > h2").eq(0);
         final String effect = JsoupUtil.nextUntil(elements, "h2").select("p,h3").text();
