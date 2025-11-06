@@ -5,5 +5,5 @@ ENV APP_OPTS="-Dapp.dbfile=/app/pokemon_wiki.db" \
 WORKDIR /app
 COPY ./pokemon-wiki-web/target/pokemon-wiki-web.jar /app
 COPY ./pokemon_wiki.db /app
-EXPOSE 1234
+EXPOSE 8080
 CMD java ${JVM_OPTS} ${APP_OPTS} -jar pokemon-wiki-web.jar

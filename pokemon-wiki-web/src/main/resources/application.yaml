@@ -1,5 +1,5 @@
 server:
-  port: 1234
+  port: 8080
   tomcat:
     uri-encoding: UTF-8
     max-connections: 2048
