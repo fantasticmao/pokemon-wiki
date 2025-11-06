@@ -14,7 +14,7 @@ Pokemon-Wiki 爬虫模块基于 [jsoup](https://github.com/jhy/jsoup)，使用�
 
 Pokemon-Wiki 爬虫模块获取的数据存于 [SQLite](https://www.sqlite.org/index.html) 中，二次开发可直接使用 [pokemon_wiki.db](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db) 文件。
 
-Pokemon-Wiki 接口模块基于 [Spring Web MVC](https://spring.io/)，API 详情可见 [接口文档](https://github.com/fantasticmao/pokemon-wiki/tree/master/apiDoc)，常用接口示例：
+Pokemon-Wiki 接口模块基于 [Spring Web MVC](https://spring.io/)，API 详情可见 [接口文档](https://github.com/fantasticmao/pokemon-wiki/tree/master/docs)，常用接口示例：
 
 - 查询宝可梦详情：[https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子](https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子)
 - 查询特性详情：[https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛](https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛)
