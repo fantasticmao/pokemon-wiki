@@ -6,30 +6,51 @@ end_of_line = lf
 insert_final_newline = true
 indent_style = space
 indent_size = 4
-max_line_length = 100
+max_line_length = unset
 trim_trailing_whitespace = true
+
+[Makefile]
+indent_style = tab
+indent_size = 1
+tab_width = 4
+
+[*.{c,h}]
+indent_size = 2
+max_line_length = 100
 
 [*.java]
 indent_size = 4
+max_line_length = 100
 
 [*.go]
 indent_style = tab
 indent_size = 1
 tab_width = 4
+max_line_length = 100
 
-[{*.js,*.json,*.css}]
+[*.{css,js,json}]
 indent_size = 2
+max_line_length = 100
+
+[*.py]
+indent_size = 4
+max_line_length = 100
+
+[*.proto]
+indent_size = 2
+max_line_length = 100
 
 [*.sh]
 indent_size = 2
+max_line_length = 100
 
-[{*.cql,*.ddl,*.sql}]
+[*.{cql,ddl,sql}]
 indent_size = 2
 
-[*.xml]
+[*.{html,xml}]
 indent_size = 4
 
-[{*.yaml,*.yml}]
+[*.{yml,yaml}]
 indent_size = 2
 
 [*.init]
