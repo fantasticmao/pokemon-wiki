@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "git-commit": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/git-commit/SKILL.md",
+      "computedHash": "2607fc60629b82b257136dd2a7a373f0a4466c0b49df7746d845d59313c99b21"
+    },
+    "readme-style": {
+      "source": "fantasticmao/skills",
+      "sourceType": "github",
+      "skillPath": "skills/readme-style/SKILL.md",
+      "computedHash": "95d641c61e2db7822e3d7f8f73cba4433a06d6b74373923466145c52afe25c59"
+    }
+  }
+}
