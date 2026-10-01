@@ -5,9 +5,9 @@ import cn.fantasticmao.pokemon.web.domain.pokemon.repoistory.PokemonRepository;
 import cn.fantasticmao.pokemon.web.domain.pokemon.service.PokemonDomainService;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 

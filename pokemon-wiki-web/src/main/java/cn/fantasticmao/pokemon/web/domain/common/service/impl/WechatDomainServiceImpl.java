@@ -6,9 +6,10 @@ import cn.fantasticmao.pokemon.web.domain.pokemon.repoistory.PokemonRepository;
 import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class WechatDomainServiceImpl implements WechatDomainService {
 
     private static final int MAX_CONTENT_LENGTH = 1500;
 
+    @NonNull
     @Override
     public String token() {
         return System.getProperty("app.wechat.token", "I_Love_Pokemon");

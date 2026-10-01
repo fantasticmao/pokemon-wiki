@@ -2,9 +2,9 @@
 
 [![Actions Status](https://github.com/fantasticmao/pokemon-wiki/workflows/ci/badge.svg)](https://github.com/fantasticmao/pokemon-wiki/actions)
 ![JDK Version](https://img.shields.io/badge/JDK-21%2B-blue)
-[![codecov](https://codecov.io/gh/fantasticmao/pokemon-wiki/branch/master/graph/badge.svg)](https://codecov.io/gh/fantasticmao/pokemon-wiki)
-[![Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/maomao233/pokemon-wiki)
-[![License](https://img.shields.io/github/license/fantasticmao/pokemon-wiki)](https://github.com/fantasticmao/pokemon-wiki/blob/master/LICENSE)
+[![Codecov](https://codecov.io/gh/fantasticmao/pokemon-wiki/graph/badge.svg)](https://codecov.io/gh/fantasticmao/pokemon-wiki)
+[![Docker Pulls](https://img.shields.io/docker/pulls/maomao233/pokemon-wiki)](https://hub.docker.com/r/maomao233/pokemon-wiki)
+[![License](https://img.shields.io/github/license/fantasticmao/pokemon-wiki)](LICENSE)
 
 ## 这是什么
 
@@ -18,6 +18,7 @@ Pokemon-Wiki 从 [神奇宝贝百科](https://wiki.52poke.com/wiki/主页) 抓�
 - **页面抓取**：使用 [jsoup](https://github.com/jhy/jsoup) 并行抓取列表页与详情页。
 - **离线数据**：将解析结果写入仓库中的 [`pokemon_wiki.db`](https://github.com/fantasticmao/pokemon-wiki/blob/master/pokemon_wiki.db)。
 - **查询接口**：提供宝可梦、特性、招式与道具的列表与详情。
+- **模型查询**：提供 MCP Server，支持大模型查询宝可梦数据。
 - **容器发布**：在 Docker Hub 提供可运行的查询服务镜像。
 
 ## 下载与安装
@@ -29,32 +30,44 @@ Pokemon-Wiki 以容器镜像与源码两种方式分发。
 
 ## 快速开始
 
-启动查询服务：
+基于 Docker 可快速启动应用服务：
 
 ```bash
 docker run -p 8080:8080 maomao233/pokemon-wiki
 ```
 
-已完成源码构建后，执行：
+或在已完成源码构建后，执行命令：
 
 ```bash
 java -Dapp.dbfile=./pokemon_wiki.db -jar pokemon-wiki-web/target/pokemon-wiki-web.jar
 ```
 
-Pokemon-Wiki 默认监听 8080 端口。常用查询示例如下：
+Pokemon-Wiki 本地启动时默认监听 8080 端口。常用查询在线示例如下：
 
-- **宝可梦详情**：[https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子](https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子)
-- **特性详情**：[https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛](https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛)
-- **招式详情**：[https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀](https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀)
+- **宝可梦详情**：<https://pokemon.fantasticmao.cn/pokemon/detail?nameZh=妙蛙种子>
+- **特性详情**：<https://pokemon.fantasticmao.cn/ability/detail?nameZh=茂盛>
+- **招式详情**：<https://pokemon.fantasticmao.cn/move/detail?nameZh=飞叶快刀>
 
 > [!TIP]
 > 完整请求参数与返回字段见 [接口文档](docs/)。
+
+Pokemon-Wiki 同时提供 MCP 端点 `/mcp`，协议为 Streamable HTTP，需要在 Agent `mcpServers` 配置中填写该端点：
+
+```json
+{
+  "mcpServers": {
+    "pokemon-wiki": {
+      "url": "https://pokemon.fantasticmao.cn/mcp"
+    }
+  }
+}
+```
 
 ## 工作原理
 
 ### 架构
 
-Pokemon-Wiki 由爬虫模块与查询模块组成。前者负责抓取百科页面并写入 SQLite；后者只读该库，并以 HTTP 接口对外提供查询。两个模块独立构建与运行。
+Pokemon-Wiki 由爬虫模块与查询模块组成。前者负责抓取百科页面并写入 SQLite；后者只读该库，并以 HTTP 接口和 MCP 端点对外提供查询。两个模块独立构建与运行。
 
 > [!NOTE]
 > 查询服务启动后不再访问百科站点。
@@ -68,7 +81,8 @@ flowchart LR
     wiki[52pokeWiki] --> spider[pokemon-wiki-spider]
     spider --> db[pokemon_wiki.db]
     db --> web[pokemon-wiki-web]
-    web --> api[HTTP查询接口]
+    web --> api[HTTP 查询接口]
+    web --> mcp[MCP 只读 SQL]
 ```
 
 ## 常见问题

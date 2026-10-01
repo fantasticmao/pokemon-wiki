@@ -38,7 +38,7 @@ public class MoveDetailSpiderTest {
         } else if (trList.get(2).selectFirst("img") != null) {
             // 解析例如「https://wiki.52poke.com/zh-hans/火花（招式）」的招式图片
             imgUrl = trList.get(2).selectFirst("img").attr("data-url").replace("//media.52poke.com", "https://s1.52poke.wiki");
-            imgUrl = URLDecoder.decode(imgUrl, StandardCharsets.UTF_8.name());
+            imgUrl = URLDecoder.decode(imgUrl, StandardCharsets.UTF_8);
         } else {
             // 解析例如「https://wiki.52poke.com/zh-hans/辅助齿轮（招式）」的招式图片
             imgUrl = Constant.Strings.EMPTY;

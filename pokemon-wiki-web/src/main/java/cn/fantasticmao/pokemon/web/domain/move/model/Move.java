@@ -1,8 +1,7 @@
 package cn.fantasticmao.pokemon.web.domain.move.model;
 
 import lombok.Data;
-
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * 招式实体

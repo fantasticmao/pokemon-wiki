@@ -3,7 +3,6 @@ package cn.fantasticmao.pokemon.web.application.controller;
 import cn.fantasticmao.mundo.core.util.JsonUtil;
 import cn.fantasticmao.pokemon.web.SpringTest;
 import cn.fantasticmao.pokemon.web.application.model.AbilityResponse;
-import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,6 +10,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import tools.jackson.core.type.TypeReference;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;

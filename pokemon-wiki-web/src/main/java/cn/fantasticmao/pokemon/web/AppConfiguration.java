@@ -1,10 +1,10 @@
 package cn.fantasticmao.pokemon.web;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.sqlite.SQLiteDataSource;
 
 import javax.sql.DataSource;
 
@@ -21,9 +21,10 @@ public class AppConfiguration implements WebMvcConfigurer {
 
     @Bean
     public DataSource dataSource() {
-        return DataSourceBuilder.create()
-            .url("jdbc:sqlite:" + databaseFile)
-            .build();
+        SQLiteDataSource dataSource = new SQLiteDataSource();
+        dataSource.setReadOnly(true);
+        dataSource.setUrl("jdbc:sqlite:" + databaseFile);
+        return dataSource;
     }
 
 }
