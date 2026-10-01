@@ -1,3 +1,15 @@
+spring:
+  ai:
+    mcp:
+      server:
+        protocol: STREAMABLE
+        name: pokemon-wiki
+        instructions: "只读查询 pokemon_wiki.db。先调用 list_schema，再调用 query，只接受一条 SELECT 或 WITH。"
+        capabilities:
+          resource: false
+          prompt: false
+          completion: false
+
 server:
   port: 8080
   tomcat:
