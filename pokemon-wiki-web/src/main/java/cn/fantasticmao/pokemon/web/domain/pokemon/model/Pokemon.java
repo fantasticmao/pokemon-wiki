@@ -1,8 +1,8 @@
 package cn.fantasticmao.pokemon.web.domain.pokemon.model;
 
 import lombok.Data;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**

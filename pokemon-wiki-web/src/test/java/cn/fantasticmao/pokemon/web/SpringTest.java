@@ -9,8 +9,8 @@ import cn.fantasticmao.pokemon.web.domain.item.model.Item;
 import cn.fantasticmao.pokemon.web.domain.move.model.Move;
 import cn.fantasticmao.pokemon.web.domain.pokemon.model.Pokemon;
 import org.junit.jupiter.api.Assertions;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 
 /**
  * SpringTest

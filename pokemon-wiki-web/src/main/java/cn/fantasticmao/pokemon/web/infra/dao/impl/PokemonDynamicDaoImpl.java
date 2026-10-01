@@ -5,10 +5,10 @@ import cn.fantasticmao.pokemon.web.infra.dao.PokemonDynamicDao;
 import cn.fantasticmao.pokemon.web.infra.model.PokemonPo;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;

@@ -1,8 +1,7 @@
 package cn.fantasticmao.pokemon.web.domain.common.service;
 
 import cn.fantasticmao.mundo.web.support.wechat.WeChatServerConfig;
-
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * WechatDomainService

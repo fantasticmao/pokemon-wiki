@@ -8,9 +8,9 @@ import cn.fantasticmao.pokemon.web.infra.dao.ItemDao;
 import cn.fantasticmao.pokemon.web.infra.model.ItemPo;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

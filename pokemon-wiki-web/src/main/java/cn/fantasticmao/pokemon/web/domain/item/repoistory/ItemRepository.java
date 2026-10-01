@@ -1,8 +1,8 @@
 package cn.fantasticmao.pokemon.web.domain.item.repoistory;
 
 import cn.fantasticmao.pokemon.web.domain.item.model.Item;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**

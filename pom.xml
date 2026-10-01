@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>4.1.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -55,7 +55,7 @@
         <java.version>21</java.version>
 
         <mapstruct.version>1.6.3</mapstruct.version>
-        <mundo.version>1.0.11</mundo.version>
+        <mundo.version>1.0.12</mundo.version>
         <jsoup.version>1.23.1</jsoup.version>
     </properties>
 

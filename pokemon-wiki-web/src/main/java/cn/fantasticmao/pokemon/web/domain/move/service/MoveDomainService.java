@@ -1,8 +1,8 @@
 package cn.fantasticmao.pokemon.web.domain.move.service;
 
 import cn.fantasticmao.pokemon.web.domain.move.model.Move;
+import org.jspecify.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**

@@ -18,9 +18,9 @@ import cn.fantasticmao.pokemon.web.infra.model.PokemonDetailPo;
 import cn.fantasticmao.pokemon.web.infra.model.PokemonPo;
 import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
