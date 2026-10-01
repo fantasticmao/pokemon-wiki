@@ -27,7 +27,7 @@ jobs:
       - name: Build with Maven
         run: ./mvnw package -B -Dapp.dbfile=`pwd`/pokemon_wiki.db
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Set up QEMU
